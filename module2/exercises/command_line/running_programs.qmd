@@ -81,36 +81,29 @@ Using this command we can see that we have some chromosomes in there that we mig
 bcftools is a very useful command line program to manipulate and filter VCF files. It can run directly on gzipped files that are indexed with tabix, another program that creates indexes of VCF files, which allows for faster access. Start by installing bcftools and tabix using `apt`. When installing programs, it does not matter what folder you are currently in, as the programs are installed in a specified location regardless.
 
 <details>
-
 <summary>See code (HPC2N):</summary>
-
 ```{bash}
 #note that this just loads the commands. you have to reload them whenever you open a new terminal
 ml GCC/13.2.0 BCFtools/1.19
 ```
-
 </details>
 
+<details>
 <summary>See code (ubuntu or debian linux, on your own computer):</summary>
-
 ```{bash}
 sudo apt install bcftools
 sudo apt install tabix
 ```
-
 </details>
 
 <details>
-
 <summary>See code (macOS):</summary>
-
 ```{bash}
 # install Homebrew if not already done
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 brew install bcftools
 brew install tabix
 ```
-
 </details>
 
 Once the programs are installed, verify that everything seems to be installed correctly by running:

@@ -16,8 +16,13 @@ Practice fundamental command-line skills by navigating through directories, crea
 #### **Open your terminal**   
 Depending on the operating system you are using you will find the terminal in different locations.  
 
+<span class="info-box hpc2n">
+    **HPC2N**  
+    Follow instructions on separate page; You can use OnDemand or access via SSH
+</span>
+
 <span class="info-box win">
-    **Windows**  
+    **Ubuntu in Windows**  
     1. First, follow the installation instructions for WSL2  
     2. You can directly start Ubuntu by searching for "Ubuntu" in the Start menu and select the installed Ubuntu distribution
 </span>
@@ -44,7 +49,7 @@ Navigate to the position where you want to create your new working directory. Us
 <details>
   <summary>See *example* code:</summary>
 ````{bash}
-# Two step up, one step down into another folder:
+# Go two step up, and then one step down into another folder (this precise command will not work on HPC2N, but try other commands!):
 cd ../../Documents/
 ````
 </details>

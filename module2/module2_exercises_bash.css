@@ -19,6 +19,11 @@ code {
   word-wrap: break-word;
 }
 
+.hpc2n {
+  background-color: #ffffCC; /* Background color */
+  border: 3px solid darkslategrey; /* Border color */
+}
+
 .win {
   background-color: #4C979F; /* Background color */
   border: 3px solid darkslategrey; /* Border color */
