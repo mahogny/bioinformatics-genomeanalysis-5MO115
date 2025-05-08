@@ -83,7 +83,8 @@ bcftools is a very useful command line program to manipulate and filter VCF file
 <details>
 <summary>See code (HPC2N):</summary>
 ```{bash}
-#note that this just loads the commands. you have to reload them whenever you open a new terminal
+#note that this just loads the commands. you have to
+#reload them whenever you open a new terminal
 ml GCC/13.2.0 BCFtools/1.19
 ```
 </details>
