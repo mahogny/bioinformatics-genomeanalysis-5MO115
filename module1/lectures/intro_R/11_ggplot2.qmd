@@ -1,0 +1,244 @@
+---
+title: "Plotting with ggplot2 - Advanced usage"
+subtitle: "<br>*Introduction to Bioinformatics - Module 2*"
+author: "Nina Norgren"
+format: 
+    revealjs:
+        theme: [serif, ../../../custom.scss]
+        css: ../../module1.css
+embed-resources: true
+---
+
+## Data formats 
+
+Input data is always an R `data.frame` object 
+
+```{r}
+#| class-source: medium_code
+#| classes: medium_code
+
+class(iris)
+str(iris)
+```
+
+## Geoms 
+
+![](img/geoms.PNG){width=900}
+
+
+## Geoms 
+
+```{r,fig.height=5,fig.width=6, eval=TRUE, echo=TRUE}
+#| class-source: medium_code
+#| classes: medium_code
+
+library(ggplot2)
+ggplot(iris,aes(x=Sepal.Length,
+                y=Sepal.Width))+
+       geom_point()
+```
+
+## Geoms 
+
+```{r,fig.height=5,fig.width=6, eval=TRUE, echo=TRUE}
+#| class-source: medium_code
+#| classes: medium_code
+
+library(ggplot2)
+ggplot(iris,aes(x=Sepal.Length,
+                y=Sepal.Width))+
+       geom_line()
+```
+
+## Geoms 
+
+```{r,fig.height=5,fig.width=6, eval=TRUE, echo=TRUE}
+#| class-source: medium_code
+#| classes: medium_code
+
+library(ggplot2)
+ggplot(iris,aes(x=Sepal.Length,
+                y=Sepal.Width))+
+       geom_smooth()
+```
+
+## Geoms 
+
+```{r,fig.height=5,fig.width=6, eval=TRUE, echo=TRUE}
+#| class-source: medium_code
+#| classes: medium_code
+
+library(ggplot2)
+ggplot(iris,aes(x=Sepal.Length,
+                y=Sepal.Width))+
+       geom_point()+
+       geom_line()+
+       geom_smooth()
+```
+
+## Aesthetics 
+
+Aesthetic mapping vs aesthetic parameter 
+
+::: {.columns}
+
+::: {.column width="50%"}
+```{r,fig.height=4,fig.width=4, echo=TRUE}
+#| class-source: smaller_code
+#| classes: smaller_code
+
+ggplot(iris,aes(x=Sepal.Length,
+                y=Sepal.Width,
+                color='red'))+
+       geom_point()
+```
+::: 
+
+::: {.column width="50%"}
+```{r,fig.height=4,fig.width=4, echo=TRUE}
+#| class-source: smaller_code
+#| classes: smaller_code
+
+ggplot(iris,aes(x=Sepal.Length,
+                y=Sepal.Width))+
+       geom_point(aes(color='red'))
+```
+:::
+
+:::
+
+## Aesthetics 
+
+Aesthetic mapping vs aesthetic parameter 
+
+::: {.columns}
+
+::: {.column width="50%"}
+```{r,fig.height=4,fig.width=4, echo=TRUE}
+#| class-source: smaller_code
+#| classes: smaller_code
+
+ggplot(iris,aes(x=Sepal.Length,
+                y=Sepal.Width,
+                color='red'))+
+       geom_point()+
+       geom_line()
+```
+::: 
+
+::: {.column width="50%"}
+```{r,fig.height=4,fig.width=4, echo=TRUE}
+#| class-source: smaller_code
+#| classes: smaller_code
+
+ggplot(iris,aes(x=Sepal.Length,
+                y=Sepal.Width))+
+       geom_point(aes(color='red'))+
+       geom_line()
+```
+:::
+
+:::
+
+## Aesthetics
+```{r,fig.height=5,fig.width=6, eval=TRUE, echo=TRUE}
+#| class-source: smaller_code
+#| classes: smaller_code
+
+ggplot(iris, aes(x=Sepal.Length,
+                 y=Sepal.Width))+
+       geom_point(size=3,
+                 alpha=0.8,
+                 shape=15,
+                 color="steelblue")
+```
+
+## Aesthetics
+```{r,fig.height=5,fig.width=6, eval=TRUE, echo=TRUE}
+#| class-source: smaller_code
+#| classes: smaller_code
+
+ggplot(iris, aes(x=Sepal.Length,
+                 y=Sepal.Width))+
+       geom_point(aes(size=Petal.Length,
+                 alpha=Petal.Width,
+                 shape=Species,
+                 color=Species))
+```
+
+## Scales 
+
+* scales: position, color, fill, size, shape, alpha, linetype
+* syntax: `scale_<aesthetic>_<type>`
+
+::: {.columns}
+
+::: {.column width="50%"}
+```{r,fig.height=2.7,fig.width=4, echo=TRUE}
+#| class-source: smaller_code
+#| classes: smaller_code
+ggplot(iris,aes(x=Sepal.Length,
+                y=Sepal.Width,
+                color=Species))+
+       geom_point()
+```
+::: 
+
+
+::: {.column width="50%"}
+```{r,fig.height=2.7,fig.width=4, echo=TRUE}
+#| class-source: smaller_code
+#| classes: smaller_code
+ggplot(iris,aes(x=Sepal.Length,
+                y=Sepal.Width,
+                color=Species))+
+       geom_point()+
+       scale_color_manual(
+           values=c("#5BC0EB","#FDE74C","#9BC53D"))
+```
+:::
+
+::: 
+
+
+## Facets
+
+* Split to subplots based on variable(s)
+
+::: {.columns}
+
+::: {.column width="50%"}
+```{r,fig.height=4,fig.width=5, echo=TRUE}
+#| class-source: smaller_code
+#| classes: smaller_code
+p<-ggplot(iris)+
+   geom_point(aes(x=Sepal.Length,
+                  y=Sepal.Width,
+                  color=Species))
+p
+```
+:::
+
+::: {.column width="50%"}
+```{r,fig.height=2.2,fig.width=4.5, echo=TRUE}
+#| class-source: smaller_code
+#| classes: smaller_code
+p + facet_wrap(~Species)
+```
+
+```{r,fig.height=2.4,fig.width=4.5, echo=TRUE}
+#| class-source: smaller_code
+#| classes: smaller_code
+p + facet_wrap(~Species,nrow=3)
+```
+:::
+
+:::
+
+## Summary
+ 
+* Flexible geoms: create wide variety of plots 
+* Aestethic mapping precision: gives you complete control if needed
+* Customizable scales: for changing appearances of plots 
+
+This makes `ggplot` a very useful tool in bioinformatics for creating informative plots for data visualization 

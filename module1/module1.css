@@ -1,0 +1,24 @@
+.larger-centered {
+    font-size: 24px; /* Adjust the font size as needed */
+    text-align: center;
+  }
+
+.smaller_code code {
+  font-size: 25px !important;
+  line-height: 1;
+  }
+
+
+.medium_code code {
+  font-size: 30px !important;
+  line-height: 1;
+}
+
+code {
+  font-size: 40px;
+  color: #333; /* Set the color to your preference */
+  background-color: #e3e3e2 !important;
+  padding: 10px !important;
+  border-radius: 10px;
+}
+

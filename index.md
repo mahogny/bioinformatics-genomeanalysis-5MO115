@@ -4,8 +4,31 @@ Course materials for the spring 2026 instance.
 
 ## Module 1
 
-- [1.4 — Linear algebra recap](module1/mod1_4.html)
-- [1.5 — Probability & Markov chains](module1/mod1_5.html)
+### Lectures
+
+- [0 — R syllabus](module1/lectures/intro_R/0_R_syllabus.html)
+- [1 — Intro](module1/lectures/intro_R/1_intro.html)
+- [2 — Running R](module1/lectures/intro_R/2_running_R.html)
+- [3 — Variables](module1/lectures/intro_R/3_variables.html)
+- [4 — Types](module1/lectures/intro_R/4_types.html)
+- [5 — Vectors](module1/lectures/intro_R/5_vectors.html)
+- [6 — Matrices](module1/lectures/intro_R/6_matrices.html)
+- [7 — Data frames](module1/lectures/intro_R/7_dataframes.html)
+- [8 — Reading data](module1/lectures/intro_R/8_reading_data.html)
+- [9 — Base plot](module1/lectures/intro_R/9_baseplot.html)
+- [10 — ggplot2](module1/lectures/intro_R/10_ggplot2.html)
+- [11 — ggplot2 (cont.)](module1/lectures/intro_R/11_ggplot2.html)
+- [12 — Loops](module1/lectures/intro_R/12_loops.html)
+- [13 — if/else and functions](module1/lectures/intro_R/13_ifelse_functions.html)
+
+### Exercises
+
+- [1.4 — Linear algebra recap](module1/exercises/linalg/mod1_4.html)
+- [1.5 — Probability & Markov chains](module1/exercises/basicprob/mod1_5.html)
+- [Working with variables](module1/exercises/intro_R/creating_variables.html)
+- [Complex data structures](module1/exercises/intro_R/complex_data_structures.html)
+- [Read and plot data in R](module1/exercises/intro_R/read_and_plot_data.html)
+- [Control flows in R](module1/exercises/intro_R/loops_ifelse_functions.html)
 
 ## Module 2
 
@@ -24,23 +47,6 @@ Course materials for the spring 2026 instance.
 - [6 — Retrieval](module2/lectures/command_line/6_retrieval.html)
 - [7 — Running programs](module2/lectures/command_line/7_running_programs.html)
 
-#### Introduction to R
-
-- [0 — R syllabus](module2/lectures/intro_R/0_R_syllabus.html)
-- [1 — Intro](module2/lectures/intro_R/1_intro.html)
-- [2 — Running R](module2/lectures/intro_R/2_running_R.html)
-- [3 — Variables](module2/lectures/intro_R/3_variables.html)
-- [4 — Types](module2/lectures/intro_R/4_types.html)
-- [5 — Vectors](module2/lectures/intro_R/5_vectors.html)
-- [6 — Matrices](module2/lectures/intro_R/6_matrices.html)
-- [7 — Data frames](module2/lectures/intro_R/7_dataframes.html)
-- [8 — Reading data](module2/lectures/intro_R/8_reading_data.html)
-- [9 — Base plot](module2/lectures/intro_R/9_baseplot.html)
-- [10 — ggplot2](module2/lectures/intro_R/10_ggplot2.html)
-- [11 — ggplot2 (cont.)](module2/lectures/intro_R/11_ggplot2.html)
-- [12 — Loops](module2/lectures/intro_R/12_loops.html)
-- [13 — if/else and functions](module2/lectures/intro_R/13_ifelse_functions.html)
-
 ### Exercises
 
 #### Command line
@@ -48,13 +54,6 @@ Course materials for the spring 2026 instance.
 - [Exploring the command line](module2/exercises/command_line/exploring_the_commandline.html)
 - [GTF files](module2/exercises/command_line/gtf.html)
 - [Running programs](module2/exercises/command_line/running_programs.html)
-
-#### Introduction to R
-
-- [Creating variables](module2/exercises/intro_R/creating_variables.html)
-- [Complex data structures](module2/exercises/intro_R/complex_data_structures.html)
-- [Loops, if/else and functions](module2/exercises/intro_R/loops_ifelse_functions.html)
-- [Read and plot data](module2/exercises/intro_R/read_and_plot_data.html)
 
 ### Setup instructions
 
