@@ -3,7 +3,7 @@ title: "Control flows in R"
 format:
   html:
     theme: yeti
-    css: ../../module2_exercises_bash.css
+    css: ../../../module2/module2_exercises_bash.css
 ---
 
 ##  🎯 Objective

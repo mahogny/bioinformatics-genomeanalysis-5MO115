@@ -59,3 +59,11 @@ Course materials for the spring 2026 instance.
 
 - [Set up WSL (Windows users)](module2/instructions/set_up_wsl.html)
 - [Install R and RStudio](module2/instructions/install_R_Rstudio.html)
+
+## Module 4
+
+- [Introduction](module4/intro.html)
+- [4.1 — Basic statistics](module4/4_1_basic_stats.html)
+- [4.2 — Simulations and bootstrapping](module4/4_2_sim_bootstrap.html)
+- [4.3 — Linear models for statistics](module4/4_3_linmod.html)
+- [4.4 — RNA-seq analysis](module4/4_4_rnaseq.html)

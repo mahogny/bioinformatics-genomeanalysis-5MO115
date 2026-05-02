@@ -23,7 +23,7 @@ str(iris)
 
 ## Geoms 
 
-![](img/geoms.PNG){width=900}
+![](img/geoms.png){width=900}
 
 
 ## Geoms 

@@ -3,7 +3,7 @@ title: "Read and plot data in R"
 format:
   html:
     theme: yeti
-    css: ../../module2_exercises_R.css
+    css: ../../../module2/module2_exercises_R.css
 ---
 
 ##  🎯 Objective
