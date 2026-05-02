@@ -9,7 +9,7 @@ format:
     embed-resources: true
 ---
 
-## Recap: Solving linear systems
+## Solving linear systems
 
 - Wikipedia also summarises [the method of Gaussian elimination](https://en.wikipedia.org/wiki/Gaussian_elimination).
 
@@ -90,7 +90,7 @@ Solve for $x$, $y$ and $z$ in: $3x = 3;\ x + 2y + 2z = 0;\ 2x + 2z = 0$.
 
 If you want even more, see eq. 1–6 from <https://online.math.uh.edu/Math1310-unpaid/ch6/s61/ex61.pdf> but solve them as shown before. Don't worry about graphing etc.
 
-::: {.callout-note title="Biological application: spectrophotometry of a DNA prep"}
+### Q1.6
 A nucleic-acid prep typically contains both DNA and protein contamination. Both absorb UV light, with different "extinction coefficients" $\varepsilon$ at 260 nm and 280 nm. Beer–Lambert says the absorbance at each wavelength is the sum of the contributions:
 $$A_\lambda = \varepsilon^{\text{DNA}}_\lambda\,[\text{DNA}] + \varepsilon^{\text{prot}}_\lambda\,[\text{prot}]$$
 
@@ -101,15 +101,20 @@ Suppose (in convenient units) the extinction coefficients are
 | DNA     | 2      | 1      |
 | Protein | 1      | 2      |
 
-You measure $A_{260} = 5$ and $A_{280} = 4$. Plug into Beer–Lambert at each wavelength:
+You measure $A_{260} = 5$ and $A_{280} = 4$. What are $[\text{DNA}]$ and $[\text{prot}]$?
+
+> *Hint:* this gives two equations in two unknowns — solve by Gaussian elimination, exactly as in Q1.1–Q1.5.
+
+::: {.callout-tip collapse="true" title="Step-by-step solution"}
+Plug the measurements into Beer–Lambert at each wavelength:
 $$\begin{aligned}
 2\,[\text{DNA}] + 1\,[\text{prot}] &= 5 \\
 1\,[\text{DNA}] + 2\,[\text{prot}] &= 4
 \end{aligned}$$
 
-Two equations in two unknowns — exactly the kind of system you just solved by hand. Subtracting twice eq. 2 from eq. 1: $-3\,[\text{prot}] = -3 \Rightarrow [\text{prot}] = 1$, then $[\text{DNA}] = 2$.
+Subtract twice eq. 2 from eq. 1: $-3\,[\text{prot}] = -3 \Rightarrow [\text{prot}] = 1$, then $[\text{DNA}] = 2$.
 
-The sample is mostly DNA with measurable protein contamination — essentially what a NanoDrop computes when it reports the $A_{260}/A_{280}$ ratio.
+**Answer:** $[\text{DNA}] = 2$, $[\text{prot}] = 1$. The sample is mostly DNA with measurable protein contamination — essentially what a NanoDrop computes when it reports the $A_{260}/A_{280}$ ratio.
 :::
 
 ## Practice using matrices and vectors
@@ -212,16 +217,20 @@ solve(A, c(24, -13))        # 1, -4
 Tip: `byrow = TRUE` is important — by default R fills matrices column by column.
 :::
 
-::: {.callout-note title="Biological application: spectrophotometry in matrix form"}
-The DNA-vs-protein problem from the previous section in matrix form is
+### Q2.9
+Rewrite the DNA-vs-protein problem from Q1.6 in matrix form $E\,\mathbf{c} = \mathbf{A}$, and solve it in R.
+
+> *Hint:* this is exactly the kind of system Q2.8 asked you to solve with R's `solve` function.
+
+::: {.callout-tip collapse="true" title="Step-by-step solution"}
+The rows of $E$ are wavelengths (260, 280 nm) and the columns are species (DNA, protein):
 $$\underbrace{\begin{bmatrix} 2 & 1 \\ 1 & 2 \end{bmatrix}}_{E}\,\underbrace{\begin{bmatrix} [\text{DNA}] \\ [\text{prot}] \end{bmatrix}}_{\mathbf{c}} = \underbrace{\begin{bmatrix} 5 \\ 4 \end{bmatrix}}_{\mathbf{A}}$$
-where the rows of $E$ are wavelengths (260, 280 nm) and the columns are species (DNA, protein). Solve in R:
 ```r
 E <- matrix(c(2, 1,
               1, 2), 2, 2, byrow = TRUE)
 solve(E, c(5, 4))     # 2, 1
 ```
-For three species (e.g. add RNA), measure at a third wavelength and solve a 3×3 system the same way — the matrix framing scales with no extra effort, while the row-by-row Gaussian elimination from the previous section gets tedious fast.
+For three species (e.g. add RNA), measure at a third wavelength and solve a 3×3 system the same way — the matrix framing scales with no extra effort, while the row-by-row Gaussian elimination from Q1.6 gets tedious fast.
 :::
 
 ## Existence of unique solutions and rank
@@ -321,13 +330,23 @@ R throws an error because the matrix is singular (zero determinant / rank-defici
 
 **Optional further exercises:** <https://online.math.uh.edu/Math1310-unpaid/ch6/s61/ex61.pdf>
 
-::: {.callout-note title="Biological application: when can't we separate species?"}
-Suppose you only record a single absorbance, $A_{260}$. With two unknowns $[\text{DNA}]$ and $[\text{prot}]$ but only one equation, the system is underdetermined — infinitely many concentration pairs match any single measurement. Formally, the $1\times 2$ "matrix" $E$ has $\operatorname{rank}(E) = 1 < 2$.
+### Q3.7
+Two scenarios in which the spectrophotometry setup of Q1.6/Q2.9 fails:
 
-A subtler failure: measure at two wavelengths but with two species whose extinction spectra are *proportional*. The rows of $E$ are then linearly dependent, $\operatorname{rank}(E) = 1$ again, and you cannot tell the species apart no matter how many wavelengths you stack on. This is essentially why dsDNA and ssDNA can't be distinguished by UV absorbance alone — their spectra are too similar — and why labs reach for orthogonal methods (gel electrophoresis, fluorescent dyes) for that job. Rank deficiency in $E$ is the math telling you the experimental design can't answer the question.
+a. You only record a *single* absorbance, $A_{260}$, but still want both $[\text{DNA}]$ and $[\text{prot}]$. Why is this impossible? What is the rank of the relevant matrix?
+b. You measure at two wavelengths, but the two species you're trying to distinguish happen to have *proportional* extinction spectra (one species' row of $E$ is a scalar multiple of the other's). Why can't you separate them, no matter how careful you are?
+
+> *Hint:* count rows of $E$ vs. unknowns, and check linear dependence — the rank-vs-unknowns logic from Q3.1–Q3.4.
+
+::: {.callout-tip collapse="true" title="Step-by-step solution"}
+**a.** With one wavelength, $E$ is a $1 \times 2$ matrix and so $\operatorname{rank}(E) = 1 < 2$. One equation in two unknowns is underdetermined — infinitely many concentration pairs match any single measurement.
+
+**b.** Two wavelengths give a $2 \times 2$ $E$, but if the rows are proportional they are linearly dependent and $\operatorname{rank}(E) = 1$ again. The matrix is singular: `solve(E, A)` will fail and there is no unique decomposition.
+
+Rank deficiency in $E$ is the math telling you the experimental design can't answer the biological question — this is essentially why dsDNA and ssDNA can't be distinguished by UV absorbance alone (their spectra are too similar), and why labs reach for orthogonal methods (gel electrophoresis, fluorescent dyes) for that job.
 :::
 
-## Recap: Matrix multiplication
+## Matrix multiplication
 
 - Wikipedia: [matrix multiplication](https://en.wikipedia.org/wiki/Matrix_multiplication).
 
@@ -394,14 +413,4 @@ A * B      # element-wise — totally different operation!
 # [1,]    3    0
 # [2,]   20    0
 ```
-:::
-
-::: {.callout-note title="Biological application: many samples at once"}
-Beer–Lambert for one sample is $E\,\mathbf{c} = \mathbf{A}$ — matrix times vector. Now imagine a 96-well plate: stack each well's concentration vector as a column of a $\text{(species)} \times 96$ matrix $C$, and all the absorbances at once become
-$$E \, C = A$$
-where $A$ is a $\text{(wavelengths)} \times 96$ matrix. Each column of the product is one well's spectrum — exactly the matrix–matrix multiplication you just practiced. And because R's `solve` accepts a matrix on the right-hand side, you can decompose every well at once with a single call:
-```r
-solve(E, A)    # one column of concentrations per sample
-```
-This is the practical reason matrix multiplication exists: applying the same linear transformation to many input vectors with one operation.
 :::

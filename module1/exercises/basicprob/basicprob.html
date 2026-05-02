@@ -2590,46 +2590,101 @@ Step-by-step solution
 <li>Optional: counting-type probability questions: <a href="https://thirdspacelearning.com/blog/probability-questions" class="uri">https://thirdspacelearning.com/blog/probability-questions</a>.</li>
 <li>Optional: harder questions: <a href="https://www.hitbullseye.com/Probability-Examples.php" class="uri">https://www.hitbullseye.com/Probability-Examples.php</a>.</li>
 </ul>
-<div class="callout callout-style-default callout-note callout-titled" title="Biological application: Mendelian inheritance">
-<div class="callout-header d-flex align-content-center">
+</section>
+<section id="q1.12" class="level3">
+<h3 class="anchored" data-anchor-id="q1.12">Q1.12</h3>
+<p>Two heterozygous parents (<span class="math inline">Aa \times Aa</span>) each pass one of their two alleles to the offspring with equal probability, independently. There are four equally likely allele combinations: <span class="math inline">AA, Aa, aA, aa</span>.</p>
+<ol type="a">
+<li>What is <span class="math inline">P(\text{homozygous recessive } aa)</span>?</li>
+<li>What is <span class="math inline">P(\text{at least one dominant allele } A)</span>?</li>
+<li>For two unlinked genes inherited independently, what is <span class="math inline">P(aabb)</span> from the cross <span class="math inline">AaBb \times AaBb</span>?</li>
+</ol>
+<blockquote class="blockquote">
+<p><em>Hint:</em> (b) is the same complement-of-“at least one” trick as Q1.5; (c) uses independence of events as in Q1.4 and Q1.11.</p>
+</blockquote>
+<div class="callout callout-style-default callout-tip callout-titled" title="Step-by-step solution">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-12-contents" aria-controls="callout-12" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Biological application: Mendelian inheritance
+Step-by-step solution
 </div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
+<div id="callout-12" class="callout-12-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
-<p>Two heterozygous parents (<span class="math inline">Aa \times Aa</span>) each pass one of their two alleles to the offspring with equal probability. The four equally likely allele combinations are <span class="math inline">AA, Aa, aA, aa</span>, so: <span class="math display">P(\text{homozygous recessive } aa) = \tfrac{1}{2} \cdot \tfrac{1}{2} = \tfrac{1}{4}</span> <span class="math display">P(\text{at least one dominant } A) = 1 - P(aa) = \tfrac{3}{4}</span> (the complement trick from Q1.5, applied to genetics).</p>
-<p>For two unlinked genes inherited independently (<span class="math inline">AaBb \times AaBb</span>): <span class="math display">P(\text{double recessive } aabb) = \tfrac{1}{4} \cdot \tfrac{1}{4} = \tfrac{1}{16}</span> This is the source of the classic 9:3:3:1 ratio in dihybrid crosses.</p>
+<ol type="a">
+<li><span class="math inline">P(aa) = \tfrac{1}{2} \cdot \tfrac{1}{2} = \tfrac{1}{4}</span>.</li>
+<li><span class="math inline">P(\text{at least one } A) = 1 - P(aa) = \tfrac{3}{4}</span>.</li>
+<li>Independent loci multiply: <span class="math inline">P(aabb) = P(aa) \cdot P(bb) = \tfrac{1}{4} \cdot \tfrac{1}{4} = \tfrac{1}{16}</span>.</li>
+</ol>
+<p>The four genotype categories from <span class="math inline">AaBb \times AaBb</span> — dominant-dominant, dominant-recessive, recessive-dominant, recessive-recessive — appear in proportions 9:3:3:1, the classic dihybrid cross result.</p>
 </div>
 </div>
-<div class="callout callout-style-default callout-note callout-titled" title="Biological application: mutations along a stretch of DNA">
-<div class="callout-header d-flex align-content-center">
+</div>
+</section>
+<section id="q1.13" class="level3">
+<h3 class="anchored" data-anchor-id="q1.13">Q1.13</h3>
+<p>Each base in a genome mutates per generation with some small probability <span class="math inline">\mu</span> (for humans, <span class="math inline">\mu \approx 10^{-8}</span>). Treat bases as independent.</p>
+<ol type="a">
+<li>What is <span class="math inline">P(\text{no mutation in } n \text{ bases})</span>?</li>
+<li>What is <span class="math inline">P(\text{at least one mutation in } n \text{ bases})</span>?</li>
+<li>For <span class="math inline">\mu = 10^{-8}</span> and <span class="math inline">n = 3 \times 10^9</span> (a human genome), is the chance of <em>some</em> new mutation small or large?</li>
+</ol>
+<blockquote class="blockquote">
+<p><em>Hint:</em> (a) is independence as in Q1.3 (four heads in a row); (b) is the complement trick from Q1.5 — at genome scale.</p>
+</blockquote>
+<div class="callout callout-style-default callout-tip callout-titled" title="Step-by-step solution">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-13-contents" aria-controls="callout-13" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Biological application: mutations along a stretch of DNA
+Step-by-step solution
 </div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
+<div id="callout-13" class="callout-13-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
-<p>Each base in a genome mutates per generation with some small probability <span class="math inline">\mu</span> (for humans, <span class="math inline">\mu \approx 10^{-8}</span>). Treating bases as independent: <span class="math display">P(\text{no mutation in } n \text{ bases}) = (1-\mu)^n</span> <span class="math display">P(\text{at least one mutation in } n \text{ bases}) = 1 - (1-\mu)^n</span></p>
-<p>For <span class="math inline">\mu = 10^{-8}</span> and <span class="math inline">n = 3 \times 10^9</span> (a human genome): <span class="math inline">P(\geq 1) \approx 1 - e^{-30} \approx 1</span> — every offspring carries new mutations. This is the same complement-of-“at least one” calculation as Q1.5, just at genome scale.</p>
+<ol type="a">
+<li>Each base is independent, so <span class="math inline">P(\text{no mutation}) = (1-\mu)^n</span>.</li>
+<li>By complement: <span class="math inline">P(\geq 1) = 1 - (1-\mu)^n</span>.</li>
+<li>For <span class="math inline">\mu = 10^{-8}</span>, <span class="math inline">n = 3 \times 10^9</span>: <span class="math inline">(1-\mu)^n \approx e^{-\mu n} = e^{-30} \approx 10^{-13}</span>, so <span class="math inline">P(\geq 1) \approx 1</span> — every offspring carries new mutations. Family trio sequencing studies in fact see <span class="math inline">\sim 60</span> <em>de novo</em> mutations per child (counting both parental contributions).</li>
+</ol>
 </div>
 </div>
-<div class="callout callout-style-default callout-note callout-titled" title="Biological application: matching a random k-mer">
-<div class="callout-header d-flex align-content-center">
+</div>
+</section>
+<section id="q1.14" class="level3">
+<h3 class="anchored" data-anchor-id="q1.14">Q1.14</h3>
+<p>Pick a random DNA sequence of length <span class="math inline">k</span> (a “k-mer”) and ask whether it matches a fixed target sequence. Assume each base is equally likely (A/C/G/T) and bases are independent.</p>
+<ol type="a">
+<li>What is <span class="math inline">P(\text{match})</span>?</li>
+<li>Compute the numerical value for <span class="math inline">k = 4</span> and <span class="math inline">k = 20</span>.</li>
+<li>Roughly how often would you expect a random 20-mer to occur, by chance, in a <span class="math inline">3 \times 10^9</span>-base human genome?</li>
+</ol>
+<blockquote class="blockquote">
+<p><em>Hint:</em> (a) is the same independence-multiplication as Q1.3, but with four equally likely bases instead of two coin sides.</p>
+</blockquote>
+<div class="callout callout-style-default callout-tip callout-titled" title="Step-by-step solution">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-14-contents" aria-controls="callout-14" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Biological application: matching a random k-mer
+Step-by-step solution
 </div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
+<div id="callout-14" class="callout-14-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
-<p>Pick a random DNA sequence of length <span class="math inline">k</span> (a “k-mer”) and ask whether it matches a fixed target sequence. Assuming each base is equally likely (A/C/G/T) and bases are independent: <span class="math display">P(\text{match}) = \left(\tfrac{1}{4}\right)^k</span></p>
-<p>For <span class="math inline">k = 4</span> this is <span class="math inline">1/256</span>; for <span class="math inline">k = 20</span> it is <span class="math inline">\approx 10^{-12}</span>. This is why PCR primers (typically 18–25 bp) are usually unique in a genome — by random chance, a 20-mer would be expected to occur fewer than once in a <span class="math inline">3 \times 10^9</span>-base human genome. Same independence-multiplication as Q1.3 (four heads in a row), just over four outcomes instead of two.</p>
+<ol type="a">
+<li><span class="math inline">P(\text{match}) = \left(\tfrac{1}{4}\right)^k</span>.</li>
+<li><span class="math inline">k = 4 \Rightarrow 1/256 \approx 4 \times 10^{-3}</span>; <span class="math inline">k = 20 \Rightarrow 1/4^{20} \approx 9.1 \times 10^{-13}</span>.</li>
+<li>Expected number of random matches in a genome of size <span class="math inline">L</span> is <span class="math inline">L \cdot 4^{-k}</span>. For <span class="math inline">L = 3 \times 10^9</span>, <span class="math inline">k = 20</span>: <span class="math inline">\approx 3 \times 10^9 \cdot 9.1 \times 10^{-13} \approx 0.003</span> — almost surely zero. That’s why PCR primers (typically 18–25 bp) are usually unique in a genome.</li>
+</ol>
+</div>
 </div>
 </div>
 </section>
@@ -2726,30 +2781,54 @@ Step-by-step solution
 </div>
 </div>
 </div>
-<div class="callout callout-style-default callout-note callout-titled" title="Biological application: expected mutations per generation">
-<div class="callout-header d-flex align-content-center">
+</section>
+<section id="q2.5" class="level3">
+<h3 class="anchored" data-anchor-id="q2.5">Q2.5</h3>
+<p>Each base in a genome mutates per generation with small probability <span class="math inline">\mu</span>. What is the expected number of new mutations across a whole genome of length <span class="math inline">L</span>?</p>
+<p>For humans (<span class="math inline">\mu \approx 10^{-8}</span>, <span class="math inline">L \approx 3 \times 10^9</span> bp), what does this give?</p>
+<blockquote class="blockquote">
+<p><em>Hint:</em> this is just linearity of expectation — each base is a tiny “lottery ticket” with payoff 1 if it mutates, 0 otherwise, the same structure as Q2.3’s <span class="math inline">E[10 \cdot \text{dice}]</span>.</p>
+</blockquote>
+<div class="callout callout-style-default callout-tip callout-titled" title="Step-by-step solution">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-19-contents" aria-controls="callout-19" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Biological application: expected mutations per generation
+Step-by-step solution
 </div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
+<div id="callout-19" class="callout-19-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
-<p>Each base mutates with small probability <span class="math inline">\mu</span> per generation. The expected number of new mutations across the whole genome of length <span class="math inline">L</span> is <span class="math display">E[\#\text{mutations}] = \mu \cdot L</span> For humans (<span class="math inline">\mu \approx 10^{-8}</span>, <span class="math inline">L \approx 3 \times 10^9</span> bp), this gives <span class="math inline">E \approx 30</span> new mutations per offspring per generation — and indeed, family trio sequencing studies estimate <span class="math inline">\sim 60</span> <em>de novo</em> mutations per child (counting both parental contributions). Linearity of expectation makes this a one-line calculation: each base is a tiny “lottery ticket” with payoff 1 if it mutates, 0 otherwise, and you just sum the expected payoffs.</p>
+<p>By linearity of expectation, summing one Bernoulli per base: <span class="math display">E[\#\text{mutations}] = \mu \cdot L</span></p>
+<p>For humans: <span class="math inline">E \approx 10^{-8} \cdot 3 \times 10^9 = 30</span> new mutations per offspring per generation. Family trio sequencing studies in fact estimate <span class="math inline">\sim 60</span> <em>de novo</em> mutations per child (counting both parental contributions).</p>
 </div>
 </div>
-<div class="callout callout-style-default callout-note callout-titled" title="Biological application: expected sequencing coverage">
-<div class="callout-header d-flex align-content-center">
+</div>
+</section>
+<section id="q2.6" class="level3">
+<h3 class="anchored" data-anchor-id="q2.6">Q2.6</h3>
+<p>A short-read sequencer produces <span class="math inline">N</span> reads of length <span class="math inline">\ell</span> each, scattered roughly uniformly over a genome of size <span class="math inline">L</span>. What is the expected number of reads covering any given base (“expected coverage”)?</p>
+<p>For <span class="math inline">N = 3 \times 10^8</span> reads of <span class="math inline">\ell = 100</span> bp on a human genome (<span class="math inline">L = 3 \times 10^9</span> bp), how much coverage do you get?</p>
+<blockquote class="blockquote">
+<p><em>Hint:</em> the same linearity-of-expectation logic as Q2.5 — each read contributes a tiny expected count to each base.</p>
+</blockquote>
+<div class="callout callout-style-default callout-tip callout-titled" title="Step-by-step solution">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-20-contents" aria-controls="callout-20" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Biological application: expected sequencing coverage
+Step-by-step solution
 </div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
+<div id="callout-20" class="callout-20-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
-<p>A short-read sequencer produces <span class="math inline">N</span> reads of length <span class="math inline">\ell</span> each, scattered roughly uniformly over a genome of size <span class="math inline">L</span>. The expected number of reads covering any given base — the “expected coverage” — is <span class="math display">E[\text{coverage}] = \frac{N \cdot \ell}{L}</span> For example, <span class="math inline">N = 3 \times 10^8</span> reads of <span class="math inline">\ell = 100</span> bp on a human genome (<span class="math inline">L = 3 \times 10^9</span> bp) gives <span class="math inline">E[\text{coverage}] = 10\times</span>. You will use this exact formula in module 3 when planning sequencing depth.</p>
+<p>A given base is covered by a given read with probability <span class="math inline">\ell / L</span> (the read’s start position is roughly uniform over <span class="math inline">L</span> choices, and <span class="math inline">\ell</span> of those would cover the base). Summing over all <span class="math inline">N</span> reads: <span class="math display">E[\text{coverage}] = N \cdot \tfrac{\ell}{L} = \frac{N \ell}{L}</span></p>
+<p>For the example: <span class="math inline">E[\text{coverage}] = (3 \times 10^8 \cdot 100) / (3 \times 10^9) = 10\times</span>. You will use this exact formula in module 3 when planning sequencing depth.</p>
+</div>
 </div>
 </div>
 </section>

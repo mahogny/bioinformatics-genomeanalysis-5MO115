@@ -2289,10 +2289,10 @@ $presentation-heading-color: #383d3d !default;
     <h2 id="toc-title">Table of contents</h2>
    
   <ul class="collapse">
-  <li><a href="#recap-solving-linear-systems" id="toc-recap-solving-linear-systems" class="nav-link active" data-scroll-target="#recap-solving-linear-systems">Recap: Solving linear systems</a></li>
+  <li><a href="#solving-linear-systems" id="toc-solving-linear-systems" class="nav-link active" data-scroll-target="#solving-linear-systems">Solving linear systems</a></li>
   <li><a href="#practice-using-matrices-and-vectors" id="toc-practice-using-matrices-and-vectors" class="nav-link" data-scroll-target="#practice-using-matrices-and-vectors">Practice using matrices and vectors</a></li>
   <li><a href="#existence-of-unique-solutions-and-rank" id="toc-existence-of-unique-solutions-and-rank" class="nav-link" data-scroll-target="#existence-of-unique-solutions-and-rank">Existence of unique solutions and rank</a></li>
-  <li><a href="#recap-matrix-multiplication" id="toc-recap-matrix-multiplication" class="nav-link" data-scroll-target="#recap-matrix-multiplication">Recap: Matrix multiplication</a></li>
+  <li><a href="#matrix-multiplication" id="toc-matrix-multiplication" class="nav-link" data-scroll-target="#matrix-multiplication">Matrix multiplication</a></li>
   </ul>
 </nav>
 </div>
@@ -2317,8 +2317,8 @@ $presentation-heading-color: #383d3d !default;
 </header>
 
 
-<section id="recap-solving-linear-systems" class="level2">
-<h2 class="anchored" data-anchor-id="recap-solving-linear-systems">Recap: Solving linear systems</h2>
+<section id="solving-linear-systems" class="level2">
+<h2 class="anchored" data-anchor-id="solving-linear-systems">Solving linear systems</h2>
 <ul>
 <li>Wikipedia also summarises <a href="https://en.wikipedia.org/wiki/Gaussian_elimination">the method of Gaussian elimination</a>.</li>
 </ul>
@@ -2452,16 +2452,9 @@ Step-by-step solution
 </div>
 </div>
 <p>If you want even more, see eq. 1–6 from <a href="https://online.math.uh.edu/Math1310-unpaid/ch6/s61/ex61.pdf" class="uri">https://online.math.uh.edu/Math1310-unpaid/ch6/s61/ex61.pdf</a> but solve them as shown before. Don’t worry about graphing etc.</p>
-<div class="callout callout-style-default callout-note callout-titled" title="Biological application: spectrophotometry of a DNA prep">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Biological application: spectrophotometry of a DNA prep
-</div>
-</div>
-<div class="callout-body-container callout-body">
+</section>
+<section id="q1.6" class="level3">
+<h3 class="anchored" data-anchor-id="q1.6">Q1.6</h3>
 <p>A nucleic-acid prep typically contains both DNA and protein contamination. Both absorb UV light, with different “extinction coefficients” <span class="math inline">\varepsilon</span> at 260 nm and 280 nm. Beer–Lambert says the absorbance at each wavelength is the sum of the contributions: <span class="math display">A_\lambda = \varepsilon^{\text{DNA}}_\lambda\,[\text{DNA}] + \varepsilon^{\text{prot}}_\lambda\,[\text{prot}]</span></p>
 <p>Suppose (in convenient units) the extinction coefficients are</p>
 <table class="caption-top table">
@@ -2485,12 +2478,29 @@ Biological application: spectrophotometry of a DNA prep
 </tr>
 </tbody>
 </table>
-<p>You measure <span class="math inline">A_{260} = 5</span> and <span class="math inline">A_{280} = 4</span>. Plug into Beer–Lambert at each wavelength: <span class="math display">\begin{aligned}
+<p>You measure <span class="math inline">A_{260} = 5</span> and <span class="math inline">A_{280} = 4</span>. What are <span class="math inline">[\text{DNA}]</span> and <span class="math inline">[\text{prot}]</span>?</p>
+<blockquote class="blockquote">
+<p><em>Hint:</em> this gives two equations in two unknowns — solve by Gaussian elimination, exactly as in Q1.1–Q1.5.</p>
+</blockquote>
+<div class="callout callout-style-default callout-tip callout-titled" title="Step-by-step solution">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-6-contents" aria-controls="callout-6" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Step-by-step solution
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-6" class="callout-6-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>Plug the measurements into Beer–Lambert at each wavelength: <span class="math display">\begin{aligned}
 2\,[\text{DNA}] + 1\,[\text{prot}] &amp;= 5 \\
 1\,[\text{DNA}] + 2\,[\text{prot}] &amp;= 4
 \end{aligned}</span></p>
-<p>Two equations in two unknowns — exactly the kind of system you just solved by hand. Subtracting twice eq. 2 from eq. 1: <span class="math inline">-3\,[\text{prot}] = -3 \Rightarrow [\text{prot}] = 1</span>, then <span class="math inline">[\text{DNA}] = 2</span>.</p>
-<p>The sample is mostly DNA with measurable protein contamination — essentially what a NanoDrop computes when it reports the <span class="math inline">A_{260}/A_{280}</span> ratio.</p>
+<p>Subtract twice eq. 2 from eq. 1: <span class="math inline">-3\,[\text{prot}] = -3 \Rightarrow [\text{prot}] = 1</span>, then <span class="math inline">[\text{DNA}] = 2</span>.</p>
+<p><strong>Answer:</strong> <span class="math inline">[\text{DNA}] = 2</span>, <span class="math inline">[\text{prot}] = 1</span>. The sample is mostly DNA with measurable protein contamination — essentially what a NanoDrop computes when it reports the <span class="math inline">A_{260}/A_{280}</span> ratio.</p>
+</div>
 </div>
 </div>
 </section>
@@ -2684,21 +2694,31 @@ Step-by-step solution
 </div>
 </div>
 </div>
-<div class="callout callout-style-default callout-note callout-titled" title="Biological application: spectrophotometry in matrix form">
-<div class="callout-header d-flex align-content-center">
+</section>
+<section id="q2.9" class="level3">
+<h3 class="anchored" data-anchor-id="q2.9">Q2.9</h3>
+<p>Rewrite the DNA-vs-protein problem from Q1.6 in matrix form <span class="math inline">E\,\mathbf{c} = \mathbf{A}</span>, and solve it in R.</p>
+<blockquote class="blockquote">
+<p><em>Hint:</em> this is exactly the kind of system Q2.8 asked you to solve with R’s <code>solve</code> function.</p>
+</blockquote>
+<div class="callout callout-style-default callout-tip callout-titled" title="Step-by-step solution">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-15-contents" aria-controls="callout-15" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Biological application: spectrophotometry in matrix form
+Step-by-step solution
 </div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
+<div id="callout-15" class="callout-15-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
-<p>The DNA-vs-protein problem from the previous section in matrix form is <span class="math display">\underbrace{\begin{bmatrix} 2 &amp; 1 \\ 1 &amp; 2 \end{bmatrix}}_{E}\,\underbrace{\begin{bmatrix} [\text{DNA}] \\ [\text{prot}] \end{bmatrix}}_{\mathbf{c}} = \underbrace{\begin{bmatrix} 5 \\ 4 \end{bmatrix}}_{\mathbf{A}}</span> where the rows of <span class="math inline">E</span> are wavelengths (260, 280 nm) and the columns are species (DNA, protein). Solve in R:</p>
+<p>The rows of <span class="math inline">E</span> are wavelengths (260, 280 nm) and the columns are species (DNA, protein): <span class="math display">\underbrace{\begin{bmatrix} 2 &amp; 1 \\ 1 &amp; 2 \end{bmatrix}}_{E}\,\underbrace{\begin{bmatrix} [\text{DNA}] \\ [\text{prot}] \end{bmatrix}}_{\mathbf{c}} = \underbrace{\begin{bmatrix} 5 \\ 4 \end{bmatrix}}_{\mathbf{A}}</span></p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>E <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">1</span>,</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>              <span class="dv">1</span>, <span class="dv">2</span>), <span class="dv">2</span>, <span class="dv">2</span>, <span class="at">byrow =</span> <span class="cn">TRUE</span>)</span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="fu">solve</span>(E, <span class="fu">c</span>(<span class="dv">5</span>, <span class="dv">4</span>))     <span class="co"># 2, 1</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>For three species (e.g. add RNA), measure at a third wavelength and solve a 3×3 system the same way — the matrix framing scales with no extra effort, while the row-by-row Gaussian elimination from the previous section gets tedious fast.</p>
+<p>For three species (e.g. add RNA), measure at a third wavelength and solve a 3×3 system the same way — the matrix framing scales with no extra effort, while the row-by-row Gaussian elimination from Q1.6 gets tedious fast.</p>
+</div>
 </div>
 </div>
 </section>
@@ -2863,24 +2883,39 @@ Step-by-step solution
 </div>
 </div>
 <p><strong>Optional further exercises:</strong> <a href="https://online.math.uh.edu/Math1310-unpaid/ch6/s61/ex61.pdf" class="uri">https://online.math.uh.edu/Math1310-unpaid/ch6/s61/ex61.pdf</a></p>
-<div class="callout callout-style-default callout-note callout-titled" title="Biological application: when can&#39;t we separate species?">
-<div class="callout-header d-flex align-content-center">
+</section>
+<section id="q3.7" class="level3">
+<h3 class="anchored" data-anchor-id="q3.7">Q3.7</h3>
+<p>Two scenarios in which the spectrophotometry setup of Q1.6/Q2.9 fails:</p>
+<ol type="a">
+<li>You only record a <em>single</em> absorbance, <span class="math inline">A_{260}</span>, but still want both <span class="math inline">[\text{DNA}]</span> and <span class="math inline">[\text{prot}]</span>. Why is this impossible? What is the rank of the relevant matrix?</li>
+<li>You measure at two wavelengths, but the two species you’re trying to distinguish happen to have <em>proportional</em> extinction spectra (one species’ row of <span class="math inline">E</span> is a scalar multiple of the other’s). Why can’t you separate them, no matter how careful you are?</li>
+</ol>
+<blockquote class="blockquote">
+<p><em>Hint:</em> count rows of <span class="math inline">E</span> vs. unknowns, and check linear dependence — the rank-vs-unknowns logic from Q3.1–Q3.4.</p>
+</blockquote>
+<div class="callout callout-style-default callout-tip callout-titled" title="Step-by-step solution">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-22-contents" aria-controls="callout-22" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Biological application: when can’t we separate species?
+Step-by-step solution
 </div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
+<div id="callout-22" class="callout-22-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
-<p>Suppose you only record a single absorbance, <span class="math inline">A_{260}</span>. With two unknowns <span class="math inline">[\text{DNA}]</span> and <span class="math inline">[\text{prot}]</span> but only one equation, the system is underdetermined — infinitely many concentration pairs match any single measurement. Formally, the <span class="math inline">1\times 2</span> “matrix” <span class="math inline">E</span> has <span class="math inline">\operatorname{rank}(E) = 1 &lt; 2</span>.</p>
-<p>A subtler failure: measure at two wavelengths but with two species whose extinction spectra are <em>proportional</em>. The rows of <span class="math inline">E</span> are then linearly dependent, <span class="math inline">\operatorname{rank}(E) = 1</span> again, and you cannot tell the species apart no matter how many wavelengths you stack on. This is essentially why dsDNA and ssDNA can’t be distinguished by UV absorbance alone — their spectra are too similar — and why labs reach for orthogonal methods (gel electrophoresis, fluorescent dyes) for that job. Rank deficiency in <span class="math inline">E</span> is the math telling you the experimental design can’t answer the question.</p>
+<p><strong>a.</strong> With one wavelength, <span class="math inline">E</span> is a <span class="math inline">1 \times 2</span> matrix and so <span class="math inline">\operatorname{rank}(E) = 1 &lt; 2</span>. One equation in two unknowns is underdetermined — infinitely many concentration pairs match any single measurement.</p>
+<p><strong>b.</strong> Two wavelengths give a <span class="math inline">2 \times 2</span> <span class="math inline">E</span>, but if the rows are proportional they are linearly dependent and <span class="math inline">\operatorname{rank}(E) = 1</span> again. The matrix is singular: <code>solve(E, A)</code> will fail and there is no unique decomposition.</p>
+<p>Rank deficiency in <span class="math inline">E</span> is the math telling you the experimental design can’t answer the biological question — this is essentially why dsDNA and ssDNA can’t be distinguished by UV absorbance alone (their spectra are too similar), and why labs reach for orthogonal methods (gel electrophoresis, fluorescent dyes) for that job.</p>
+</div>
 </div>
 </div>
 </section>
 </section>
-<section id="recap-matrix-multiplication" class="level2">
-<h2 class="anchored" data-anchor-id="recap-matrix-multiplication">Recap: Matrix multiplication</h2>
+<section id="matrix-multiplication" class="level2">
+<h2 class="anchored" data-anchor-id="matrix-multiplication">Matrix multiplication</h2>
 <ul>
 <li>Wikipedia: <a href="https://en.wikipedia.org/wiki/Matrix_multiplication">matrix multiplication</a>.</li>
 </ul>
@@ -2985,21 +3020,6 @@ Step-by-step solution
 <span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a><span class="co"># [1,]    3    0</span></span>
 <span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a><span class="co"># [2,]   20    0</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-</div>
-</div>
-<div class="callout callout-style-default callout-note callout-titled" title="Biological application: many samples at once">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Biological application: many samples at once
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>Beer–Lambert for one sample is <span class="math inline">E\,\mathbf{c} = \mathbf{A}</span> — matrix times vector. Now imagine a 96-well plate: stack each well’s concentration vector as a column of a <span class="math inline">\text{(species)} \times 96</span> matrix <span class="math inline">C</span>, and all the absorbances at once become <span class="math display">E \, C = A</span> where <span class="math inline">A</span> is a <span class="math inline">\text{(wavelengths)} \times 96</span> matrix. Each column of the product is one well’s spectrum — exactly the matrix–matrix multiplication you just practiced. And because R’s <code>solve</code> accepts a matrix on the right-hand side, you can decompose every well at once with a single call:</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">solve</span>(E, A)    <span class="co"># one column of concentrations per sample</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>This is the practical reason matrix multiplication exists: applying the same linear transformation to many input vectors with one operation.</p>
 </div>
 </div>
 </section>

@@ -8,7 +8,7 @@ format:
 - This module starts by recapping linear least squares from your intro statistics course. Learn how to solve such equations in R, as this is effectively what RNA-seq analysis boils down to.
 - Much of the data in bioinformatics originate from sequencing and benefit from modelling using Poisson models. Linear models can be built upon Poisson models too but are difficult to solve using regular software. You will thus get to try RSTAN for whenever you need to perform advanced statistical modelling.
 
-## Recap: Linear least squares
+## Linear least squares
 
 **Introduction:** If you have 4 data points and want to fit a line through them, you cannot do it using linear equation systems alone — it assumes that all 4 points all are neatly on the line, but the random noise added during measurement prevents it from being the case. Instead, we need to combine the linear model with the power of statistics to find the best possible solution to the equations. See this video to get a visual idea about why you want to minimize the "sum of squared errors":
 

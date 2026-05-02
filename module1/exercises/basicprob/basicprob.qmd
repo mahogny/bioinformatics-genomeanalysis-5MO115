@@ -160,30 +160,51 @@ $$P(A \text{ or } B) = 1 - P(\text{neither}) = 1 - 0.72 = 0.28$$
 - Optional: counting-type probability questions: <https://thirdspacelearning.com/blog/probability-questions>.
 - Optional: harder questions: <https://www.hitbullseye.com/Probability-Examples.php>.
 
-::: {.callout-note title="Biological application: Mendelian inheritance"}
-Two heterozygous parents ($Aa \times Aa$) each pass one of their two alleles to the offspring with equal probability. The four equally likely allele combinations are $AA, Aa, aA, aa$, so:
-$$P(\text{homozygous recessive } aa) = \tfrac{1}{2} \cdot \tfrac{1}{2} = \tfrac{1}{4}$$
-$$P(\text{at least one dominant } A) = 1 - P(aa) = \tfrac{3}{4}$$
-(the complement trick from Q1.5, applied to genetics).
+### Q1.12
+Two heterozygous parents ($Aa \times Aa$) each pass one of their two alleles to the offspring with equal probability, independently. There are four equally likely allele combinations: $AA, Aa, aA, aa$.
 
-For two unlinked genes inherited independently ($AaBb \times AaBb$):
-$$P(\text{double recessive } aabb) = \tfrac{1}{4} \cdot \tfrac{1}{4} = \tfrac{1}{16}$$
-This is the source of the classic 9:3:3:1 ratio in dihybrid crosses.
+a. What is $P(\text{homozygous recessive } aa)$?
+b. What is $P(\text{at least one dominant allele } A)$?
+c. For two unlinked genes inherited independently, what is $P(aabb)$ from the cross $AaBb \times AaBb$?
+
+> *Hint:* (b) is the same complement-of-"at least one" trick as Q1.5; (c) uses independence of events as in Q1.4 and Q1.11.
+
+::: {.callout-tip collapse="true" title="Step-by-step solution"}
+a. $P(aa) = \tfrac{1}{2} \cdot \tfrac{1}{2} = \tfrac{1}{4}$.
+b. $P(\text{at least one } A) = 1 - P(aa) = \tfrac{3}{4}$.
+c. Independent loci multiply: $P(aabb) = P(aa) \cdot P(bb) = \tfrac{1}{4} \cdot \tfrac{1}{4} = \tfrac{1}{16}$.
+
+The four genotype categories from $AaBb \times AaBb$ — dominant-dominant, dominant-recessive, recessive-dominant, recessive-recessive — appear in proportions 9:3:3:1, the classic dihybrid cross result.
 :::
 
-::: {.callout-note title="Biological application: mutations along a stretch of DNA"}
-Each base in a genome mutates per generation with some small probability $\mu$ (for humans, $\mu \approx 10^{-8}$). Treating bases as independent:
-$$P(\text{no mutation in } n \text{ bases}) = (1-\mu)^n$$
-$$P(\text{at least one mutation in } n \text{ bases}) = 1 - (1-\mu)^n$$
+### Q1.13
+Each base in a genome mutates per generation with some small probability $\mu$ (for humans, $\mu \approx 10^{-8}$). Treat bases as independent.
 
-For $\mu = 10^{-8}$ and $n = 3 \times 10^9$ (a human genome): $P(\geq 1) \approx 1 - e^{-30} \approx 1$ — every offspring carries new mutations. This is the same complement-of-"at least one" calculation as Q1.5, just at genome scale.
+a. What is $P(\text{no mutation in } n \text{ bases})$?
+b. What is $P(\text{at least one mutation in } n \text{ bases})$?
+c. For $\mu = 10^{-8}$ and $n = 3 \times 10^9$ (a human genome), is the chance of *some* new mutation small or large?
+
+> *Hint:* (a) is independence as in Q1.3 (four heads in a row); (b) is the complement trick from Q1.5 — at genome scale.
+
+::: {.callout-tip collapse="true" title="Step-by-step solution"}
+a. Each base is independent, so $P(\text{no mutation}) = (1-\mu)^n$.
+b. By complement: $P(\geq 1) = 1 - (1-\mu)^n$.
+c. For $\mu = 10^{-8}$, $n = 3 \times 10^9$: $(1-\mu)^n \approx e^{-\mu n} = e^{-30} \approx 10^{-13}$, so $P(\geq 1) \approx 1$ — every offspring carries new mutations. Family trio sequencing studies in fact see $\sim 60$ *de novo* mutations per child (counting both parental contributions).
 :::
 
-::: {.callout-note title="Biological application: matching a random k-mer"}
-Pick a random DNA sequence of length $k$ (a "k-mer") and ask whether it matches a fixed target sequence. Assuming each base is equally likely (A/C/G/T) and bases are independent:
-$$P(\text{match}) = \left(\tfrac{1}{4}\right)^k$$
+### Q1.14
+Pick a random DNA sequence of length $k$ (a "k-mer") and ask whether it matches a fixed target sequence. Assume each base is equally likely (A/C/G/T) and bases are independent.
 
-For $k = 4$ this is $1/256$; for $k = 20$ it is $\approx 10^{-12}$. This is why PCR primers (typically 18–25 bp) are usually unique in a genome — by random chance, a 20-mer would be expected to occur fewer than once in a $3 \times 10^9$-base human genome. Same independence-multiplication as Q1.3 (four heads in a row), just over four outcomes instead of two.
+a. What is $P(\text{match})$?
+b. Compute the numerical value for $k = 4$ and $k = 20$.
+c. Roughly how often would you expect a random 20-mer to occur, by chance, in a $3 \times 10^9$-base human genome?
+
+> *Hint:* (a) is the same independence-multiplication as Q1.3, but with four equally likely bases instead of two coin sides.
+
+::: {.callout-tip collapse="true" title="Step-by-step solution"}
+a. $P(\text{match}) = \left(\tfrac{1}{4}\right)^k$.
+b. $k = 4 \Rightarrow 1/256 \approx 4 \times 10^{-3}$; $k = 20 \Rightarrow 1/4^{20} \approx 9.1 \times 10^{-13}$.
+c. Expected number of random matches in a genome of size $L$ is $L \cdot 4^{-k}$. For $L = 3 \times 10^9$, $k = 20$: $\approx 3 \times 10^9 \cdot 9.1 \times 10^{-13} \approx 0.003$ — almost surely zero. That's why PCR primers (typically 18–25 bp) are usually unique in a genome.
 :::
 
 ## Exercises on Expected value / Expectation
@@ -235,16 +256,32 @@ $$E[\text{game}] = \tfrac{1}{2}\cdot 50 + \tfrac{1}{2}\cdot(-100) = 25 - 50 = -2
 **Answer:** you lose \$25 on average per game. (You should refuse to play.)
 :::
 
-::: {.callout-note title="Biological application: expected mutations per generation"}
-Each base mutates with small probability $\mu$ per generation. The expected number of new mutations across the whole genome of length $L$ is
+### Q2.5
+Each base in a genome mutates per generation with small probability $\mu$. What is the expected number of new mutations across a whole genome of length $L$?
+
+For humans ($\mu \approx 10^{-8}$, $L \approx 3 \times 10^9$ bp), what does this give?
+
+> *Hint:* this is just linearity of expectation — each base is a tiny "lottery ticket" with payoff 1 if it mutates, 0 otherwise, the same structure as Q2.3's $E[10 \cdot \text{dice}]$.
+
+::: {.callout-tip collapse="true" title="Step-by-step solution"}
+By linearity of expectation, summing one Bernoulli per base:
 $$E[\#\text{mutations}] = \mu \cdot L$$
-For humans ($\mu \approx 10^{-8}$, $L \approx 3 \times 10^9$ bp), this gives $E \approx 30$ new mutations per offspring per generation — and indeed, family trio sequencing studies estimate $\sim 60$ *de novo* mutations per child (counting both parental contributions). Linearity of expectation makes this a one-line calculation: each base is a tiny "lottery ticket" with payoff 1 if it mutates, 0 otherwise, and you just sum the expected payoffs.
+
+For humans: $E \approx 10^{-8} \cdot 3 \times 10^9 = 30$ new mutations per offspring per generation. Family trio sequencing studies in fact estimate $\sim 60$ *de novo* mutations per child (counting both parental contributions).
 :::
 
-::: {.callout-note title="Biological application: expected sequencing coverage"}
-A short-read sequencer produces $N$ reads of length $\ell$ each, scattered roughly uniformly over a genome of size $L$. The expected number of reads covering any given base — the "expected coverage" — is
-$$E[\text{coverage}] = \frac{N \cdot \ell}{L}$$
-For example, $N = 3 \times 10^8$ reads of $\ell = 100$ bp on a human genome ($L = 3 \times 10^9$ bp) gives $E[\text{coverage}] = 10\times$. You will use this exact formula in module 3 when planning sequencing depth.
+### Q2.6
+A short-read sequencer produces $N$ reads of length $\ell$ each, scattered roughly uniformly over a genome of size $L$. What is the expected number of reads covering any given base ("expected coverage")?
+
+For $N = 3 \times 10^8$ reads of $\ell = 100$ bp on a human genome ($L = 3 \times 10^9$ bp), how much coverage do you get?
+
+> *Hint:* the same linearity-of-expectation logic as Q2.5 — each read contributes a tiny expected count to each base.
+
+::: {.callout-tip collapse="true" title="Step-by-step solution"}
+A given base is covered by a given read with probability $\ell / L$ (the read's start position is roughly uniform over $L$ choices, and $\ell$ of those would cover the base). Summing over all $N$ reads:
+$$E[\text{coverage}] = N \cdot \tfrac{\ell}{L} = \frac{N \ell}{L}$$
+
+For the example: $E[\text{coverage}] = (3 \times 10^8 \cdot 100) / (3 \times 10^9) = 10\times$. You will use this exact formula in module 3 when planning sequencing depth.
 :::
 
 ## Exercises in Markov chains
