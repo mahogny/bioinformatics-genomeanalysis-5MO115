@@ -2192,7 +2192,7 @@ $presentation-heading-color: #383d3d !default;
 }
 
 
-code {
+.reveal code {
   font-size: 1.6em;
 }
 
@@ -2491,7 +2491,7 @@ display: none;
 <pre><code>&#39;data.frame&#39;:   10 obs. of  3 variables:
  $ vector1: int  1 2 3 4 5 6 7 8 9 10
  $ vector2: chr  &quot;a&quot; &quot;b&quot; &quot;c&quot; &quot;d&quot; ...
- $ vector3: num  -0.792 24.013 3.826 12.477 -18.964 ...</code></pre>
+ $ vector3: num  16.13 -4.51 12.88 -5.46 12.48 ...</code></pre>
 </div>
 </div>
 <p>In the above example, we can see that the dataframe <strong>df</strong> contains 10 observations for three variables that all have different modes, column 1 is an integer vector, column 2 a vector with characters and column 3 a numeric vector.</p>
@@ -2972,30 +2972,30 @@ F. A == B</code></pre>
 <div class="sourceCode cell-code" id="cb73"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb73-1"><a href="#cb73-1" aria-hidden="true" tabindex="-1"></a>df[,<span class="dv">2</span><span class="sc">:</span><span class="dv">3</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>   vector2    vector3
-1        a -14.303220
-2        b -19.957843
-3        c  -8.379043
-4        d -11.692507
-5        e  20.304107
-6        f -10.328808
-7        g -17.956983
-8        h   2.410604
-9        i -20.856795
-10       j   6.591101</code></pre>
+1        a  -9.014622
+2        b  10.692221
+3        c -15.272354
+4        d   5.663916
+5        e   9.776842
+6        f  -4.571884
+7        g -20.413418
+8        h  10.782098
+9        i  12.186325
+10       j  -7.250056</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb75"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb75-1"><a href="#cb75-1" aria-hidden="true" tabindex="-1"></a>df[,<span class="fu">c</span>(<span class="st">&quot;vector2&quot;</span>, <span class="st">&quot;vector3&quot;</span>)]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>   vector2    vector3
-1        a -14.303220
-2        b -19.957843
-3        c  -8.379043
-4        d -11.692507
-5        e  20.304107
-6        f -10.328808
-7        g -17.956983
-8        h   2.410604
-9        i -20.856795
-10       j   6.591101</code></pre>
+1        a  -9.014622
+2        b  10.692221
+3        c -15.272354
+4        d   5.663916
+5        e   9.776842
+6        f  -4.571884
+7        g -20.413418
+8        h  10.782098
+9        i  12.186325
+10       j  -7.250056</code></pre>
 </div>
 </div>
 </div>
@@ -3017,10 +3017,12 @@ F. A == B</code></pre>
 <div class="cell" data-accordion="true">
 <div class="sourceCode cell-code" id="cb77"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb77-1"><a href="#cb77-1" aria-hidden="true" tabindex="-1"></a>df[df<span class="sc">$</span>vector3<span class="sc">&gt;</span><span class="dv">0</span>,]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>   vector1 vector2   vector3
-5        5       e 20.304107
-8        8       h  2.410604
-10      10       j  6.591101</code></pre>
+<pre><code>  vector1 vector2   vector3
+2       2       b 10.692221
+4       4       d  5.663916
+5       5       e  9.776842
+8       8       h 10.782098
+9       9       i 12.186325</code></pre>
 </div>
 </div>
 </div>
@@ -3044,16 +3046,16 @@ F. A == B</code></pre>
 <span id="cb79-2"><a href="#cb79-2" aria-hidden="true" tabindex="-1"></a>df</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>   numbers letters     random
-1        1       a -14.303220
-2        2       b -19.957843
-3        3       c  -8.379043
-4        4       d -11.692507
-5        5       e  20.304107
-6        6       f -10.328808
-7        7       g -17.956983
-8        8       h   2.410604
-9        9       i -20.856795
-10      10       j   6.591101</code></pre>
+1        1       a  -9.014622
+2        2       b  10.692221
+3        3       c -15.272354
+4        4       d   5.663916
+5        5       e   9.776842
+6        6       f  -4.571884
+7        7       g -20.413418
+8        8       h  10.782098
+9        9       i  12.186325
+10      10       j  -7.250056</code></pre>
 </div>
 </div>
 </div>
@@ -3076,17 +3078,17 @@ F. A == B</code></pre>
 <div class="sourceCode cell-code" id="cb81"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb81-1"><a href="#cb81-1" aria-hidden="true" tabindex="-1"></a>df<span class="sc">$</span>new <span class="ot">&lt;-</span> df<span class="sc">$</span>numbers <span class="sc">-</span> df<span class="sc">$</span>random</span>
 <span id="cb81-2"><a href="#cb81-2" aria-hidden="true" tabindex="-1"></a>df</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>   numbers letters     random        new
-1        1       a -14.303220  15.303220
-2        2       b -19.957843  21.957843
-3        3       c  -8.379043  11.379043
-4        4       d -11.692507  15.692507
-5        5       e  20.304107 -15.304107
-6        6       f -10.328808  16.328808
-7        7       g -17.956983  24.956983
-8        8       h   2.410604   5.589396
-9        9       i -20.856795  29.856795
-10      10       j   6.591101   3.408899</code></pre>
+<pre><code>   numbers letters     random       new
+1        1       a  -9.014622 10.014622
+2        2       b  10.692221 -8.692221
+3        3       c -15.272354 18.272354
+4        4       d   5.663916 -1.663916
+5        5       e   9.776842 -4.776842
+6        6       f  -4.571884 10.571884
+7        7       g -20.413418 27.413418
+8        8       h  10.782098 -2.782098
+9        9       i  12.186325 -3.186325
+10      10       j  -7.250056 17.250056</code></pre>
 </div>
 </div>
 </div>

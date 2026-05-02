@@ -1,0 +1,251 @@
+---
+title: "4.4 RNA-seq analysis"
+format:
+  html:
+    theme: yeti
+---
+
+In this module we will finally perform an RNA-seq analysis, putting previous modules into action!
+
+## From FASTQ to count matrix
+
+**Learn first how to align raw sequencing data, and produce a count matrix:** The count matrix represents RNA molecule counts, and is obtained after aligning sequencing data, and comparing with the reference gene annotation. We will explain how to get this count matrix the common way, but also an incredibly fast shortcut to it using linear algebra (Canvas/Kaltura video: *4_5_alignment_for_rnaseq v2*).
+
+- As mentioned, salmon is a pseudocount tool, going from FASTQ to count matrix directly. You can read more here: <https://combine-lab.github.io/salmon/about>
+- [Salmon guide](https://combine-lab.github.io/salmon/getting_started/#indexing-txome)
+
+**Get Salmon for pseudocounting:**
+
+- if you use HPC2N, you can load it through:
+
+    `ml load GCC/13.2.0 Salmon/1.10.3`
+
+- If you run on your own computer, you can install it through [conda](https://anaconda.org/bioconda/salmon).
+
+Check that it runs by simply typing `salmon` in the terminal. You should get a help page.
+
+**Index a genome**
+
+Building a genome the scale of the human genome can take hours. Thus, for this course, we have already prepared a ready-made index; or rather, we found ready-made indices at <http://refgenomes.databio.org>, luckily also for [human/salmon](http://refgenomes.databio.org/v3/genomes/splash/2230c535660fb4774114bfa966a62f823fdb6d21acf138d4).
+
+You can use the following code to create a directory and download an index. Be sure to put it in a directory to avoid files all over your account!
+
+```bash
+mkdir salmon_human_index
+cd salmon_human_index
+
+wget http://awspds.refgenie.databio.org/refgenomes.databio.org/2230c535660fb4774114bfa966a62f823fdb6d21acf138d4/salmon_partial_sa_index__default/2230c535660fb4774114bfa966a62f823fdb6d21acf138d4.gtf
+wget http://awspds.refgenie.databio.org/refgenomes.databio.org/2230c535660fb4774114bfa966a62f823fdb6d21acf138d4/salmon_partial_sa_index__default/complete_ref_lens.bin
+wget http://awspds.refgenie.databio.org/refgenomes.databio.org/2230c535660fb4774114bfa966a62f823fdb6d21acf138d4/salmon_partial_sa_index__default/ctable.bin
+wget http://awspds.refgenie.databio.org/refgenomes.databio.org/2230c535660fb4774114bfa966a62f823fdb6d21acf138d4/salmon_partial_sa_index__default/ctg_offsets.bin
+wget http://awspds.refgenie.databio.org/refgenomes.databio.org/2230c535660fb4774114bfa966a62f823fdb6d21acf138d4/salmon_partial_sa_index__default/decoys.txt
+wget http://awspds.refgenie.databio.org/refgenomes.databio.org/2230c535660fb4774114bfa966a62f823fdb6d21acf138d4/salmon_partial_sa_index__default/duplicate_clusters.tsv
+wget http://awspds.refgenie.databio.org/refgenomes.databio.org/2230c535660fb4774114bfa966a62f823fdb6d21acf138d4/salmon_partial_sa_index__default/gentrome.fa
+wget http://awspds.refgenie.databio.org/refgenomes.databio.org/2230c535660fb4774114bfa966a62f823fdb6d21acf138d4/salmon_partial_sa_index__default/info.json
+wget http://awspds.refgenie.databio.org/refgenomes.databio.org/2230c535660fb4774114bfa966a62f823fdb6d21acf138d4/salmon_partial_sa_index__default/mphf.bin
+wget http://awspds.refgenie.databio.org/refgenomes.databio.org/2230c535660fb4774114bfa966a62f823fdb6d21acf138d4/salmon_partial_sa_index__default/pos.bin
+wget http://awspds.refgenie.databio.org/refgenomes.databio.org/2230c535660fb4774114bfa966a62f823fdb6d21acf138d4/salmon_partial_sa_index__default/pre_indexing.log
+wget http://awspds.refgenie.databio.org/refgenomes.databio.org/2230c535660fb4774114bfa966a62f823fdb6d21acf138d4/salmon_partial_sa_index__default/rank.bin
+wget http://awspds.refgenie.databio.org/refgenomes.databio.org/2230c535660fb4774114bfa966a62f823fdb6d21acf138d4/salmon_partial_sa_index__default/ref_indexing.log
+wget http://awspds.refgenie.databio.org/refgenomes.databio.org/2230c535660fb4774114bfa966a62f823fdb6d21acf138d4/salmon_partial_sa_index__default/refAccumLengths.bin
+wget http://awspds.refgenie.databio.org/refgenomes.databio.org/2230c535660fb4774114bfa966a62f823fdb6d21acf138d4/salmon_partial_sa_index__default/reflengths.bin
+wget http://awspds.refgenie.databio.org/refgenomes.databio.org/2230c535660fb4774114bfa966a62f823fdb6d21acf138d4/salmon_partial_sa_index__default/refseq.bin
+wget http://awspds.refgenie.databio.org/refgenomes.databio.org/2230c535660fb4774114bfa966a62f823fdb6d21acf138d4/salmon_partial_sa_index__default/seq.bin
+wget http://awspds.refgenie.databio.org/refgenomes.databio.org/2230c535660fb4774114bfa966a62f823fdb6d21acf138d4/salmon_partial_sa_index__default/versionInfo.json
+```
+
+If you want to try building your own (optional), check the [Salmon guide](https://combine-lab.github.io/salmon/getting_started/#indexing-txome). It boils down to:
+
+1. Downloading the human reference genome, and it has to be the cDNA for each gene (or CDS, coding sequence). To find suitable files, you would normally start digging [here](http://www.ensembl.org/Homo_sapiens/Info/Index), and at some point you will land [here](https://ftp.ensembl.org/pub/release-111/fasta/homo_sapiens/cds). Whatever you do, ensure to use the gene cDNA FASTA and not the chromosomal DNA! (BWA/STAR would want the latter instead.)
+2. Running `salmon index -t ... -i ...`. Use multiple CPUs to speed up the process.
+
+**Get FASTQ with RNA to quantify:**
+
+Let's investigate some neuroblastoma! In a dataset, it has been treated with a drug. We will compare with untreated cells. The data is from a previous study: <https://www.ebi.ac.uk/biostudies/ArrayExpress/studies/E-MTAB-9315?query=E-MTAB-9315>
+
+There is plenty of public data that you can reanalyze and make new findings. Also to get new ideas or help design experiments. This saves a lot of time in the lab!
+
+You will find a link to ENA with raw FASTQ files. You need at least 2 treated and 2 untreated samples for the statistics — it is kept to a minimum to reduce compute time for this course; ideally you would want 3-5 replicates each.
+
+To save you time, we have picked suitable files to download. Here are the commands:
+
+```bash
+wget -nc ftp://ftp.sra.ebi.ac.uk/vol1/run/ERR431/ERR4319001/RUN466-6-26081-CLBGA-IC50-Celasterol-RNAseq1BR_S3_L001_R1_001.fastq.gz
+wget -nc ftp://ftp.sra.ebi.ac.uk/vol1/run/ERR431/ERR4319005/RUN466-20-26210-CLBGA-IC50-Celasterol-RNAseq5BR_S12_L001_R1_001.fastq.gz
+wget -nc ftp://ftp.sra.ebi.ac.uk/vol1/run/ERR431/ERR4318985/RUN466-5-26079-CLBGA-DMSO-75-Celasterol-RNAseq1BR_S4_L001_R1_001.fastq.gz
+wget -nc ftp://ftp.sra.ebi.ac.uk/vol1/run/ERR431/ERR4318989/RUN466-9-26102-CLBGA-DMSO-75-Celasterol-RNAseq2BR_S13_L001_R1_001.fastq.gz
+```
+
+- **Q1.1** Download the required raw files.
+
+**Quantify the number RNA molecules per gene:**
+
+Using the index you downloaded, stored in directory `salmon_human_index`, you can estimate the number of RNA molecules for each gene using this command:
+
+```bash
+salmon quant -i salmon_human_index -l A \
+    -r RUN466-20-26210-CLBGA-IC50-Celasterol-RNAseq5BR_S12_L001_R1_001.fastq.gz \
+    -p 1 --validateMappings -o quants/IC50_5_quant
+```
+
+Here `-p 1` means to use one CPU. You can arrange to use multiple if you want. The output is specified using `-o`.
+
+::: {.callout-note}
+You can put `\` at the end of any bash command lines if you want to manually divide them up to increase readability. But be careful when copying above as there cannot be any newlines when you paste it in (bash will then think that you are giving it 3 separate commands, and fail).
+:::
+
+- **Q1.2**: Quantify each of the 4 FASTQ-files you downloaded. Give them suitable simple names. Note that the subdirectory `salmon_human_index` must be in the directory you are running the command in (or you need to adjust the command).
+
+**Load the counts in R:**
+
+As is common, data is not always stored in the simplest format. We have written some code here to enable you to read the counts for each library into one matrix in R. It assumes that you stored all outputs in the directory `~/glio/quants/`.
+
+```r
+## Read each separate salmon output of counts
+all_counts <- list()
+rootdir <- "~/glio/quants/"
+for (f in list.files(rootdir)) {
+  print(f)
+  onedat <- read.csv(file.path(rootdir, f, "quant.sf"), sep = "\t")[, c("Name", "NumReads")]
+  onedat$f <- f
+  all_counts[[f]] <- onedat
+}
+## Put into one single count matrix
+cnt <- reshape2::acast(do.call(rbind, all_counts), Name ~ f, value.var = "NumReads")
+```
+
+- **Q1.3:** You can already check which genes have the most amount of RNA. Which transcript has the most RNA?
+
+Hint: You can, e.g., use the commands `order` and `sort` to get the list in a suitable order.
+
+- **Q1.4: Optional**: Are there any genes you recognize? You can look up any geneID such as on Ensembl. Here is the page for the human gene [IL4](https://www.ensembl.org/Homo_sapiens/Gene/Summary?g=ENSG00000113520;r=5:132673986-132682678).
+
+## Differential expression analysis
+
+See this video, showing the overall workflow from counts to statistical test (Canvas/Kaltura: *4.3 deseq*).
+
+- **Model matrices** are central to analysis of RNA-seq, microarray, proteomic and what-have-you data. **Once you grasp this concept, you can do most bioinformatics statistical analysis!**
+- You will see that you can model a simple comparison between condition A and B (for two samples) as
+
+    $$
+    \begin{bmatrix} \text{counts}_A \\ \text{counts}_B \end{bmatrix}
+    \sim \mathrm{Poisson}\!\left(
+    \begin{bmatrix} 1 & 0 \\ 1 & 1 \end{bmatrix}
+    \begin{bmatrix} \text{baseline} \\ \text{treatment} \end{bmatrix}
+    \right)
+    $$
+
+    and then just compute $P(\text{baseline}_2 < q)$.
+
+    - The **model matrix** is $\begin{bmatrix} 1 & 0 \\ 1 & 1 \end{bmatrix}$.
+    - $P(\text{treatment} < q)$ is being evaluated to see if the expression is different from 0.
+    - We call $\text{treatment}$ a **contrast**.
+
+- Alternatively, equivalently,
+
+    $$
+    \begin{bmatrix} \text{counts}_A \\ \text{counts}_B \end{bmatrix}
+    \sim \mathrm{Poisson}\!\left(
+    \begin{bmatrix} 1 & 0 \\ 0 & 1 \end{bmatrix}
+    \begin{bmatrix} \text{baseline}_1 \\ \text{baseline}_2 \end{bmatrix}
+    \right)
+    $$
+
+    but the test becomes a bit more complicated instead: $P(\text{baseline}_2 - \text{baseline}_1 < q)$.
+
+    - The **model matrix** is $\begin{bmatrix} 1 & 0 \\ 0 & 1 \end{bmatrix}$.
+    - $P(\text{baseline}_2 - \text{baseline}_1 < q)$ is evaluated to see if it is different from 0.
+    - $\text{baseline}_2 - \text{baseline}_1$ is the **contrast** in this case.
+
+- The Poisson distribution we looked at only models the sequencing process. To also account for biological variation, we will instead use the negative binomial distribution, which turns out to be a natural extension. Optional reading at [Wikipedia](https://en.wikipedia.org/wiki/Negative_binomial_distribution).
+- Optional reading on the origin of the negative binomial distribution, but even better is the [DESeq2 paper](https://genomebiology.biomedcentral.com/articles/10.1186/s13059-014-0550-8).
+
+**Differential expression theory:**
+
+- **Q2.1**: Using pen and paper, convince yourself that **log(fold change) = 0** means that there is no change.
+- **Q2.2:** Using pen and paper, convince yourself that high **−log(p-value)** means smaller p-values, and thus higher significance.
+
+**Set up the condition data frame:**
+
+To run DESeq2 or any similar package, you need a data frame with information about the samples. The row names should correspond to sample names (i.e. column names in the count matrix). If you don't have a condition data frame, you can often create it from the names of the samples. This is a starting point:
+
+```r
+cond <- data.frame(
+  row.names = colnames(cnt)
+)
+cond$treatment <- ...
+```
+
+You want to obtain a column called `treatment`, for each sample. In this case, DMSO and IC50 (or anything you prefer that is human-interpretable).
+
+- **Q2.3:** Fill in the column.
+
+Hint: The `stringr` R package has great functions for string manipulation. `str_split_fixed` and `str_split_i` are really useful here.
+
+**Install DESeq2**
+
+See here: <https://bioconductor.org/packages/release/bioc/html/DESeq2.html>
+
+Remember to load it after installation!
+
+**Run DESeq2 to fit statistical model:**
+
+You are now ready to perform the statistical analysis! The following code, largely taken from the [vignette](https://bioconductor.org/packages/devel/bioc/vignettes/DESeq2/inst/doc/DESeq2.html) (recommended reading!), sets up a pairwise test.
+
+```r
+dds <- DESeqDataSetFromMatrix(
+  countData = round(cnt),  # salmon output non-integer counts; round to integer to fix
+  colData   = cond,
+  design    = ~ treatment  # specifies model matrix
+)
+dds <- DESeq(dds)
+res <- results(dds, c("treatment", "a", "b"))  # set appropriately
+```
+
+- **Q2.4**: Adjust to compare treated and untreated samples.
+- **Q2.5:** What does the model matrix look like? Does it make sense as compared to the video explanation? (hint: typical exam material!)
+    - Hint: `model.matrix(~ treatment, data = cond)`
+
+**Extract the differentially expressed genes and make a volcano plot:**
+
+The output list of genes (unsorted) will look kind of like below.
+
+- `log2FoldChange` is the log2(fold change) and what most are interested in.
+- `padj` is multiple-hypothesis-testing-adjusted p-value.
+
+- **Q2.6:** Adjusted p-value — this means adjusted for multiple hypothesis testing. What does this mean? This video explains: <https://www.youtube.com/watch?v=HLzS5wPqWR0>
+- **Q2.7:** Make a volcano plot to aid interpretation. This plot is designed as follows:
+    - x-axis: log2 fold change
+    - y-axis: −log10 adjusted p-value
+    - Hint: this is just using ggplot, nothing new!
+- **Q2.8:** Which gene has the highest significance? Note that ENST* are human gene transcripts. A gene has multiple transcripts (isoforms). Use Ensembl to look up the name of the gene.
+
+Also note that the most significant gene has not changed much up or down in expression!
+
+- **Q2.9 Optional:** Use ggrepel, <https://cran.r-project.org/web/packages/ggrepel/vignettes/ggrepel.html>, to highlight the names of the most differentially expressed genes. This is commonly done in articles, and a good package to know.
+
+## A more complex RNA-seq dataset
+
+Sometimes you are lucky and counts have already been computed for you. Such is the case for this dataset where they have treated two cell lines with an anti-cancer drug: <https://www.ebi.ac.uk/biostudies/ArrayExpress/studies/E-MTAB-14822>
+
+- **Q3.1 Optional:** What are the two cell lines? What cell types do they represent? They are commonly used in research!
+
+**Download and load the data**
+
+- **Q3.2** From the dataset link, download `meta.csv` (the condition data frame) and `readCounts.csv.gz`.
+- **Q3.3** Load the data into R. This can frequently be the hardest task as there is little agreement on the precise format of CSV/TSV files!
+    - Note that this time you do not have to construct the condition matrix, but it is already provided. But ensure to set the row names to match the column names of the count matrix. Note that you have to break up the treatment column into time (6h, 24h) and treatment (no treatment, 5h of treatment, 10h of treatment).
+    - When you load the count matrix, be careful that you might get the row names instead as column 1. DESeq will be unhappy. To fix this, either move the values to the rownames, or adjust the parameters to `read.csv` to avoid this (see the help for `read.csv`; e.g. `row.names` can be adjusted).
+
+**Perform DE analysis using DESeq2**
+
+There is much more you can compare here, since you got both (1) cell type and (2) time since treatment. We will return to this dataset in Module 5 to perform unsupervised machine learning.
+
+Note that there is metadata that you can ignore, such as the position of the sample on the multiwell plate where the sample was prepared.
+
+You can build a multilinear equation describing the expression of genes as: `~ cell_type + treatment_duration + time_since_treatment`.
+
+- **Q3.4** Does this model make sense? No model is perfect! Are there any assumptions built into the model? (this question has no single correct answer)
+- **Q3.5** What does the model matrix look like? Note as above that there are multiple model matrices that could be used for this problem. How would you have preferred to construct it?
+- **Q3.6** Which genes are DE between the cell lines? Optional: If you checked what the cell lines are, do any genes make sense to you? (not trivial)
+- **Q3.7** Which genes are DE due to the treatment? Optional: Do any genes make sense? (not trivial)

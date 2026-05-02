@@ -23,8 +23,8 @@ Course materials for the spring 2026 instance.
 
 ### Exercises
 
-- [1.4 — Linear algebra recap](module1/exercises/linalg/mod1_4.html)
-- [1.5 — Probability & Markov chains](module1/exercises/basicprob/mod1_5.html)
+- [1.4 — Linear algebra recap](module1/exercises/linalg/linalg.html)
+- [1.5 — Probability & Markov chains](module1/exercises/basicprob/basicprob.html)
 - [Working with variables](module1/exercises/intro_R/creating_variables.html)
 - [Complex data structures](module1/exercises/intro_R/complex_data_structures.html)
 - [Read and plot data in R](module1/exercises/intro_R/read_and_plot_data.html)

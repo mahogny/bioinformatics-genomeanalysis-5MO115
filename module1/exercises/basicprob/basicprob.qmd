@@ -1,5 +1,5 @@
 ---
-title: "Module 1.5 — Probability & Markov chains"
+title: "Exercises — Probability & Markov chains"
 format:
   html:
     toc: true
@@ -9,33 +9,7 @@ format:
     embed-resources: true
 ---
 
-You have already taken a course in statistics, but we start with a recap anyway, as statistical analysis is central to bioinformatics. The key concept from this submodule is however **Markov chains**, which are based on raw probability theory. These are used extensively to model DNA and protein sequences, but have many uses beyond basic bioinformatics.
-
-## Recap: The basic laws of probability
-
-Before digging into statistics, let's start with the foundations — probability theory. This topic has an interesting history, as Christianity associated gambling with the devil. To be able to describe randomness using equations, and thus take control over it, must thus have been perceived as rather odd. Whether someone got into a heated situation over this is beyond this author's knowledge though!
-
-**Introduction:** See the lecture video for a motivation of the basic laws, and how they correspond to reality.
-
-- See Wikipedia: <https://en.wikipedia.org/wiki/Probability> "Mathematical treatment".
-- Wikipedia also has a good summary, but it might look a bit daunting until you get your head around the notation: <https://en.wikipedia.org/wiki/Probability_axioms>.
-- Optional: <https://www.youtube.com/watch?v=OyddY7DlV58>.
-- Optional: another solved problem related to conditional probability: <https://www.youtube.com/watch?v=ibINrxJLvlM>.
-
-**Next learn more about set theory:**
-
-For the purposes in this course, you can get a far way just if you intuitively understand Venn diagrams, and how AND and OR correspond to set theoretical unions and intersections. We are a bit sloppy with the mathematical notation to try and more intuitively get the meaning across:
-
-- $P(A \cap B) = P(A \text{ and } B)$
-- $P(A \cup B) = P(A \text{ or } B)$
-- The probability of the empty set is 0, that is $P(\varnothing) = 0$.
-
-If you however want to increase your confidence, you can also watch this video: <https://www.youtube.com/watch?v=5ZhNmKb-dqk>.
-
-- Optional: worked example on counting with sets: <https://www.youtube.com/watch?v=32iNIZJ2dI4>.
-- Optional: another one, highlighting independence: <https://www.youtube.com/watch?v=X6usGgwXFyU>.
-
-**Practice probability:**
+## Exercises in probability
 
 ### Q1.1
 The probability of the weather being sunny is 75%. What is the probability that it rains, if these are the only two types of weathers?
@@ -186,16 +160,7 @@ $$P(A \text{ or } B) = 1 - P(\text{neither}) = 1 - 0.72 = 0.28$$
 - Optional: counting-type probability questions: <https://thirdspacelearning.com/blog/probability-questions>.
 - Optional: harder questions: <https://www.hitbullseye.com/Probability-Examples.php>.
 
-## Recap: Expected value / Expectation
-
-**Introduction:** If you win 100\$ if the coin turns heads up, what do you win on average? This is called expected value, and will become especially relevant once we get into statistics in Module 4!
-
-- If $X$ is the random variable denoting the outcome of playing, then the expectation (or expected value) is denoted $E[X]$.
-- The definition for a discrete variable is $E[X] = \sum_i p(i) X_i$, where the sum is over all possible events.
-- When we get to statistics in Module 4, we will also consider the continuous equivalent: $E[X] = \int_{-\infty}^{\infty} x f(x)\, dx$.
-- Here is a video solving some examples: <https://www.youtube.com/watch?v=b6VK2VPMXNI>.
-
-**Practise expected value:**
+## Exercises on Expected value / Expectation
 
 ### Q2.1
 Assume you win 100\$ if the coin turns heads up, but have to pay 50\$ otherwise. What do you win on average per coin flip?
@@ -244,34 +209,9 @@ $$E[\text{game}] = \tfrac{1}{2}\cdot 50 + \tfrac{1}{2}\cdot(-100) = 25 - 50 = -2
 **Answer:** you lose \$25 on average per game. (You should refuse to play.)
 :::
 
-## Markov chains
+## Exercises in Markov chains
 
-**A fun and very useful application of probability theory combined with linear algebra:** Imagine a game at a casino where you repeatedly flip a coin. If you get heads up, you gain one more coin. Otherwise, you lose one coin. What is the chance that you will ruin the casino? This can easily be solved using Markov chain theory, a powerful application of pure probability theory combined with rather basic linear algebra. It is used to model many phenomena, including diffusion of molecules inside cells.
-
-- This video has great visualizations of the core concepts. It also introduces you to how Markov chain modeling of the web (the PageRank algorithm) led to the creation of Google. **The first 8 minutes is enough** but to get a full appreciation of their power, by all means, check the full video! <https://www.youtube.com/watch?v=JGQe4kiPnrU>
-- Optional: all the details are also covered here, although in a very condensed format: <https://www.stat.auckland.ac.nz/~fewster/325/notes/ch8.pdf>.
-- Wikipedia has some [Markov chain examples](https://en.wikipedia.org/wiki/Examples_of_Markov_chains).
-- Finally, we have written a Markov chain visual simulator that you can play with if you want: <http://demo-markovchain.serve.scilifelab.se>.
-
-In short:
-
-- The probability of moving from state $i$ to state $j$ in one single step can be read out from the matrix $P$, at row $i$, column $j$.
-- $\pi(t=0) = \begin{bmatrix} \pi_1 & \pi_2 & \pi_3 & \cdots & \pi_n \end{bmatrix}$ are the probabilities of starting in any of the states $1\ldots n$.
-- You can compute the probability of being in a state after $k$ jumps as $\pi(t=k) = \pi(t=0)\, P^k$.
-
-**Practice Markov chains:**
-
-Consider the following Markov chain:
-
-```{mermaid}
-%%| fig-cap: "Weather Markov chain"
-stateDiagram-v2
-    direction LR
-    Sunny --> Sunny: 0.1
-    Sunny --> Rain: 0.9
-    Rain --> Sunny: 0.5
-    Rain --> Rain: 0.5
-```
+![Weather Markov chain](img/weather.svg)
 
 ### Q3.1
 Intuitively, do you expect good or bad weather?
@@ -328,17 +268,7 @@ Each row sums to 1, as it must.
 
 Consider the following Markov chain:
 
-```{mermaid}
-%%| fig-cap: "3-state Markov chain"
-stateDiagram-v2
-    direction LR
-    S1 --> S2: 0.5
-    S1 --> S3: 0.5
-    S2 --> S1: 0.1
-    S2 --> S3: 0.9
-    S3 --> S2: 0.8
-    S3 --> S1: 0.2
-```
+![3-state Markov chain](img/three_state.svg)
 
 ### Q3.5
 What is the probability of going from state 2 to state 3 in one step?

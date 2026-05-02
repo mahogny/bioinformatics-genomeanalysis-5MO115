@@ -1,0 +1,65 @@
+<p><span>Sometimes the math just becomes too difficult, and it is better to let the computer figure things out. In this lesson, we will look at how simulations given a mathematical model can be used to analyse its behaviour. In particular, when the model has an element of randomness, we can look at the distributions of properties over repeated simulations - which in statistics is called "<a class="inline_disabled" href="https://en.wikipedia.org/wiki/Bootstrapping_(statistics)" target="_blank" rel="noopener">bootstrapping</a>". The integrals required for Bayesian statistics (next module) are actually solved using a type of bootstrap (markov chain monte carlo), but here we will restrict ourselves to much simpler and more general cases.</span></p>
+<p>We included bootstrapping in this course simply because it is such a Swiss army knife in bioinformatics. It's easy to implement, and thus ubiquitous!</p>
+<p><em>Study advice: The rest of module 4 does not depend on this submodule. If you get stuck, or is short on time, you can come back and finish it later</em></p>
+<h2><strong>Computationally intensive methods, and bootstrap</strong></h2>
+<p><strong>Introduction: </strong><span>See this video that introduces the concept. (please ignore the video numbering)</span></p>
+<p><iframe class="lti-embed" style="width: 608px; height: 402px;" title="5_5 Bootstrap" src="https://www.canvas.umu.se/courses/21745/external_tools/retrieve?display=borderless&amp;url=https%3A%2F%2Fkaf.canvas.umu.se%2Fbrowseandembed%2Findex%2Fmedia%2Fentryid%2F0_9dlionle%2FshowDescription%2Ffalse%2FshowTitle%2Ffalse%2FshowTags%2Ffalse%2FshowDuration%2Ffalse%2FshowOwner%2Ffalse%2FshowUploadDate%2Ffalse%2FplayerSize%2F608x402%2FplayerSkin%2F23452302%2F" width="608" height="402" loading="lazy" allowfullscreen="allowfullscreen" webkitallowfullscreen="webkitallowfullscreen" mozallowfullscreen="mozallowfullscreen" allow="geolocation *; microphone *; camera *; midi *; encrypted-media *; autoplay *; clipboard-write *; display-capture *"></iframe></p>
+<p>&nbsp;</p>
+<p><strong>Use basic bootstrap to prove the central limit theorem:</strong></p>
+<p>The central limit theorem states that the average of N&nbsp;i.i.d variables having variance <span>&nbsp;<img class="equation_image" title="\sigma^2 " src="https://www.canvas.umu.se/equation_images/%255Csigma%255E2%2520?scale=1" alt="LaTeX: \sigma^2 " data-equation-content="\sigma^2 " data-ignore-a11y-check="" />&nbsp;</span>converges toward a normal distribution with variance <img class="equation_image" title="\sigma^2 / N" src="https://www.canvas.umu.se/equation_images/%255Csigma%255E2%2520%252F%2520N?scale=1" alt="LaTeX: \sigma^2 / N" data-equation-content="\sigma^2 / N" data-ignore-a11y-check="" /><span>. With bootstrap we can show also what a complex distribution it can have for small N!</span></p>
+<ul>
+    <li><span>Take inspiration from bootstrap_basics.R, <a id="4364838" class="instructure_file_link inline_disabled" href="https://www.canvas.umu.se/courses/21745/files/5400503?wrap=1" target="_blank" rel="noopener" data-api-endpoint="https://www.canvas.umu.se/api/v1/courses/21745/files/5400503" data-api-returntype="File">located in this file</a></span></li>
+    <li><span>As for the number of bootstraps, just keep it "somewhat high". The higher it is, the more precise is your answer. Motivating the number of bootstraps is beyond this course. In practice, the number is picked based on experience. By running the same bootstrap multiple times, you can assess if the precision appears "good enough" for your problem. Tricks to increase precision include parametric bootstrapping, and bias correction. Again, both of these are outside this course, but see Deep reading at the end of this module</span></li>
+</ul>
+<p>&nbsp;</p>
+<ul>
+    <li><strong>Q1.1</strong>. Plot the distribution of the mean for several different N; get an intuition for what is going on</li>
+    <li><strong>Q1.2.</strong> Change the distribution of the samples to be Poisson(5). What does the distribution of the mean look like?</li>
+    <li><strong>Q1.3</strong>. Optional: Make the distribution of the samples to be a Gaussian mixture model and see how it affects things
+        <ul>
+            <li>GMMs are also used for unsupervised clustering. If you are interested, you can for example see this video for an introduction to how they can be fitted to data. <a href="https://www.youtube.com/watch?v=REypj2sy_5U">https://www.youtube.com/watch?v=REypj2sy_5U</a></li>
+        </ul>
+    </li>
+</ul>
+<p>&nbsp;</p>
+<h2><strong>Simulations, with and without bootstrap</strong></h2>
+<p><span><strong>Introduction: </strong>See this video which illustrates how simulations can be performed, and bootstrapping added on top to find the average properties of random processes.</span></p>
+<p><span><iframe class="lti-embed" style="width: 608px; height: 402px;" title="5_5 Simulations" src="https://www.canvas.umu.se/courses/21745/external_tools/retrieve?display=borderless&amp;url=https%3A%2F%2Fkaf.canvas.umu.se%2Fbrowseandembed%2Findex%2Fmedia%2Fentryid%2F0_w6c4h1dw%2FshowDescription%2Ffalse%2FshowTitle%2Ffalse%2FshowTags%2Ffalse%2FshowDuration%2Ffalse%2FshowOwner%2Ffalse%2FshowUploadDate%2Ffalse%2FplayerSize%2F608x402%2FplayerSkin%2F23451422%2F" width="608" height="402" loading="lazy" allowfullscreen="allowfullscreen" webkitallowfullscreen="webkitallowfullscreen" mozallowfullscreen="mozallowfullscreen" allow="geolocation *; microphone *; camera *; midi *; encrypted-media *; autoplay *; clipboard-write *; display-capture *"></iframe></span></p>
+<p><strong>Use bootstrap over a simulation of a birth-death process:</strong></p>
+<ul>
+    <li><span>The example code is in birth_death.R ; </span></li>
+    <li><strong>Q2.1</strong> Very optional, if you like math. If X ~ Poisson(a) and Y ~ Poisson(b), show that X+Y ~ Poisson(a+b)
+        <ul>
+            <li>Hint: This is mainly a brute-force exercise in computing sums. Use that X and Y are positive variables, and thus the sum is finite</li>
+        </ul>
+    </li>
+    <li><strong>Q2.2</strong> If you start with n=10, and <img class="equation_image" title="\alpha=0.95" src="https://www.canvas.umu.se/equation_images/%255Calpha%253D0.95?scale=1" alt="LaTeX: \alpha=0.95" data-equation-content="\alpha=0.95" data-ignore-a11y-check="" />, what is the average time until the population dies out?
+        <ul>
+            <li>To compute the average, wrap all the code in a loop, and run it multiple times. Keep the time of death for each iteration in the loop</li>
+            <li>Hint: You do not need to use functions if you prefer not; you can instead opt to wrap all the code inside a plain for-loop</li>
+            <li>Hint: In a for-loop, you can keep adding values to a list as follows:</li>
+            <li>mylist &lt;- c(); for(...) { ...... mylist &lt;- c(mylist, new_value) }</li>
+        </ul>
+    </li>
+    <li><strong>Q2.3 </strong>If you start with n=10, and <img class="equation_image" title="\alpha=0.95" src="https://www.canvas.umu.se/equation_images/%255Calpha%253D0.95?scale=1" alt="LaTeX: \alpha=0.95" data-equation-content="\alpha=0.95" data-ignore-a11y-check="" />, what is the standard deviation of the time until death?</li>
+    <li><strong>Q2.4</strong> Optional A measure of relative variance is std(t)/mean(t) ; qualitatively, how does this depend on n?
+        <ul>
+            <li>bonus: Generate a plot showing the trend</li>
+        </ul>
+    </li>
+    <li><span><strong>Q2.5</strong> Optional: The average follows a normal distribution, with the induced variance <img class="equation_image" title="\sigma^2 / n" src="https://www.canvas.umu.se/equation_images/%255Csigma%255E2%2520%252F%2520n?scale=1" alt="LaTeX: \sigma^2 / n" data-equation-content="\sigma^2 / n" data-ignore-a11y-check="" />&nbsp; ; how many bootstraps need you generate to get the variance of mean time to population crash within +-1 individual, with 95% confidence interval? (this is a bit more mathy; if you know <img class="equation_image" title="\sigma" src="https://www.canvas.umu.se/equation_images/%255Csigma?scale=1" alt="LaTeX: \sigma" data-equation-content="\sigma" data-ignore-a11y-check="" /> then qnorm() and some math can give you n)</span></li>
+</ul>
+<p><strong>Practice simulation of the discrete time and finite population Lotka-Volterra model in R:</strong></p>
+<p><span>Optional: You can do some background reading about the original</span><span> Lotka-Volterra equations on <a href="https://en.wikipedia.org/wiki/Lotka%E2%80%93Volterra_equations">Wikipedia</a></span></p>
+<ul>
+    <li><span>Start with the prewritten script lotka_volterra.R&nbsp;</span></li>
+    <li><span><strong>Q3.1</strong> Currently it plots prey <em>vs</em> time, and predators <em>vs</em> time; plot instead prey <em>vs</em> predators, what is also called the <a class="inline_disabled" href="https://en.wikipedia.org/wiki/Phase_space" target="_blank" rel="noopener">phase space</a> of the state in which the system can be in.</span></li>
+    <li><strong>Q3.2</strong> Play with the parameters. For how long can you make it cycle? What seems to make the population crash? (no single correct answer)</li>
+    <li><strong>Q3.3 </strong>Wrap the simulation in a function so you can bootstrap it</li>
+    <li><strong>Q3.4</strong> What is the average time until all prey are eaten?</li>
+    <li><strong>Q3.5</strong> What is the variance in time? Is the distribution symmetric?</li>
+    <li><strong>Q3.6</strong> Assuming the model can run for eternity (simply ignore any samples after it crashes), what is the average number of prey?</li>
+</ul>
+<p>&nbsp;</p>
+<h2>Deep reading</h2>
+<p>This is "the" book on bootstrapping: <a href="https://www.hms.harvard.edu/bss/neuro/bornlab/nb204/statistics/bootstrap.pdf" target="_blank" rel="noopener">https://www.hms.harvard.edu/bss/neuro/bornlab/nb204/statistics/bootstrap.pdf</a>&nbsp;</p>

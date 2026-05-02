@@ -1,0 +1,85 @@
+---
+title: "4.1 Basic statistics"
+format:
+  html:
+    theme: yeti
+---
+
+If you want to describe a dice, probability is what you use. If you have two dice, still so… but as you gather enough dice and study their collective behavior, you effectively enter the realm of statistics — the field of "many stochastic variables". We also want to study data that does not stem from throwing dice or flipping coins. Here we will introduce you to the language used.
+
+You have already studied statistics, but some sections here are likely still new to you. In particular, learn how to do statistical analysis using R.
+
+## Review: Statistical distributions in general
+
+**Introduction:** Watch this video on how we move from probability to statistics. *If you think this topic is rather basic, you can skip to doing the exercises below using R.*
+
+- Video: *4.3 From probability to statistics* (Canvas/Kaltura)
+- Watch this video: <https://www.youtube.com/watch?v=CfZa1daLjwo&list=PLaFfQroTgZnzbfK-Rie19FdV6diehETQy>
+- Also watch a video showing in more detail how distributions behave (Canvas/Kaltura: *Demo of statistical distributions v2*).
+- The demo used is browsable at <http://demo-statdist.serve.scilifelab.se>
+- Optional: [this video](https://www.youtube.com/watch?v=b9a27XN_6tg&list=PLaFfQroTgZnzbfK-Rie19FdV6diehETQy&index=2) shows further examples of statistical distributions.
+- Some possibly great solved examples: <https://www.youtube.com/watch?v=zJ8e_wAWUzE>
+
+**Practice statistical distribution analysis using the demo (optional):**
+
+- **Q1.1**. You have a stochastic variable X following a normal distribution, with mean 3 and standard deviation 5. What is the probability of X being greater than 7?
+- **Q1.2**. Assume Z ~ N(0,2). What is P(Z > 10)?
+- **Q1.3**. Assume Z ~ N(0,3). What is P(Z > 2 & Z < 5)?
+
+**Practice statistical distribution analysis using R (this is likely new to you!):**
+
+- **Q2.1**. Look at the [R help for the normal distribution](https://www.rdocumentation.org/packages/stats/versions/3.6.2/topics/Normal).
+- **Q2.2**. Produce 3 random numbers that are normally distributed with mean 3 and sigma 5.
+- **Q2.3**. Assume X ~ N(0,1). What is P(X > 0)? (you don't need R to compute this; but check that the answer from R makes sense)
+    - hint: `pnorm`
+- **Q2.4**. Assume X ~ N(0,2). What is P(X > 10)?
+- **Q2.5**. Assume X ~ N(0,5). What is P(X > 10 & X < 20)?
+    - hint: use `pnorm` twice
+- **Q2.6.** Optional: verify the answers above using the visual demo.
+- **Q2.7**. Assume X ~ Binom(theta=0.5, n=10); what is P(X=10)? Note that since the binomial distribution is discrete, you can here use the probability density function directly rather than using the cumulative density function (but either works).
+    - hint: look at the [R help for the binomial distribution](https://stat.ethz.ch/R-manual/R-devel/library/stats/html/Binomial.html).
+- **Q2.8**. Verify above using basic probability theory. This case is a simple special case!
+
+## The Poisson distribution
+
+**Introduction:** This is one of the most fundamental distributions for handling discrete counts, as we get from DNA sequencers, or from Geiger counters for radiation. It arises whenever you have a memory-less process, emitting N events/second. A common example is traffic flow although in reality it follows much more complicated patterns.
+
+- Video of the definition and some solved examples: <https://www.youtube.com/watch?v=jmqZG6roVqU>
+- Video of some examples when a process is not Poisson. In general, whenever events are correlated for some reason, this property breaks down. This turns out especially important for single-cell analysis: <https://www.youtube.com/watch?v=sv_KXSiorFk>
+
+**Practice the Poisson distribution:**
+
+Assume X ~ Poisson(1).
+
+- **Q3.1.** What is P(x=0)? P(x=1)?
+- **Q3.2.** Plot a barplot of P(X=n) for n=0…10.
+- **Q3.3.** What is P(x ≥ 4)?
+    - hint: you can either integrate, or you can relate this to P(x=0), P(x=1), P(x=2) and P(x=3).
+
+Counting DNA or RNA molecules is approximately Poisson-distributed. However, since we PCR-amplify them and produce copies (correlated!), this approximation breaks down if we pick too many molecules. Go to <https://demo-poisson.serve.scilifelab.se> and the tab "repeated sampling". You can set how many molecules you have originally in a tube, and how many molecules you sample using a sequencer.
+
+- **Q3.4.** For 100 molecules, how many samples can you take while keeping doublets < 10%? Does this fit with your intuition?
+    - number of points = how many molecules you can sample from
+    - number of samples = how many molecules you pick
+    - The table below shows the distribution of how many times a molecule has been sampled. If you don't sample at all, 100% of points will have numsamples=0.
+    - Hint: random seed controls the random sampling. Try different seeds to see how trying again affects the variation in your answer.
+    - Hint: singlets are those with numsamples=1.
+
+Optional related reading: [The birthday problem/paradox](https://en.wikipedia.org/wiki/Birthday_problem).
+
+## Statistical testing in R
+
+**Introduction:** Watch this video to learn how to perform basic statistical testing (Canvas/Kaltura: *4.1 Statistical_testing*).
+
+Pay particular attention to:
+
+- What is the mean and variance of the average?
+- Why do we assume the average to have a normal distribution?
+- How do you integrate the normal distribution to get p-values?
+
+**Practice statistical testing using R:**
+
+- Look up the [R help for t-testing](https://www.rdocumentation.org/packages/stats/versions/3.6.2/topics/t.test).
+- **Q4.1.** Investigate `diabetes.csv` (course file). Perform a t-test to check if the BMI of those with `Outcome=1` (i.e. those getting diabetes) is higher than those who do not. Is this a paired test?
+- **Q4.2.** For "large" number of samples, you can also perform a non-parametric test, which makes fewer assumptions about the distribution of the samples. One such is `wilcox.test()`; how does it seem to compare to the t-test here?
+- **Q4.3.** Optional: Perform similar tests on other variables in `diabetes.csv`; does it match your expectations?

@@ -1,0 +1,63 @@
+---
+title: "4.2 Simulations and bootstrapping"
+format:
+  html:
+    theme: yeti
+---
+
+Sometimes the math just becomes too difficult, and it is better to let the computer figure things out. In this lesson, we will look at how simulations given a mathematical model can be used to analyse its behaviour. In particular, when the model has an element of randomness, we can look at the distributions of properties over repeated simulations — which in statistics is called "[bootstrapping](https://en.wikipedia.org/wiki/Bootstrapping_(statistics))". The integrals required for Bayesian statistics (next module) are actually solved using a type of bootstrap (Markov chain Monte Carlo), but here we will restrict ourselves to much simpler and more general cases.
+
+We included bootstrapping in this course simply because it is such a Swiss army knife in bioinformatics. It's easy to implement, and thus ubiquitous!
+
+*Study advice: The rest of module 4 does not depend on this submodule. If you get stuck, or are short on time, you can come back and finish it later.*
+
+## Computationally intensive methods, and bootstrap
+
+**Introduction:** See this video that introduces the concept (Canvas/Kaltura: *5_5 Bootstrap*; please ignore the video numbering).
+
+**Use basic bootstrap to prove the central limit theorem:**
+
+The central limit theorem states that the average of N i.i.d. variables having variance $\sigma^2$ converges toward a normal distribution with variance $\sigma^2 / N$. With bootstrap we can show also what a complex distribution it can have for small N!
+
+- Take inspiration from `bootstrap_basics.R` (course file).
+- As for the number of bootstraps, just keep it "somewhat high". The higher it is, the more precise is your answer. Motivating the number of bootstraps is beyond this course. In practice, the number is picked based on experience. By running the same bootstrap multiple times, you can assess if the precision appears "good enough" for your problem. Tricks to increase precision include parametric bootstrapping, and bias correction. Again, both of these are outside this course, but see Deep reading at the end of this module.
+
+- **Q1.1**. Plot the distribution of the mean for several different N; get an intuition for what is going on.
+- **Q1.2.** Change the distribution of the samples to be Poisson(5). What does the distribution of the mean look like?
+- **Q1.3**. Optional: Make the distribution of the samples a Gaussian mixture model and see how it affects things.
+    - GMMs are also used for unsupervised clustering. If you are interested, see for example this video for an introduction to how they can be fitted to data: <https://www.youtube.com/watch?v=REypj2sy_5U>.
+
+## Simulations, with and without bootstrap
+
+**Introduction:** See this video which illustrates how simulations can be performed, and bootstrapping added on top to find the average properties of random processes (Canvas/Kaltura: *5_5 Simulations*).
+
+**Use bootstrap over a simulation of a birth-death process:**
+
+- The example code is in `birth_death.R` (course file).
+- **Q2.1** Very optional, if you like math. If X ~ Poisson(a) and Y ~ Poisson(b), show that X+Y ~ Poisson(a+b).
+    - Hint: This is mainly a brute-force exercise in computing sums. Use that X and Y are positive variables, and thus the sum is finite.
+- **Q2.2** If you start with n=10, and $\alpha = 0.95$, what is the average time until the population dies out?
+    - To compute the average, wrap all the code in a loop, and run it multiple times. Keep the time of death for each iteration in the loop.
+    - Hint: You do not need to use functions if you prefer not; you can instead opt to wrap all the code inside a plain for-loop.
+    - Hint: In a for-loop, you can keep adding values to a list as follows:
+    - `mylist <- c(); for (...) { ...... mylist <- c(mylist, new_value) }`
+- **Q2.3** If you start with n=10, and $\alpha = 0.95$, what is the standard deviation of the time until death?
+- **Q2.4** Optional: A measure of relative variance is `std(t) / mean(t)`; qualitatively, how does this depend on n?
+    - bonus: Generate a plot showing the trend.
+- **Q2.5** Optional: The average follows a normal distribution, with the induced variance $\sigma^2 / n$; how many bootstraps need you generate to get the variance of mean time to population crash within ±1 individual, with 95% confidence interval? (This is a bit more mathy; if you know $\sigma$ then `qnorm()` and some math can give you n.)
+
+**Practice simulation of the discrete time and finite population Lotka–Volterra model in R:**
+
+Optional: You can do some background reading about the original Lotka–Volterra equations on [Wikipedia](https://en.wikipedia.org/wiki/Lotka%E2%80%93Volterra_equations).
+
+- Start with the prewritten script `lotka_volterra.R`.
+- **Q3.1** Currently it plots prey *vs* time, and predators *vs* time; plot instead prey *vs* predators, what is also called the [phase space](https://en.wikipedia.org/wiki/Phase_space) of the state in which the system can be in.
+- **Q3.2** Play with the parameters. For how long can you make it cycle? What seems to make the population crash? (no single correct answer)
+- **Q3.3** Wrap the simulation in a function so you can bootstrap it.
+- **Q3.4** What is the average time until all prey are eaten?
+- **Q3.5** What is the variance in time? Is the distribution symmetric?
+- **Q3.6** Assuming the model can run for eternity (simply ignore any samples after it crashes), what is the average number of prey?
+
+## Deep reading
+
+This is "the" book on bootstrapping: <https://www.hms.harvard.edu/bss/neuro/bornlab/nb204/statistics/bootstrap.pdf>

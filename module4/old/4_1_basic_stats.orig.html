@@ -1,0 +1,97 @@
+<p><span>If you want to describe a dice, probability is what you use. If you have two dice, still so&hellip; but as you gather enough dice and study their collective behavior, you effectively enter the realm of statistics - the field of &ldquo;many stochastic variables&rdquo;. We also want to study data that does not stem from throwing dice or flipping coins. Here we will introduce you to the language used.</span></p>
+<p>You have already studied statistics, but some sections here are likely still new to you. In particular, learn how to do statistical analysis using R</p>
+<p>&nbsp;</p>
+<h2>Review: Statistical distributions in general</h2>
+<p><strong>Introduction: </strong><span>Watch this video on how we move from probability to statistics. <em>If you think this topic is rather basic, you can skip to doing the exercises below using R</em></span></p>
+<p><span><iframe class="lti-embed" style="width: 608px; height: 402px;" title="4.3 From probability to statistics" src="https://www.canvas.umu.se/courses/21745/external_tools/retrieve?display=borderless&amp;url=https%3A%2F%2Fkaf.canvas.umu.se%2Fbrowseandembed%2Findex%2Fmedia%2Fentryid%2F0_w0f7w8a7%2FshowDescription%2Ffalse%2FshowTitle%2Ffalse%2FshowTags%2Ffalse%2FshowDuration%2Ffalse%2FshowOwner%2Ffalse%2FshowUploadDate%2Ffalse%2FplayerSize%2F608x402%2FplayerSkin%2F23452302%2F" width="608" height="402" loading="lazy" allowfullscreen="allowfullscreen" webkitallowfullscreen="webkitallowfullscreen" mozallowfullscreen="mozallowfullscreen" allow="geolocation *; microphone *; camera *; midi *; encrypted-media *; autoplay *; clipboard-write *; display-capture *"></iframe></span></p>
+<ul>
+    <li aria-level="1"><span>Watch this video: </span><a href="https://www.youtube.com/watch?v=CfZa1daLjwo&amp;list=PLaFfQroTgZnzbfK-Rie19FdV6diehETQy"><span>https://www.youtube.com/watch?v=CfZa1daLjwo&amp;list=PLaFfQroTgZnzbfK-Rie19FdV6diehETQy</span></a></li>
+    <li aria-level="1"><span>Also watch this video showing in more detail how distributions behave:</span></li>
+</ul>
+<p><span>&nbsp;<iframe class="lti-embed" style="width: 608px; height: 402px;" title="4_3 Demo of statistical distributions v2" src="https://www.canvas.umu.se/courses/21745/external_tools/retrieve?display=borderless&amp;url=https%3A%2F%2Fkaf.canvas.umu.se%2Fbrowseandembed%2Findex%2Fmedia%2Fentryid%2F0_826gzo6f%2FshowDescription%2Ffalse%2FshowTitle%2Ffalse%2FshowTags%2Ffalse%2FshowDuration%2Ffalse%2FshowOwner%2Ffalse%2FshowUploadDate%2Ffalse%2FplayerSize%2F608x402%2FplayerSkin%2F23452302%2F" width="608" height="402" loading="lazy" allowfullscreen="allowfullscreen" webkitallowfullscreen="webkitallowfullscreen" mozallowfullscreen="mozallowfullscreen" allow="geolocation *; microphone *; camera *; midi *; encrypted-media *; autoplay *; clipboard-write *; display-capture *"></iframe></span></p>
+<ul>
+    <li aria-level="1">The demo used is browsable at <a href="http://demo-statdist.serve.scilifelab.se" target="_blank" rel="noopener">http://demo-statdist.serve.scilifelab.se</a>&nbsp;</li>
+    <li aria-level="1"><span>Optional: <a class="inline_disabled" href="https://www.youtube.com/watch?v=b9a27XN_6tg&amp;list=PLaFfQroTgZnzbfK-Rie19FdV6diehETQy&amp;index=2&nbsp;" target="_blank" rel="noopener">This video</a> shows some further examples of statistical distributions</span></li>
+    <li><span>Some possibly great solved examples! </span><a href="https://www.youtube.com/watch?v=zJ8e_wAWUzE"><span>https://www.youtube.com/watch?v=zJ8e_wAWUzE</span></a><span>&nbsp;</span></li>
+</ul>
+<p>&nbsp;</p>
+<p><strong>Practice statistical distribution analysis using the demo (optional):</strong></p>
+<ul>
+    <li aria-level="1"><span><strong>Q1.1</strong>. You have a stochastic variable X following a normal distribution, with mean 3 and standard deviation 5. What is the probability of X being greater than 7?</span></li>
+    <li aria-level="1"><span><strong>Q1.2</strong>. Assume Z ~ N(0,2). What is P(Z&gt;10) ?</span></li>
+    <li aria-level="1"><span><strong>Q1.3</strong>. Assume Z ~ N(0,3). What is P(Z&gt;2 &amp; P&lt;5) ?</span></li>
+</ul>
+<p>&nbsp;</p>
+<p><strong>Practice statistical distribution analysis using R (this is likely new to you!):</strong></p>
+<ul>
+    <li aria-level="1"><span><strong>Q2.1</strong>. Look at the <a class="inline_disabled" title="Link" href="https://www.rdocumentation.org/packages/stats/versions/3.6.2/topics/Normal" target="_blank" rel="noopener">R help for the normal distribution</a> &nbsp;</span></li>
+    <li aria-level="1"><span><strong>Q2.2</strong>. Produce 3 random numbers that are normally distributed with mean 3 and sigma 5</span></li>
+    <li aria-level="1"><span><strong>Q2.3</strong>. Assume X ~ N(0,1). What is P(X&gt;0)? &nbsp;(you don't need R to compute this; but check that the answer from R makes sense)</span>
+        <ul>
+            <li aria-level="1"><span>hint: pnorm</span></li>
+        </ul>
+    </li>
+    <li aria-level="1"><span><strong>Q2.4</strong>. Assume X ~ N(0,2). What is P(X&gt;10) ?</span></li>
+    <li aria-level="1"><span><strong>Q2.5</strong>. Assume X ~ N(0,5). What is P(X&gt;10 &amp; X&lt;20) ?</span>
+        <ul>
+            <li aria-level="1"><span>hint: use pnorm twice</span></li>
+        </ul>
+    </li>
+    <li aria-level="1"><span><strong>Q2.6.</strong> Optional Verify the answers above using the visual demo</span></li>
+    <li aria-level="1"><span><strong>Q2.7</strong>. Assume X ~ Binom(theta=0.5, n=10); what is P(X=10)? Note that since the binomial distribution is discrete, you can here you can use the probability density function directly rather than using the cumulative density function (but either works)</span>
+        <ul>
+            <li aria-level="1"><span>hint: Look at the <a class="inline_disabled" title="Link" href="https://stat.ethz.ch/R-manual/R-devel/library/stats/html/Binomial.html" target="_blank" rel="noopener">R help for the binomial distribution</a></span></li>
+        </ul>
+    </li>
+    <li aria-level="1"><span><strong>Q2.8</strong>. Verify above using basic probability theory. This case is a simple special case!</span></li>
+</ul>
+<p>&nbsp;</p>
+<h2><strong>The Poisson distribution</strong></h2>
+<p><strong>Introduction: </strong><span>This is one of the most fundamental distributions for handling discrete counts, as we get from DNA sequencers, or from Geigen counters for radiation. It arises whenever you have a memory-less process, emitting N events/second. A common example is traffic flow although in reality it follows much more complicated patterns</span></p>
+<ul>
+    <li aria-level="1"><span>Video of the definition and some solved examples: </span><a href="https://www.youtube.com/watch?v=jmqZG6roVqU"><span>https://www.youtube.com/watch?v=jmqZG6roVqU</span></a></li>
+    <li aria-level="1"><span>Video of some examples when a process is not Possion. In general, whenever events are correlated for some reason, this property breaks down. This turns out especially important for single-cell analysis! </span><a href="https://www.youtube.com/watch?v=sv_KXSiorFk"><span>https://www.youtube.com/watch?v=sv_KXSiorFk</span></a><span>&nbsp;</span></li>
+</ul>
+<p><strong>Practice the Poisson distribution:</strong></p>
+<p>Assume X~Poisson(1)</p>
+<ul>
+    <li><strong>Q3.1.</strong> What is P(x=0)? P(x=1)?</li>
+    <li><strong>Q3.2</strong>. Plot a barplot of P(X=n) for n=0....10</li>
+    <li><strong>Q3.3.</strong> What is P(x&gt;=4)?
+        <ul>
+            <li>hint: you can either integrate, or you can relate this to P(x=0), P(x=1), P(x=2) and P(x=3)&nbsp;</li>
+        </ul>
+    </li>
+</ul>
+<p><span>Counting DNA or RNA molecules is approximately Poisson-distributed. However, since we PCR-amplify them and produce copies (correlated!), this approximation breaks down if we pick too many molecules. Go to </span><a href="https://demo-poisson.serve.scilifelab.se">https://demo-poisson.serve.scilifelab.se</a><span>&nbsp; &nbsp;and</span><span> the tab "repeated sampling". You can set how many molecules you have originally in a tube, and how many molecules you sample using a sequencer.</span></p>
+<ul>
+    <li><span><strong>Q3.4. </strong>For 100 molecules, how many samples can you take while keeping doublets &lt; 10%? Does this fit with your intuition?</span>
+        <ul>
+            <li><span>number of points = how many molecules you can sample from</span></li>
+            <li><span>number of samples = how many molecules you pick</span></li>
+            <li><span>The table below shows the distribution of how many times a molecule has been sampled. If you don't sample at all, 100% of points will have numsamples=0</span></li>
+            <li><span>Hint: random seed controls the random sampling. Try different seeds to see how trying again affects the variation in your answer</span></li>
+            <li>Hint: Singlets are those with numsamples=1</li>
+        </ul>
+    </li>
+</ul>
+<p>Optional related reading: <a class="inline_disabled" title="Link" href="https://en.wikipedia.org/wiki/Birthday_problem" target="_blank" rel="noopener">The birthday problem/paradox</a></p>
+<p>&nbsp;</p>
+<h2><strong>Statistical testing in R</strong></h2>
+<p><strong>Introduction:</strong><span>&nbsp;Watch this video to learn how to perform basic statistical testing:</span></p>
+<p><span><iframe class="lti-embed" style="width: 608px; height: 402px;" title="4.1 Statistical_testing" src="https://www.canvas.umu.se/courses/21745/external_tools/retrieve?display=borderless&amp;url=https%3A%2F%2Fkaf.canvas.umu.se%2Fbrowseandembed%2Findex%2Fmedia%2Fentryid%2F0_9tbrxap7%2FshowDescription%2Ffalse%2FshowTitle%2Ffalse%2FshowTags%2Ffalse%2FshowDuration%2Ffalse%2FshowOwner%2Ffalse%2FshowUploadDate%2Ffalse%2FplayerSize%2F608x402%2FplayerSkin%2F23452302%2F" width="608" height="402" loading="lazy" allowfullscreen="allowfullscreen" webkitallowfullscreen="webkitallowfullscreen" mozallowfullscreen="mozallowfullscreen" allow="geolocation *; microphone *; camera *; midi *; encrypted-media *; autoplay *; clipboard-write *; display-capture *"></iframe></span></p>
+<p><span>Pay particular attention to:</span></p>
+<ul>
+    <li>What is the mean and variance of the average?</li>
+    <li>Why do we assume the average to have a normal distribution?</li>
+    <li>How do you integrate the normal distribution to get p-values?</li>
+</ul>
+<p><strong>Practice statistical testing using R:</strong></p>
+<ul>
+    <li aria-level="1"><span>Look up the <a class="inline_disabled" href="https://www.rdocumentation.org/packages/stats/versions/3.6.2/topics/t.test" target="_blank" rel="noopener">R help for t-testing</a></span></li>
+</ul>
+<ul>
+    <li aria-level="1"><span><strong>Q4.1.</strong> Investigate <a id="4364835" class="instructure_file_link inline_disabled" href="https://www.canvas.umu.se/courses/21745/files/5400509?wrap=1" target="_blank" rel="noopener" data-api-endpoint="https://www.canvas.umu.se/api/v1/courses/21745/files/5400509" data-api-returntype="File">diabetes.csv</a>. Perform a t-test to check if the BMI of those with Outcome=1 (ie those getting diabetes) is higher than those who do not. Is this a paired test?</span></li>
+    <li aria-level="1"><span><strong>Q4.2</strong>. For "large" number of samples, you can also perform a non-parametric test, which makes less assumptions about the distribution of the samples. One such is wilcox.test() ; how does it seem to compare to the t-test here?</span></li>
+    <li aria-level="1"><span><strong>Q4.3.</strong> Optional: Perform similar tests on other variables in diabetes.csv; does it match your expectations?</span></li>
+</ul>

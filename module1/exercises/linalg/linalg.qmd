@@ -1,5 +1,5 @@
 ---
-title: "Module 1.4 — Linear algebra recap"
+title: "Exercises — Linear algebra"
 format:
   html:
     toc: true
@@ -9,23 +9,9 @@ format:
     embed-resources: true
 ---
 
-You have already taken a course in linear algebra in your first year; but since it was a while ago, and linear algebra is used everywhere in bioinformatics, here is a recap!
-
-- If you forgot how to solve linear equations by hand then we suggest you go through it again.
-- If this seems simple, then at least use this as opportunity to practice using R. You can solve equations using [the R `solve` function](https://www.rdocumentation.org/packages/base/versions/3.6.2/topics/solve).
-
-**Optional reading:** Below roughly summarizes the first 60 pages of [this book](https://personal.math.ubc.ca/~carrell/NB.pdf).
-
-## Recap: Intro
-
-It is likely not an understatement that our civilisation is built upon linear algebra. We will need it to handle confounding factors such as age, sex, BMI, while comparing treatments of samples. However, it is also used to design bridges, track diffusion and heat, and is the basis of quantum mechanics. We won't cover the latter details, but you will be introduced to the common notation as used in data science, and how to perform basic analysis of the equations. Wikipedia summarizes [linear algebra](https://en.wikipedia.org/wiki/Linear_algebra) but is usually not a good source for learning mathematics alone; it is better for looking up details after you have been introduced to a topic.
-
 ## Recap: Solving linear systems
 
-- See this video to learn how to manipulate and solve systems of linear equations; ignore the matrix part for now, which we get to in more detail later. Instead focus on the augmented format and how to get it to the reduced form where you can read out the solution: <https://www.youtube.com/watch?v=RgnWMBpQPXk>
 - Wikipedia also summarises [the method of Gaussian elimination](https://en.wikipedia.org/wiki/Gaussian_elimination).
-
-**Practice linear equation solving:**
 
 ### Q1.1
 Solve for $x$ and $y$ in: $x+y=1;\ x+2y=2$.
@@ -202,8 +188,6 @@ Tip: `byrow = TRUE` is important — by default R fills matrices column by colum
 
 ## Recap: Existence of unique solutions and rank
 
-**Learn about when equations can, and cannot, be solved:** the lecture video briefly introduces the concept of model matrices, which enables very elaborate comparisons of samples to be made (for e.g., RNA-seq and beyond!) We will come back to this in Module 4.
-
 - Wikipedia [summary of rank](https://en.wikipedia.org/wiki/Rank_(linear_algebra)).
 - You can compute rank in R using [`rankMatrix`](https://www.rdocumentation.org/packages/Matrix/versions/1.6-4/topics/rankMatrix). It is in the `Matrix` library — run `library(Matrix)` first.
 
@@ -212,8 +196,6 @@ Tip: `byrow = TRUE` is important — by default R fills matrices column by colum
 - If $\operatorname{rank}(A) = \operatorname{rank}([A|\mathbf{b}]) = n$ → unique solution.
 - If $\operatorname{rank}(A) = \operatorname{rank}([A|\mathbf{b}]) < n$ → infinitely many solutions.
 - If $\operatorname{rank}(A) < \operatorname{rank}([A|\mathbf{b}])$ → no solution (inconsistent).
-
-**Practice figuring out if a system can be solved:**
 
 ### Q3.1
 $$\begin{bmatrix} 2 & -5 \\ 6 & -15 \end{bmatrix} \begin{bmatrix} x \\ y \end{bmatrix} = \begin{bmatrix} 10 \\ 13 \end{bmatrix}$$
@@ -301,13 +283,7 @@ R throws an error because the matrix is singular (zero determinant / rank-defici
 
 ## Recap: Matrix multiplication
 
-**Introduction:**
-
-- You have seen how to multiply $A\mathbf{x}$ in $A\mathbf{x} = \mathbf{b}$. However, we will later need to do something like $D A \mathbf{x} = \mathbf{b}$. You can already do this using what you know twice, i.e., $D(A\mathbf{x}) = \mathbf{b}$.
-- See this video for how to do the equivalent $(A D)\mathbf{x}$, where you first multiply two matrices together: <https://www.youtube.com/watch?v=vzt9c7iWPxs>.
 - Wikipedia: [matrix multiplication](https://en.wikipedia.org/wiki/Matrix_multiplication).
-
-**Practice matrix multiplication:**
 
 ### Q4.1
 Compute $AB$ and $BA$ for

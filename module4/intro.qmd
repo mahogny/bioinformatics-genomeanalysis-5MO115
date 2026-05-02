@@ -1,0 +1,21 @@
+---
+title: "Module 4 — Introduction"
+format:
+  html:
+    theme: yeti
+---
+
+Welcome to module 4! Here we will focus on the most important theoretical concepts that will need to perform any type of real world bioinformatics, especially related to sequencing. Toward the end of this module, you will have all the knowledge required to plan an RNA-seq experiment — in fact, you will be able to tell if a certain experimental design is doomed to fail, and so you have the power to avoid wasting many man hours and pennies!
+
+This module builds upon concepts you learned in Modules 1 and 2, specifically:
+
+- **Linear algebra** — in its most basic form, it means fitting lines and planes to given points. This is effectively what RNA-seq analysis means. What questions can you ask based on your data? This boils down to what equations can be solved. All equations will represented as matrices; so you will use absolutely everything from this module!
+- **Basic probability theory** — What does P(X) mean? In the first module you learned how to calculate this for a single variable, but we will here expand it to "many variables", i.e. statistics.
+- **Control flow in R** — take your R to the next level by looping over data, and conditionally executing code. This is not the focus of this course, but you will need it for some of the assignments!
+
+This module is broken down into submodules, and here is the overarching logic:
+
+- **Basic statistics** — this is just probability theory but applied to many stochastic variables. We will show how you calculate with them in R. You will especially become familiar with the Poisson distribution, which is central to any type of sequencing analysis (not just RNA-seq).
+- **Bootstrapping** — a very powerful technique for computing statistics of complex distributions using brute force.
+- **Linear models for statistics** — here you will learn how to solve linear models, as well as possible, given noisy input data.
+- Finally, we will put this all together to perform **RNA-seq analysis**.

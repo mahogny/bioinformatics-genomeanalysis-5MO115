@@ -1,0 +1,69 @@
+---
+title: "4.3 Linear models for statistics"
+format:
+  html:
+    theme: yeti
+---
+
+- This module starts by recapping linear least squares from your intro statistics course. Learn how to solve such equations in R, as this is effectively what RNA-seq analysis boils down to.
+- Much of the data in bioinformatics originate from sequencing and benefit from modelling using Poisson models. Linear models can be built upon Poisson models too but are difficult to solve using regular software. You will thus get to try RSTAN for whenever you need to perform advanced statistical modelling.
+
+## Recap: Linear least squares
+
+**Introduction:** If you have 4 data points and want to fit a line through them, you cannot do it using linear equation systems alone — it assumes that all 4 points all are neatly on the line, but the random noise added during measurement prevents it from being the case. Instead, we need to combine the linear model with the power of statistics to find the best possible solution to the equations. See this video to get a visual idea about why you want to minimize the "sum of squared errors":
+
+<https://www.youtube.com/watch?v=eYTumjgE2IY>
+
+The only thing the video fails to cover well is a bit of theory:
+
+In the most basic case, we wish to solve for $k$ and $m$ in $y_i = k \cdot x_i + m$. If we have more than 2 data points, then we cannot find a solution in the basic linear algebra we have looked at.
+
+Instead, we aim to fit a probabilistic equation, $y_i \sim \mathrm{Normal}(\mu = k \cdot x_i + m, \sigma)$ for some unknown $\sigma$. Because we aren't "sure" where points are as compared to the line, this system of equations can now be solved despite that you have more points than unknowns.
+
+It turns out that this can be rewritten as the equivalent $y_i = k \cdot x_i + m + \epsilon$ where $\epsilon \sim \mathrm{Normal}(\mu = 0, \sigma)$. This is a more common formulation, and the one you see in this video.
+
+However, the normal distribution is commonly ignored, as solving this probabilistic equation turns out equivalent to minimizing the squared error, or: $\sum_i \epsilon^2$ ; because engineers seldom need to handle anything but normal distribution, this fact is commonly glossed over. However, for now, you need not worry much about this, and focus instead on how to solve basic least squares linear models. We save the more general approach to later in this section!
+
+- Read through this tutorial to see [how the `lm()` command is used to fit a linear model in R](https://www.datacamp.com/tutorial/linear-regression-R).
+- To statistically test the coefficients and compute p-values, you will perform ANOVA-testing on the fitted model. This will tell if they are significantly different from 0 (i.e. they have a significant effect). We will not bother with the underlying math. Using ANOVA is simple enough that you can figure it out on your own. Otherwise, [here is an example](https://bookdown.org/steve_midway/DAR/understanding-anova-in-r.html).
+- Optional: [this longer video may also help](https://www.youtube.com/watch?v=nk2CQITm_eo), but it doesn't really show any theory.
+- Optional: [this great video covers the assumptions used in the model](https://www.youtube.com/watch?v=0MFpOQRY0rw) in much greater level of detail. If the assumptions do not hold up, you might end up with a really bad fit or wrong answer! It's fairly high level and easy to watch, but we are only covering one of the possible issues in this course.
+- The interpretation of linear models is as before; but now you should also know about the statistical distribution of the fitted coefficients.
+- Wikipedia on [linear least squares](https://en.wikipedia.org/wiki/Linear_least_squares).
+
+**Practice solving linear least squares in R:**
+
+Look at the R help [for `lm()`](https://www.rdocumentation.org/packages/stats/versions/3.6.2/topics/lm) and [for `anova()`](https://www.rdocumentation.org/packages/stats/versions/3.6.2/topics/anova).
+
+Work on the provided dataset `diabetes.csv` (course file).
+
+- **Q1.1**. Using the function `lm()`, fit the model `BloodPressure ~ Age`.
+    - Does age predict blood pressure?
+    - Is it statistically significant?
+- **Q1.2**. Fit the model `BloodPressure ~ Age + Glucose`. Does this appear to affect the situation?
+- **Q1.3**. Fit a model using all available variables. This can be done with the shorthand: `BloodPressure ~ .`
+    - Is age still as significant? What do you think happened here?
+- **Q1.4** Optional: Plot Age vs some key variables to help your intuition about what is going on.
+
+This example is a less extreme example of what is called [Simpson's paradox](https://en.wikipedia.org/wiki/Simpson%27s_paradox). The more data you have to predict a certain thing, the more confused you are likely to be about causality. Correlations alone cannot be used to infer causation, especially not in biology!
+
+## Handle other statistical distributions using (R)STAN
+
+**Introduction:** The normal distribution turns out to have nice mathematical properties, which is a reason it is commonly used. However, sequencing data is discrete, i.e., you have N molecules, and N is never a negative number. Thus bioinformaticians these days frequently need to use some type of Poisson distribution. We will get back to this topic in more detail in the next module.
+
+See this video on how linear models can be more generally formulated, and how we can use STAN and R to solve them numerically (Canvas/Kaltura: *4.4 Linear models with STAN*).
+
+- Optional: Various STAN examples [here](https://hedibert.org/wp-content/uploads/2021/02/stan-rstan-examples.html).
+
+Note that STAN primarily is meant for Bayesian statistics (next module!) but it is very capable of computing maximum likelihood estimates for frequentist statistics (i.e. what we have done until now).
+
+**Practice using STAN:**
+
+- **Q2.1**. In the file `frog_stan.zip` (course file), check out **frog.R**, **frog.stan**, and make this example run on your computer. If you struggle to open the stan-file in RStudio, you will likely find it easiest with the "File → open file…" command in the RStudio menus.
+- **Q2.2**. Study the code and make yourself familiar with what it does. Note that **frog.stan** contains code that you should have a look at as well.
+
+**Note on the linear model / interpolation used in the model:** This code has x-values in the range 0…1. This simplifies the interpolation code. Consider $f(x) = x a + (1 - x) b$. Note that $f(0) = b$ and $f(1) = a$. Thus these define the values at either extreme. A more general way of doing linear interpolation is however $f(x) = \frac{x a}{N} + \frac{(1 - x) b}{N}$. With this definition, $f(0) = b$ and $f(N) = a$. Thus it would be suitable for X being 0…N instead.
+
+- **Q2.3**: Plot the number of frogs over time. What does the trend look like?
+- **Q2.4**: After running the provided code, does the model fit the data?
+- **Q2.5: Optional.** In the STAN-code, you see that there is a limit on lambda to be ≥ 0. Why is this? (without limits, lambda is initially taken from a normal distribution around 0)
