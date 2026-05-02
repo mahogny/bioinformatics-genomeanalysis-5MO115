@@ -2,6 +2,11 @@
 
 Course materials for the spring 2026 instance.
 
+## Module 1
+
+- [1.4 — Linear algebra recap](module1/mod1_4.html)
+- [1.5 — Probability & Markov chains](module1/mod1_5.html)
+
 ## Module 2
 
 ### Lectures
