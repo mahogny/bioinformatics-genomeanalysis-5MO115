@@ -1,0 +1,459 @@
+---
+title: "Module 1.5 — Probability & Markov chains"
+format:
+  html:
+    toc: true
+    toc-depth: 2
+    number-sections: false
+    html-math-method: katex
+    embed-resources: true
+---
+
+You have already taken a course in statistics, but we start with a recap anyway, as statistical analysis is central to bioinformatics. The key concept from this submodule is however **Markov chains**, which are based on raw probability theory. These are used extensively to model DNA and protein sequences, but have many uses beyond basic bioinformatics.
+
+## Recap: The basic laws of probability
+
+Before digging into statistics, let's start with the foundations — probability theory. This topic has an interesting history, as Christianity associated gambling with the devil. To be able to describe randomness using equations, and thus take control over it, must thus have been perceived as rather odd. Whether someone got into a heated situation over this is beyond this author's knowledge though!
+
+**Introduction:** See the lecture video for a motivation of the basic laws, and how they correspond to reality.
+
+- See Wikipedia: <https://en.wikipedia.org/wiki/Probability> "Mathematical treatment".
+- Wikipedia also has a good summary, but it might look a bit daunting until you get your head around the notation: <https://en.wikipedia.org/wiki/Probability_axioms>.
+- Optional: <https://www.youtube.com/watch?v=OyddY7DlV58>.
+- Optional: another solved problem related to conditional probability: <https://www.youtube.com/watch?v=ibINrxJLvlM>.
+
+**Next learn more about set theory:**
+
+For the purposes in this course, you can get a far way just if you intuitively understand Venn diagrams, and how AND and OR correspond to set theoretical unions and intersections. We are a bit sloppy with the mathematical notation to try and more intuitively get the meaning across:
+
+- $P(A \cap B) = P(A \text{ and } B)$
+- $P(A \cup B) = P(A \text{ or } B)$
+- The probability of the empty set is 0, that is $P(\varnothing) = 0$.
+
+If you however want to increase your confidence, you can also watch this video: <https://www.youtube.com/watch?v=5ZhNmKb-dqk>.
+
+- Optional: worked example on counting with sets: <https://www.youtube.com/watch?v=32iNIZJ2dI4>.
+- Optional: another one, highlighting independence: <https://www.youtube.com/watch?v=X6usGgwXFyU>.
+
+**Practice probability:**
+
+### Q1.1
+The probability of the weather being sunny is 75%. What is the probability that it rains, if these are the only two types of weathers?
+
+::: {.callout-tip collapse="true" title="Step-by-step solution"}
+The two outcomes are mutually exclusive and exhaustive, so their probabilities sum to 1:
+$$P(\text{rain}) = 1 - P(\text{sunny}) = 1 - 0.75 = 0.25$$
+
+**Answer:** 25%.
+:::
+
+### Q1.2
+A guest picks a fruit at random from this plate (equal probabilities). What is the probability of them picking an orange?
+
+![Plate of fruit](images/fruit_plate.png){width=50%}
+
+The plate has **7 fruits**, of which **2 are oranges**.
+
+::: {.callout-tip collapse="true" title="Step-by-step solution"}
+For equally-likely outcomes:
+$$P(\text{orange}) = \frac{\#\text{oranges}}{\#\text{fruits}} = \frac{2}{7} \approx 0.286$$
+
+**Answer:** $2/7 \approx 28.6\%$.
+:::
+
+### Q1.3
+A coin is tossed 4 times. What is the probability that all of them show heads up?
+
+::: {.callout-tip collapse="true" title="Step-by-step solution"}
+Independent flips multiply:
+$$P(\text{4 heads}) = \left(\tfrac{1}{2}\right)^4 = \tfrac{1}{16} = 0.0625$$
+
+**Answer:** $1/16 = 6.25\%$.
+:::
+
+### Q1.4
+In a game, you toss a coin. If it turns up head, you roll a dice deciding how many pieces of candy you will receive. What is the likelihood that you will receive 2 pieces of candy?
+
+::: {.callout-tip collapse="true" title="Step-by-step solution"}
+You only get candy if the coin is heads **and** the dice shows 2:
+$$P(\text{2 candies}) = P(\text{head}) \cdot P(\text{dice} = 2) = \tfrac{1}{2} \cdot \tfrac{1}{6} = \tfrac{1}{12}$$
+
+**Answer:** $1/12 \approx 8.3\%$.
+:::
+
+### Q1.5
+A coin is thrown 3 times. What is the probability that at least one head is obtained?
+
+::: {.callout-tip collapse="true" title="Step-by-step solution"}
+The complement of "at least one head" is "no heads at all":
+$$P(\geq 1 \text{ head}) = 1 - P(\text{0 heads}) = 1 - \left(\tfrac{1}{2}\right)^3 = 1 - \tfrac{1}{8} = \tfrac{7}{8}$$
+
+**Answer:** $7/8 = 87.5\%$. The complement trick is often the easiest way to compute "at least one" probabilities.
+:::
+
+### Q1.6
+What is the probability of getting a numbered card from a deck of cards?
+
+::: {.callout-tip collapse="true" title="Step-by-step solution"}
+A standard deck has 52 cards. Numbered cards are 2–10, i.e. 9 ranks × 4 suits = 36 cards.
+$$P(\text{numbered}) = \frac{36}{52} = \frac{9}{13} \approx 0.692$$
+
+**Answer:** $9/13 \approx 69.2\%$. (Aces, Jacks, Queens, Kings are the non-numbered ones.)
+:::
+
+### Q1.7
+If throwing two dice, what is the likelihood that their sum is 3?
+
+> *Hint:* draw all possibilities as a 6×6 table, count the entries with sum 3.
+
+::: {.callout-tip collapse="true" title="Step-by-step solution"}
+Total outcomes: $6 \times 6 = 36$, all equally likely.
+
+Outcomes summing to 3: $(1,2)$ and $(2,1)$ — that's 2 outcomes.
+
+$$P(\text{sum} = 3) = \tfrac{2}{36} = \tfrac{1}{18} \approx 5.6\%$$
+:::
+
+### Q1.8
+Using R, what is the likelihood that the sum of 4 dice sums up to 10?
+
+> *Hints:* nested for-loops, see [example of nested loops](https://bookdown.org/yundai09/rbootcamp/loops.html#nested-loops).
+
+::: {.callout-tip collapse="true" title="Step-by-step solution"}
+```r
+count <- 0
+total <- 0
+for (a in 1:6) {
+  for (b in 1:6) {
+    for (c in 1:6) {
+      for (d in 1:6) {
+        total <- total + 1
+        if (a + b + c + d == 10) count <- count + 1
+      }
+    }
+  }
+}
+count / total      # 80 / 1296 = 0.0617...
+```
+
+**Answer:** $80/1296 = 5/81 \approx 6.17\%$.
+
+(Sanity check by hand: count compositions of 10 into 4 parts, each in $[1,6]$ — by inclusion–exclusion this gives $\binom{9}{3} - 4\binom{3}{3} = 84 - 4 = 80$.)
+:::
+
+### Q1.9
+You toss a dice twice. What is the probability that you get the same side twice?
+
+> *Hint:* in how many ways is this possible?
+
+::: {.callout-tip collapse="true" title="Step-by-step solution"}
+There are 36 equally likely outcomes. The "same side twice" outcomes are $(1,1), (2,2), \ldots, (6,6)$ — exactly 6 of them.
+
+$$P(\text{same}) = \tfrac{6}{36} = \tfrac{1}{6}$$
+
+Equivalently: the first die can be anything; the second has to match → probability $1/6$.
+:::
+
+### Q1.10
+You toss a dice twice. What is the probability that you get different sides?
+
+::: {.callout-tip collapse="true" title="Step-by-step solution"}
+**Way (a) — count directly:** of the 36 outcomes, $36 - 6 = 30$ have different sides → $30/36 = 5/6$.
+
+**Way (b) — use Q1.9 + the complement rule:**
+$$P(\text{different}) = 1 - P(\text{same}) = 1 - \tfrac{1}{6} = \tfrac{5}{6}$$
+
+Way (b) is usually the simpler one once you know the complement of the event you've already computed.
+:::
+
+### Q1.11
+Two persons (A and B) are asked to solve a problem. $P(A \text{ solves}) = 0.1$ and $P(B \text{ solves}) = 0.2$. What is $P(A \text{ or } B \text{ solves})$?
+
+> *Hint:* What is the probability that neither solves it?
+
+::: {.callout-tip collapse="true" title="Step-by-step solution"}
+Assume A and B are independent.
+
+$$P(\text{neither}) = (1 - 0.1)(1 - 0.2) = 0.9 \cdot 0.8 = 0.72$$
+
+$$P(A \text{ or } B) = 1 - P(\text{neither}) = 1 - 0.72 = 0.28$$
+
+**Answer:** 28%.
+
+(Equivalent direct computation: $P(A) + P(B) - P(A \text{ and } B) = 0.1 + 0.2 - 0.1\cdot 0.2 = 0.28$.)
+:::
+
+- Optional: counting-type probability questions: <https://thirdspacelearning.com/blog/probability-questions>.
+- Optional: harder questions: <https://www.hitbullseye.com/Probability-Examples.php>.
+
+## Recap: Expected value / Expectation
+
+**Introduction:** If you win 100\$ if the coin turns heads up, what do you win on average? This is called expected value, and will become especially relevant once we get into statistics in Module 4!
+
+- If $X$ is the random variable denoting the outcome of playing, then the expectation (or expected value) is denoted $E[X]$.
+- The definition for a discrete variable is $E[X] = \sum_i p(i) X_i$, where the sum is over all possible events.
+- When we get to statistics in Module 4, we will also consider the continuous equivalent: $E[X] = \int_{-\infty}^{\infty} x f(x)\, dx$.
+- Here is a video solving some examples: <https://www.youtube.com/watch?v=b6VK2VPMXNI>.
+
+**Practise expected value:**
+
+### Q2.1
+Assume you win 100\$ if the coin turns heads up, but have to pay 50\$ otherwise. What do you win on average per coin flip?
+
+::: {.callout-tip collapse="true" title="Step-by-step solution"}
+$$E[X] = \tfrac{1}{2}\cdot 100 + \tfrac{1}{2}\cdot(-50) = 50 - 25 = 25$$
+
+**Answer:** \$25 per flip on average.
+:::
+
+### Q2.2
+Assume you roll a dice and win 100\$ if you get a 6; but you have to pay 20\$ if you get an odd number. What do you win on average per dice toss?
+
+::: {.callout-tip collapse="true" title="Step-by-step solution"}
+Three cases: a 6 (prob $1/6$, payoff +100), an odd number 1/3/5 (prob $3/6$, payoff −20), an even number 2/4 (prob $2/6$, payoff 0).
+
+$$E[X] = \tfrac{1}{6}\cdot 100 + \tfrac{3}{6}\cdot(-20) + \tfrac{2}{6}\cdot 0 = \tfrac{100 - 60}{6} = \tfrac{40}{6} \approx 6.67$$
+
+**Answer:** \$6.67 per toss on average.
+:::
+
+### Q2.3
+You offer people to win 10\$ times the number of dots on a dice they throw. What is the least they should pay to play, for you to break even on average?
+
+::: {.callout-tip collapse="true" title="Step-by-step solution"}
+$$E[10 \cdot \text{dice}] = 10 \cdot \frac{1+2+3+4+5+6}{6} = 10 \cdot \frac{21}{6} = 35$$
+
+**Answer:** they must pay at least \$35 per play for you to break even on average.
+:::
+
+### Q2.4
+You flip a coin and you either gain 50\$ or lose 100\$. However, instead of gaining 50\$, you get the option to flip again, and either gain 200\$, or lose 150\$.
+
+a. Assuming you already won 50\$, would you flip the coin again?
+b. If you are offered to play, and you pick the optimal strategy, what would you win or lose on average?
+
+::: {.callout-tip collapse="true" title="Step-by-step solution"}
+**a.** Compare the certain 50\$ to the expected value of re-flipping:
+$$E[\text{reflip}] = \tfrac{1}{2}\cdot 200 + \tfrac{1}{2}\cdot(-150) = 100 - 75 = 25$$
+
+50 > 25, so **don't reflip** — keep the 50\$.
+
+**b.** With the optimal strategy (never reflip), the game is just the original coin flip:
+$$E[\text{game}] = \tfrac{1}{2}\cdot 50 + \tfrac{1}{2}\cdot(-100) = 25 - 50 = -25$$
+
+**Answer:** you lose \$25 on average per game. (You should refuse to play.)
+:::
+
+## Markov chains
+
+**A fun and very useful application of probability theory combined with linear algebra:** Imagine a game at a casino where you repeatedly flip a coin. If you get heads up, you gain one more coin. Otherwise, you lose one coin. What is the chance that you will ruin the casino? This can easily be solved using Markov chain theory, a powerful application of pure probability theory combined with rather basic linear algebra. It is used to model many phenomena, including diffusion of molecules inside cells.
+
+- This video has great visualizations of the core concepts. It also introduces you to how Markov chain modeling of the web (the PageRank algorithm) led to the creation of Google. **The first 8 minutes is enough** but to get a full appreciation of their power, by all means, check the full video! <https://www.youtube.com/watch?v=JGQe4kiPnrU>
+- Optional: all the details are also covered here, although in a very condensed format: <https://www.stat.auckland.ac.nz/~fewster/325/notes/ch8.pdf>.
+- Wikipedia has some [Markov chain examples](https://en.wikipedia.org/wiki/Examples_of_Markov_chains).
+- Finally, we have written a Markov chain visual simulator that you can play with if you want: <http://demo-markovchain.serve.scilifelab.se>.
+
+In short:
+
+- The probability of moving from state $i$ to state $j$ in one single step can be read out from the matrix $P$, at row $i$, column $j$.
+- $\pi(t=0) = \begin{bmatrix} \pi_1 & \pi_2 & \pi_3 & \cdots & \pi_n \end{bmatrix}$ are the probabilities of starting in any of the states $1\ldots n$.
+- You can compute the probability of being in a state after $k$ jumps as $\pi(t=k) = \pi(t=0)\, P^k$.
+
+**Practice Markov chains:**
+
+Consider the following Markov chain:
+
+```{mermaid}
+%%| fig-cap: "Weather Markov chain"
+stateDiagram-v2
+    direction LR
+    Sunny --> Sunny: 0.1
+    Sunny --> Rain: 0.9
+    Rain --> Sunny: 0.5
+    Rain --> Rain: 0.5
+```
+
+### Q3.1
+Intuitively, do you expect good or bad weather?
+
+::: {.callout-tip collapse="true" title="Step-by-step solution"}
+Compare the self-loops: Sunny stays sunny with only **0.1**, while Rain stays rainy with **0.5**. So once it rains it tends to keep raining, but a sunny day flips to rain with 0.9 probability.
+
+**Answer:** bad weather — we expect the chain to spend much more time in the Rain state. (Q3.9 makes this rigorous: the stationary distribution puts ≈ 64% on Rain and ≈ 36% on Sunny.)
+:::
+
+### Q3.2
+Write the transition matrix.
+
+::: {.callout-tip collapse="true" title="Step-by-step solution"}
+With the state order (Sunny, Rain), read each arrow off the diagram:
+
+$$P = \begin{bmatrix} 0.1 & 0.9 \\ 0.5 & 0.5 \end{bmatrix}$$
+
+Row 1 (from Sunny): stay sunny 0.1, switch to rain 0.9. Row 2 (from Rain): switch to sunny 0.5, stay rainy 0.5. Each row sums to 1, as it must.
+:::
+
+### Q3.3
+Draw the Markov chain of continuously flipping a coin (how many and which states are there? probabilities of going between them?).
+
+::: {.callout-tip collapse="true" title="Step-by-step solution"}
+Two states: **H** (heads) and **T** (tails). Each flip is independent of the previous one, so from either state you go to H with probability $1/2$ and to T with probability $1/2$.
+
+```
+        0.5
+   ┌───────────┐
+   ▼           │
+  ┌───┐  0.5  ┌───┐
+  │ H │ ────▶ │ T │
+  │   │ ◀──── │   │
+  └───┘  0.5  └───┘
+   │           ▲
+   └───────────┘
+        0.5
+```
+
+(Each state has a self-loop of 0.5 and a cross-edge of 0.5 to the other state.)
+:::
+
+### Q3.4
+Write the transition matrix (for the coin chain in Q3.3).
+
+::: {.callout-tip collapse="true" title="Step-by-step solution"}
+With the order (H, T):
+
+$$P = \begin{bmatrix} 0.5 & 0.5 \\ 0.5 & 0.5 \end{bmatrix}$$
+
+Each row sums to 1, as it must.
+:::
+
+Consider the following Markov chain:
+
+```{mermaid}
+%%| fig-cap: "3-state Markov chain"
+stateDiagram-v2
+    direction LR
+    S1 --> S2: 0.5
+    S1 --> S3: 0.5
+    S2 --> S1: 0.1
+    S2 --> S3: 0.9
+    S3 --> S2: 0.8
+    S3 --> S1: 0.2
+```
+
+### Q3.5
+What is the probability of going from state 2 to state 3 in one step?
+
+::: {.callout-tip collapse="true" title="Step-by-step solution"}
+Read $P_{2,3}$ directly off the diagram — the probability on the arrow $S_2 \to S_3$:
+
+$$P_{2,3} = 0.9$$
+:::
+
+### Q3.6
+Write the transition matrix.
+
+::: {.callout-tip collapse="true" title="Step-by-step solution"}
+With state order $(S_1, S_2, S_3)$ and reading each arrow off the diagram:
+
+$$P = \begin{bmatrix} 0 & 0.5 & 0.5 \\ 0.1 & 0 & 0.9 \\ 0.2 & 0.8 & 0 \end{bmatrix}$$
+
+Each row sums to 1. The zeros on the diagonal reflect that no state has a self-loop in this chain.
+:::
+
+### Q3.7
+What is the probability of going from state 2 to state 3 in two steps?
+
+> *Hints:* this can be read out of $P^2$; you can also derive it from conditional probability from scratch.
+> To verify the answer, use `%*%` in R to multiply matrices.
+> There is an intuitive answer: what possible ways are there to go from 2 to 3 in two steps?
+
+::: {.callout-tip collapse="true" title="Step-by-step solution"}
+**Method 1 — by hand (enumerate paths):** in 2 steps from $S_2$ to $S_3$, the only intermediate states are $S_1$, $S_2$, or $S_3$. But $P_{2,2} = 0$ and $P_{3,3} = 0$, so only the path $S_2 \to S_1 \to S_3$ contributes:
+
+$$P(2 \to 3 \text{ in 2 steps}) = P_{2,1}\cdot P_{1,3} = 0.1 \cdot 0.5 = 0.05$$
+
+**Method 2 — matrix:** the same number is entry $(2,3)$ of $P^2$:
+
+$$P^2 = \begin{bmatrix} 0.15 & 0.40 & 0.45 \\ 0.18 & 0.77 & 0.05 \\ 0.08 & 0.10 & 0.82 \end{bmatrix}$$
+
+In R:
+```r
+P <- matrix(c(0, 0.5, 0.5,
+              0.1, 0,   0.9,
+              0.2, 0.8, 0), 3, 3, byrow = TRUE)
+(P %*% P)[2, 3]      # 0.05
+```
+
+**Answer:** $0.05$.
+:::
+
+### Q3.8
+What is the probability of going from state 1 to state 3 in 3 steps?
+
+::: {.callout-tip collapse="true" title="Step-by-step solution"}
+It is entry $(1,3)$ of $P^3$:
+$$(P^3)_{1,3} = \sum_k (P^2)_{1,k} \cdot P_{k,3} = 0.15 \cdot 0.5 + 0.40 \cdot 0.9 + 0.45 \cdot 0 = 0.435$$
+
+In R:
+```r
+P3 <- P %*% P %*% P
+P3[1, 3]      # 0.435
+```
+
+**Answer:** $0.435$.
+:::
+
+### Q3.9
+What is the *stationary distribution* for the Markov chain?
+
+The video introduced the *stationary state/distribution*, which is when the probability of being in a certain state does not change after taking one more step. In other words, it is a stable point. Markov chains that furthermore always converge to a stable state are called *ergodic*.
+
+Remember that stationary state is when $\pi P = \pi$ and $\sum_i \pi_i = 1$ (by definition — what is the intuitive interpretation of this equation?).
+
+You can get the first matrix equation into a more familiar form by rewriting as $\pi(P - \mathbb{I}) = 0$ and simplifying it.
+
+You note that the vector is in an inconvenient place for Gaussian elimination. Sweat not, as you can swap the order: $0 = 0^T = (AB)^T = B^T A^T$, where $T$ denotes the [transpose](https://en.wikipedia.org/wiki/Transpose).
+
+*Hint #2:* To get full rank (i.e. be able to get a unique answer), you need to make use of the normalizing condition (that all probabilities sum to 100%). It can be rewritten as
+$$\begin{bmatrix} 1 & 1 & \cdots \end{bmatrix} \begin{bmatrix} \pi_1 \\ \pi_2 \\ \vdots \end{bmatrix} = \begin{bmatrix} 1 \end{bmatrix}$$
+and added to the first system of equations.
+
+If the above is confusing, simply solve it without using matrices. They are not needed for such a small problem.
+
+::: {.callout-tip collapse="true" title="Step-by-step solution"}
+For the 3-state chain $P = \begin{bmatrix} 0 & 0.5 & 0.5 \\ 0.1 & 0 & 0.9 \\ 0.2 & 0.8 & 0 \end{bmatrix}$, write $\pi P = \pi$ with $\pi = (\pi_1, \pi_2, \pi_3)$. This gives three equations:
+
+$$\begin{aligned}
+0.1\,\pi_2 + 0.2\,\pi_3 &= \pi_1 \\
+0.5\,\pi_1 + 0.8\,\pi_3 &= \pi_2 \\
+0.5\,\pi_1 + 0.9\,\pi_2 &= \pi_3
+\end{aligned}$$
+
+Substitute (1) into (2): $0.05\,\pi_2 + 0.9\,\pi_3 = \pi_2 \Longrightarrow \pi_3 = \tfrac{19}{18}\pi_2$.
+
+Plug back into (1): $\pi_1 = 0.1\,\pi_2 + 0.2 \cdot \tfrac{19}{18}\pi_2 = \tfrac{14}{45}\pi_2$.
+
+Normalize with $\pi_1 + \pi_2 + \pi_3 = 1$:
+$$\left(\tfrac{14}{45} + 1 + \tfrac{19}{18}\right)\pi_2 = \tfrac{213}{90}\,\pi_2 = 1 \;\Longrightarrow\; \pi_2 = \tfrac{90}{213} = \tfrac{30}{71}$$
+
+So:
+$$\pi = \left(\tfrac{28}{213},\; \tfrac{90}{213},\; \tfrac{95}{213}\right) \approx (0.131,\; 0.423,\; 0.446)$$
+
+**Answer:** in the long run the chain spends ≈ 13% of the time in $S_1$, 42% in $S_2$, 45% in $S_3$.
+
+Sanity check in R using powers of $P$:
+```r
+P <- matrix(c(0,   0.5, 0.5,
+              0.1, 0,   0.9,
+              0.2, 0.8, 0), 3, 3, byrow = TRUE)
+P100 <- P
+for (i in 1:99) P100 <- P100 %*% P
+P100        # every row should be ≈ (0.131, 0.423, 0.446)
+```
+(For ergodic chains, $\pi(t=k)$ converges to the stationary distribution regardless of starting state.)
+:::
+
+### Q3.10
+Optional: solve problem 1 here: <https://www.probabilitycourse.com/chapter11/11_2_7_solved_probs.php> (the other problems are beyond this course).
+
+**Optional deeper reading:** You can see how to model, for example, the continuous coin flip game here: <https://physiology.med.cornell.edu/people/banfelder/qbio/resources_2016/S.1_markov.pdf>.
