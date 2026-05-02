@@ -1,0 +1,16 @@
+digraph cell_cycle {
+  rankdir=LR;
+  bgcolor="transparent";
+  node [shape=ellipse, style=filled, fillcolor="#ECECFF", color="#9370DB",
+        fontname="trebuchet ms", fontsize=14];
+  edge [fontname="trebuchet ms", fontsize=12, color="#333333", fontcolor="#333333"];
+
+  G1 -> G1 [label="0.9"];
+  G1 -> S  [label="0.1"];
+  S  -> S  [label="0.7"];
+  S  -> G2 [label="0.3"];
+  G2 -> G2 [label="0.6"];
+  G2 -> M  [label="0.4"];
+  M  -> M  [label="0.2"];
+  M  -> G1 [label="0.8"];
+}

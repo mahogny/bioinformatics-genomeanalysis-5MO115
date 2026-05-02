@@ -90,11 +90,31 @@ Solve for $x$, $y$ and $z$ in: $3x = 3;\ x + 2y + 2z = 0;\ 2x + 2z = 0$.
 
 If you want even more, see eq. 1–6 from <https://online.math.uh.edu/Math1310-unpaid/ch6/s61/ex61.pdf> but solve them as shown before. Don't worry about graphing etc.
 
-## Recap: Matrices and vectors
+::: {.callout-note title="Biological application: spectrophotometry of a DNA prep"}
+A nucleic-acid prep typically contains both DNA and protein contamination. Both absorb UV light, with different "extinction coefficients" $\varepsilon$ at 260 nm and 280 nm. Beer–Lambert says the absorbance at each wavelength is the sum of the contributions:
+$$A_\lambda = \varepsilon^{\text{DNA}}_\lambda\,[\text{DNA}] + \varepsilon^{\text{prot}}_\lambda\,[\text{prot}]$$
+
+Suppose (in convenient units) the extinction coefficients are
+
+| species | 260 nm | 280 nm |
+|---------|:------:|:------:|
+| DNA     | 2      | 1      |
+| Protein | 1      | 2      |
+
+You measure $A_{260} = 5$ and $A_{280} = 4$. Plug into Beer–Lambert at each wavelength:
+$$\begin{aligned}
+2\,[\text{DNA}] + 1\,[\text{prot}] &= 5 \\
+1\,[\text{DNA}] + 2\,[\text{prot}] &= 4
+\end{aligned}$$
+
+Two equations in two unknowns — exactly the kind of system you just solved by hand. Subtracting twice eq. 2 from eq. 1: $-3\,[\text{prot}] = -3 \Rightarrow [\text{prot}] = 1$, then $[\text{DNA}] = 2$.
+
+The sample is mostly DNA with measurable protein contamination — essentially what a NanoDrop computes when it reports the $A_{260}/A_{280}$ ratio.
+:::
+
+## Practice using matrices and vectors
 
 Watch the lecture video to see how these let you do the same math, but with a more compact notation. Wikipedia also summarises [matrices](https://en.wikipedia.org/wiki/Matrix_(mathematics)) and [vectors](https://en.wikipedia.org/wiki/Vector_space).
-
-**Practice using matrices and vectors:**
 
 Write the following equation system using matrices and vectors:
 
@@ -174,19 +194,37 @@ Verify the solutions to the equation systems so far using [the R `solve` functio
 ::: {.callout-tip collapse="true" title="Step-by-step solution"}
 ```r
 # Q1.1
-solve(matrix(c(1, 1, 1, 2), 2, 2, byrow = TRUE), c(1, 2))   # 0, 1
+A <- matrix(c(1, 1,
+              1, 2), 2, 2, byrow = TRUE)
+solve(A, c(1, 2))           # 0, 1
 
 # Q1.4
-A <- matrix(c(3,3,3, 1,2,2, 3,0,2), 3, 3, byrow = TRUE)
-solve(A, c(3, 2, 2))                                         # 0, 0, 1
+A <- matrix(c(3, 3, 3,
+              1, 2, 2,
+              3, 0, 2), 3, 3, byrow = TRUE)
+solve(A, c(3, 2, 2))        # 0, 0, 1
 
 # Q2.7
-solve(matrix(c(4,-5, 3,4), 2, 2, byrow = TRUE), c(24, -13))  # 1, -4
+A <- matrix(c(4, -5,
+              3,  4), 2, 2, byrow = TRUE)
+solve(A, c(24, -13))        # 1, -4
 ```
 Tip: `byrow = TRUE` is important — by default R fills matrices column by column.
 :::
 
-## Recap: Existence of unique solutions and rank
+::: {.callout-note title="Biological application: spectrophotometry in matrix form"}
+The DNA-vs-protein problem from the previous section in matrix form is
+$$\underbrace{\begin{bmatrix} 2 & 1 \\ 1 & 2 \end{bmatrix}}_{E}\,\underbrace{\begin{bmatrix} [\text{DNA}] \\ [\text{prot}] \end{bmatrix}}_{\mathbf{c}} = \underbrace{\begin{bmatrix} 5 \\ 4 \end{bmatrix}}_{\mathbf{A}}$$
+where the rows of $E$ are wavelengths (260, 280 nm) and the columns are species (DNA, protein). Solve in R:
+```r
+E <- matrix(c(2, 1,
+              1, 2), 2, 2, byrow = TRUE)
+solve(E, c(5, 4))     # 2, 1
+```
+For three species (e.g. add RNA), measure at a third wavelength and solve a 3×3 system the same way — the matrix framing scales with no extra effort, while the row-by-row Gaussian elimination from the previous section gets tedious fast.
+:::
+
+## Existence of unique solutions and rank
 
 - Wikipedia [summary of rank](https://en.wikipedia.org/wiki/Rank_(linear_algebra)).
 - You can compute rank in R using [`rankMatrix`](https://www.rdocumentation.org/packages/Matrix/versions/1.6-4/topics/rankMatrix). It is in the `Matrix` library — run `library(Matrix)` first.
@@ -196,6 +234,8 @@ Tip: `byrow = TRUE` is important — by default R fills matrices column by colum
 - If $\operatorname{rank}(A) = \operatorname{rank}([A|\mathbf{b}]) = n$ → unique solution.
 - If $\operatorname{rank}(A) = \operatorname{rank}([A|\mathbf{b}]) < n$ → infinitely many solutions.
 - If $\operatorname{rank}(A) < \operatorname{rank}([A|\mathbf{b}])$ → no solution (inconsistent).
+
+For each of Q3.1–Q3.4: determine whether the equation can be solved or not; if it can, provide the solution.
 
 ### Q3.1
 $$\begin{bmatrix} 2 & -5 \\ 6 & -15 \end{bmatrix} \begin{bmatrix} x \\ y \end{bmatrix} = \begin{bmatrix} 10 \\ 13 \end{bmatrix}$$
@@ -281,6 +321,12 @@ R throws an error because the matrix is singular (zero determinant / rank-defici
 
 **Optional further exercises:** <https://online.math.uh.edu/Math1310-unpaid/ch6/s61/ex61.pdf>
 
+::: {.callout-note title="Biological application: when can't we separate species?"}
+Suppose you only record a single absorbance, $A_{260}$. With two unknowns $[\text{DNA}]$ and $[\text{prot}]$ but only one equation, the system is underdetermined — infinitely many concentration pairs match any single measurement. Formally, the $1\times 2$ "matrix" $E$ has $\operatorname{rank}(E) = 1 < 2$.
+
+A subtler failure: measure at two wavelengths but with two species whose extinction spectra are *proportional*. The rows of $E$ are then linearly dependent, $\operatorname{rank}(E) = 1$ again, and you cannot tell the species apart no matter how many wavelengths you stack on. This is essentially why dsDNA and ssDNA can't be distinguished by UV absorbance alone — their spectra are too similar — and why labs reach for orthogonal methods (gel electrophoresis, fluorescent dyes) for that job. Rank deficiency in $E$ is the math telling you the experimental design can't answer the question.
+:::
+
 ## Recap: Matrix multiplication
 
 - Wikipedia: [matrix multiplication](https://en.wikipedia.org/wiki/Matrix_multiplication).
@@ -348,4 +394,14 @@ A * B      # element-wise — totally different operation!
 # [1,]    3    0
 # [2,]   20    0
 ```
+:::
+
+::: {.callout-note title="Biological application: many samples at once"}
+Beer–Lambert for one sample is $E\,\mathbf{c} = \mathbf{A}$ — matrix times vector. Now imagine a 96-well plate: stack each well's concentration vector as a column of a $\text{(species)} \times 96$ matrix $C$, and all the absorbances at once become
+$$E \, C = A$$
+where $A$ is a $\text{(wavelengths)} \times 96$ matrix. Each column of the product is one well's spectrum — exactly the matrix–matrix multiplication you just practiced. And because R's `solve` accepts a matrix on the right-hand side, you can decompose every well at once with a single call:
+```r
+solve(E, A)    # one column of concentrations per sample
+```
+This is the practical reason matrix multiplication exists: applying the same linear transformation to many input vectors with one operation.
 :::

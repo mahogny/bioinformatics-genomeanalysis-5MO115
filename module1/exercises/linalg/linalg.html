@@ -2290,8 +2290,8 @@ $presentation-heading-color: #383d3d !default;
    
   <ul class="collapse">
   <li><a href="#recap-solving-linear-systems" id="toc-recap-solving-linear-systems" class="nav-link active" data-scroll-target="#recap-solving-linear-systems">Recap: Solving linear systems</a></li>
-  <li><a href="#recap-matrices-and-vectors" id="toc-recap-matrices-and-vectors" class="nav-link" data-scroll-target="#recap-matrices-and-vectors">Recap: Matrices and vectors</a></li>
-  <li><a href="#recap-existence-of-unique-solutions-and-rank" id="toc-recap-existence-of-unique-solutions-and-rank" class="nav-link" data-scroll-target="#recap-existence-of-unique-solutions-and-rank">Recap: Existence of unique solutions and rank</a></li>
+  <li><a href="#practice-using-matrices-and-vectors" id="toc-practice-using-matrices-and-vectors" class="nav-link" data-scroll-target="#practice-using-matrices-and-vectors">Practice using matrices and vectors</a></li>
+  <li><a href="#existence-of-unique-solutions-and-rank" id="toc-existence-of-unique-solutions-and-rank" class="nav-link" data-scroll-target="#existence-of-unique-solutions-and-rank">Existence of unique solutions and rank</a></li>
   <li><a href="#recap-matrix-multiplication" id="toc-recap-matrix-multiplication" class="nav-link" data-scroll-target="#recap-matrix-multiplication">Recap: Matrix multiplication</a></li>
   </ul>
 </nav>
@@ -2452,36 +2452,56 @@ Step-by-step solution
 </div>
 </div>
 <p>If you want even more, see eq. 1–6 from <a href="https://online.math.uh.edu/Math1310-unpaid/ch6/s61/ex61.pdf" class="uri">https://online.math.uh.edu/Math1310-unpaid/ch6/s61/ex61.pdf</a> but solve them as shown before. Don’t worry about graphing etc.</p>
-</section>
-</section>
-<section id="recap-matrices-and-vectors" class="level2">
-<h2 class="anchored" data-anchor-id="recap-matrices-and-vectors">Recap: Matrices and vectors</h2>
-<p>Watch the lecture video to see how these let you do the same math, but with a more compact notation. Wikipedia also summarises <a href="https://en.wikipedia.org/wiki/Matrix_(mathematics)">matrices</a> and <a href="https://en.wikipedia.org/wiki/Vector_space">vectors</a>.</p>
-<p><strong>Practice using matrices and vectors:</strong></p>
-<p>Write the following equation system using matrices and vectors:</p>
-<section id="q2.1" class="level3">
-<h3 class="anchored" data-anchor-id="q2.1">Q2.1</h3>
-<p><span class="math inline">5x + y = 1;\ x + 3y = 5</span>.</p>
-<div class="callout callout-style-default callout-tip callout-titled" title="Step-by-step solution">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-6-contents" aria-controls="callout-6" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout callout-style-default callout-note callout-titled" title="Biological application: spectrophotometry of a DNA prep">
+<div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Step-by-step solution
+Biological application: spectrophotometry of a DNA prep
 </div>
-<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-6" class="callout-6-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
-<p>Read coefficients of <span class="math inline">x</span> and <span class="math inline">y</span> as the rows of the matrix; the right-hand sides become the entries of <span class="math inline">\mathbf{b}</span>: <span class="math display">\begin{bmatrix} 5 &amp; 1 \\ 1 &amp; 3 \end{bmatrix} \begin{bmatrix} x \\ y \end{bmatrix} = \begin{bmatrix} 1 \\ 5 \end{bmatrix}</span></p>
-</div>
+<p>A nucleic-acid prep typically contains both DNA and protein contamination. Both absorb UV light, with different “extinction coefficients” <span class="math inline">\varepsilon</span> at 260 nm and 280 nm. Beer–Lambert says the absorbance at each wavelength is the sum of the contributions: <span class="math display">A_\lambda = \varepsilon^{\text{DNA}}_\lambda\,[\text{DNA}] + \varepsilon^{\text{prot}}_\lambda\,[\text{prot}]</span></p>
+<p>Suppose (in convenient units) the extinction coefficients are</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>species</th>
+<th style="text-align: center;">260 nm</th>
+<th style="text-align: center;">280 nm</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>DNA</td>
+<td style="text-align: center;">2</td>
+<td style="text-align: center;">1</td>
+</tr>
+<tr class="even">
+<td>Protein</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">2</td>
+</tr>
+</tbody>
+</table>
+<p>You measure <span class="math inline">A_{260} = 5</span> and <span class="math inline">A_{280} = 4</span>. Plug into Beer–Lambert at each wavelength: <span class="math display">\begin{aligned}
+2\,[\text{DNA}] + 1\,[\text{prot}] &amp;= 5 \\
+1\,[\text{DNA}] + 2\,[\text{prot}] &amp;= 4
+\end{aligned}</span></p>
+<p>Two equations in two unknowns — exactly the kind of system you just solved by hand. Subtracting twice eq. 2 from eq. 1: <span class="math inline">-3\,[\text{prot}] = -3 \Rightarrow [\text{prot}] = 1</span>, then <span class="math inline">[\text{DNA}] = 2</span>.</p>
+<p>The sample is mostly DNA with measurable protein contamination — essentially what a NanoDrop computes when it reports the <span class="math inline">A_{260}/A_{280}</span> ratio.</p>
 </div>
 </div>
 </section>
-<section id="q2.2" class="level3">
-<h3 class="anchored" data-anchor-id="q2.2">Q2.2</h3>
-<p><span class="math inline">x + y + z = 5;\ 2x - z = 4;\ 3y + z = 2</span>.</p>
+</section>
+<section id="practice-using-matrices-and-vectors" class="level2">
+<h2 class="anchored" data-anchor-id="practice-using-matrices-and-vectors">Practice using matrices and vectors</h2>
+<p>Watch the lecture video to see how these let you do the same math, but with a more compact notation. Wikipedia also summarises <a href="https://en.wikipedia.org/wiki/Matrix_(mathematics)">matrices</a> and <a href="https://en.wikipedia.org/wiki/Vector_space">vectors</a>.</p>
+<p>Write the following equation system using matrices and vectors:</p>
+<section id="q2.1" class="level3">
+<h3 class="anchored" data-anchor-id="q2.1">Q2.1</h3>
+<p><span class="math inline">5x + y = 1;\ x + 3y = 5</span>.</p>
 <div class="callout callout-style-default callout-tip callout-titled" title="Step-by-step solution">
 <div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-7-contents" aria-controls="callout-7" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
@@ -2494,15 +2514,14 @@ Step-by-step solution
 </div>
 <div id="callout-7" class="callout-7-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
-<p>A “missing” variable in an equation gets a 0 entry: <span class="math display">\begin{bmatrix} 1 &amp; 1 &amp; 1 \\ 2 &amp; 0 &amp; -1 \\ 0 &amp; 3 &amp; 1 \end{bmatrix} \begin{bmatrix} x \\ y \\ z \end{bmatrix} = \begin{bmatrix} 5 \\ 4 \\ 2 \end{bmatrix}</span></p>
+<p>Read coefficients of <span class="math inline">x</span> and <span class="math inline">y</span> as the rows of the matrix; the right-hand sides become the entries of <span class="math inline">\mathbf{b}</span>: <span class="math display">\begin{bmatrix} 5 &amp; 1 \\ 1 &amp; 3 \end{bmatrix} \begin{bmatrix} x \\ y \end{bmatrix} = \begin{bmatrix} 1 \\ 5 \end{bmatrix}</span></p>
 </div>
 </div>
 </div>
-<p>Write this as a system of equations without using matrix notation:</p>
 </section>
-<section id="q2.3" class="level3">
-<h3 class="anchored" data-anchor-id="q2.3">Q2.3</h3>
-<p><span class="math display">\begin{bmatrix} 1 &amp; 2 \\ 4 &amp; 8 \end{bmatrix} \begin{bmatrix} x \\ y \end{bmatrix} = \begin{bmatrix} 0 \\ 1 \end{bmatrix}</span></p>
+<section id="q2.2" class="level3">
+<h3 class="anchored" data-anchor-id="q2.2">Q2.2</h3>
+<p><span class="math inline">x + y + z = 5;\ 2x - z = 4;\ 3y + z = 2</span>.</p>
 <div class="callout callout-style-default callout-tip callout-titled" title="Step-by-step solution">
 <div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-8-contents" aria-controls="callout-8" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
@@ -2515,15 +2534,15 @@ Step-by-step solution
 </div>
 <div id="callout-8" class="callout-8-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
-<p>Each row of the matrix · the column vector gives one equation: <span class="math display">\begin{aligned} x + 2y &amp;= 0 \\ 4x + 8y &amp;= 1 \end{aligned}</span></p>
-<p>Note the second equation is 4 times the first on the left, but not on the right — so this system is <strong>inconsistent</strong> (no solution). We will revisit this in Q3.</p>
+<p>A “missing” variable in an equation gets a 0 entry: <span class="math display">\begin{bmatrix} 1 &amp; 1 &amp; 1 \\ 2 &amp; 0 &amp; -1 \\ 0 &amp; 3 &amp; 1 \end{bmatrix} \begin{bmatrix} x \\ y \\ z \end{bmatrix} = \begin{bmatrix} 5 \\ 4 \\ 2 \end{bmatrix}</span></p>
 </div>
 </div>
 </div>
+<p>Write this as a system of equations without using matrix notation:</p>
 </section>
-<section id="q2.4" class="level3">
-<h3 class="anchored" data-anchor-id="q2.4">Q2.4</h3>
-<p><span class="math display">\begin{bmatrix} 1 &amp; 0 &amp; 1 \\ 2 &amp; 2 &amp; 0 \\ 3 &amp; 2 &amp; 0 \end{bmatrix} \begin{bmatrix} x \\ y \\ z \end{bmatrix} = \begin{bmatrix} 0 \\ 1 \\ 2 \end{bmatrix}</span></p>
+<section id="q2.3" class="level3">
+<h3 class="anchored" data-anchor-id="q2.3">Q2.3</h3>
+<p><span class="math display">\begin{bmatrix} 1 &amp; 2 \\ 4 &amp; 8 \end{bmatrix} \begin{bmatrix} x \\ y \end{bmatrix} = \begin{bmatrix} 0 \\ 1 \end{bmatrix}</span></p>
 <div class="callout callout-style-default callout-tip callout-titled" title="Step-by-step solution">
 <div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-9-contents" aria-controls="callout-9" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
@@ -2536,14 +2555,15 @@ Step-by-step solution
 </div>
 <div id="callout-9" class="callout-9-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
-<p><span class="math display">\begin{aligned} x + z &amp;= 0 \\ 2x + 2y &amp;= 1 \\ 3x + 2y &amp;= 2 \end{aligned}</span></p>
+<p>Each row of the matrix · the column vector gives one equation: <span class="math display">\begin{aligned} x + 2y &amp;= 0 \\ 4x + 8y &amp;= 1 \end{aligned}</span></p>
+<p>Note the second equation is 4 times the first on the left, but not on the right — so this system is <strong>inconsistent</strong> (no solution). We will revisit this in Q3.</p>
 </div>
 </div>
 </div>
 </section>
-<section id="q2.5" class="level3">
-<h3 class="anchored" data-anchor-id="q2.5">Q2.5</h3>
-<p><span class="math display">\begin{bmatrix} 1 &amp; 2 \end{bmatrix} \begin{bmatrix} x \\ x^2 \end{bmatrix} = \begin{bmatrix} 3 \end{bmatrix}</span></p>
+<section id="q2.4" class="level3">
+<h3 class="anchored" data-anchor-id="q2.4">Q2.4</h3>
+<p><span class="math display">\begin{bmatrix} 1 &amp; 0 &amp; 1 \\ 2 &amp; 2 &amp; 0 \\ 3 &amp; 2 &amp; 0 \end{bmatrix} \begin{bmatrix} x \\ y \\ z \end{bmatrix} = \begin{bmatrix} 0 \\ 1 \\ 2 \end{bmatrix}</span></p>
 <div class="callout callout-style-default callout-tip callout-titled" title="Step-by-step solution">
 <div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-10-contents" aria-controls="callout-10" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
@@ -2556,16 +2576,14 @@ Step-by-step solution
 </div>
 <div id="callout-10" class="callout-10-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
-<p><span class="math display">x + 2x^2 = 3</span></p>
-<p>Note this is <strong>not linear</strong> in <span class="math inline">x</span> (because of <span class="math inline">x^2</span>). Matrix notation with a non-linear “variable” inside the vector is a common trick, but Gaussian elimination won’t work directly here.</p>
+<p><span class="math display">\begin{aligned} x + z &amp;= 0 \\ 2x + 2y &amp;= 1 \\ 3x + 2y &amp;= 2 \end{aligned}</span></p>
 </div>
 </div>
 </div>
-<p>Perform the matrix multiplication:</p>
 </section>
-<section id="q2.6" class="level3">
-<h3 class="anchored" data-anchor-id="q2.6">Q2.6</h3>
-<p><span class="math display">\begin{bmatrix} 3 &amp; 4 \end{bmatrix} \begin{bmatrix} 2 \\ 5 \end{bmatrix}</span></p>
+<section id="q2.5" class="level3">
+<h3 class="anchored" data-anchor-id="q2.5">Q2.5</h3>
+<p><span class="math display">\begin{bmatrix} 1 &amp; 2 \end{bmatrix} \begin{bmatrix} x \\ x^2 \end{bmatrix} = \begin{bmatrix} 3 \end{bmatrix}</span></p>
 <div class="callout callout-style-default callout-tip callout-titled" title="Step-by-step solution">
 <div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-11-contents" aria-controls="callout-11" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
@@ -2578,15 +2596,16 @@ Step-by-step solution
 </div>
 <div id="callout-11" class="callout-11-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
-<p>Inner product: <span class="math inline">3 \cdot 2 + 4 \cdot 5 = 6 + 20 = 26</span>.</p>
+<p><span class="math display">x + 2x^2 = 3</span></p>
+<p>Note this is <strong>not linear</strong> in <span class="math inline">x</span> (because of <span class="math inline">x^2</span>). Matrix notation with a non-linear “variable” inside the vector is a common trick, but Gaussian elimination won’t work directly here.</p>
 </div>
 </div>
 </div>
-<p>Solve the following equations using the shorthand notation provided in the lecture:</p>
+<p>Perform the matrix multiplication:</p>
 </section>
-<section id="q2.7" class="level3">
-<h3 class="anchored" data-anchor-id="q2.7">Q2.7</h3>
-<p><span class="math display">\begin{bmatrix} 4 &amp; -5 \\ 3 &amp; 4 \end{bmatrix} \begin{bmatrix} x \\ y \end{bmatrix} = \begin{bmatrix} 24 \\ -13 \end{bmatrix}</span></p>
+<section id="q2.6" class="level3">
+<h3 class="anchored" data-anchor-id="q2.6">Q2.6</h3>
+<p><span class="math display">\begin{bmatrix} 3 &amp; 4 \end{bmatrix} \begin{bmatrix} 2 \\ 5 \end{bmatrix}</span></p>
 <div class="callout callout-style-default callout-tip callout-titled" title="Step-by-step solution">
 <div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-12-contents" aria-controls="callout-12" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
@@ -2598,6 +2617,27 @@ Step-by-step solution
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
 <div id="callout-12" class="callout-12-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>Inner product: <span class="math inline">3 \cdot 2 + 4 \cdot 5 = 6 + 20 = 26</span>.</p>
+</div>
+</div>
+</div>
+<p>Solve the following equations using the shorthand notation provided in the lecture:</p>
+</section>
+<section id="q2.7" class="level3">
+<h3 class="anchored" data-anchor-id="q2.7">Q2.7</h3>
+<p><span class="math display">\begin{bmatrix} 4 &amp; -5 \\ 3 &amp; 4 \end{bmatrix} \begin{bmatrix} x \\ y \end{bmatrix} = \begin{bmatrix} 24 \\ -13 \end{bmatrix}</span></p>
+<div class="callout callout-style-default callout-tip callout-titled" title="Step-by-step solution">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-13-contents" aria-controls="callout-13" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Step-by-step solution
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-13" class="callout-13-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <p>Augmented matrix: <span class="math display">\left[\begin{array}{cc|c} 4 &amp; -5 &amp; 24 \\ 3 &amp; 4 &amp; -13 \end{array}\right]</span></p>
 <ol type="1">
@@ -2614,48 +2654,6 @@ Step-by-step solution
 <h3 class="anchored" data-anchor-id="q2.8">Q2.8</h3>
 <p>Verify the solutions to the equation systems so far using <a href="https://www.rdocumentation.org/packages/base/versions/3.6.2/topics/solve">the R <code>solve</code> function</a>.</p>
 <div class="callout callout-style-default callout-tip callout-titled" title="Step-by-step solution">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-13-contents" aria-controls="callout-13" aria-expanded="false" aria-label="Toggle callout">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Step-by-step solution
-</div>
-<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
-</div>
-<div id="callout-13" class="callout-13-contents callout-collapse collapse">
-<div class="callout-body-container callout-body">
-<div class="sourceCode" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Q1.1</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">solve</span>(<span class="fu">matrix</span>(<span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">2</span>), <span class="dv">2</span>, <span class="dv">2</span>, <span class="at">byrow =</span> <span class="cn">TRUE</span>), <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>))   <span class="co"># 0, 1</span></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Q1.4</span></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>A <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">c</span>(<span class="dv">3</span>,<span class="dv">3</span>,<span class="dv">3</span>, <span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">2</span>, <span class="dv">3</span>,<span class="dv">0</span>,<span class="dv">2</span>), <span class="dv">3</span>, <span class="dv">3</span>, <span class="at">byrow =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="fu">solve</span>(A, <span class="fu">c</span>(<span class="dv">3</span>, <span class="dv">2</span>, <span class="dv">2</span>))                                         <span class="co"># 0, 0, 1</span></span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Q2.7</span></span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="fu">solve</span>(<span class="fu">matrix</span>(<span class="fu">c</span>(<span class="dv">4</span>,<span class="sc">-</span><span class="dv">5</span>, <span class="dv">3</span>,<span class="dv">4</span>), <span class="dv">2</span>, <span class="dv">2</span>, <span class="at">byrow =</span> <span class="cn">TRUE</span>), <span class="fu">c</span>(<span class="dv">24</span>, <span class="sc">-</span><span class="dv">13</span>))  <span class="co"># 1, -4</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>Tip: <code>byrow = TRUE</code> is important — by default R fills matrices column by column.</p>
-</div>
-</div>
-</div>
-</section>
-</section>
-<section id="recap-existence-of-unique-solutions-and-rank" class="level2">
-<h2 class="anchored" data-anchor-id="recap-existence-of-unique-solutions-and-rank">Recap: Existence of unique solutions and rank</h2>
-<ul>
-<li>Wikipedia <a href="https://en.wikipedia.org/wiki/Rank_(linear_algebra)">summary of rank</a>.</li>
-<li>You can compute rank in R using <a href="https://www.rdocumentation.org/packages/Matrix/versions/1.6-4/topics/rankMatrix"><code>rankMatrix</code></a>. It is in the <code>Matrix</code> library — run <code>library(Matrix)</code> first.</li>
-</ul>
-<p><strong>Quick rule of thumb (for an <span class="math inline">n \times n</span> system <span class="math inline">A\mathbf{x} = \mathbf{b}</span>):</strong></p>
-<ul>
-<li>If <span class="math inline">\operatorname{rank}(A) = \operatorname{rank}([A|\mathbf{b}]) = n</span> → unique solution.</li>
-<li>If <span class="math inline">\operatorname{rank}(A) = \operatorname{rank}([A|\mathbf{b}]) &lt; n</span> → infinitely many solutions.</li>
-<li>If <span class="math inline">\operatorname{rank}(A) &lt; \operatorname{rank}([A|\mathbf{b}])</span> → no solution (inconsistent).</li>
-</ul>
-<section id="q3.1" class="level3">
-<h3 class="anchored" data-anchor-id="q3.1">Q3.1</h3>
-<p><span class="math display">\begin{bmatrix} 2 &amp; -5 \\ 6 &amp; -15 \end{bmatrix} \begin{bmatrix} x \\ y \end{bmatrix} = \begin{bmatrix} 10 \\ 13 \end{bmatrix}</span></p>
-<div class="callout callout-style-default callout-tip callout-titled" title="Step-by-step solution">
 <div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-14-contents" aria-controls="callout-14" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
@@ -2667,6 +2665,72 @@ Step-by-step solution
 </div>
 <div id="callout-14" class="callout-14-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
+<div class="sourceCode" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Q1.1</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>A <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">1</span>,</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>              <span class="dv">1</span>, <span class="dv">2</span>), <span class="dv">2</span>, <span class="dv">2</span>, <span class="at">byrow =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">solve</span>(A, <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>))           <span class="co"># 0, 1</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Q1.4</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>A <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">c</span>(<span class="dv">3</span>, <span class="dv">3</span>, <span class="dv">3</span>,</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>              <span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">2</span>,</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>              <span class="dv">3</span>, <span class="dv">0</span>, <span class="dv">2</span>), <span class="dv">3</span>, <span class="dv">3</span>, <span class="at">byrow =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="fu">solve</span>(A, <span class="fu">c</span>(<span class="dv">3</span>, <span class="dv">2</span>, <span class="dv">2</span>))        <span class="co"># 0, 0, 1</span></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Q2.7</span></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>A <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">c</span>(<span class="dv">4</span>, <span class="sc">-</span><span class="dv">5</span>,</span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>              <span class="dv">3</span>,  <span class="dv">4</span>), <span class="dv">2</span>, <span class="dv">2</span>, <span class="at">byrow =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a><span class="fu">solve</span>(A, <span class="fu">c</span>(<span class="dv">24</span>, <span class="sc">-</span><span class="dv">13</span>))        <span class="co"># 1, -4</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Tip: <code>byrow = TRUE</code> is important — by default R fills matrices column by column.</p>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled" title="Biological application: spectrophotometry in matrix form">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Biological application: spectrophotometry in matrix form
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>The DNA-vs-protein problem from the previous section in matrix form is <span class="math display">\underbrace{\begin{bmatrix} 2 &amp; 1 \\ 1 &amp; 2 \end{bmatrix}}_{E}\,\underbrace{\begin{bmatrix} [\text{DNA}] \\ [\text{prot}] \end{bmatrix}}_{\mathbf{c}} = \underbrace{\begin{bmatrix} 5 \\ 4 \end{bmatrix}}_{\mathbf{A}}</span> where the rows of <span class="math inline">E</span> are wavelengths (260, 280 nm) and the columns are species (DNA, protein). Solve in R:</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>E <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">1</span>,</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>              <span class="dv">1</span>, <span class="dv">2</span>), <span class="dv">2</span>, <span class="dv">2</span>, <span class="at">byrow =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="fu">solve</span>(E, <span class="fu">c</span>(<span class="dv">5</span>, <span class="dv">4</span>))     <span class="co"># 2, 1</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>For three species (e.g. add RNA), measure at a third wavelength and solve a 3×3 system the same way — the matrix framing scales with no extra effort, while the row-by-row Gaussian elimination from the previous section gets tedious fast.</p>
+</div>
+</div>
+</section>
+</section>
+<section id="existence-of-unique-solutions-and-rank" class="level2">
+<h2 class="anchored" data-anchor-id="existence-of-unique-solutions-and-rank">Existence of unique solutions and rank</h2>
+<ul>
+<li>Wikipedia <a href="https://en.wikipedia.org/wiki/Rank_(linear_algebra)">summary of rank</a>.</li>
+<li>You can compute rank in R using <a href="https://www.rdocumentation.org/packages/Matrix/versions/1.6-4/topics/rankMatrix"><code>rankMatrix</code></a>. It is in the <code>Matrix</code> library — run <code>library(Matrix)</code> first.</li>
+</ul>
+<p><strong>Quick rule of thumb (for an <span class="math inline">n \times n</span> system <span class="math inline">A\mathbf{x} = \mathbf{b}</span>):</strong></p>
+<ul>
+<li>If <span class="math inline">\operatorname{rank}(A) = \operatorname{rank}([A|\mathbf{b}]) = n</span> → unique solution.</li>
+<li>If <span class="math inline">\operatorname{rank}(A) = \operatorname{rank}([A|\mathbf{b}]) &lt; n</span> → infinitely many solutions.</li>
+<li>If <span class="math inline">\operatorname{rank}(A) &lt; \operatorname{rank}([A|\mathbf{b}])</span> → no solution (inconsistent).</li>
+</ul>
+<p>For each of Q3.1–Q3.4: determine whether the equation can be solved or not; if it can, provide the solution.</p>
+<section id="q3.1" class="level3">
+<h3 class="anchored" data-anchor-id="q3.1">Q3.1</h3>
+<p><span class="math display">\begin{bmatrix} 2 &amp; -5 \\ 6 &amp; -15 \end{bmatrix} \begin{bmatrix} x \\ y \end{bmatrix} = \begin{bmatrix} 10 \\ 13 \end{bmatrix}</span></p>
+<div class="callout callout-style-default callout-tip callout-titled" title="Step-by-step solution">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-16-contents" aria-controls="callout-16" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Step-by-step solution
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-16" class="callout-16-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
 <p>Row 2 of <span class="math inline">A</span> is exactly <span class="math inline">3 \times</span> row 1, so <span class="math inline">\operatorname{rank}(A) = 1</span>. But the right-hand side: <span class="math inline">3 \cdot 10 = 30 \ne 13</span>. So in the augmented matrix, <span class="math inline">\operatorname{rank}([A|\mathbf{b}]) = 2</span>.</p>
 <p>Since <span class="math inline">1 &lt; 2</span> → <strong>no solution</strong> (inconsistent).</p>
 </div>
@@ -2677,7 +2741,7 @@ Step-by-step solution
 <h3 class="anchored" data-anchor-id="q3.2">Q3.2</h3>
 <p><span class="math display">\begin{bmatrix} 3 &amp; 5 \\ 11 &amp; 7 \end{bmatrix} \begin{bmatrix} x \\ y \end{bmatrix} = \begin{bmatrix} 11 \\ 7 \end{bmatrix}</span></p>
 <div class="callout callout-style-default callout-tip callout-titled" title="Step-by-step solution">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-15-contents" aria-controls="callout-15" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-17-contents" aria-controls="callout-17" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -2686,7 +2750,7 @@ Step-by-step solution
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-15" class="callout-15-contents callout-collapse collapse">
+<div id="callout-17" class="callout-17-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <p><span class="math inline">\det = 3\cdot 7 - 5\cdot 11 = 21 - 55 = -34 \ne 0</span>, so <span class="math inline">\operatorname{rank}(A) = 2 = n</span> → <strong>unique solution</strong>.</p>
 <p>Solve it:</p>
@@ -2703,7 +2767,7 @@ Step-by-step solution
 <h3 class="anchored" data-anchor-id="q3.3">Q3.3</h3>
 <p><span class="math display">\begin{bmatrix} 1 &amp; 9 &amp; 3 \\ 3 &amp; 3 &amp; 3 \\ 1 &amp; 3 &amp; 3 \end{bmatrix} \begin{bmatrix} x \\ y \\ z \end{bmatrix} = \begin{bmatrix} 1 \\ 0 \\ 0 \end{bmatrix}</span></p>
 <div class="callout callout-style-default callout-tip callout-titled" title="Step-by-step solution">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-16-contents" aria-controls="callout-16" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-18-contents" aria-controls="callout-18" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -2712,7 +2776,7 @@ Step-by-step solution
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-16" class="callout-16-contents callout-collapse collapse">
+<div id="callout-18" class="callout-18-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <p>Compute <span class="math inline">\det</span> along the top row: <span class="math display">\det = 1(3\cdot3 - 3\cdot3) - 9(3\cdot3 - 3\cdot1) + 3(3\cdot3 - 3\cdot1) = 0 - 54 + 18 = -36 \ne 0</span> → <strong>unique solution</strong>.</p>
 <p>Solving (eq. 2 − eq. 3 gives <span class="math inline">2x = 0 \Rightarrow x = 0</span>, then eq. 2 gives <span class="math inline">y + z = 0</span>, and eq. 1 gives <span class="math inline">9y + 3z = 1 \Rightarrow 6y = 1</span>):</p>
@@ -2725,7 +2789,7 @@ Step-by-step solution
 <h3 class="anchored" data-anchor-id="q3.4">Q3.4</h3>
 <p><span class="math display">\begin{bmatrix} 1 &amp; 0 &amp; 0 \\ 1 &amp; 1 &amp; 1 \\ 2 &amp; 1 &amp; 1 \end{bmatrix} \begin{bmatrix} x \\ y \\ z \end{bmatrix} = \begin{bmatrix} 5 \\ 0 \\ 0 \end{bmatrix}</span></p>
 <div class="callout callout-style-default callout-tip callout-titled" title="Step-by-step solution">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-17-contents" aria-controls="callout-17" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-19-contents" aria-controls="callout-19" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -2734,7 +2798,7 @@ Step-by-step solution
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-17" class="callout-17-contents callout-collapse collapse">
+<div id="callout-19" class="callout-19-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <p>Note row 3 = row 1 + row 2 in <span class="math inline">A</span>, so <span class="math inline">\operatorname{rank}(A) = 2 &lt; 3</span>.</p>
 <p>Check the right-hand side: row 1 + row 2 of <span class="math inline">\mathbf{b}</span> = <span class="math inline">5 + 0 = 5</span>, but row 3 of <span class="math inline">\mathbf{b}</span> = <span class="math inline">0</span>. Inconsistent! So <span class="math inline">\operatorname{rank}([A|\mathbf{b}]) = 3</span>.</p>
@@ -2747,7 +2811,7 @@ Step-by-step solution
 <h3 class="anchored" data-anchor-id="q3.5">Q3.5</h3>
 <p>Verify your answers by computing the rank in R.</p>
 <div class="callout callout-style-default callout-tip callout-titled" title="Step-by-step solution">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-18-contents" aria-controls="callout-18" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-20-contents" aria-controls="callout-20" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -2756,21 +2820,21 @@ Step-by-step solution
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-18" class="callout-18-contents callout-collapse collapse">
+<div id="callout-20" class="callout-20-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
-<div class="sourceCode" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(Matrix)</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Q3.1</span></span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>A <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">c</span>(<span class="dv">2</span>,<span class="sc">-</span><span class="dv">5</span>, <span class="dv">6</span>,<span class="sc">-</span><span class="dv">15</span>), <span class="dv">2</span>, <span class="dv">2</span>, <span class="at">byrow =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>b <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">10</span>, <span class="dv">13</span>)</span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="fu">rankMatrix</span>(A)[<span class="dv">1</span>]              <span class="co"># 1</span></span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="fu">rankMatrix</span>(<span class="fu">cbind</span>(A, b))[<span class="dv">1</span>]    <span class="co"># 2  → no solution</span></span>
-<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Q3.4</span></span>
-<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>A <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">0</span>,<span class="dv">0</span>, <span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>, <span class="dv">2</span>,<span class="dv">1</span>,<span class="dv">1</span>), <span class="dv">3</span>, <span class="dv">3</span>, <span class="at">byrow =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>b <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">5</span>, <span class="dv">0</span>, <span class="dv">0</span>)</span>
-<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a><span class="fu">rankMatrix</span>(A)[<span class="dv">1</span>]              <span class="co"># 2</span></span>
-<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a><span class="fu">rankMatrix</span>(<span class="fu">cbind</span>(A, b))[<span class="dv">1</span>]    <span class="co"># 3  → no solution</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(Matrix)</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Q3.1</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>A <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">c</span>(<span class="dv">2</span>,<span class="sc">-</span><span class="dv">5</span>, <span class="dv">6</span>,<span class="sc">-</span><span class="dv">15</span>), <span class="dv">2</span>, <span class="dv">2</span>, <span class="at">byrow =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>b <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">10</span>, <span class="dv">13</span>)</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="fu">rankMatrix</span>(A)[<span class="dv">1</span>]              <span class="co"># 1</span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="fu">rankMatrix</span>(<span class="fu">cbind</span>(A, b))[<span class="dv">1</span>]    <span class="co"># 2  → no solution</span></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Q3.4</span></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>A <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">0</span>,<span class="dv">0</span>, <span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>, <span class="dv">2</span>,<span class="dv">1</span>,<span class="dv">1</span>), <span class="dv">3</span>, <span class="dv">3</span>, <span class="at">byrow =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>b <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">5</span>, <span class="dv">0</span>, <span class="dv">0</span>)</span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a><span class="fu">rankMatrix</span>(A)[<span class="dv">1</span>]              <span class="co"># 2</span></span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a><span class="fu">rankMatrix</span>(<span class="fu">cbind</span>(A, b))[<span class="dv">1</span>]    <span class="co"># 3  → no solution</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
 </div>
@@ -2779,7 +2843,7 @@ Step-by-step solution
 <h3 class="anchored" data-anchor-id="q3.6">Q3.6</h3>
 <p>What happens if you try to use R <code>solve()</code> on an unsolvable system?</p>
 <div class="callout callout-style-default callout-tip callout-titled" title="Step-by-step solution">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-19-contents" aria-controls="callout-19" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-21-contents" aria-controls="callout-21" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -2788,17 +2852,31 @@ Step-by-step solution
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-19" class="callout-19-contents callout-collapse collapse">
+<div id="callout-21" class="callout-21-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
-<div class="sourceCode" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>A <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">c</span>(<span class="dv">2</span>,<span class="sc">-</span><span class="dv">5</span>, <span class="dv">6</span>,<span class="sc">-</span><span class="dv">15</span>), <span class="dv">2</span>, <span class="dv">2</span>, <span class="at">byrow =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">solve</span>(A, <span class="fu">c</span>(<span class="dv">10</span>, <span class="dv">13</span>))</span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Error in solve.default(A, c(10, 13)) :</span></span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="co">#   Lapack routine dgesv: system is computationally singular</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>A <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">c</span>(<span class="dv">2</span>,<span class="sc">-</span><span class="dv">5</span>, <span class="dv">6</span>,<span class="sc">-</span><span class="dv">15</span>), <span class="dv">2</span>, <span class="dv">2</span>, <span class="at">byrow =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="fu">solve</span>(A, <span class="fu">c</span>(<span class="dv">10</span>, <span class="dv">13</span>))</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Error in solve.default(A, c(10, 13)) :</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="co">#   Lapack routine dgesv: system is computationally singular</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>R throws an error because the matrix is singular (zero determinant / rank-deficient). It does <strong>not</strong> silently return a wrong answer — but it also does not distinguish “infinitely many solutions” from “no solution”; you have to check ranks for that.</p>
 </div>
 </div>
 </div>
 <p><strong>Optional further exercises:</strong> <a href="https://online.math.uh.edu/Math1310-unpaid/ch6/s61/ex61.pdf" class="uri">https://online.math.uh.edu/Math1310-unpaid/ch6/s61/ex61.pdf</a></p>
+<div class="callout callout-style-default callout-note callout-titled" title="Biological application: when can&#39;t we separate species?">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Biological application: when can’t we separate species?
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Suppose you only record a single absorbance, <span class="math inline">A_{260}</span>. With two unknowns <span class="math inline">[\text{DNA}]</span> and <span class="math inline">[\text{prot}]</span> but only one equation, the system is underdetermined — infinitely many concentration pairs match any single measurement. Formally, the <span class="math inline">1\times 2</span> “matrix” <span class="math inline">E</span> has <span class="math inline">\operatorname{rank}(E) = 1 &lt; 2</span>.</p>
+<p>A subtler failure: measure at two wavelengths but with two species whose extinction spectra are <em>proportional</em>. The rows of <span class="math inline">E</span> are then linearly dependent, <span class="math inline">\operatorname{rank}(E) = 1</span> again, and you cannot tell the species apart no matter how many wavelengths you stack on. This is essentially why dsDNA and ssDNA can’t be distinguished by UV absorbance alone — their spectra are too similar — and why labs reach for orthogonal methods (gel electrophoresis, fluorescent dyes) for that job. Rank deficiency in <span class="math inline">E</span> is the math telling you the experimental design can’t answer the question.</p>
+</div>
+</div>
 </section>
 </section>
 <section id="recap-matrix-multiplication" class="level2">
@@ -2810,7 +2888,7 @@ Step-by-step solution
 <h3 class="anchored" data-anchor-id="q4.1">Q4.1</h3>
 <p>Compute <span class="math inline">AB</span> and <span class="math inline">BA</span> for <span class="math display">A = \begin{bmatrix} 1 &amp; 0 \\ 5 &amp; 0 \end{bmatrix},\quad B = \begin{bmatrix} 3 &amp; 2 \\ 4 &amp; 3 \end{bmatrix}</span></p>
 <div class="callout callout-style-default callout-tip callout-titled" title="Step-by-step solution">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-20-contents" aria-controls="callout-20" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-23-contents" aria-controls="callout-23" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -2819,7 +2897,7 @@ Step-by-step solution
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-20" class="callout-20-contents callout-collapse collapse">
+<div id="callout-23" class="callout-23-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <p>Entry <span class="math inline">(i,j)</span> of the product = row <span class="math inline">i</span> of the left matrix · column <span class="math inline">j</span> of the right matrix.</p>
 <p><span class="math display">AB = \begin{bmatrix} 1\cdot 3 + 0\cdot 4 &amp; 1\cdot 2 + 0\cdot 3 \\ 5\cdot 3 + 0\cdot 4 &amp; 5\cdot 2 + 0\cdot 3 \end{bmatrix} = \begin{bmatrix} 3 &amp; 2 \\ 15 &amp; 10 \end{bmatrix}</span></p>
@@ -2834,7 +2912,7 @@ Step-by-step solution
 <p>Compute <span class="math inline">AB</span> and <span class="math inline">BA</span> for <span class="math display">A = \begin{bmatrix} 3 &amp; 5 \\ 11 &amp; 7 \end{bmatrix},\quad B = \begin{bmatrix} 1 &amp; 0 \\ 0 &amp; 1 \end{bmatrix}</span></p>
 <p>Note that <span class="math inline">B</span> is the <strong>identity matrix</strong>, frequently written <span class="math inline">\mathbb{I}</span> or more precisely <span class="math inline">\mathbb{I}_{2\times 2}</span>.</p>
 <div class="callout callout-style-default callout-tip callout-titled" title="Step-by-step solution">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-21-contents" aria-controls="callout-21" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-24-contents" aria-controls="callout-24" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -2843,7 +2921,7 @@ Step-by-step solution
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-21" class="callout-21-contents callout-collapse collapse">
+<div id="callout-24" class="callout-24-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <p><span class="math display">AB = \begin{bmatrix} 3\cdot1 + 5\cdot 0 &amp; 3\cdot 0 + 5\cdot 1 \\ 11\cdot 1 + 7\cdot 0 &amp; 11\cdot 0 + 7\cdot 1 \end{bmatrix} = \begin{bmatrix} 3 &amp; 5 \\ 11 &amp; 7 \end{bmatrix} = A</span></p>
 <p><span class="math display">BA = \begin{bmatrix} 1\cdot 3 + 0\cdot 11 &amp; 1\cdot 5 + 0\cdot 7 \\ 0\cdot 3 + 1\cdot 11 &amp; 0\cdot 5 + 1\cdot 7 \end{bmatrix} = \begin{bmatrix} 3 &amp; 5 \\ 11 &amp; 7 \end{bmatrix} = A</span></p>
@@ -2856,7 +2934,7 @@ Step-by-step solution
 <h3 class="anchored" data-anchor-id="q4.3">Q4.3</h3>
 <p>Compute <span class="math inline">AB</span> for <span class="math display">A = \begin{bmatrix} 1 &amp; 2 \\ 3 &amp; 4 \end{bmatrix},\quad B = \begin{bmatrix} 5 &amp; 5 \\ 4 &amp; 4 \end{bmatrix}</span></p>
 <div class="callout callout-style-default callout-tip callout-titled" title="Step-by-step solution">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-22-contents" aria-controls="callout-22" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-25-contents" aria-controls="callout-25" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -2865,7 +2943,7 @@ Step-by-step solution
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-22" class="callout-22-contents callout-collapse collapse">
+<div id="callout-25" class="callout-25-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <p><span class="math display">AB = \begin{bmatrix} 1\cdot 5 + 2\cdot 4 &amp; 1\cdot 5 + 2\cdot 4 \\ 3\cdot 5 + 4\cdot 4 &amp; 3\cdot 5 + 4\cdot 4 \end{bmatrix} = \begin{bmatrix} 13 &amp; 13 \\ 31 &amp; 31 \end{bmatrix}</span></p>
 <p>The two columns of <span class="math inline">B</span> are equal, so the two columns of <span class="math inline">AB</span> are also equal.</p>
@@ -2878,7 +2956,7 @@ Step-by-step solution
 <p>Verify your answers using R. You can simply do <code>A %*% B</code> to perform a multiplication.</p>
 <p>Note that this is not the same thing <strong>in R</strong> as <code>A * B</code>, which does the math element-by-element! (which is also useful sometimes). R (and Python) is not always consistent with common mathematical notation; mathematicians might instead write element-wise multiplication as <span class="math inline">A \odot B</span> or other non-standard notation. These sorts of confusions are common throughout programming, and something one just has to get used to.</p>
 <div class="callout callout-style-default callout-tip callout-titled" title="Step-by-step solution">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-23-contents" aria-controls="callout-23" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-26-contents" aria-controls="callout-26" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -2887,26 +2965,41 @@ Step-by-step solution
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-23" class="callout-23-contents callout-collapse collapse">
+<div id="callout-26" class="callout-26-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
-<div class="sourceCode" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>A <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">5</span>, <span class="dv">0</span>), <span class="dv">2</span>, <span class="dv">2</span>, <span class="at">byrow =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>B <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">c</span>(<span class="dv">3</span>, <span class="dv">2</span>, <span class="dv">4</span>, <span class="dv">3</span>), <span class="dv">2</span>, <span class="dv">2</span>, <span class="at">byrow =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>A <span class="sc">%*%</span> B    <span class="co"># Q4.1: matrix product</span></span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="co">#       [,1] [,2]</span></span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="co"># [1,]    3    2</span></span>
-<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="co"># [2,]   15   10</span></span>
-<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>B <span class="sc">%*%</span> A    <span class="co"># Q4.1 reversed</span></span>
-<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a><span class="co">#       [,1] [,2]</span></span>
-<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a><span class="co"># [1,]   13    0</span></span>
-<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a><span class="co"># [2,]   19    0</span></span>
-<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a>A <span class="sc">*</span> B      <span class="co"># element-wise — totally different operation!</span></span>
-<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a><span class="co">#       [,1] [,2]</span></span>
-<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a><span class="co"># [1,]    3    0</span></span>
-<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a><span class="co"># [2,]   20    0</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>A <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">5</span>, <span class="dv">0</span>), <span class="dv">2</span>, <span class="dv">2</span>, <span class="at">byrow =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>B <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">c</span>(<span class="dv">3</span>, <span class="dv">2</span>, <span class="dv">4</span>, <span class="dv">3</span>), <span class="dv">2</span>, <span class="dv">2</span>, <span class="at">byrow =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>A <span class="sc">%*%</span> B    <span class="co"># Q4.1: matrix product</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="co">#       [,1] [,2]</span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a><span class="co"># [1,]    3    2</span></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a><span class="co"># [2,]   15   10</span></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>B <span class="sc">%*%</span> A    <span class="co"># Q4.1 reversed</span></span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a><span class="co">#       [,1] [,2]</span></span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a><span class="co"># [1,]   13    0</span></span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a><span class="co"># [2,]   19    0</span></span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a>A <span class="sc">*</span> B      <span class="co"># element-wise — totally different operation!</span></span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a><span class="co">#       [,1] [,2]</span></span>
+<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a><span class="co"># [1,]    3    0</span></span>
+<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a><span class="co"># [2,]   20    0</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled" title="Biological application: many samples at once">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Biological application: many samples at once
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Beer–Lambert for one sample is <span class="math inline">E\,\mathbf{c} = \mathbf{A}</span> — matrix times vector. Now imagine a 96-well plate: stack each well’s concentration vector as a column of a <span class="math inline">\text{(species)} \times 96</span> matrix <span class="math inline">C</span>, and all the absorbances at once become <span class="math display">E \, C = A</span> where <span class="math inline">A</span> is a <span class="math inline">\text{(wavelengths)} \times 96</span> matrix. Each column of the product is one well’s spectrum — exactly the matrix–matrix multiplication you just practiced. And because R’s <code>solve</code> accepts a matrix on the right-hand side, you can decompose every well at once with a single call:</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">solve</span>(E, A)    <span class="co"># one column of concentrations per sample</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>This is the practical reason matrix multiplication exists: applying the same linear transformation to many input vectors with one operation.</p>
 </div>
 </div>
 </section>

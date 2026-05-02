@@ -160,6 +160,32 @@ $$P(A \text{ or } B) = 1 - P(\text{neither}) = 1 - 0.72 = 0.28$$
 - Optional: counting-type probability questions: <https://thirdspacelearning.com/blog/probability-questions>.
 - Optional: harder questions: <https://www.hitbullseye.com/Probability-Examples.php>.
 
+::: {.callout-note title="Biological application: Mendelian inheritance"}
+Two heterozygous parents ($Aa \times Aa$) each pass one of their two alleles to the offspring with equal probability. The four equally likely allele combinations are $AA, Aa, aA, aa$, so:
+$$P(\text{homozygous recessive } aa) = \tfrac{1}{2} \cdot \tfrac{1}{2} = \tfrac{1}{4}$$
+$$P(\text{at least one dominant } A) = 1 - P(aa) = \tfrac{3}{4}$$
+(the complement trick from Q1.5, applied to genetics).
+
+For two unlinked genes inherited independently ($AaBb \times AaBb$):
+$$P(\text{double recessive } aabb) = \tfrac{1}{4} \cdot \tfrac{1}{4} = \tfrac{1}{16}$$
+This is the source of the classic 9:3:3:1 ratio in dihybrid crosses.
+:::
+
+::: {.callout-note title="Biological application: mutations along a stretch of DNA"}
+Each base in a genome mutates per generation with some small probability $\mu$ (for humans, $\mu \approx 10^{-8}$). Treating bases as independent:
+$$P(\text{no mutation in } n \text{ bases}) = (1-\mu)^n$$
+$$P(\text{at least one mutation in } n \text{ bases}) = 1 - (1-\mu)^n$$
+
+For $\mu = 10^{-8}$ and $n = 3 \times 10^9$ (a human genome): $P(\geq 1) \approx 1 - e^{-30} \approx 1$ — every offspring carries new mutations. This is the same complement-of-"at least one" calculation as Q1.5, just at genome scale.
+:::
+
+::: {.callout-note title="Biological application: matching a random k-mer"}
+Pick a random DNA sequence of length $k$ (a "k-mer") and ask whether it matches a fixed target sequence. Assuming each base is equally likely (A/C/G/T) and bases are independent:
+$$P(\text{match}) = \left(\tfrac{1}{4}\right)^k$$
+
+For $k = 4$ this is $1/256$; for $k = 20$ it is $\approx 10^{-12}$. This is why PCR primers (typically 18–25 bp) are usually unique in a genome — by random chance, a 20-mer would be expected to occur fewer than once in a $3 \times 10^9$-base human genome. Same independence-multiplication as Q1.3 (four heads in a row), just over four outcomes instead of two.
+:::
+
 ## Exercises on Expected value / Expectation
 
 ### Q2.1
@@ -209,28 +235,42 @@ $$E[\text{game}] = \tfrac{1}{2}\cdot 50 + \tfrac{1}{2}\cdot(-100) = 25 - 50 = -2
 **Answer:** you lose \$25 on average per game. (You should refuse to play.)
 :::
 
+::: {.callout-note title="Biological application: expected mutations per generation"}
+Each base mutates with small probability $\mu$ per generation. The expected number of new mutations across the whole genome of length $L$ is
+$$E[\#\text{mutations}] = \mu \cdot L$$
+For humans ($\mu \approx 10^{-8}$, $L \approx 3 \times 10^9$ bp), this gives $E \approx 30$ new mutations per offspring per generation — and indeed, family trio sequencing studies estimate $\sim 60$ *de novo* mutations per child (counting both parental contributions). Linearity of expectation makes this a one-line calculation: each base is a tiny "lottery ticket" with payoff 1 if it mutates, 0 otherwise, and you just sum the expected payoffs.
+:::
+
+::: {.callout-note title="Biological application: expected sequencing coverage"}
+A short-read sequencer produces $N$ reads of length $\ell$ each, scattered roughly uniformly over a genome of size $L$. The expected number of reads covering any given base — the "expected coverage" — is
+$$E[\text{coverage}] = \frac{N \cdot \ell}{L}$$
+For example, $N = 3 \times 10^8$ reads of $\ell = 100$ bp on a human genome ($L = 3 \times 10^9$ bp) gives $E[\text{coverage}] = 10\times$. You will use this exact formula in module 3 when planning sequencing depth.
+:::
+
 ## Exercises in Markov chains
 
-![Weather Markov chain](img/weather.svg)
+A single ion channel in a cell membrane flickers between an **Open** state (lets ions through) and a **Closed** state (blocks them). Suppose a model of one such channel has the following per-step transition probabilities:
+
+![Ion channel Markov chain](img/ion_channel.svg)
 
 ### Q3.1
-Intuitively, do you expect good or bad weather?
+Intuitively, do you expect the channel to be open or closed most of the time?
 
 ::: {.callout-tip collapse="true" title="Step-by-step solution"}
-Compare the self-loops: Sunny stays sunny with only **0.1**, while Rain stays rainy with **0.5**. So once it rains it tends to keep raining, but a sunny day flips to rain with 0.9 probability.
+Compare the self-loops: Open stays open with only **0.1**, while Closed stays closed with **0.5**. So once the channel closes it tends to stay closed, but an open channel flips to closed with 0.9 probability.
 
-**Answer:** bad weather — we expect the chain to spend much more time in the Rain state. (Q3.9 makes this rigorous: the stationary distribution puts ≈ 64% on Rain and ≈ 36% on Sunny.)
+**Answer:** mostly closed — we expect the chain to spend much more time in the Closed state. (The stationary-distribution machinery in Q3.9 makes this rigorous: it puts ≈ 64% on Closed and ≈ 36% on Open.)
 :::
 
 ### Q3.2
 Write the transition matrix.
 
 ::: {.callout-tip collapse="true" title="Step-by-step solution"}
-With the state order (Sunny, Rain), read each arrow off the diagram:
+With the state order (Open, Closed), read each arrow off the diagram:
 
 $$P = \begin{bmatrix} 0.1 & 0.9 \\ 0.5 & 0.5 \end{bmatrix}$$
 
-Row 1 (from Sunny): stay sunny 0.1, switch to rain 0.9. Row 2 (from Rain): switch to sunny 0.5, stay rainy 0.5. Each row sums to 1, as it must.
+Row 1 (from Open): stay open 0.1, switch to closed 0.9. Row 2 (from Closed): switch to open 0.5, stay closed 0.5. Each row sums to 1, as it must.
 :::
 
 ### Q3.3
@@ -346,7 +386,7 @@ You note that the vector is in an inconvenient place for Gaussian elimination. S
 
 *Hint #2:* To get full rank (i.e. be able to get a unique answer), you need to make use of the normalizing condition (that all probabilities sum to 100%). It can be rewritten as
 $$\begin{bmatrix} 1 & 1 & \cdots \end{bmatrix} \begin{bmatrix} \pi_1 \\ \pi_2 \\ \vdots \end{bmatrix} = \begin{bmatrix} 1 \end{bmatrix}$$
-and added to the first system of equations.
+and added to the first system of equations. Note that the balance equations $\pi(P - \mathbb{I}) = 0$ are *redundant* — each row of $P - \mathbb{I}$ sums to $0$, so one of them is implied by the others. To keep the matrix square (so you can use a standard solver), drop one of the balance equations and put the normalization row in its place.
 
 If the above is confusing, simply solve it without using matrices. They are not needed for such a small problem.
 
@@ -371,11 +411,21 @@ $$\pi = \left(\tfrac{28}{213},\; \tfrac{90}{213},\; \tfrac{95}{213}\right) \appr
 
 **Answer:** in the long run the chain spends ≈ 13% of the time in $S_1$, 42% in $S_2$, 45% in $S_3$.
 
-Sanity check in R using powers of $P$:
+**Matrix solver in R.** Following the hint, $\pi P = \pi$ becomes $(P^T - I)\,\pi^T = 0$. The three balance equations are redundant (each row of $P^T - I$ sums to $0$), so we throw one of them out and replace it with the normalization $\pi_1 + \pi_2 + \pi_3 = 1$. That gives a square system we can hand to `solve()`:
 ```r
 P <- matrix(c(0,   0.5, 0.5,
               0.1, 0,   0.9,
               0.2, 0.8, 0), 3, 3, byrow = TRUE)
+
+A <- t(P) - diag(3)
+A[3, ] <- 1                # replace the last balance eq. with sum-to-one
+b <- c(0, 0, 1)
+pi <- solve(A, b)
+pi          # 0.1314554 0.4225352 0.4460094
+```
+
+Sanity check by iterating $P$ instead:
+```r
 P100 <- P
 for (i in 1:99) P100 <- P100 %*% P
 P100        # every row should be ≈ (0.131, 0.423, 0.446)
@@ -385,5 +435,36 @@ P100        # every row should be ≈ (0.131, 0.423, 0.446)
 
 ### Q3.10
 Optional: solve problem 1 here: <https://www.probabilitycourse.com/chapter11/11_2_7_solved_probs.php> (the other problems are beyond this course).
+
+### Q3.11
+Eukaryotic cells progress through a cycle of four phases: $G_1 \to S \to G_2 \to M \to G_1$. The phases differ in length — $G_1$ is typically the longest and $M$ (mitosis) the shortest. Suppose that, in arbitrary time units, the per-step transition probabilities are as below:
+
+![Cell-cycle Markov chain](img/cell_cycle.svg)
+
+What is the stationary distribution? Equivalently, what fraction of time does a population of cells spend in each phase?
+
+::: {.callout-tip collapse="true" title="Step-by-step solution"}
+Read the matrix off the diagram (state order $G_1, S, G_2, M$):
+
+$$P = \begin{bmatrix} 0.9 & 0.1 & 0 & 0 \\ 0 & 0.7 & 0.3 & 0 \\ 0 & 0 & 0.6 & 0.4 \\ 0.8 & 0 & 0 & 0.2 \end{bmatrix}$$
+
+Use the same matrix-solver trick as Q3.9: $\pi P = \pi$ becomes $(P^T - I)\,\pi^T = 0$, drop one (redundant) balance row, and replace it with the normalization $\sum_i \pi_i = 1$.
+```r
+P <- matrix(c(0.9, 0.1, 0,   0,
+              0,   0.7, 0.3, 0,
+              0,   0,   0.6, 0.4,
+              0.8, 0,   0,   0.2), 4, 4, byrow = TRUE)
+
+A <- t(P) - diag(4)
+A[4, ] <- 1                   # replace last balance eq. with sum-to-one
+b <- c(0, 0, 0, 1)
+pi <- solve(A, b)
+pi          # 0.5854 0.1951 0.1463 0.0732
+```
+
+Exact answer: $\pi = (24/41,\ 8/41,\ 6/41,\ 3/41) \approx (58.5\%,\ 19.5\%,\ 14.6\%,\ 7.3\%)$.
+
+So a typical cycling cell spends ≈ 59% of its time in $G_1$, 20% in $S$, 15% in $G_2$, and 7% in $M$ — matching the textbook biology that $G_1$ dominates the cycle and mitosis is comparatively brief.
+:::
 
 **Optional deeper reading:** You can see how to model, for example, the continuous coin flip game here: <https://physiology.med.cornell.edu/people/banfelder/qbio/resources_2016/S.1_markov.pdf>.

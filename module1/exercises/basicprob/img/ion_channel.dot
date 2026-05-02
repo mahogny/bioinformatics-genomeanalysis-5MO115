@@ -1,0 +1,12 @@
+digraph ion_channel {
+  rankdir=LR;
+  bgcolor="transparent";
+  node [shape=ellipse, style=filled, fillcolor="#ECECFF", color="#9370DB",
+        fontname="trebuchet ms", fontsize=14];
+  edge [fontname="trebuchet ms", fontsize=12, color="#333333", fontcolor="#333333"];
+
+  Open   -> Open   [label="0.1"];
+  Open   -> Closed [label="0.9"];
+  Closed -> Open   [label="0.5"];
+  Closed -> Closed [label="0.5"];
+}

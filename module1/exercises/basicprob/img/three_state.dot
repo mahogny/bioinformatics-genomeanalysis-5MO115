@@ -1,0 +1,14 @@
+digraph three_state {
+  rankdir=LR;
+  bgcolor="transparent";
+  node [shape=ellipse, style=filled, fillcolor="#ECECFF", color="#9370DB",
+        fontname="trebuchet ms", fontsize=14];
+  edge [fontname="trebuchet ms", fontsize=12, color="#333333", fontcolor="#333333"];
+
+  S1 -> S2 [label="0.5"];
+  S1 -> S3 [label="0.5"];
+  S2 -> S1 [label="0.1"];
+  S2 -> S3 [label="0.9"];
+  S3 -> S1 [label="0.2"];
+  S3 -> S2 [label="0.8"];
+}
