@@ -2673,8 +2673,19 @@ NA.1        NA        NA        NA        NA        NA        NA
 <section id="read-and-plot-vcf-data" class="level4">
 <h4 class="anchored" data-anchor-id="read-and-plot-vcf-data"><strong>Read and plot VCF data</strong></h4>
 <p>For this exercise we will load the VCF file we worked with in previous exercises into R and calculate some basic summary statistics from the file, and some basic manipulations of data frames to extract the information.</p>
-<p>If you haven’t saved the processed file from the linux exercise, you can get it from here using wget. Don’t forget to unpack it:</p>
+<p>If you haven’t saved the processed file from the linux exercise, you can get it from here. Don’t forget to unpack it.</p>
+<div class="tabset-margin-container"></div><div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-1-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-1" role="tab" aria-controls="tabset-1-1" aria-selected="true" href>HPC2N</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-2" role="tab" aria-controls="tabset-1-2" aria-selected="false" href>Local computer</a></li></ul>
+<div class="tab-content">
+<div id="tabset-1-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-1-1-tab">
+<p>Copy-paste the command below into the “Terminal” tab in RStudio (the lower pane — not to be confused with the “Console”). It will download the file to your home folder. More details on <code>wget</code> will follow in Module 2.</p>
 <pre><code>wget http://beagle.henlab.org/public/course_introtobioinfo/clinvar_chr_info_meta.vcf.gz</code></pre>
+</div>
+<div id="tabset-1-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-2-tab">
+<p>If you are using RStudio on your own, you can download the file via this link: <a href="http://beagle.henlab.org/public/course_introtobioinfo/clinvar_chr_info_meta.vcf.gz">clinvar_chr_info_meta.vcf.gz</a></p>
+</div>
+</div>
+</div>
 <p>Start by reading the file into R, using <code>read.table</code>. Make sure you have saved the file in the same directory as your R session runs in, or, make sure to specify the full path to the file when reading it.</p>
 <div class="callout callout-style-simple callout-note no-icon callout-titled">
 <div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-10-contents" aria-controls="callout-10" aria-expanded="false" aria-label="Toggle callout">

@@ -171,11 +171,23 @@ There seem to be some differences in expression between our two groups. Maybe of
 
 For this exercise we will load the VCF file we worked with in previous exercises into R and calculate some basic summary statistics from the file, and some basic manipulations of data frames to extract the information.
 
-If you haven't saved the processed file from the linux exercise, you can get it from here using wget. Don't forget to unpack it:
+If you haven't saved the processed file from the linux exercise, you can get it from here. Don't forget to unpack it.
+
+::: {.panel-tabset}
+
+## HPC2N
+
+Copy-paste the command below into the "Terminal" tab in RStudio (the lower pane — not to be confused with the "Console"). It will download the file to your home folder. More details on `wget` will follow in Module 2.
 
 ```{}
 wget http://beagle.henlab.org/public/course_introtobioinfo/clinvar_chr_info_meta.vcf.gz
 ```
+
+## Local computer
+
+If you are using RStudio on your own, you can download the file via this link: [clinvar_chr_info_meta.vcf.gz](http://beagle.henlab.org/public/course_introtobioinfo/clinvar_chr_info_meta.vcf.gz)
+
+:::
 
 Start by reading the file into R, using `read.table`. Make sure you have saved the file in the same directory as your R session runs in, or, make sure to specify the full path to the file when reading it.
 
