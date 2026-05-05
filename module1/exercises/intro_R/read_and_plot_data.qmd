@@ -190,6 +190,7 @@ If you are using RStudio on your own, you can download the file via this link: [
 :::
 
 Start by reading the file into R, using `read.table`. Make sure you have saved the file in the same directory as your R session runs in, or, make sure to specify the full path to the file when reading it.
+Note that you will need to modify this command a bit depending on where you stored the file, and whether you uncompressed it or not (.gz means that it is gzip-compressed. read.table can handle .gz).
 
 ::: {.callout-note collapse="true" appearance="minimal"}
 ## ![](img/play.svg){width=10}  Code
