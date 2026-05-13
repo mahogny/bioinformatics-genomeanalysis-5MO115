@@ -39,6 +39,7 @@ You will need the graphical desktop later in the course. Once you get in, open t
 ## Downloading files
 
 To transfer your results back to your local computer, use the file manager to download files from HPC2N.
+
 * Ideally use wget to download files to HPC2N directly instead of uploading from your computer. This is what serious users do
 * If you are serious about bioinformatics, teach yourself how to use the "scp" command to download/upload files from your computer. This is beyond this course but compulsory knowledge in, e.g., the bioinformatics masters program
 
