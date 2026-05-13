@@ -51,6 +51,7 @@ Course materials for the spring 2026 instance.
 
 #### Command line
 
+- [Accessing the HPC2N command line](module2/instructions/using_hpc2n.html)
 - [Exploring the command line](module2/exercises/command_line/exploring_the_commandline.html)
 - [GTF files](module2/exercises/command_line/gtf.html)
 - [Running programs](module2/exercises/command_line/running_programs.html)
