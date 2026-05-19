@@ -1,0 +1,457 @@
+---
+title: "Module 2.5 - Storing and accessing sequencing data II - Via command-line"
+format:
+  html:
+    theme: yeti
+    css: ../../module2_exercises_bash.css
+---
+
+## 🎯 Objective
+
+In Module 2.4, we accessed sequencing data through NCBI's web portal. In this module we do the same things **from the command line**, plus a bit of hands-on sequence analysis. By the end you should be able to:
+
+1. Download raw sequencing reads from NCBI SRA with the SRA Toolkit
+2. Download assembled genomes with NCBI Datasets (via apptainer)
+3. Run basic sequence analysis with EMBOSS
+4. Combine standard shell tools (`grep`, `awk`, `sort`, `gzip`, `tar`) to inspect sequence files
+
+Questions are numbered **Q<section>.<question>** (e.g. Q1.3, Q4.2). Use that numbering when asking us for help — it tells us exactly where you are stuck.
+
+::: callout-note
+Almost everything below assumes you are working on **HPC2N**. Open a terminal as shown in the [Using HPC2N](../../instructions/using_hpc2n.html) page. The RStudio Terminal is the easiest place to run `ml` and `apptainer` commands.
+:::
+
+<br>
+
+## Section 1 — Downloading sequencing reads (NCBI SRA Toolkit)
+
+[NCBI's SRA Toolkit](https://github.com/ncbi/sra-tools) is the standard way to download data from the [NCBI SRA database](https://www.ncbi.nlm.nih.gov/sra). In this section we will download the run **`SRR32901081`** and extract its reads in `fastq.gz` format.
+
+#### **Q1.1 — Find the SRA Toolkit module on HPC2N**
+
+HPC2N provides many bioinformatics tools as **modules**. Find which versions of SRA Toolkit are available, and what other modules (if any) must be loaded first.
+
+::: {.callout-tip collapse="true"}
+## Hint
+`module spider <name>` searches across all modules. The search is case-insensitive and matches substrings.
+:::
+
+<details>
+<summary>See solution:</summary>
+````{bash}
+module spider sra
+# scroll, then ask for details on the specific version:
+module spider SRA-Toolkit/3.1.1
+````
+The detailed view tells you that `SRA-Toolkit/3.1.1` requires `GCC/13.2.0` and `OpenMPI/4.1.6` to be loaded first.
+</details>
+
+#### **Q1.2 — Load the modules and download the run**
+
+Load the prerequisites, load SRA Toolkit, then use `prefetch` to download `SRR32901081`.
+
+::: {.callout-tip collapse="true"}
+## Hint
+`ml` is short for `module load`. You can load several modules on one line: `ml A B C`. `prefetch` takes the SRA accession as its only argument.
+:::
+
+<details>
+<summary>See solution:</summary>
+````{bash}
+ml GCC/13.2.0 OpenMPI/4.1.6
+ml SRA-Toolkit/3.1.1
+prefetch SRR32901081
+````
+After it finishes you should have a folder `SRR32901081/` containing `SRR32901081.sra`. Check with `ls SRR32901081`.
+</details>
+
+#### **Q1.3 — Convert .sra to compressed FASTQ**
+
+`.sra` is NCBI's internal format. For analysis we usually want **gzipped FASTQ**, with paired-end reads split into a `_1` and `_2` file. Use `fastq-dump` to do this.
+
+::: {.callout-tip collapse="true"}
+## Hints
+- `fastq-dump -h` prints the help screen — read it before running.
+- The two options you need are `--split-files` (one file per mate) and `--gzip` (compress output).
+- You pass the path to the `.sra` file as the final argument.
+:::
+
+<details>
+<summary>See solution:</summary>
+````{bash}
+fastq-dump --split-files --gzip SRR32901081/SRR32901081.sra
+ls
+````
+You should now see `SRR32901081_1.fastq.gz` (forward reads) and `SRR32901081_2.fastq.gz` (reverse reads).
+</details>
+
+#### **Q1.4 — Peek at the reads without unzipping**
+
+Show the first few lines of `SRR32901081_1.fastq.gz` without uncompressing the file on disk.
+
+::: {.callout-tip collapse="true"}
+## Hint
+`zcat` writes the decompressed content to standard output. Pipe it into `head`.
+:::
+
+<details>
+<summary>See solution:</summary>
+````{bash}
+zcat SRR32901081_1.fastq.gz | head
+````
+Each read is 4 lines: header (`@…`), sequence, `+`, quality string.
+</details>
+
+#### **Q1.5 — Bonus: where does this sample come from?**
+
+Open [https://www.ncbi.nlm.nih.gov/sra](https://www.ncbi.nlm.nih.gov/sra) and look up `SRR32901081`. What species is it? Which country/region was it collected from, and from what kind of sample? Hold on to the answer — we revisit it in Section 2.
+
+#### **Q1.6 — Clean up**
+
+Remove the files you just downloaded to free up disk space.
+
+<details>
+<summary>See solution:</summary>
+````{bash}
+rm SRR32901081_1.fastq.gz SRR32901081_2.fastq.gz
+rm -r SRR32901081
+````
+`rm -r` removes a directory and its contents. Always double-check the path before running it.
+</details>
+
+<br>
+
+## Section 2 — Downloading assembled genomes (NCBI Datasets)
+
+For assembled genomes (rather than raw reads), NCBI provides the [Datasets command-line tools](https://www.ncbi.nlm.nih.gov/datasets/docs/v2/getting_started). Instead of using `module`, this time we will run the tool inside an **apptainer** container — a common pattern in bioinformatics when the tool you need is not installed system-wide.
+
+<span class="info-box hpc2n">
+**HPC2N only**: the commands below need `apptainer`, which is available on HPC2N. They will not work on a typical laptop unless you install apptainer yourself. Run them from the **RStudio Terminal**, not from the MATE/XFCE remote-desktop terminal (the desktop itself runs inside apptainer, and apptainer-inside-apptainer does not work).
+</span>
+
+#### **Q2.1 — Pull the NCBI Datasets container**
+
+Download the [staphb/ncbi-datasets](https://hub.docker.com/r/staphb/ncbi-datasets) image and save it locally as `ncbi-datasets.sif`.
+
+::: {.callout-tip collapse="true"}
+## Hint
+`apptainer pull <name>.sif docker://<image>` downloads a Docker image and converts it to a single `.sif` file.
+:::
+
+<details>
+<summary>See solution:</summary>
+````{bash}
+apptainer pull ncbi-datasets.sif docker://staphb/ncbi-datasets
+ls ncbi-datasets.sif
+````
+</details>
+
+#### **Q2.2 — Download an assembled genome**
+
+Download the genome with accession **`GCA_049311795.1`** as a zip file.
+
+::: {.callout-tip collapse="true"}
+## Hints
+- To run a tool inside a container, prefix it with `apptainer run <container.sif>`.
+- The Datasets command for a single genome is: `datasets download genome accession <ACCESSION>`.
+- Use `--filename` to control the output zip name.
+:::
+
+<details>
+<summary>See solution:</summary>
+````{bash}
+apptainer run ncbi-datasets.sif \
+    datasets download genome accession GCA_049311795.1 \
+    --filename GCA_049311795.1.zip
+````
+</details>
+
+#### **Q2.3 — Unzip and find the FASTA**
+
+Unzip the archive and locate the genome FASTA file.
+
+<details>
+<summary>See solution:</summary>
+````{bash}
+unzip GCA_049311795.1.zip
+ls ncbi_dataset/data/GCA_049311795.1/
+````
+The genome FASTA is `ncbi_dataset/data/GCA_049311795.1/GCA_049311795.1_ASM4931179v1_genomic.fna`.
+</details>
+
+#### **Q2.4 — How many contigs are in the assembly?**
+
+A FASTA file has one header line per sequence, starting with `>`. Count the contigs in the genome FASTA.
+
+::: {.callout-tip collapse="true"}
+## Hint
+`grep -c "<pattern>" <file>` counts matching lines. Anchor the pattern with `^` so it only matches `>` at the start of a line.
+:::
+
+<details>
+<summary>See solution:</summary>
+````{bash}
+grep -c "^>" ncbi_dataset/data/GCA_049311795.1/GCA_049311795.1_ASM4931179v1_genomic.fna
+````
+</details>
+
+#### **Q2.5 — What species is this, and where does it come from?**
+
+The download includes a metadata file at `ncbi_dataset/data/assembly_data_report.jsonl`. Open it (e.g. with `less`) and find the species, country and isolation source. Notice anything interesting compared to the SRA run from Section 1?
+
+::: {.callout-tip collapse="true"}
+## Hint
+`less` is good for browsing; press `/` to search within the file. If you have `jq` installed, `jq . assembly_data_report.jsonl` makes the JSON much easier to read.
+:::
+
+#### **Q2.6 — Clean up**
+
+<details>
+<summary>See solution:</summary>
+````{bash}
+rm ncbi-datasets.sif GCA_049311795.1.zip
+rm -r ncbi_dataset README.md md5sum.txt
+````
+</details>
+
+<br>
+
+## Section 3 — Basic sequence analysis with EMBOSS
+
+[EMBOSS](https://emboss.sourceforge.net/what) (European Molecular Biology Open Software Suite) is a large collection of small command-line tools for sequence analysis (alignment, GC content, translation, primer design, motif search, …). We will only use a handful here.
+
+**Helpful links**
+
+- [Full EMBOSS tool list](https://emboss.sourceforge.net/apps/release/6.6/emboss/apps/groups.html)
+- [EMBOSS Needle (web)](https://www.ebi.ac.uk/jdispatcher/psa/emboss_needle) — useful for pairwise alignment in a browser
+- [Intro to EMBOSS Tools (video)](https://www.youtube.com/watch?v=bpayHYcEV2k)
+
+#### **Q3.1 — Load EMBOSS**
+
+Find and load EMBOSS on HPC2N.
+
+<details>
+<summary>See solution:</summary>
+````{bash}
+module spider EMBOSS
+ml GCC/14.2.0 OpenMPI/5.0.7 EMBOSS/6.6.0
+````
+</details>
+
+#### **Q3.2 — Create a small test FASTA**
+
+Create a file called `test.fasta` containing the three sequences below.
+
+```
+>seq1
+ATGCGTACGTAGCTAGCTAGCTAGCTAGCTA
+>seq2
+GCTAGCTAGCTACGATCGATCGATCGATCGA
+>seq3
+ATGCTAGCTAGCTAGCTAGCTAGC
+```
+
+::: {.callout-tip collapse="true"}
+## Hint
+Use `nano test.fasta` to open the editor, paste the text, then `Ctrl+O` `Enter` to save and `Ctrl+X` to exit. (`vi` works too if you prefer, but `nano` is friendlier.)
+:::
+
+<details>
+<summary>See solution:</summary>
+````{bash}
+nano test.fasta
+# paste the three sequences, Ctrl+O Enter, Ctrl+X
+cat test.fasta   # verify
+````
+</details>
+
+#### **Q3.3 — Run `infoseq` to summarise the sequences**
+
+Use `infoseq` to print just the **name**, **length** and **%GC** of each sequence, and save the result to `seq_info.txt`.
+
+::: {.callout-tip collapse="true"}
+## Hint
+`infoseq -h` lists all options. The flags you want are `-only` (turn off default columns) plus `-name`, `-length`, `-pgc`. Redirect with `>` to write to a file.
+:::
+
+<details>
+<summary>See solution:</summary>
+````{bash}
+infoseq test.fasta -only -name -length -pgc > seq_info.txt
+cat seq_info.txt
+````
+</details>
+
+#### **Q3.4 — Translate and reverse-complement**
+
+Use `transeq` to translate `test.fasta` to protein, and `revseq` to produce its reverse complement.
+
+<details>
+<summary>See solution:</summary>
+````{bash}
+transeq -sequence test.fasta -outseq protein.fasta
+revseq  -sequence test.fasta -outseq reverse.fasta
+cat protein.fasta
+cat reverse.fasta
+````
+</details>
+
+<br>
+
+## Section 4 — Shell tools applied to a larger dataset
+
+For the rest of the module we use a small bundle of example FASTA files. Download and unzip it once, then use it for the remaining questions.
+
+::: callout-important
+You need `wget` (Linux/HPC2N) — on macOS use `curl -O <url>` instead.
+:::
+
+<details>
+<summary>See solution:</summary>
+````{bash}
+wget http://beagle.henlab.org/public/course_bioinformatics_genomeanalysis/emboss_data_extended_v1.zip
+unzip emboss_data_extended_v1.zip
+ls data/
+````
+</details>
+
+The `data/` folder contains (at least) `extra_sequences1.fasta`, `extra_sequences2.fasta`, and `large_sequences.fasta.gz`.
+
+#### **Q4.1 — Per-sequence info for `extra_sequences1.fasta`**
+
+Use `infoseq` to write name, length and %GC for every sequence in `extra_sequences1.fasta` to `seq_info.txt`.
+
+<details>
+<summary>See solution:</summary>
+````{bash}
+infoseq data/extra_sequences1.fasta -only -name -length -pgc > seq_info.txt
+head seq_info.txt
+````
+</details>
+
+#### **Q4.2 — Filter by length and GC content (`awk`)**
+
+Keep only the sequences where **length > 80** and **GC > 50%**, and write the result to `filtered_seq_info.txt`. Then sort that file by GC content, **highest first**, and save as `sorted_gc.txt`.
+
+::: {.callout-tip collapse="true"}
+## Hints
+- `awk '<condition>' file` prints lines where `<condition>` is true. Combine conditions with `&&`.
+- Columns in `awk` are `$1`, `$2`, `$3`, …. In `seq_info.txt` the order is name / length / %GC.
+- `sort -k <col> -n` sorts numerically by column `<col>`. Add `-r` to reverse (largest first).
+- Skip the header line either by using `tail -n +2`, or by adding `NR>1` to the awk condition.
+:::
+
+<details>
+<summary>See solution:</summary>
+````{bash}
+awk 'NR==1 || ($2 > 80 && $3 > 50)' seq_info.txt > filtered_seq_info.txt
+sort -k3 -n -r filtered_seq_info.txt > sorted_gc.txt
+cat sorted_gc.txt
+````
+The first `awk` keeps the header (`NR==1`) and any data row matching the filter.
+</details>
+
+#### **Q4.3 — Search a gzipped FASTA without unzipping**
+
+`data/large_sequences.fasta.gz` is compressed. **Without unzipping it**, count how many sequences contain the motif `ATGCGT` somewhere in their sequence line.
+
+::: {.callout-tip collapse="true"}
+## Hints
+- `zcat file.gz` streams the decompressed contents.
+- `grep -c <pattern>` counts matching lines.
+- This works because each sequence in this file is on a single line. If a sequence were split across many lines, you would have to assemble it first.
+:::
+
+<details>
+<summary>See solution:</summary>
+````{bash}
+zcat data/large_sequences.fasta.gz | grep -c "ATGCGT"
+````
+</details>
+
+#### **Q4.4 — Extract the headers of matching sequences**
+
+Get the **header lines** (starting with `>`) of the sequences from Q4.3 that contain `ATGCGT`, and save them to `atgcgt_headers.txt.gz` (already compressed).
+
+::: {.callout-tip collapse="true"}
+## Hints
+- `grep -B 1 <pattern>` prints each match together with the line **before** it (its header).
+- `grep "^>"` keeps only header lines.
+- Pipe straight into `gzip` to produce a compressed output without an intermediate file.
+:::
+
+<details>
+<summary>See solution:</summary>
+````{bash}
+zcat data/large_sequences.fasta.gz \
+  | grep -B 1 "ATGCGT" \
+  | grep "^>" \
+  | gzip > atgcgt_headers.txt.gz
+
+zcat atgcgt_headers.txt.gz | head   # check
+````
+</details>
+
+#### **Q4.5 — Make and inspect a tar archive**
+
+Create a compressed tar archive of all FASTA files in `data/`, list its contents without extracting, then extract **only** `extra_sequences2.fasta` from it into the current directory.
+
+::: {.callout-tip collapse="true"}
+## Hints
+- Common `tar` flags: **c**reate, e**x**tract, **t** = list, **z** = gzip, **v**erbose, **f** = file.
+- To extract a single file, name it after the flags.
+:::
+
+<details>
+<summary>See solution:</summary>
+````{bash}
+# create
+tar -czvf fastas.tar.gz data/*.fasta
+
+# list (no extraction)
+tar -tzvf fastas.tar.gz
+
+# extract just one file
+tar -xzvf fastas.tar.gz data/extra_sequences2.fasta
+````
+</details>
+
+#### **Q4.6 — Bonus: average length challenge**
+
+Using `data/extra_sequences2.fasta`:
+
+1. Get length and %GC for every sequence with `infoseq`.
+2. Compute the **average length** and print every sequence whose length is **above** the average.
+3. Sort the result by length and `gzip` the final output.
+
+::: {.callout-tip collapse="true"}
+## Hint
+A two-pass approach is by far the simplest: run `awk` once to compute the mean, then a second time to filter using that mean. Or, in one `awk` invocation, store all rows in an array on the first pass (within `END`-style logic). The first option is easier to read.
+:::
+
+<details>
+<summary>See solution:</summary>
+````{bash}
+infoseq data/extra_sequences2.fasta -only -name -length -pgc > seq_info2.txt
+
+# average length (skip header)
+avg=$(awk 'NR>1 {sum+=$2; n++} END {print sum/n}' seq_info2.txt)
+echo "average length = $avg"
+
+# keep header + sequences longer than the average, sort by length, compress
+awk -v a="$avg" 'NR==1 || $2 > a' seq_info2.txt \
+  | sort -k2 -n \
+  | gzip > long_seqs.txt.gz
+
+zcat long_seqs.txt.gz | head
+````
+`-v a="$avg"` passes the shell variable into awk as `a`.
+</details>
+
+<br>
+
+## ✅ You are done
+
+You can now download both raw reads and assembled genomes from NCBI on the command line, run a few EMBOSS tools, and combine `grep`, `awk`, `sort`, `gzip` and `tar` to inspect and filter sequence data. These same building blocks scale up to most day-to-day bioinformatics work.
+
+If you got stuck on a question, just refer to it by its number (e.g. *"I need help with Q2.3"*) when asking.
