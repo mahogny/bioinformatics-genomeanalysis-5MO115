@@ -2409,11 +2409,27 @@ rm -r SRR32901081</code></pre>
 <h2 class="anchored" data-anchor-id="section-2-downloading-assembled-genomes-ncbi-datasets">Section 2 — Downloading assembled genomes (NCBI Datasets)</h2>
 <p>For assembled genomes (rather than raw reads), NCBI provides the <a href="https://www.ncbi.nlm.nih.gov/datasets/docs/v2/getting_started">Datasets command-line tools</a>. Instead of using <code>module</code>, this time we will run the tool inside an <strong>apptainer</strong> container — a common pattern in bioinformatics when the tool you need is not installed system-wide.</p>
 <p><span class="info-box hpc2n"> <strong>HPC2N only</strong>: the commands below need <code>apptainer</code>, which is available on HPC2N. They will not work on a typical laptop unless you install apptainer yourself. Run them from the <strong>RStudio Terminal</strong>, not from the MATE/XFCE remote-desktop terminal (the desktop itself runs inside apptainer, and apptainer-inside-apptainer does not work). </span></p>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Important
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><strong>Always use the RStudio Terminal for any <code>apptainer run …</code> command in this course.</strong> Running an apptainer container from inside the MATE/XFCE remote desktop fails with errors that look like:</p>
+<pre><code>WARNING: While bind mounting &#39;/lap:/lap&#39;: destination is already in the mount point list
+FATAL:   stat /usr/local/env-execute: no such file or directory</code></pre>
+<p>This is because the remote desktop is itself running inside an apptainer container, and you cannot nest apptainer inside apptainer. If you see this error, switch to the RStudio Terminal and re-run the command.</p>
+</div>
+</div>
 <section id="q2.1-pull-the-ncbi-datasets-container" class="level4">
 <h4 class="anchored" data-anchor-id="q2.1-pull-the-ncbi-datasets-container"><strong>Q2.1 — Pull the NCBI Datasets container</strong></h4>
 <p>Download the <a href="https://hub.docker.com/r/staphb/ncbi-datasets">staphb/ncbi-datasets</a> image and save it locally as <code>ncbi-datasets.sif</code>.</p>
 <div class="callout callout-style-default callout-tip callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-6-contents" aria-controls="callout-6" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-7-contents" aria-controls="callout-7" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -2422,7 +2438,7 @@ Hint
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-6" class="callout-6-contents callout-collapse collapse">
+<div id="callout-7" class="callout-7-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <p><code>apptainer pull &lt;name&gt;.sif docker://&lt;image&gt;</code> downloads a Docker image and converts it to a single <code>.sif</code> file.</p>
 </div>
@@ -2440,7 +2456,7 @@ ls ncbi-datasets.sif</code></pre>
 <h4 class="anchored" data-anchor-id="q2.2-download-an-assembled-genome"><strong>Q2.2 — Download an assembled genome</strong></h4>
 <p>Download the genome with accession <strong><code>GCA_049311795.1</code></strong> as a zip file.</p>
 <div class="callout callout-style-default callout-tip callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-7-contents" aria-controls="callout-7" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-8-contents" aria-controls="callout-8" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -2449,7 +2465,7 @@ Hints
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-7" class="callout-7-contents callout-collapse collapse">
+<div id="callout-8" class="callout-8-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <ul>
 <li>To run a tool inside a container, prefix it with <code>apptainer run &lt;container.sif&gt;</code>.</li>
@@ -2484,7 +2500,7 @@ The genome FASTA is <code>ncbi_dataset/data/GCA_049311795.1/GCA_049311795.1_ASM4
 <h4 class="anchored" data-anchor-id="q2.4-how-many-contigs-are-in-the-assembly"><strong>Q2.4 — How many contigs are in the assembly?</strong></h4>
 <p>A FASTA file has one header line per sequence, starting with <code>&gt;</code>. Count the contigs in the genome FASTA.</p>
 <div class="callout callout-style-default callout-tip callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-8-contents" aria-controls="callout-8" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-9-contents" aria-controls="callout-9" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -2493,7 +2509,7 @@ Hint
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-8" class="callout-8-contents callout-collapse collapse">
+<div id="callout-9" class="callout-9-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <p><code>grep -c &quot;&lt;pattern&gt;&quot; &lt;file&gt;</code> counts matching lines. Anchor the pattern with <code>^</code> so it only matches <code>&gt;</code> at the start of a line.</p>
 </div>
@@ -2510,7 +2526,7 @@ See solution:
 <h4 class="anchored" data-anchor-id="q2.5-what-species-is-this-and-where-does-it-come-from"><strong>Q2.5 — What species is this, and where does it come from?</strong></h4>
 <p>The download includes a metadata file at <code>ncbi_dataset/data/assembly_data_report.jsonl</code>. Open it (e.g. with <code>less</code>) and find the species, country and isolation source. Notice anything interesting compared to the SRA run from Section 1?</p>
 <div class="callout callout-style-default callout-tip callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-9-contents" aria-controls="callout-9" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-10-contents" aria-controls="callout-10" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -2519,7 +2535,7 @@ Hint
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-9" class="callout-9-contents callout-collapse collapse">
+<div id="callout-10" class="callout-10-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <p><code>less</code> is good for browsing; press <code>/</code> to search within the file. If you have <code>jq</code> installed, <code>jq . assembly_data_report.jsonl</code> makes the JSON much easier to read.</p>
 </div>
@@ -2568,7 +2584,7 @@ GCTAGCTAGCTACGATCGATCGATCGATCGA
 &gt;seq3
 ATGCTAGCTAGCTAGCTAGCTAGC</code></pre>
 <div class="callout callout-style-default callout-tip callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-10-contents" aria-controls="callout-10" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-11-contents" aria-controls="callout-11" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -2577,7 +2593,7 @@ Hint
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-10" class="callout-10-contents callout-collapse collapse">
+<div id="callout-11" class="callout-11-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <p>Use <code>nano test.fasta</code> to open the editor, paste the text, then <code>Ctrl+O</code> <code>Enter</code> to save and <code>Ctrl+X</code> to exit. (<code>vi</code> works too if you prefer, but <code>nano</code> is friendlier.)</p>
 </div>
@@ -2596,7 +2612,7 @@ cat test.fasta   # verify</code></pre>
 <h4 class="anchored" data-anchor-id="q3.3-run-infoseq-to-summarise-the-sequences"><strong>Q3.3 — Run <code>infoseq</code> to summarise the sequences</strong></h4>
 <p>Use <code>infoseq</code> to print just the <strong>name</strong>, <strong>length</strong> and <strong>%GC</strong> of each sequence, and save the result to <code>seq_info.txt</code>.</p>
 <div class="callout callout-style-default callout-tip callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-11-contents" aria-controls="callout-11" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-12-contents" aria-controls="callout-12" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -2605,7 +2621,7 @@ Hint
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-11" class="callout-11-contents callout-collapse collapse">
+<div id="callout-12" class="callout-12-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <p><code>infoseq -h</code> lists all options. The flags you want are <code>-only</code> (turn off default columns) plus <code>-name</code>, <code>-length</code>, <code>-pgc</code>. Redirect with <code>&gt;</code> to write to a file.</p>
 </div>
@@ -2674,7 +2690,7 @@ head seq_info.txt</code></pre>
 <h4 class="anchored" data-anchor-id="q4.2-filter-by-length-and-gc-content-awk"><strong>Q4.2 — Filter by length and GC content (<code>awk</code>)</strong></h4>
 <p>Keep only the sequences where <strong>length &gt; 80</strong> and <strong>GC &gt; 50%</strong>, and write the result to <code>filtered_seq_info.txt</code>. Then sort that file by GC content, <strong>highest first</strong>, and save as <code>sorted_gc.txt</code>.</p>
 <div class="callout callout-style-default callout-tip callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-13-contents" aria-controls="callout-13" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-14-contents" aria-controls="callout-14" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -2683,7 +2699,7 @@ Hints
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-13" class="callout-13-contents callout-collapse collapse">
+<div id="callout-14" class="callout-14-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <ul>
 <li><code>awk &#39;&lt;condition&gt;&#39; file</code> prints lines where <code>&lt;condition&gt;</code> is true. Combine conditions with <code>&amp;&amp;</code>.</li>
@@ -2708,7 +2724,7 @@ The first <code>awk</code> keeps the header (<code>NR==1</code>) and any data ro
 <h4 class="anchored" data-anchor-id="q4.3-search-a-gzipped-fasta-without-unzipping"><strong>Q4.3 — Search a gzipped FASTA without unzipping</strong></h4>
 <p><code>data/large_sequences.fasta.gz</code> is compressed. <strong>Without unzipping it</strong>, count how many sequences contain the motif <code>ATGCGT</code> somewhere in their sequence line.</p>
 <div class="callout callout-style-default callout-tip callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-14-contents" aria-controls="callout-14" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-15-contents" aria-controls="callout-15" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -2717,7 +2733,7 @@ Hints
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-14" class="callout-14-contents callout-collapse collapse">
+<div id="callout-15" class="callout-15-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <ul>
 <li><code>zcat file.gz</code> streams the decompressed contents.</li>
@@ -2738,7 +2754,7 @@ See solution:
 <h4 class="anchored" data-anchor-id="q4.4-extract-the-headers-of-matching-sequences"><strong>Q4.4 — Extract the headers of matching sequences</strong></h4>
 <p>Get the <strong>header lines</strong> (starting with <code>&gt;</code>) of the sequences from Q4.3 that contain <code>ATGCGT</code>, and save them to <code>atgcgt_headers.txt.gz</code> (already compressed).</p>
 <div class="callout callout-style-default callout-tip callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-15-contents" aria-controls="callout-15" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-16-contents" aria-controls="callout-16" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -2747,7 +2763,7 @@ Hints
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-15" class="callout-15-contents callout-collapse collapse">
+<div id="callout-16" class="callout-16-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <ul>
 <li><code>grep -B 1 &lt;pattern&gt;</code> prints each match together with the line <strong>before</strong> it (its header).</li>
@@ -2773,7 +2789,7 @@ zcat atgcgt_headers.txt.gz | head   # check</code></pre>
 <h4 class="anchored" data-anchor-id="q4.5-make-and-inspect-a-tar-archive"><strong>Q4.5 — Make and inspect a tar archive</strong></h4>
 <p>Create a compressed tar archive of all FASTA files in <code>data/</code>, list its contents without extracting, then extract <strong>only</strong> <code>extra_sequences2.fasta</code> from it into the current directory.</p>
 <div class="callout callout-style-default callout-tip callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-16-contents" aria-controls="callout-16" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-17-contents" aria-controls="callout-17" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -2782,7 +2798,7 @@ Hints
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-16" class="callout-16-contents callout-collapse collapse">
+<div id="callout-17" class="callout-17-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <ul>
 <li>Common <code>tar</code> flags: <strong>c</strong>reate, e<strong>x</strong>tract, <strong>t</strong> = list, <strong>z</strong> = gzip, <strong>v</strong>erbose, <strong>f</strong> = file.</li>
@@ -2814,7 +2830,7 @@ tar -xzvf fastas.tar.gz data/extra_sequences2.fasta</code></pre>
 <li>Sort the result by length and <code>gzip</code> the final output.</li>
 </ol>
 <div class="callout callout-style-default callout-tip callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-17-contents" aria-controls="callout-17" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-18-contents" aria-controls="callout-18" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -2823,7 +2839,7 @@ Hint
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-17" class="callout-17-contents callout-collapse collapse">
+<div id="callout-18" class="callout-18-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <p>A two-pass approach is by far the simplest: run <code>awk</code> once to compute the mean, then a second time to filter using that mean. Or, in one <code>awk</code> invocation, store all rows in an array on the first pass (within <code>END</code>-style logic). The first option is easier to read.</p>
 </div>

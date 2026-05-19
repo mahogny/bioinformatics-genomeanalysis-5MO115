@@ -55,6 +55,7 @@ Course materials for the spring 2026 instance.
 - [Exploring the command line](module2/exercises/command_line/exploring_the_commandline.html)
 - [GTF files](module2/exercises/command_line/gtf.html)
 - [Running programs](module2/exercises/command_line/running_programs.html)
+- [2.5 — Storing and accessing sequencing data II (command-line)](module2/exercises/command_line/storing_accessing_cmd.html)
 
 ### Setup instructions
 

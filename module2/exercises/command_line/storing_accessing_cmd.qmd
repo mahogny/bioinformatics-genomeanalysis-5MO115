@@ -129,6 +129,18 @@ For assembled genomes (rather than raw reads), NCBI provides the [Datasets comma
 **HPC2N only**: the commands below need `apptainer`, which is available on HPC2N. They will not work on a typical laptop unless you install apptainer yourself. Run them from the **RStudio Terminal**, not from the MATE/XFCE remote-desktop terminal (the desktop itself runs inside apptainer, and apptainer-inside-apptainer does not work).
 </span>
 
+::: callout-important
+**Always use the RStudio Terminal for any `apptainer run …` command in this course.**
+Running an apptainer container from inside the MATE/XFCE remote desktop fails with errors that look like:
+
+```
+WARNING: While bind mounting '/lap:/lap': destination is already in the mount point list
+FATAL:   stat /usr/local/env-execute: no such file or directory
+```
+
+This is because the remote desktop is itself running inside an apptainer container, and you cannot nest apptainer inside apptainer. If you see this error, switch to the RStudio Terminal and re-run the command.
+:::
+
 #### **Q2.1 — Pull the NCBI Datasets container**
 
 Download the [staphb/ncbi-datasets](https://hub.docker.com/r/staphb/ncbi-datasets) image and save it locally as `ncbi-datasets.sif`.
