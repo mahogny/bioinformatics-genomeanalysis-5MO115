@@ -397,20 +397,21 @@ Walking through: cumulative sums are 1000, 1700, 2200, ... — half of 2950 is 1
 N50 is sensitive to a single long contig because it's a *weighted median* — half the assembly's bases live in contigs ≥ N50. Stretching one contig pulls a lot of bases over the half-way mark, dragging N50 up. Reporting alongside L50 and total assembly length is essential to avoid being misled.
 :::
 
-- **QE1.2** A read of length L is broken into k-mers. Show that there are L − k + 1 k-mers per read. Derive the relationship `k-mer coverage = read coverage × (L − k + 1) / L`, and explain why a sequencer that gives you 100× *read* coverage may give you only 80× k-mer coverage at k = 31.
+- **QE1.2** How many distinct k-mers can you extract from a single 150 bp read at k = 31? At k = 99?
 
 ::: {.callout-tip collapse="true" appearance="minimal"}
 ## Hint
-A k-mer is a window of size k sliding along the read. How many distinct positions can the window start at, given the window must fit inside the read?
+A k-mer is a window of size k sliding along the read, one base at a time. Count the positions the window can start at.
 :::
 
 ::: {.callout-note collapse="true" appearance="minimal"}
 ## Solution
-A k-mer can start at positions 1, 2, ..., L − k + 1 (any later start runs off the read end). So there are exactly L − k + 1 k-mers per read.
+The window can start at positions 1, 2, ..., L − k + 1 (any later start runs off the end). So a 150 bp read gives:
 
-Total k-mers = (number of reads) × (L − k + 1). Genome size G is fixed. Read coverage c_read = (reads × L) / G. K-mer coverage c_kmer = (reads × (L − k + 1)) / G = c_read × (L − k + 1) / L.
+- **k = 31**: 150 − 31 + 1 = **120 k-mers**.
+- **k = 99**: 150 − 99 + 1 = **52 k-mers**.
 
-For L = 150 and k = 31: factor = 120 / 150 = 0.8, so 100× read coverage → 80× k-mer coverage. Assemblers care about *k-mer* coverage, not read coverage, so trimming reads or picking a large k can quietly starve the assembler of evidence.
+The larger you pick k, the fewer k-mers you get per read — and so the more raw reads you need to give the assembler the same amount of evidence.
 :::
 
 - **QE1.3** What goes wrong if k is **too small** (say k = 7) for a 5 Mb bacterial genome? What goes wrong if k is **too large** (say k = 99 with 150 bp reads)? Sketch the trade-off.
@@ -428,30 +429,25 @@ For each extreme, ask: how many distinct k-mers are *possible*, and how many *ac
 Sweet spot for short Illumina + bacterial genome is typically k = 31–55. The trade-off: small k → graph is dense and tangled (repeats merge); large k → graph is sparse and broken (gaps and errors dominate).
 :::
 
-- **QE1.4** Construct the (k = 3) de Bruijn graph for `ATGGAAGTC`. List the (k−1)-mer nodes and the directed edges (each edge is a k-mer). Walk it and confirm you recover the original sequence.
+- **QE1.4** Write out all 3-mers (k = 3) in the sequence `ATGGAA`. There should be 4 of them. Show how each pair of consecutive 3-mers overlaps by 2 letters (this is what the de Bruijn graph captures).
 
 ::: {.callout-tip collapse="true" appearance="minimal"}
 ## Hint
-For k = 3, each node is a 2-mer (prefix or suffix of a 3-mer). Each 3-mer becomes an edge from its first 2 letters to its last 2 letters.
+Slide a window of size 3 along the sequence, one base at a time.
 :::
 
 ::: {.callout-note collapse="true" appearance="minimal"}
 ## Solution
-3-mers in `ATGGAAGTC` (7 of them): `ATG, TGG, GGA, GAA, AAG, AGT, GTC`.
+The 3-mers (in order along the sequence) are: `ATG, TGG, GGA, GAA`.
 
-Nodes (2-mers visited): `AT, TG, GG, GA, AA, AG, GT, TC`.
-
-Edges (one per 3-mer):
+Each consecutive pair shares 2 letters — that overlap is what the de Bruijn graph uses to link them:
 ```default
-AT -> TG    (from ATG)
-TG -> GG    (from TGG)
-GG -> GA    (from GGA)
-GA -> AA    (from GAA)
-AA -> AG    (from AAG)
-AG -> GT    (from AGT)
-GT -> TC    (from GTC)
+ATG
+ TGG     (overlap = TG)
+  GGA    (overlap = GG)
+   GAA   (overlap = GA)
 ```
-Walking from `AT` along all 7 edges spells out `AT → TG → GG → GA → AA → AG → GT → TC`. Concatenating the first letter of each node plus the suffix of the last node gives `A T G G A A G T C` — the original sequence. ✓
+Concatenating the first letter of each k-mer plus the last two letters of the final one recovers the original `ATGGAA`.
 :::
 
 - **QE1.5** A genome contains the motif `ACTGCT` (length 6) at three different positions. Sketch what the de Bruijn graph looks like around the repeat for **k < 6** versus **k > 6**. Explain in one sentence why repeats longer than k cause assembly fragmentation.
@@ -507,30 +503,7 @@ What do you *expect* for a *Salmonella* genome? Compare each metric to that expe
 **Verdict:** usable for variant calling and gene presence/absence (where contiguity matters less), but you'd want long-read scaffolding (Nanopore/PacBio) before publishing or doing structural variant work.
 :::
 
-- **QE1.8** Using the Lander–Waterman result, P(base uncovered) = e^−c for coverage c. What fraction of the genome is uncovered at c = 5×? At c = 30×? At c = 200×? Why does extra coverage past ~50× give diminishing returns for assembly?
-
-::: {.callout-tip collapse="true" appearance="minimal"}
-## Hint
-e^−5, e^−30, e^−200 — three very different orders of magnitude.
-:::
-
-::: {.callout-note collapse="true" appearance="minimal"}
-## Solution
-```{r, eval=TRUE}
-c <- c(5, 30, 200)
-p_uncov <- exp(-c)
-data.frame(coverage = c, fraction_uncovered = p_uncov,
-           bases_missing_in_5Mb = p_uncov * 5e6)
-```
-
-- 5× → ~0.67 % uncovered (~33 kb of a 5 Mb genome).
-- 30× → ~9 × 10⁻¹⁴ — effectively zero bases uncovered.
-- 200× → ~10⁻⁸⁷ — astronomically zero.
-
-Past ~30–50× the random-uncovered-base concern is gone; remaining assembly problems come from **non-random** issues that more coverage doesn't fix: high-GC dropout, secondary structure, low-complexity regions, repeats longer than the read. Extra coverage past this point doesn't extend contigs — it just makes assembly slower and pushes the assembler toward over-merging error variants. Many bacterial assemblers (including SKESA) actually *downsample* high-coverage data.
-:::
-
-- **QE1.9** Single reads can't span a repeat longer than the read length. How does paired-end information help bridge such a repeat in the de Bruijn graph? What insert size would you choose for a genome whose longest repeat is ~700 bp?
+- **QE1.8** Single reads can't span a repeat longer than the read length. How does paired-end information help bridge such a repeat in the de Bruijn graph? What insert size would you choose for a genome whose longest repeat is ~700 bp?
 
 ::: {.callout-tip collapse="true" appearance="minimal"}
 ## Hint
@@ -542,16 +515,8 @@ A read pair "anchors" two reads at known distance apart. If one end maps to uniq
 A repeat longer than the read collapses into a single shared graph node with multiple incoming and outgoing edges (see QE1.5). A read pair with insert size > repeat length provides the missing information: read 1 anchors in the *unique* region upstream of the repeat, read 2 anchors in the *unique* region downstream. Both reads sit on either side of the repeat, even if neither one spans it. The assembler / scaffolder can now match incoming edge X with the correct outgoing edge Y, because the unique anchors on the read pair commit to a specific pairing.
 
 For a 700 bp repeat, you want the *insert size* (not the read length) to comfortably exceed 700 bp — so an insert size around 800–1000 bp gives you anchors on both flanks for most pairs. Add a margin for insert-size variability: a 250 bp mean insert won't help here; a 600 bp mean insert helps only some of the time; ~1 kb is comfortable.
-
-(For repeats > 1 kb, the standard answer is to add a long-read library — see QE1.10.)
 :::
 
-- **QE1.10** Short Illumina reads have high per-base accuracy (Q30+) but limited span; Nanopore/PacBio reads have lower per-base accuracy (Q10–20 raw) but span tens of kb. Sketch a workflow that uses **both** and explain what each contributes.
-
-::: {.callout-tip collapse="true" appearance="minimal"}
-## Hint
-"Hybrid assembly" — use long reads to lay down a scaffold and short reads to polish each base.
-:::
 
 ::: {.callout-note collapse="true" appearance="minimal"}
 ## Solution

@@ -722,43 +722,11 @@ resultsNames(dds)  # now "treatment_DMSO_vs_IC50"
 The model matrix still has two columns (intercept + one indicator), but the indicator column is now 1 for DMSO samples instead of for IC50 samples. The fitted log-fold change has the **opposite sign** of before — same biology, different reference. Always check `resultsNames(dds)` (or the `contrast =` argument to `results()`) to know which direction you are looking at.
 :::
 
-- **QE2.7** What does `model.matrix(~ 0 + treatment, data = cond)` look like (the no-intercept form), and how would you extract the IC50-vs-DMSO contrast from a `dds` fitted with `design = ~ 0 + treatment`?
-
-::: {.callout-tip collapse="true" appearance="minimal"}
-## Hint
-With `~ 0 + treatment` there is no intercept column; instead you get one column per level, each acting as a per-group mean.
-:::
-
-::: {.callout-note collapse="true" appearance="minimal"}
-## Solution
-```{r, eval=FALSE}
-model.matrix(~ 0 + treatment, data = cond)
-```
-You get a matrix with two columns, `treatmentDMSO` and `treatmentIC50`, each with 1s for samples in that group and 0s otherwise (it is the second formulation from the lecture — $\begin{bmatrix} 1 & 0 \\ 0 & 1 \end{bmatrix}$). There is no overall intercept; each column directly estimates the log expression of that group. To get the IC50-vs-DMSO contrast you have to subtract the two coefficients explicitly:
-
-```{r, eval=FALSE}
-dds <- DESeqDataSetFromMatrix(round(cnt), cond, ~ 0 + treatment)
-dds <- DESeq(dds)
-res <- results(dds, contrast = c("treatment", "IC50", "DMSO"))
-# or equivalently with a numeric contrast vector:
-res <- results(dds, contrast = c(-1, 1))   # matches order of resultsNames
-```
-Same answer as the with-intercept version — just a different parametrisation.
-:::
-
-- **QE2.8** A reviewer asks: "your design has 4 samples and 1 factor with 2 levels — how many parameters does your model actually estimate per gene?" Answer using the model matrix.
-
-::: {.callout-tip collapse="true" appearance="minimal"}
-## Hint
-Number of parameters = number of columns of the model matrix. Residual degrees of freedom = $n_\text{samples} - n_\text{params}$.
-:::
-
-::: {.callout-note collapse="true" appearance="minimal"}
-## Solution
-With `~ treatment` and two levels, the model matrix has **2 columns** (intercept + treatment indicator), so 2 parameters per gene. With 4 samples that leaves 2 residual degrees of freedom — exactly enough to estimate within-group variance from the 2 replicates per group. If you had only 1 replicate per group you would have 0 residual d.f. and DESeq2 would refuse to estimate dispersion.
-:::
-
 ### Multivariate designs (extra)
+
+::: {.callout-warning appearance="simple"}
+The questions in this subsection (interaction terms) are **advanced** and will **not** be on the exam. They are included for students who want to push further.
+:::
 
 - **QE3.1** Re-fit the E-MTAB-14822 dataset with an **interaction** term: `design = ~ cell_type * treatment_duration`. What extra coefficients show up in `resultsNames(dds)` compared to the additive `~ cell_type + treatment_duration` model?
 

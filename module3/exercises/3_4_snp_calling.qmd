@@ -571,176 +571,165 @@ Zhou, Shen, Hittinger, and Rokas. 2018. [Evaluating Fast Maximum Likelihood-Base
 
 
 
+
 ## Extra exercise material
 
-Theoretical questions on read mapping, SAM/BAM, VCF, and variant filtering. Pen-and-paper unless a code chunk is shown.
+Short concept questions on read mapping and variant calling. Aim for **intuition** — these are pen-and-paper.
 
-- **QE1.1** A VCF record has `QUAL=30`. Using the Phred definition, what is the probability the variant call is wrong? What about `QUAL=200`? Why do callers like bcftools produce QUAL values much greater than 60 even though Phred values from a single read top out around Q40?
+- **QE1.1** What is a **SNP**? How is it different from an **indel**?
 
 ::: {.callout-tip collapse="true" appearance="minimal"}
 ## Hint
-QUAL is on the same Phred scale: $P(\text{wrong}) = 10^{-Q/10}$. Multiple independent reads supporting the same call combine multiplicatively.
+Think about what changes between the reference and the sample at a single position.
 :::
 
 ::: {.callout-note collapse="true" appearance="minimal"}
 ## Solution
-```{r, eval=TRUE}
-10^(-30/10); 10^(-200/10)
-```
-QUAL=30 → 0.1 % chance the call is wrong; QUAL=200 → $10^{-20}$. QUAL combines evidence from many reads — 20 independent reads each giving Q20 evidence gives an aggregated QUAL ≈ 400 in the absence of priors. Variants supported by 30× clean coverage routinely score QUAL > 200 even though no single base call is that confident.
+A **SNP** (single-nucleotide polymorphism) is a difference at a single base — the reference has, say, `A` and the sample has `G` at the same position.
+
+An **indel** is an insertion or deletion: the sample has extra bases that the reference doesn't have, or is missing bases that the reference has. Indels can be 1 bp or many kb long.
+
+Both are types of "variants" reported in a VCF. SNPs are easier to call reliably; indels (especially long ones, and indels in repeats) are notoriously harder.
 :::
 
-- **QE1.2** Explain the difference between **MAPQ** (column 5 of a SAM record) and the **per-base Phred quality** (in FASTQ / SAM column 11). Why can a read have all base qualities ≥ Q30 yet MAPQ = 0?
+- **QE1.2** What's the point of using a **reference genome** for SNP calling? What would go wrong if you didn't have one?
 
 ::: {.callout-tip collapse="true" appearance="minimal"}
 ## Hint
-Base Q answers "did the sequencer read this base right?". MAPQ answers a different question entirely.
+The reference is the "coordinate system" you use to talk about positions.
 :::
 
 ::: {.callout-note collapse="true" appearance="minimal"}
 ## Solution
-- **Base Q** is the sequencer's confidence in each individual base call: pre-alignment, position-local.
-- **MAPQ** is the *aligner's* confidence that this read is mapped to the **correct location** in the reference. MAPQ = −10 log₁₀ P(the read actually came from somewhere else).
+The reference provides:
 
-A read with perfect base quality but mapping to a repeat (e.g. an rRNA operon, or a multicopy IS element) has many equally-good alignment targets — so MAPQ collapses to 0 because the aligner can't tell which copy the read truly came from. Variant callers usually require MAPQ ≥ 20 or MAPQ ≥ 30 by default, which silently filters out repeat-region variants.
+- **A coordinate system** — "position 1 234 567 on chromosome 1" only means something relative to a fixed reference.
+- **A baseline to compare against** — a SNP is by definition "what differs from the reference at this position."
+- **A way to align reads** — the aligner finds where each read fits in the genome.
+
+Without a reference, you can still find variation (e.g. by comparing all-against-all reads, or by assembling and comparing assemblies), but you lose the simple shared coordinate system that lets you compare results across samples and across studies.
 :::
 
-- **QE1.3** What do these CIGAR strings tell you about the alignment? `100M`, `98M2S`, `50M3D47M`, `75M5I20M`, `25S75M`.
+- **QE1.3** A variant is called at a site with **depth (DP) = 4**. Is this a confident call? What about **DP = 40**? Why?
 
 ::: {.callout-tip collapse="true" appearance="minimal"}
 ## Hint
-M = aligned (match or mismatch), S = soft-clipped, I = insertion in read, D = deletion from read. Numbers are lengths.
+DP is the number of reads covering this position. More reads = more independent evidence.
 :::
 
 ::: {.callout-note collapse="true" appearance="minimal"}
 ## Solution
-- `100M` — full-length 100-bp read aligned end-to-end (matches *or* mismatches, CIGAR doesn't distinguish).
-- `98M2S` — 98 bp aligned, the last 2 bp soft-clipped (not aligned, but kept in the read sequence). Usually means the read ran into adapter or low-quality bases at the 3′ end.
-- `50M3D47M` — 50 bp aligned, then a 3-bp **deletion** in the read relative to the reference, then 47 bp aligned. Total reference span = 100 bp, total read length = 97 bp.
-- `75M5I20M` — 75 bp aligned, then 5 bp **inserted** in the read (not in the reference), then 20 bp aligned. Total read length = 100 bp, reference span = 95 bp.
-- `25S75M` — first 25 bp soft-clipped, then 75 bp aligned. Often indicates a chimeric / split read.
+- **DP = 4** is low — there's only 4 reads of evidence. A single sequencing error in one read materially shifts what you see (1/4 is 25 % of the "support"). Most pipelines either drop or flag such calls.
+- **DP = 40** is comfortable. Even if 1 or 2 reads have errors, the remaining 38 still tell a consistent story; the call is well supported.
+
+Rule of thumb for bacterial variant calling: aim for DP ≥ 10 at the site you trust; many pipelines filter to DP ≥ 20 for safety.
 :::
 
-- **QE1.4** A VCF FORMAT field reports `DP=42, AD=2,40, GQ=99`. What is the variant allele fraction? Is this a confident **homozygous variant** call? What changes if `AD=20,22`?
+- **QE1.4** **MAPQ = 0** in a SAM record. What does that mean about the read's alignment?
 
 ::: {.callout-tip collapse="true" appearance="minimal"}
 ## Hint
-AD = allelic depths (ref, alt). DP = total reads at site. GQ = genotype-call Phred quality.
+MAPQ is the aligner's confidence that the read is mapped to the *correct* location.
 :::
 
 ::: {.callout-note collapse="true" appearance="minimal"}
 ## Solution
-- `AD=2,40`: 2 ref reads, 40 alt reads → **VAF = 40/42 ≈ 95 %**. Combined with GQ=99, this is a confident homozygous-alt call (1/1). The 2 ref reads are most likely sequencing errors.
-- `AD=20,22`: VAF = 22/42 ≈ 52 %. In a *haploid* bacterium this is suspicious — you'd expect 0 % or 100 %. Possible causes: within-host heterogeneity (a mixed population), contamination, paralog / repeat mis-mapping, or copy-number variation. In a *diploid* eukaryote this would just be a clean heterozygous (0/1) call.
+MAPQ = 0 means the aligner is **not confident** that this read belongs here — there are other places in the genome that match just as well. Typically this happens with reads from a **repeat region** (e.g. an rRNA operon, an IS element, paralogous genes): the read fits equally well in several places, so the aligner can't pick one.
+
+Variant callers usually skip MAPQ-0 reads. That's the right default, but it means **variants inside repeats can be silently invisible** in your VCF.
 :::
 
-- **QE1.5** Why does reference-based SNP calling miss variants in regions that are highly divergent from the reference? Give **one** strategy to mitigate this.
+- **QE1.5** A SAM record has CIGAR `100M`. What does that tell you about the alignment? And `98M2S`?
 
 ::: {.callout-tip collapse="true" appearance="minimal"}
 ## Hint
-What does BWA do with a read that has 15 mismatches in a 100 bp window?
+`M` = aligned (match or mismatch). `S` = soft-clipped (not aligned, but the bases are kept in the read).
 :::
 
 ::: {.callout-note collapse="true" appearance="minimal"}
 ## Solution
-BWA-MEM (and similar) require some minimum identity (typically ~70 %) for a read to be aligned at all. In a region that has diverged a lot from the reference, reads fail to align and the variant caller sees zero coverage — it can't call what it can't see. The same happens for accessory-genome content that simply isn't in the reference.
-
-Mitigation strategies (any one of):
-
-- **Pick a closer reference.** Use a strain-specific or pangenome reference rather than a distant type strain.
-- **Reference-free / k-mer SNP calling.** Tools like kSNP or Snippy operate on assemblies; whole-genome aligners (e.g. Parsnp) avoid the per-read-must-map requirement.
-- **Iterative consensus refinement.** Build a consensus from initial mapping, re-map against it, repeat. Pulls in variants the first round missed.
-- **De novo assemble + map contigs back** with a more permissive aligner like nucmer.
+- `100M` — the whole 100-bp read aligned end-to-end. Whether each base is a match or a mismatch isn't recorded in the CIGAR; that's in the MD tag or by comparing to the reference. The point is the read aligned end-to-end with no insertions or deletions.
+- `98M2S` — the first 98 bp aligned; the last 2 bp are soft-clipped (probably adapter or low-quality bases). The aligner couldn't find a place for the last 2 bp, so it cut them loose. The bases stay in the read sequence but don't contribute to the alignment score.
 :::
 
-- **QE1.6** bcftools `mpileup | call` combines evidence across reads at each position to call genotypes. Briefly explain the underlying probabilistic model: what does the *likelihood* combine, and what is the *prior*?
+- **QE1.6** Why do we filter variants (e.g. with vcftools) before using them downstream? What kinds of bad calls are we trying to throw away?
 
 ::: {.callout-tip collapse="true" appearance="minimal"}
 ## Hint
-Bayes: posterior ∝ likelihood × prior. The likelihood is over the read data, the prior over the genotype.
+What could fool the caller into reporting a variant that isn't really there?
 :::
 
 ::: {.callout-note collapse="true" appearance="minimal"}
 ## Solution
-For each candidate genotype G ∈ {0/0, 0/1, 1/1} (or just {ref, alt} for haploids), bcftools computes:
+Variant callers are tuned to be sensitive — they'd rather flag a maybe-variant than miss a real one. The cost is that the raw VCF contains a lot of unreliable calls. Filtering removes:
 
-- **Genotype likelihood** P(reads | G) — multiplies, across all reads covering the site, the probability of seeing the observed base given that the true genotype is G and given that base's Phred quality. A high-Q read agreeing with G contributes a large factor; a high-Q read disagreeing pushes the likelihood down.
-- **Prior** P(G) — a population-level prior, by default ~10⁻³ for variant genotypes. Configurable via `-P` (mutation rate). For haploid mode (`--ploidy 1`), the prior is over {ref, alt}.
+- **Low-coverage calls** — supported by only 1–2 reads, easily explained by sequencing error.
+- **Low-quality calls** — QUAL is the caller's own confidence; low QUAL means even the caller isn't sure.
+- **Sites covered in only a few of your samples** — these don't add useful information for downstream cohort analyses.
+- **Variants near indels or in repeats** — alignment artefacts produce phantom SNPs in these regions.
 
-The posterior is then the **PL** field in the VCF (Phred-scaled likelihoods relative to the best genotype), and QUAL is the Phred-scaled probability that the site is *not* monomorphic.
+A well-filtered VCF is a much more honest input for the next steps (phylogeny, AMR-gene calling, outbreak comparison).
 :::
 
-- **QE1.7** The same indel can appear at different positions in different VCF files (e.g. `AAA → AA` reported at position 100 in one VCF and position 102 in another). Why does this happen, and what does `bcftools norm -f ref.fa` do about it?
+- **QE1.7** Imagine you have reads from a strain that's **very different** from the reference genome. What's likely to go wrong?
 
 ::: {.callout-tip collapse="true" appearance="minimal"}
 ## Hint
-Where does a deletion of one `A` from `AAAA` "really" occur — at position 1, 2, 3, or 4?
+The aligner has to find a place for each read. What does it do with reads that don't match anywhere closely?
 :::
 
 ::: {.callout-note collapse="true" appearance="minimal"}
 ## Solution
-In a homopolymer (or any low-complexity) tract, the deletion is **ambiguous** — multiple equivalent representations give the same final sequence. Different callers anchor the deletion at different positions, so naive comparison of two VCFs misses that they describe the same event.
+Reads from regions that have drifted far from the reference simply **don't align**. The aligner discards them, and the variant caller sees zero coverage at those positions — it can't call what it can't see. This is called **reference bias**: the genome regions you can study are exactly the ones similar enough to the reference.
 
-`bcftools norm -f ref.fa` performs **left-normalization**: shifts each indel as far left as possible (to the smallest position) and trims unnecessary common bases, producing a canonical representation. After `norm`, two VCFs describing the same event have identical CHROM/POS/REF/ALT and can be compared directly. Always normalize before benchmarking, merging, or annotating VCFs.
+Mitigations: use a closer reference, do reference-free SNP calling (e.g. k-mer or assembly-based), or use a pangenome reference. For a single-strain study against a typical reference, the practical answer is just: report on the core regions and accept you've missed the accessory ones.
 :::
 
-- **QE1.8** You filter a VCF with `vcftools --minQ 20 --max-missing 0.9 --min-meanDP 10`. What does each flag defend against, and what cost does each impose?
+- **QE1.8** Why do we mark **PCR duplicates** before variant calling?
 
 ::: {.callout-tip collapse="true" appearance="minimal"}
 ## Hint
-For each flag: what would happen if you didn't apply it?
+A PCR duplicate is two reads from the same original DNA fragment (and any errors it picked up).
 :::
 
 ::: {.callout-note collapse="true" appearance="minimal"}
 ## Solution
-| Flag | Defends against | Cost |
-|------|----------------|------|
-| `--minQ 20` | False-positive variant calls (QUAL = Phred of "this is a real variant"); without it, you keep many noise calls. | Loses real but weakly supported low-frequency variants, especially at sites with low local coverage. |
-| `--max-missing 0.9` | Sites called in too few samples — these add noise and are uninformative for downstream phylogeny / GWAS. | In studies with samples of very different coverage, this can systematically drop the regions hardest to sequence (high-GC, repeat-near). |
-| `--min-meanDP 10` | Sites where average depth is too low across samples (likely mapping-artefact sites or accessory regions partially missing in many samples). | Filters out true variants in low-coverage genomic regions; can mask copy-number-variable accessory content. |
+The variant caller treats each read as independent evidence. PCR duplicates aren't independent: they are clones of a single original fragment. If that fragment happened to carry a sequencing error, **all the duplicates carry the same error**. The caller sees "lots of reads agree" and incorrectly upgrades it to a real variant.
+
+Marking duplicates (`samtools markdup` or `picard MarkDuplicates`) flags the duplicates so the caller can skip them. This prevents false-positive variants and keeps depth estimates honest.
+
+(For PCR-free libraries this matters less, but most prep kits still use some amplification.)
 :::
 
-- **QE1.9** Why is it important to mark / remove PCR duplicates **before** variant calling? Sketch what goes wrong if you don't.
+- **QE1.9** A VCF site reports `AD=2,40` — 2 reads supporting the reference, 40 supporting the alternative. Is this a clean variant? What if it reported `AD=20,22`?
 
 ::: {.callout-tip collapse="true" appearance="minimal"}
 ## Hint
-A PCR duplicate is *not* independent evidence — but the variant caller doesn't know that.
+The fraction of reads supporting the alternative is called the **variant allele fraction** (VAF). For a haploid bacterium, what VAF do you expect for a real variant?
 :::
 
 ::: {.callout-note collapse="true" appearance="minimal"}
 ## Solution
-The probabilistic model assumes each read is an independent draw from the population of fragments at that locus. PCR duplicates violate that assumption: they are clones of a single original fragment. If that single fragment happened to carry a sequencing error, *every* duplicate of it will carry the same error — the caller sees, say, 12 reads supporting an "alt" allele and concludes it's real, when in reality it's a single error replicated 12 times.
-
-Practical consequences:
-
-- **False-positive variants** at PCR-duplicate-heavy sites.
-- **Inflated coverage** numbers (and therefore inflated QUAL scores) that don't reflect true sampling depth.
-- **Skewed VAF** estimates if duplicates carry one allele preferentially.
-
-`samtools markdup` or `picard MarkDuplicates` flags them (SAM flag 0x400); callers respect the flag and downweight or skip them. For PCR-free libraries this step is less critical but still recommended.
+- `AD=2,40`: VAF = 40 / 42 ≈ 95 %. For a haploid bacterium this is what you expect — essentially all reads carry the alternative allele, and the 2 reference-supporting reads are most likely sequencing errors. **Clean variant.**
+- `AD=20,22`: VAF ≈ 50 %. For a haploid bacterium this is suspicious — you should be at ~0 % or ~100 %, not in between. Possible causes: contamination, within-host mixed population, or the variant sits in a paralogous region where reads from both copies are mapping here. Either way, **not a clean variant** — investigate before trusting it.
 :::
 
-- **QE1.10** Tools like kSNP and Snippy can call SNPs **without** mapping reads to a reference — directly from k-mers (kSNP) or from assemblies + reference (Snippy). What's the trade-off vs traditional read-mapping (BWA + bcftools)?
+- **QE1.10** Describe in your own words what a **clean** variant call looks like in terms of (a) depth, (b) MAPQ, (c) QUAL, and (d) VAF for a haploid bacterium.
 
 ::: {.callout-tip collapse="true" appearance="minimal"}
 ## Hint
-What kinds of variants does read-mapping miss? What kinds does k-mer SNP calling miss?
+Combine what you've learned in the previous questions.
 :::
 
 ::: {.callout-note collapse="true" appearance="minimal"}
 ## Solution
-**K-mer / reference-free SNP calling gains:**
+A confident variant call in a bacterial WGS study typically looks like:
 
-- No reference-bias toward a specific strain; finds variants in accessory genes that aren't in any single reference.
-- No alignment step → very fast for large cohorts; scales linearly.
-- Robust to highly divergent strains where reads fail to map.
+- **Depth (DP)** ≥ 20 — enough independent reads that sequencing errors can't dominate.
+- **MAPQ** ≥ 20 (preferably 30) — reads are uniquely placed, not in a repeat.
+- **QUAL** ≥ 30 — the caller assigns < 0.1 % probability that this is *not* a real variant.
+- **VAF** close to 100 % — essentially all reads agree on the alternative allele (anything around 50 % is suspicious in a haploid).
+- (Bonus) Not within a few bp of an indel, not in a homopolymer or low-complexity region, and present in a region where neighbouring sites also have good coverage.
 
-**It loses:**
-
-- **Resolution** — a k-mer SNP is a SNP-with-context; tools struggle with multiple SNPs within the same k bp window (which collapse into a single k-mer mismatch).
-- **Indels** — k-mer SNP callers typically only report point mutations; structural variants are invisible or have to be inferred indirectly.
-- **Per-site quality / depth statistics** — there's nothing equivalent to MAPQ, AD, or GQ. Filtering is coarser.
-- **Phasing** — read-mapping preserves which alleles co-occur on the same read; k-mer methods don't.
-
-**Rule of thumb:** for diverse cohorts of bacterial isolates where the goal is "make a SNP-distance tree", k-mer methods (mashtree, kSNP) are an excellent fast choice. For careful, single-strain variant calling — especially anything involving indels, low-frequency variants, or per-site QC — stick with BWA + bcftools.
+Most variant-filtering pipelines just encode these defaults. The point of the exercise is that you can defend each cutoff with a sentence about what it's protecting against.
 :::

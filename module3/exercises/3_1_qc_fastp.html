@@ -2795,7 +2795,7 @@ Solution
 </div>
 </div>
 <ul>
-<li><strong>QE1.6</strong> FastQC reports a sharp secondary peak at 65 % GC for what should be an <em>E. coli</em> sample (expected ~50 % GC, single Gaussian). Give two plausible hypotheses — one biological, one technical — and a quick test for each.</li>
+<li><strong>QE1.6</strong> FastQC reports the GC-content distribution as a <em>single</em> Gaussian for a clean sample. Suppose you see a <strong>second, sharp peak</strong> at a different GC value. What might cause this, and what should you do about it before continuing?</li>
 </ul>
 <div class="callout callout-style-simple callout-tip no-icon callout-titled">
 <div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-12-contents" aria-controls="callout-12" aria-expanded="false" aria-label="Toggle callout">
@@ -2809,7 +2809,7 @@ Hint
 </div>
 <div id="callout-12" class="callout-12-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
-<p>“Sharp” and “secondary” are the key words: the contaminant is a single, defined species — not a smear.</p>
+<p>A second peak means part of your DNA isn’t from the organism you think you’re sequencing.</p>
 </div>
 </div>
 </div>
@@ -2825,11 +2825,8 @@ Solution
 </div>
 <div id="callout-13" class="callout-13-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
-<ul>
-<li><strong>Biological — contamination by a higher-GC organism.</strong> Mycobacteria (~65 % GC), some Actinobacteria, or human DNA (~41 % isn’t a match, but human reads can still cluster oddly). Test: run a few thousand reads through Kraken2 / mash screen against a contaminants database; or BLAST a handful of unmapped reads.</li>
-<li><strong>Technical — over-amplified high-GC fragments or barcode/adapter read-through.</strong> A PCR-biased amplicon, a UMI/index read leaking into Read 1, or unremoved adapter dimers can all give a tight non-50% peak. Test: rerun FastQC <em>after</em> fastp adapter/quality trimming; check “Overrepresented sequences” for known adapter or contaminant motifs; inspect duplication levels.</li>
-</ul>
-<p>Either way, <strong>don’t</strong> just trim the peak away — figure out where it came from before downstream analysis.</p>
+<p>A second sharp peak almost always means a second source of DNA — typically contamination from another organism (the GC content of bacteria varies widely, so a contaminant often shows up at a different GC). It can also be a technical artefact such as un-removed adapter sequences.</p>
+<p>What to do: investigate before trimming. Re-run FastQC <em>after</em> fastp adapter trimming to see if the peak goes away (technical); if it persists, treat the sample as potentially contaminated and decide whether to re-prep or accept it with caveats.</p>
 </div>
 </div>
 </div>
@@ -2919,7 +2916,7 @@ Solution
 </div>
 </div>
 <ul>
-<li><strong>QE1.9</strong> A library was sequenced 2×150 bp with a mean insert size of 250 bp. What fraction of read pairs do you expect to overlap, and what should you do about overlaps before downstream analysis?</li>
+<li><strong>QE1.9</strong> A library is sequenced 2×150 bp. Under what condition do the forward and reverse reads of a pair <strong>overlap</strong> in the middle of the insert?</li>
 </ul>
 <div class="callout callout-style-simple callout-tip no-icon callout-titled">
 <div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-18-contents" aria-controls="callout-18" aria-expanded="false" aria-label="Toggle callout">
@@ -2933,28 +2930,12 @@ Hint
 </div>
 <div id="callout-18" class="callout-18-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
-<p>A pair overlaps when (read length × 2) &gt; insert size, i.e. when insert &lt; 300 bp.</p>
-</div>
-</div>
-</div>
-<div class="callout callout-style-simple callout-tip no-icon callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-19-contents" aria-controls="callout-19" aria-expanded="false" aria-label="Toggle callout">
-<div class="callout-icon-container">
-<i class="callout-icon no-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Hint
-</div>
-<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
-</div>
-<div id="callout-19" class="callout-19-contents callout-collapse collapse">
-<div class="callout-body-container callout-body">
-<p>Insert sizes are typically log-normal or roughly Gaussian; if the mean is 250 bp with SD ~50 bp, what fraction lies below 300 bp?</p>
+<p>Each read is 150 bp. If they overlap, the two together cover an insert of less than what total length?</p>
 </div>
 </div>
 </div>
 <div class="callout callout-style-simple callout-note no-icon callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-20-contents" aria-controls="callout-20" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-19-contents" aria-controls="callout-19" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon no-icon"></i>
 </div>
@@ -2963,22 +2944,10 @@ Solution
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-20" class="callout-20-contents callout-collapse collapse">
+<div id="callout-19" class="callout-19-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
-<p>Pairs overlap whenever the insert is shorter than 2 × read length = 300 bp. For a Gaussian with mean 250 and SD 50 bp:</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="fu">pnorm</span>(<span class="dv">300</span>, <span class="at">mean =</span> <span class="dv">250</span>, <span class="at">sd =</span> <span class="dv">50</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] 0.8413447</code></pre>
-</div>
-</div>
-<p>~84 % of pairs overlap. Options for handling them:</p>
-<ul>
-<li><strong>Merge</strong> with <code>fastp --merge</code> (or <code>bbmerge</code>, <code>PEAR</code>, <code>FLASH</code>): produces a single longer “merged” read with averaged quality at overlapping positions — useful for amplicon work where the overlap <em>is</em> the signal.</li>
-<li><strong>Leave un-merged and let the aligner handle it.</strong> Mappers (BWA-MEM, bowtie2) take read pairs as input and reconcile overlaps when computing alignment scores; downstream variant callers will see the same base twice and weight it accordingly.</li>
-<li><strong>Soft-clip with <code>fastp --overlap_diff_limit</code></strong> if you only want to use the overlap to <em>correct</em> low-quality 3′ bases.</li>
-</ul>
-<p>For variant calling on small inserts, merging is usually the right call.</p>
+<p>The forward and reverse reads together would span up to 2 × 150 = 300 bp of insert (if they don’t overlap at all). They overlap whenever the <strong>insert is shorter than 300 bp</strong> — then the two reads cover some of the same bases in the middle.</p>
+<p>This is useful: you can <em>merge</em> an overlapping pair into a single longer “consensus” read, with the overlapping region used to correct base errors. Tools like <code>fastp --merge</code> do this automatically. Whether you want to merge depends on the downstream analysis — for amplicon work and small-insert variant calling, yes; for many other uses, the aligner handles it fine without merging.</p>
 </div>
 </div>
 </div>

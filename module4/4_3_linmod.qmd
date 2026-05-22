@@ -322,24 +322,6 @@ Fanning residuals indicate **heteroscedasticity** — the constant-variance assu
 
 ### ANOVA vs. summary (extra)
 
-- **QE3.1**. Fit `BloodPressure ~ Age + Glucose` and then `BloodPressure ~ Glucose + Age` on the same data. Compare `anova(fit)` for the two orderings, and compare `summary(fit)` for the two orderings. Which one changes, and why?
-
-::: {.callout-tip collapse="true" appearance="minimal"}
-## Hint
-`anova()` on a single `lm` gives **sequential (Type-I)** sums of squares: each term is tested *after* the previous ones. `summary()` reports the partial t-test for each coefficient *given all the others*, so order does not matter.
-:::
-
-::: {.callout-note collapse="true" appearance="minimal"}
-## Solution
-```{r, eval=FALSE}
-fit1 <- lm(BloodPressure ~ Age + Glucose, data = d)
-fit2 <- lm(BloodPressure ~ Glucose + Age, data = d)
-anova(fit1);   anova(fit2)     # different
-summary(fit1); summary(fit2)   # same coefficients & p-values
-```
-The `anova()` p-values change because Type-I SS allocate shared variance to whichever predictor enters first. The `summary()` coefficient table is invariant to ordering because every t-test is "this predictor, given all the others". When predictors are correlated, the two views can disagree — prefer `summary()` (or `drop1()` / Type-II/III ANOVA) for interpretation.
-:::
-
 - **QE3.2**. Compare two nested models with `anova(fit_small, fit_big)`. What null hypothesis is being tested?
 
 ::: {.callout-tip collapse="true" appearance="minimal"}
@@ -361,34 +343,7 @@ H0: the extra coefficients (`BMI`, `Glucose`) are jointly zero — i.e. the smal
 
 These exercises build on [`frog_stan.zip`](data/frog_stan.zip).
 
-- **QE4.1**. Sketch a tiny Stan model for Poisson regression: counts `y[i]` depend on a covariate `x[i]` via `log(lambda[i]) = alpha + beta * x[i]`. Write out the `data`, `parameters`, and `model` blocks.
-
-::: {.callout-tip collapse="true" appearance="minimal"}
-## Hint
-The response is integer-valued: use `int<lower=0> y[N];`. There is no positivity constraint needed on `alpha` and `beta` because we exponentiate. Use `poisson_log(alpha + beta * x[i])` or equivalently `poisson(exp(alpha + beta * x[i]))`.
-:::
-
-::: {.callout-note collapse="true" appearance="minimal"}
-## Solution
-```{r, eval=FALSE}
-# poisson_reg.stan
-# data {
-#   int<lower=0> N;
-#   vector[N] x;
-#   int<lower=0> y[N];
-# }
-# parameters {
-#   real alpha;
-#   real beta;
-# }
-# model {
-#   y ~ poisson_log(alpha + beta * x);   // log-link
-# }
-```
-The `poisson_log` form is numerically more stable than computing `exp()` by hand. Compare to **frog.stan**: there `lambda` was modelled directly with a `<lower=0>` constraint and a linear (not log-linear) interpolation, which only works because the rates were not too close to 0.
-:::
-
-- **QE4.2**. Modify **frog.stan** so that instead of linearly interpolating between two endpoint rates, `log(lambda)` is linear in time: `log(lambda[i]) = a + b * t[i]`. What changes in the `parameters` block, and do you still need `<lower=0>`?
+- **QE4.1**. Modify **frog.stan** so that instead of linearly interpolating between two endpoint rates, `log(lambda)` is linear in time: `log(lambda[i]) = a + b * t[i]`. What changes in the `parameters` block, and do you still need `<lower=0>`?
 
 ::: {.callout-tip collapse="true" appearance="minimal"}
 ## Hint
@@ -405,7 +360,7 @@ On the log scale `lambda` is automatically positive, so the constraint is no lon
 Because `exp(a + b*t) > 0` for all real `a`, `b`, the `<lower=0>` constraint is unnecessary. `b < 0` would correspond to an exponentially declining frog population.
 :::
 
-- **QE4.3**. Run **frog.R** twice: once with the default MCMC sampler (`stan(...)`) and once with maximum-likelihood (`optimizing(...)`). How should you interpret the two outputs differently?
+- **QE4.2**. Run **frog.R** twice: once with the default MCMC sampler (`stan(...)`) and once with maximum-likelihood (`optimizing(...)`). How should you interpret the two outputs differently?
 
 ::: {.callout-tip collapse="true" appearance="minimal"}
 ## Hint

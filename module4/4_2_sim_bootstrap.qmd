@@ -443,50 +443,6 @@ for (N in Ns) {
 ```
 :::
 
-- **QE1.3** Now try the Cauchy distribution, `rcauchy(N)`. The CLT *fails* here — generate the distribution of the mean for increasing N and explain in prose what goes wrong.
-
-::: {.callout-tip collapse="true" appearance="minimal"}
-## Hint
-The Cauchy has undefined mean and infinite variance — the assumptions of the CLT are violated.
-:::
-
-::: {.callout-tip collapse="true" appearance="minimal"}
-## Hint
-In fact, the mean of N Cauchy samples is itself Cauchy-distributed (with the same scale). So averaging does not help at all.
-:::
-
-::: {.callout-note collapse="true" appearance="minimal"}
-## Solution
-```{r, eval=FALSE}
-nboot <- 10000
-Ns <- c(1, 10, 100, 1000)
-par(mfrow = c(2, 2))
-for (N in Ns) {
-  means <- replicate(nboot, mean(rcauchy(N)))
-  hist(means, breaks = 100, main = paste("N =", N),
-       xlab = "sample mean", xlim = c(-20, 20))
-}
-```
-
-Prose: The CLT requires the base distribution to have *finite variance*. The
-Cauchy has no defined mean and infinite variance, so the theorem does not
-apply. Empirically: the distribution of `mean(rcauchy(N))` does not narrow
-as N grows — it stays Cauchy-distributed with the same scale parameter. The
-"law of large numbers" also fails: the sample mean does not converge to any
-fixed value. This is the canonical cautionary example for heavy-tailed data
-in biology (e.g. some gene-expression and network-degree distributions).
-
-```{r, eval=TRUE}
-# Quick sanity check: sample variance of the mean does not shrink with N.
-set.seed(1)
-var(replicate(2000, mean(rcauchy(10))))
-var(replicate(2000, mean(rcauchy(1000))))
-# Both are large and erratic — no 1/N scaling.
-```
-:::
-
-### Birth-death (extra)
-
 - **QE2.1** Run the birth-death simulation with `n0 = 10` and `alpha = 0.99` (a much more "stable" population). Estimate the probability that the population survives past `T = 500` timesteps.
 
 ::: {.callout-tip collapse="true" appearance="minimal"}
@@ -609,28 +565,7 @@ plot(gammas, mean_tc, type = "b",
 ```
 :::
 
-- **QE3.2** Find (by manual sweep) a parameter region that produces *sustained* oscillations — say, the system survives past `tmax = 5000` for at least 80% of bootstrap runs. Report the parameters and the empirical survival fraction.
-
-::: {.callout-tip collapse="true" appearance="minimal"}
-## Hint
-Larger starting populations and gentler rates are more forgiving of stochastic noise. Try `n_prey0 = 500`, `n_pred0 = 100`, mild `a`, `b`, `c`, `d`.
-:::
-
-::: {.callout-note collapse="true" appearance="minimal"}
-## Solution
-```{r, eval=FALSE}
-nboot <- 200
-res <- replicate(nboot, simulate_lv(
-  n_prey0 = 500, n_pred0 = 100,
-  a = 0.1, b = 0.001, c = 0.001, d = 0.05,
-  tmax = 5000
-)$t_crash)
-mean(is.na(res))   # fraction that survived to tmax
-# Tune the rates until this fraction is >= 0.8.
-```
-:::
-
-- **QE3.3** Estimate the average *period* of the prey-predator oscillation in phase space for one long surviving run. (Use any reasonable definition, e.g. consecutive maxima of the prey trajectory.)
+- **QE3.2** Estimate the average *period* of the prey-predator oscillation in phase space for one long surviving run. (Use any reasonable definition, e.g. consecutive maxima of the prey trajectory.)
 
 ::: {.callout-tip collapse="true" appearance="minimal"}
 ## Hint

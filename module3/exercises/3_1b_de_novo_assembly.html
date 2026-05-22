@@ -2503,7 +2503,7 @@ $half
 </div>
 </div>
 <ul>
-<li><strong>QE1.2</strong> A read of length L is broken into k-mers. Show that there are L − k + 1 k-mers per read. Derive the relationship <code>k-mer coverage = read coverage × (L − k + 1) / L</code>, and explain why a sequencer that gives you 100× <em>read</em> coverage may give you only 80× k-mer coverage at k = 31.</li>
+<li><strong>QE1.2</strong> How many distinct k-mers can you extract from a single 150 bp read at k = 31? At k = 99?</li>
 </ul>
 <div class="callout callout-style-simple callout-tip no-icon callout-titled">
 <div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-3-contents" aria-controls="callout-3" aria-expanded="false" aria-label="Toggle callout">
@@ -2517,7 +2517,7 @@ Hint
 </div>
 <div id="callout-3" class="callout-3-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
-<p>A k-mer is a window of size k sliding along the read. How many distinct positions can the window start at, given the window must fit inside the read?</p>
+<p>A k-mer is a window of size k sliding along the read, one base at a time. Count the positions the window can start at.</p>
 </div>
 </div>
 </div>
@@ -2533,9 +2533,12 @@ Solution
 </div>
 <div id="callout-4" class="callout-4-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
-<p>A k-mer can start at positions 1, 2, …, L − k + 1 (any later start runs off the read end). So there are exactly L − k + 1 k-mers per read.</p>
-<p>Total k-mers = (number of reads) × (L − k + 1). Genome size G is fixed. Read coverage c_read = (reads × L) / G. K-mer coverage c_kmer = (reads × (L − k + 1)) / G = c_read × (L − k + 1) / L.</p>
-<p>For L = 150 and k = 31: factor = 120 / 150 = 0.8, so 100× read coverage → 80× k-mer coverage. Assemblers care about <em>k-mer</em> coverage, not read coverage, so trimming reads or picking a large k can quietly starve the assembler of evidence.</p>
+<p>The window can start at positions 1, 2, …, L − k + 1 (any later start runs off the end). So a 150 bp read gives:</p>
+<ul>
+<li><strong>k = 31</strong>: 150 − 31 + 1 = <strong>120 k-mers</strong>.</li>
+<li><strong>k = 99</strong>: 150 − 99 + 1 = <strong>52 k-mers</strong>.</li>
+</ul>
+<p>The larger you pick k, the fewer k-mers you get per read — and so the more raw reads you need to give the assembler the same amount of evidence.</p>
 </div>
 </div>
 </div>
@@ -2579,7 +2582,7 @@ Solution
 </div>
 </div>
 <ul>
-<li><strong>QE1.4</strong> Construct the (k = 3) de Bruijn graph for <code>ATGGAAGTC</code>. List the (k−1)-mer nodes and the directed edges (each edge is a k-mer). Walk it and confirm you recover the original sequence.</li>
+<li><strong>QE1.4</strong> Write out all 3-mers (k = 3) in the sequence <code>ATGGAA</code>. There should be 4 of them. Show how each pair of consecutive 3-mers overlaps by 2 letters (this is what the de Bruijn graph captures).</li>
 </ul>
 <div class="callout callout-style-simple callout-tip no-icon callout-titled">
 <div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-7-contents" aria-controls="callout-7" aria-expanded="false" aria-label="Toggle callout">
@@ -2593,7 +2596,7 @@ Hint
 </div>
 <div id="callout-7" class="callout-7-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
-<p>For k = 3, each node is a 2-mer (prefix or suffix of a 3-mer). Each 3-mer becomes an edge from its first 2 letters to its last 2 letters.</p>
+<p>Slide a window of size 3 along the sequence, one base at a time.</p>
 </div>
 </div>
 </div>
@@ -2609,17 +2612,13 @@ Solution
 </div>
 <div id="callout-8" class="callout-8-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
-<p>3-mers in <code>ATGGAAGTC</code> (7 of them): <code>ATG, TGG, GGA, GAA, AAG, AGT, GTC</code>.</p>
-<p>Nodes (2-mers visited): <code>AT, TG, GG, GA, AA, AG, GT, TC</code>.</p>
-<p>Edges (one per 3-mer):</p>
-<div class="sourceCode" id="cb27"><pre class="sourceCode default code-with-copy"><code class="sourceCode default"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>AT -&gt; TG    (from ATG)</span>
-<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>TG -&gt; GG    (from TGG)</span>
-<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>GG -&gt; GA    (from GGA)</span>
-<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a>GA -&gt; AA    (from GAA)</span>
-<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a>AA -&gt; AG    (from AAG)</span>
-<span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a>AG -&gt; GT    (from AGT)</span>
-<span id="cb27-7"><a href="#cb27-7" aria-hidden="true" tabindex="-1"></a>GT -&gt; TC    (from GTC)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>Walking from <code>AT</code> along all 7 edges spells out <code>AT → TG → GG → GA → AA → AG → GT → TC</code>. Concatenating the first letter of each node plus the suffix of the last node gives <code>A T G G A A G T C</code> — the original sequence. ✓</p>
+<p>The 3-mers (in order along the sequence) are: <code>ATG, TGG, GGA, GAA</code>.</p>
+<p>Each consecutive pair shares 2 letters — that overlap is what the de Bruijn graph uses to link them:</p>
+<div class="sourceCode" id="cb27"><pre class="sourceCode default code-with-copy"><code class="sourceCode default"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>ATG</span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a> TGG     (overlap = TG)</span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>  GGA    (overlap = GG)</span>
+<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a>   GAA   (overlap = GA)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Concatenating the first letter of each k-mer plus the last two letters of the final one recovers the original <code>ATGGAA</code>.</p>
 </div>
 </div>
 </div>
@@ -2747,7 +2746,7 @@ Solution
 </div>
 </div>
 <ul>
-<li><strong>QE1.8</strong> Using the Lander–Waterman result, P(base uncovered) = e^−c for coverage c. What fraction of the genome is uncovered at c = 5×? At c = 30×? At c = 200×? Why does extra coverage past ~50× give diminishing returns for assembly?</li>
+<li><strong>QE1.8</strong> Single reads can’t span a repeat longer than the read length. How does paired-end information help bridge such a repeat in the de Bruijn graph? What insert size would you choose for a genome whose longest repeat is ~700 bp?</li>
 </ul>
 <div class="callout callout-style-simple callout-tip no-icon callout-titled">
 <div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-15-contents" aria-controls="callout-15" aria-expanded="false" aria-label="Toggle callout">
@@ -2761,7 +2760,7 @@ Hint
 </div>
 <div id="callout-15" class="callout-15-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
-<p>e^−5, e^−30, e^−200 — three very different orders of magnitude.</p>
+<p>A read pair “anchors” two reads at known distance apart. If one end maps to unique sequence and the other end maps just past the repeat…</p>
 </div>
 </div>
 </div>
@@ -2777,94 +2776,22 @@ Solution
 </div>
 <div id="callout-16" class="callout-16-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
-<div class="cell">
-<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>c <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">5</span>, <span class="dv">30</span>, <span class="dv">200</span>)</span>
-<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>p_uncov <span class="ot">&lt;-</span> <span class="fu">exp</span>(<span class="sc">-</span>c)</span>
-<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a><span class="fu">data.frame</span>(<span class="at">coverage =</span> c, <span class="at">fraction_uncovered =</span> p_uncov,</span>
-<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a>           <span class="at">bases_missing_in_5Mb =</span> p_uncov <span class="sc">*</span> <span class="fl">5e6</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>  coverage fraction_uncovered bases_missing_in_5Mb
-1        5       6.737947e-03         3.368973e+04
-2       30       9.357623e-14         4.678811e-07
-3      200       1.383897e-87         6.919483e-81</code></pre>
-</div>
-</div>
-<ul>
-<li>5× → ~0.67 % uncovered (~33 kb of a 5 Mb genome).</li>
-<li>30× → ~9 × 10⁻¹⁴ — effectively zero bases uncovered.</li>
-<li>200× → ~10⁻⁸⁷ — astronomically zero.</li>
-</ul>
-<p>Past ~30–50× the random-uncovered-base concern is gone; remaining assembly problems come from <strong>non-random</strong> issues that more coverage doesn’t fix: high-GC dropout, secondary structure, low-complexity regions, repeats longer than the read. Extra coverage past this point doesn’t extend contigs — it just makes assembly slower and pushes the assembler toward over-merging error variants. Many bacterial assemblers (including SKESA) actually <em>downsample</em> high-coverage data.</p>
+<p>A repeat longer than the read collapses into a single shared graph node with multiple incoming and outgoing edges (see QE1.5). A read pair with insert size &gt; repeat length provides the missing information: read 1 anchors in the <em>unique</em> region upstream of the repeat, read 2 anchors in the <em>unique</em> region downstream. Both reads sit on either side of the repeat, even if neither one spans it. The assembler / scaffolder can now match incoming edge X with the correct outgoing edge Y, because the unique anchors on the read pair commit to a specific pairing.</p>
+<p>For a 700 bp repeat, you want the <em>insert size</em> (not the read length) to comfortably exceed 700 bp — so an insert size around 800–1000 bp gives you anchors on both flanks for most pairs. Add a margin for insert-size variability: a 250 bp mean insert won’t help here; a 600 bp mean insert helps only some of the time; ~1 kb is comfortable.</p>
 </div>
 </div>
 </div>
-<ul>
-<li><strong>QE1.9</strong> Single reads can’t span a repeat longer than the read length. How does paired-end information help bridge such a repeat in the de Bruijn graph? What insert size would you choose for a genome whose longest repeat is ~700 bp?</li>
-</ul>
-<div class="callout callout-style-simple callout-tip no-icon callout-titled">
+<div class="callout callout-style-simple callout-note no-icon callout-titled">
 <div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-17-contents" aria-controls="callout-17" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon no-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Hint
+Solution
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
 <div id="callout-17" class="callout-17-contents callout-collapse collapse">
-<div class="callout-body-container callout-body">
-<p>A read pair “anchors” two reads at known distance apart. If one end maps to unique sequence and the other end maps just past the repeat…</p>
-</div>
-</div>
-</div>
-<div class="callout callout-style-simple callout-note no-icon callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-18-contents" aria-controls="callout-18" aria-expanded="false" aria-label="Toggle callout">
-<div class="callout-icon-container">
-<i class="callout-icon no-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Solution
-</div>
-<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
-</div>
-<div id="callout-18" class="callout-18-contents callout-collapse collapse">
-<div class="callout-body-container callout-body">
-<p>A repeat longer than the read collapses into a single shared graph node with multiple incoming and outgoing edges (see QE1.5). A read pair with insert size &gt; repeat length provides the missing information: read 1 anchors in the <em>unique</em> region upstream of the repeat, read 2 anchors in the <em>unique</em> region downstream. Both reads sit on either side of the repeat, even if neither one spans it. The assembler / scaffolder can now match incoming edge X with the correct outgoing edge Y, because the unique anchors on the read pair commit to a specific pairing.</p>
-<p>For a 700 bp repeat, you want the <em>insert size</em> (not the read length) to comfortably exceed 700 bp — so an insert size around 800–1000 bp gives you anchors on both flanks for most pairs. Add a margin for insert-size variability: a 250 bp mean insert won’t help here; a 600 bp mean insert helps only some of the time; ~1 kb is comfortable.</p>
-<p>(For repeats &gt; 1 kb, the standard answer is to add a long-read library — see QE1.10.)</p>
-</div>
-</div>
-</div>
-<ul>
-<li><strong>QE1.10</strong> Short Illumina reads have high per-base accuracy (Q30+) but limited span; Nanopore/PacBio reads have lower per-base accuracy (Q10–20 raw) but span tens of kb. Sketch a workflow that uses <strong>both</strong> and explain what each contributes.</li>
-</ul>
-<div class="callout callout-style-simple callout-tip no-icon callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-19-contents" aria-controls="callout-19" aria-expanded="false" aria-label="Toggle callout">
-<div class="callout-icon-container">
-<i class="callout-icon no-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Hint
-</div>
-<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
-</div>
-<div id="callout-19" class="callout-19-contents callout-collapse collapse">
-<div class="callout-body-container callout-body">
-<p>“Hybrid assembly” — use long reads to lay down a scaffold and short reads to polish each base.</p>
-</div>
-</div>
-</div>
-<div class="callout callout-style-simple callout-note no-icon callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-20-contents" aria-controls="callout-20" aria-expanded="false" aria-label="Toggle callout">
-<div class="callout-icon-container">
-<i class="callout-icon no-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Solution
-</div>
-<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
-</div>
-<div id="callout-20" class="callout-20-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <p>A typical hybrid workflow (e.g. with Unicycler or Trycycler + Polypolish/Pilon):</p>
 <ol type="1">

@@ -402,19 +402,18 @@ Sequencing starts inside the insert (after the sequencing primer anneals) and pr
 The sequencing primer binds at the 5′ end of the insert and the polymerase reads outward (5′→3′). If the read length exceeds the insert length, the read runs off the insert and into the *downstream* (3′) adapter — so adapter contamination is always on the 3′ end. For short fragments (insert < read length) every read reaches the adapter; for long fragments (insert ≫ read length) no read does. Adapter contamination peaks when the insert-size distribution is narrowly centred just *below* the read length (e.g. 130 bp inserts with 150 bp reads). This is also why size-selection during library prep matters.
 :::
 
-- **QE1.6** FastQC reports a sharp secondary peak at 65 % GC for what should be an *E. coli* sample (expected ~50 % GC, single Gaussian). Give two plausible hypotheses — one biological, one technical — and a quick test for each.
+- **QE1.6** FastQC reports the GC-content distribution as a *single* Gaussian for a clean sample. Suppose you see a **second, sharp peak** at a different GC value. What might cause this, and what should you do about it before continuing?
 
 ::: {.callout-tip collapse="true" appearance="minimal"}
 ## Hint
-"Sharp" and "secondary" are the key words: the contaminant is a single, defined species — not a smear.
+A second peak means part of your DNA isn't from the organism you think you're sequencing.
 :::
 
 ::: {.callout-note collapse="true" appearance="minimal"}
 ## Solution
-- **Biological — contamination by a higher-GC organism.** Mycobacteria (~65 % GC), some Actinobacteria, or human DNA (~41 % isn't a match, but human reads can still cluster oddly). Test: run a few thousand reads through Kraken2 / mash screen against a contaminants database; or BLAST a handful of unmapped reads.
-- **Technical — over-amplified high-GC fragments or barcode/adapter read-through.** A PCR-biased amplicon, a UMI/index read leaking into Read 1, or unremoved adapter dimers can all give a tight non-50% peak. Test: rerun FastQC *after* fastp adapter/quality trimming; check "Overrepresented sequences" for known adapter or contaminant motifs; inspect duplication levels.
+A second sharp peak almost always means a second source of DNA — typically contamination from another organism (the GC content of bacteria varies widely, so a contaminant often shows up at a different GC). It can also be a technical artefact such as un-removed adapter sequences.
 
-Either way, **don't** just trim the peak away — figure out where it came from before downstream analysis.
+What to do: investigate before trimming. Re-run FastQC *after* fastp adapter trimming to see if the peak goes away (technical); if it persists, treat the sample as potentially contaminated and decide whether to re-prep or accept it with caveats.
 :::
 
 - **QE1.7** What is the difference between **PCR** duplicates and **optical** duplicates? How do they look different in a FastQC duplication plot, and when is a high duplication rate *expected* (not a sign of trouble)?
@@ -450,29 +449,16 @@ p_err(15); p_err(30)
 Raising `-q` from 15 to 30 cuts the residual per-base error rate from ~3 % to 0.1 % (a 30× reduction). The cost is throwing away every base whose quality is between Q15 and Q30 — typically the last 20–40 cycles of each read on a mature Illumina run. In practice this can mean losing 10–30 % of total bases on an older flow-cell. For variant calling this is usually a good trade (false positives drop sharply); for assembly it can be counter-productive (you may lose the only reads spanning a low-complexity repeat).
 :::
 
-- **QE1.9** A library was sequenced 2×150 bp with a mean insert size of 250 bp. What fraction of read pairs do you expect to overlap, and what should you do about overlaps before downstream analysis?
+- **QE1.9** A library is sequenced 2×150 bp. Under what condition do the forward and reverse reads of a pair **overlap** in the middle of the insert?
 
 ::: {.callout-tip collapse="true" appearance="minimal"}
 ## Hint
-A pair overlaps when (read length × 2) > insert size, i.e. when insert < 300 bp.
-:::
-
-::: {.callout-tip collapse="true" appearance="minimal"}
-## Hint
-Insert sizes are typically log-normal or roughly Gaussian; if the mean is 250 bp with SD ~50 bp, what fraction lies below 300 bp?
+Each read is 150 bp. If they overlap, the two together cover an insert of less than what total length?
 :::
 
 ::: {.callout-note collapse="true" appearance="minimal"}
 ## Solution
-Pairs overlap whenever the insert is shorter than 2 × read length = 300 bp. For a Gaussian with mean 250 and SD 50 bp:
-```{r, eval=TRUE}
-pnorm(300, mean = 250, sd = 50)
-```
-~84 % of pairs overlap. Options for handling them:
+The forward and reverse reads together would span up to 2 × 150 = 300 bp of insert (if they don't overlap at all). They overlap whenever the **insert is shorter than 300 bp** — then the two reads cover some of the same bases in the middle.
 
-- **Merge** with `fastp --merge` (or `bbmerge`, `PEAR`, `FLASH`): produces a single longer "merged" read with averaged quality at overlapping positions — useful for amplicon work where the overlap *is* the signal.
-- **Leave un-merged and let the aligner handle it.** Mappers (BWA-MEM, bowtie2) take read pairs as input and reconcile overlaps when computing alignment scores; downstream variant callers will see the same base twice and weight it accordingly.
-- **Soft-clip with `fastp --overlap_diff_limit`** if you only want to use the overlap to *correct* low-quality 3′ bases.
-
-For variant calling on small inserts, merging is usually the right call.
+This is useful: you can *merge* an overlapping pair into a single longer "consensus" read, with the overlapping region used to correct base errors. Tools like `fastp --merge` do this automatically. Whether you want to merge depends on the downstream analysis — for amplicon work and small-insert variant calling, yes; for many other uses, the aligner handles it fine without merging.
 :::

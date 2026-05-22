@@ -3019,7 +3019,7 @@ Solution
 <section id="anova-vs.-summary-extra" class="level3">
 <h3 class="anchored" data-anchor-id="anova-vs.-summary-extra">ANOVA vs. summary (extra)</h3>
 <ul>
-<li><strong>QE3.1</strong>. Fit <code>BloodPressure ~ Age + Glucose</code> and then <code>BloodPressure ~ Glucose + Age</code> on the same data. Compare <code>anova(fit)</code> for the two orderings, and compare <code>summary(fit)</code> for the two orderings. Which one changes, and why?</li>
+<li><strong>QE3.2</strong>. Compare two nested models with <code>anova(fit_small, fit_big)</code>. What null hypothesis is being tested?</li>
 </ul>
 <div class="callout callout-style-simple callout-tip no-icon callout-titled">
 <div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-32-contents" aria-controls="callout-32" aria-expanded="false" aria-label="Toggle callout">
@@ -3033,7 +3033,7 @@ Hint
 </div>
 <div id="callout-32" class="callout-32-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
-<p><code>anova()</code> on a single <code>lm</code> gives <strong>sequential (Type-I)</strong> sums of squares: each term is tested <em>after</em> the previous ones. <code>summary()</code> reports the partial t-test for each coefficient <em>given all the others</em>, so order does not matter.</p>
+<p>With two model arguments, <code>anova()</code> performs an F-test of whether the extra terms in the bigger model significantly improve the fit.</p>
 </div>
 </div>
 </div>
@@ -3050,17 +3050,20 @@ Solution
 <div id="callout-33" class="callout-33-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>fit1 <span class="ot">&lt;-</span> <span class="fu">lm</span>(BloodPressure <span class="sc">~</span> Age <span class="sc">+</span> Glucose, <span class="at">data =</span> d)</span>
-<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>fit2 <span class="ot">&lt;-</span> <span class="fu">lm</span>(BloodPressure <span class="sc">~</span> Glucose <span class="sc">+</span> Age, <span class="at">data =</span> d)</span>
-<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a><span class="fu">anova</span>(fit1);   <span class="fu">anova</span>(fit2)     <span class="co"># different</span></span>
-<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(fit1); <span class="fu">summary</span>(fit2)   <span class="co"># same coefficients &amp; p-values</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>fit_small <span class="ot">&lt;-</span> <span class="fu">lm</span>(BloodPressure <span class="sc">~</span> Age, <span class="at">data =</span> d)</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>fit_big   <span class="ot">&lt;-</span> <span class="fu">lm</span>(BloodPressure <span class="sc">~</span> Age <span class="sc">+</span> BMI <span class="sc">+</span> Glucose, <span class="at">data =</span> d)</span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a><span class="fu">anova</span>(fit_small, fit_big)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>The <code>anova()</code> p-values change because Type-I SS allocate shared variance to whichever predictor enters first. The <code>summary()</code> coefficient table is invariant to ordering because every t-test is “this predictor, given all the others”. When predictors are correlated, the two views can disagree — prefer <code>summary()</code> (or <code>drop1()</code> / Type-II/III ANOVA) for interpretation.</p>
-</div>
+<p>H0: the extra coefficients (<code>BMI</code>, <code>Glucose</code>) are jointly zero — i.e. the smaller model fits just as well. A small p-value rejects H0 and favours the bigger model.</p>
 </div>
 </div>
+</div>
+</section>
+<section id="stan-extra" class="level3">
+<h3 class="anchored" data-anchor-id="stan-extra">STAN (extra)</h3>
+<p>These exercises build on <a href="data/frog_stan.zip"><code>frog_stan.zip</code></a>.</p>
 <ul>
-<li><strong>QE3.2</strong>. Compare two nested models with <code>anova(fit_small, fit_big)</code>. What null hypothesis is being tested?</li>
+<li><strong>QE4.1</strong>. Modify <strong>frog.stan</strong> so that instead of linearly interpolating between two endpoint rates, <code>log(lambda)</code> is linear in time: <code>log(lambda[i]) = a + b * t[i]</code>. What changes in the <code>parameters</code> block, and do you still need <code>&lt;lower=0&gt;</code>?</li>
 </ul>
 <div class="callout callout-style-simple callout-tip no-icon callout-titled">
 <div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-34-contents" aria-controls="callout-34" aria-expanded="false" aria-label="Toggle callout">
@@ -3074,7 +3077,7 @@ Hint
 </div>
 <div id="callout-34" class="callout-34-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
-<p>With two model arguments, <code>anova()</code> performs an F-test of whether the extra terms in the bigger model significantly improve the fit.</p>
+<p>On the log scale <code>lambda</code> is automatically positive, so the constraint is no longer required for <code>a</code> and <code>b</code>. Pass <code>t</code> as part of <code>data</code>, drop the interpolation arithmetic, use <code>poisson_log</code>.</p>
 </div>
 </div>
 </div>
@@ -3091,20 +3094,16 @@ Solution
 <div id="callout-35" class="callout-35-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>fit_small <span class="ot">&lt;-</span> <span class="fu">lm</span>(BloodPressure <span class="sc">~</span> Age, <span class="at">data =</span> d)</span>
-<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>fit_big   <span class="ot">&lt;-</span> <span class="fu">lm</span>(BloodPressure <span class="sc">~</span> Age <span class="sc">+</span> BMI <span class="sc">+</span> Glucose, <span class="at">data =</span> d)</span>
-<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a><span class="fu">anova</span>(fit_small, fit_big)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co"># data    { int N; vector[N] t; int y[N]; }</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="co"># parameters { real a; real b; }</span></span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a><span class="co"># model   { y ~ poisson_log(a + b * t); }</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>H0: the extra coefficients (<code>BMI</code>, <code>Glucose</code>) are jointly zero — i.e. the smaller model fits just as well. A small p-value rejects H0 and favours the bigger model.</p>
+<p>Because <code>exp(a + b*t) &gt; 0</code> for all real <code>a</code>, <code>b</code>, the <code>&lt;lower=0&gt;</code> constraint is unnecessary. <code>b &lt; 0</code> would correspond to an exponentially declining frog population.</p>
 </div>
 </div>
 </div>
-</section>
-<section id="stan-extra" class="level3">
-<h3 class="anchored" data-anchor-id="stan-extra">STAN (extra)</h3>
-<p>These exercises build on <a href="data/frog_stan.zip"><code>frog_stan.zip</code></a>.</p>
 <ul>
-<li><strong>QE4.1</strong>. Sketch a tiny Stan model for Poisson regression: counts <code>y[i]</code> depend on a covariate <code>x[i]</code> via <code>log(lambda[i]) = alpha + beta * x[i]</code>. Write out the <code>data</code>, <code>parameters</code>, and <code>model</code> blocks.</li>
+<li><strong>QE4.2</strong>. Run <strong>frog.R</strong> twice: once with the default MCMC sampler (<code>stan(...)</code>) and once with maximum-likelihood (<code>optimizing(...)</code>). How should you interpret the two outputs differently?</li>
 </ul>
 <div class="callout callout-style-simple callout-tip no-icon callout-titled">
 <div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-36-contents" aria-controls="callout-36" aria-expanded="false" aria-label="Toggle callout">
@@ -3118,7 +3117,7 @@ Hint
 </div>
 <div id="callout-36" class="callout-36-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
-<p>The response is integer-valued: use <code>int&lt;lower=0&gt; y[N];</code>. There is no positivity constraint needed on <code>alpha</code> and <code>beta</code> because we exponentiate. Use <code>poisson_log(alpha + beta * x[i])</code> or equivalently <code>poisson(exp(alpha + beta * x[i]))</code>.</p>
+<p><code>stan()</code> gives you a <strong>posterior distribution</strong> over <code>a</code> and <code>b</code> — point estimates, credible intervals, full samples. <code>optimizing()</code> gives you a single point: the <strong>maximum-likelihood (or MAP) estimate</strong>, no uncertainty unless you bootstrap or use the Hessian.</p>
 </div>
 </div>
 </div>
@@ -3135,102 +3134,12 @@ Solution
 <div id="callout-37" class="callout-37-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co"># poisson_reg.stan</span></span>
-<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="co"># data {</span></span>
-<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a><span class="co">#   int&lt;lower=0&gt; N;</span></span>
-<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a><span class="co">#   vector[N] x;</span></span>
-<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a><span class="co">#   int&lt;lower=0&gt; y[N];</span></span>
-<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a><span class="co"># }</span></span>
-<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a><span class="co"># parameters {</span></span>
-<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a><span class="co">#   real alpha;</span></span>
-<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a><span class="co">#   real beta;</span></span>
-<span id="cb16-10"><a href="#cb16-10" aria-hidden="true" tabindex="-1"></a><span class="co"># }</span></span>
-<span id="cb16-11"><a href="#cb16-11" aria-hidden="true" tabindex="-1"></a><span class="co"># model {</span></span>
-<span id="cb16-12"><a href="#cb16-12" aria-hidden="true" tabindex="-1"></a><span class="co">#   y ~ poisson_log(alpha + beta * x);   // log-link</span></span>
-<span id="cb16-13"><a href="#cb16-13" aria-hidden="true" tabindex="-1"></a><span class="co"># }</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<p>The <code>poisson_log</code> form is numerically more stable than computing <code>exp()</code> by hand. Compare to <strong>frog.stan</strong>: there <code>lambda</code> was modelled directly with a <code>&lt;lower=0&gt;</code> constraint and a linear (not log-linear) interpolation, which only works because the rates were not too close to 0.</p>
-</div>
-</div>
-</div>
-<ul>
-<li><strong>QE4.2</strong>. Modify <strong>frog.stan</strong> so that instead of linearly interpolating between two endpoint rates, <code>log(lambda)</code> is linear in time: <code>log(lambda[i]) = a + b * t[i]</code>. What changes in the <code>parameters</code> block, and do you still need <code>&lt;lower=0&gt;</code>?</li>
-</ul>
-<div class="callout callout-style-simple callout-tip no-icon callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-38-contents" aria-controls="callout-38" aria-expanded="false" aria-label="Toggle callout">
-<div class="callout-icon-container">
-<i class="callout-icon no-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Hint
-</div>
-<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
-</div>
-<div id="callout-38" class="callout-38-contents callout-collapse collapse">
-<div class="callout-body-container callout-body">
-<p>On the log scale <code>lambda</code> is automatically positive, so the constraint is no longer required for <code>a</code> and <code>b</code>. Pass <code>t</code> as part of <code>data</code>, drop the interpolation arithmetic, use <code>poisson_log</code>.</p>
-</div>
-</div>
-</div>
-<div class="callout callout-style-simple callout-note no-icon callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-39-contents" aria-controls="callout-39" aria-expanded="false" aria-label="Toggle callout">
-<div class="callout-icon-container">
-<i class="callout-icon no-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Solution
-</div>
-<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
-</div>
-<div id="callout-39" class="callout-39-contents callout-collapse collapse">
-<div class="callout-body-container callout-body">
-<div class="cell">
-<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co"># data    { int N; vector[N] t; int y[N]; }</span></span>
-<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="co"># parameters { real a; real b; }</span></span>
-<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a><span class="co"># model   { y ~ poisson_log(a + b * t); }</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<p>Because <code>exp(a + b*t) &gt; 0</code> for all real <code>a</code>, <code>b</code>, the <code>&lt;lower=0&gt;</code> constraint is unnecessary. <code>b &lt; 0</code> would correspond to an exponentially declining frog population.</p>
-</div>
-</div>
-</div>
-<ul>
-<li><strong>QE4.3</strong>. Run <strong>frog.R</strong> twice: once with the default MCMC sampler (<code>stan(...)</code>) and once with maximum-likelihood (<code>optimizing(...)</code>). How should you interpret the two outputs differently?</li>
-</ul>
-<div class="callout callout-style-simple callout-tip no-icon callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-40-contents" aria-controls="callout-40" aria-expanded="false" aria-label="Toggle callout">
-<div class="callout-icon-container">
-<i class="callout-icon no-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Hint
-</div>
-<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
-</div>
-<div id="callout-40" class="callout-40-contents callout-collapse collapse">
-<div class="callout-body-container callout-body">
-<p><code>stan()</code> gives you a <strong>posterior distribution</strong> over <code>a</code> and <code>b</code> — point estimates, credible intervals, full samples. <code>optimizing()</code> gives you a single point: the <strong>maximum-likelihood (or MAP) estimate</strong>, no uncertainty unless you bootstrap or use the Hessian.</p>
-</div>
-</div>
-</div>
-<div class="callout callout-style-simple callout-note no-icon callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-41-contents" aria-controls="callout-41" aria-expanded="false" aria-label="Toggle callout">
-<div class="callout-icon-container">
-<i class="callout-icon no-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Solution
-</div>
-<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
-</div>
-<div id="callout-41" class="callout-41-contents callout-collapse collapse">
-<div class="callout-body-container callout-body">
-<div class="cell">
-<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(rstan)</span>
-<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>sm  <span class="ot">&lt;-</span> <span class="fu">stan_model</span>(<span class="st">&quot;frog.stan&quot;</span>)</span>
-<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>mle <span class="ot">&lt;-</span> <span class="fu">optimizing</span>(sm, <span class="at">data =</span> stan_data)   <span class="co"># point estimate</span></span>
-<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>post <span class="ot">&lt;-</span> <span class="fu">sampling</span>(sm, <span class="at">data =</span> stan_data)    <span class="co"># full posterior</span></span>
-<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>mle<span class="sc">$</span>par</span>
-<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(post)                                <span class="co"># mean, sd, 2.5%/97.5% per parameter</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(rstan)</span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>sm  <span class="ot">&lt;-</span> <span class="fu">stan_model</span>(<span class="st">&quot;frog.stan&quot;</span>)</span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>mle <span class="ot">&lt;-</span> <span class="fu">optimizing</span>(sm, <span class="at">data =</span> stan_data)   <span class="co"># point estimate</span></span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>post <span class="ot">&lt;-</span> <span class="fu">sampling</span>(sm, <span class="at">data =</span> stan_data)    <span class="co"># full posterior</span></span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>mle<span class="sc">$</span>par</span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(post)                                <span class="co"># mean, sd, 2.5%/97.5% per parameter</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>The MLE answers “what single value of <code>(a, b)</code> makes the data most likely?”. The Bayesian posterior answers “given the data and the prior, what is the full distribution of plausible <code>(a, b)</code> values?”. For reporting uncertainty, intervals from the posterior are usually more honest; the MLE is faster and is what classical <code>lm()</code> / <code>glm()</code> give you implicitly.</p>
 </div>
