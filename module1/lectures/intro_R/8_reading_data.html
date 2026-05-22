@@ -442,7 +442,7 @@
   <meta name="generator" content="quarto-1.7.30">
 
   <meta name="author" content="Nina Norgren">
-  <title>Reading data into R</title>
+  <title>Intro to Bioinformatics (5MO115) – Reading data into R</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
@@ -1077,18 +1077,18 @@ Nina Norgren
 <h2>Reading data - read.table</h2>
 <p>The function is declared in the following way:</p>
 <div class="cell smaller_code">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r smaller_code number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href></a><span class="fu">read.table</span>(file, <span class="at">header =</span> <span class="cn">FALSE</span>, <span class="at">sep =</span> <span class="st">&quot;&quot;</span>, </span>
-<span id="cb1-2"><a href></a>           <span class="at">quote =</span> <span class="st">&quot;</span><span class="sc">\&quot;</span><span class="st">&#39;&quot;</span>, <span class="at">dec =</span> <span class="st">&quot;.&quot;</span>,</span>
-<span id="cb1-3"><a href></a>           <span class="at">numerals =</span> <span class="fu">c</span>(<span class="st">&quot;allow.loss&quot;</span>,<span class="st">&quot;warn.loss&quot;</span>,<span class="st">&quot;no.loss&quot;</span>),</span>
-<span id="cb1-4"><a href></a>           row.names, col.names, <span class="at">as.is =</span> <span class="sc">!</span>stringsAsFactors,</span>
-<span id="cb1-5"><a href></a>           <span class="at">na.strings =</span> <span class="st">&quot;NA&quot;</span>, <span class="at">colClasses =</span> <span class="cn">NA</span>, <span class="at">nrows =</span> <span class="sc">-</span><span class="dv">1</span>,</span>
-<span id="cb1-6"><a href></a>           <span class="at">skip =</span> <span class="dv">0</span>, <span class="at">check.names =</span> <span class="cn">TRUE</span>, </span>
-<span id="cb1-7"><a href></a>           <span class="at">fill =</span> <span class="sc">!</span>blank.lines.skip, <span class="at">strip.white =</span> <span class="cn">FALSE</span>, </span>
-<span id="cb1-8"><a href></a>           <span class="at">blank.lines.skip =</span> <span class="cn">TRUE</span>, <span class="at">comment.char =</span> <span class="st">&quot;#&quot;</span>,</span>
-<span id="cb1-9"><a href></a>           <span class="at">allowEscapes =</span> <span class="cn">FALSE</span>, <span class="at">flush =</span> <span class="cn">FALSE</span>,</span>
-<span id="cb1-10"><a href></a>           <span class="at">stringsAsFactors =</span> <span class="cn">FALSE</span>,</span>
-<span id="cb1-11"><a href></a>           <span class="at">fileEncoding =</span> <span class="st">&quot;&quot;</span>, <span class="at">encoding =</span> <span class="st">&quot;unknown&quot;</span>, </span>
-<span id="cb1-12"><a href></a>           text, <span class="at">skipNul =</span> <span class="cn">FALSE</span>)<span class="sc">*</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r smaller_code number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a></a><span class="fu">read.table</span>(file, <span class="at">header =</span> <span class="cn">FALSE</span>, <span class="at">sep =</span> <span class="st">&quot;&quot;</span>, </span>
+<span id="cb1-2"><a></a>           <span class="at">quote =</span> <span class="st">&quot;</span><span class="sc">\&quot;</span><span class="st">&#39;&quot;</span>, <span class="at">dec =</span> <span class="st">&quot;.&quot;</span>,</span>
+<span id="cb1-3"><a></a>           <span class="at">numerals =</span> <span class="fu">c</span>(<span class="st">&quot;allow.loss&quot;</span>,<span class="st">&quot;warn.loss&quot;</span>,<span class="st">&quot;no.loss&quot;</span>),</span>
+<span id="cb1-4"><a></a>           row.names, col.names, <span class="at">as.is =</span> <span class="sc">!</span>stringsAsFactors,</span>
+<span id="cb1-5"><a></a>           <span class="at">na.strings =</span> <span class="st">&quot;NA&quot;</span>, <span class="at">colClasses =</span> <span class="cn">NA</span>, <span class="at">nrows =</span> <span class="sc">-</span><span class="dv">1</span>,</span>
+<span id="cb1-6"><a></a>           <span class="at">skip =</span> <span class="dv">0</span>, <span class="at">check.names =</span> <span class="cn">TRUE</span>, </span>
+<span id="cb1-7"><a></a>           <span class="at">fill =</span> <span class="sc">!</span>blank.lines.skip, <span class="at">strip.white =</span> <span class="cn">FALSE</span>, </span>
+<span id="cb1-8"><a></a>           <span class="at">blank.lines.skip =</span> <span class="cn">TRUE</span>, <span class="at">comment.char =</span> <span class="st">&quot;#&quot;</span>,</span>
+<span id="cb1-9"><a></a>           <span class="at">allowEscapes =</span> <span class="cn">FALSE</span>, <span class="at">flush =</span> <span class="cn">FALSE</span>,</span>
+<span id="cb1-10"><a></a>           <span class="at">stringsAsFactors =</span> <span class="cn">FALSE</span>,</span>
+<span id="cb1-11"><a></a>           <span class="at">fileEncoding =</span> <span class="st">&quot;&quot;</span>, <span class="at">encoding =</span> <span class="st">&quot;unknown&quot;</span>, </span>
+<span id="cb1-12"><a></a>           text, <span class="at">skipNul =</span> <span class="cn">FALSE</span>)<span class="sc">*</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="read.table-parameters" class="slide level2">
@@ -1116,9 +1116,9 @@ Nina Norgren
 <section id="read.table---example-use" class="slide level2">
 <h2><code>read.table()</code> - example use</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href></a>iris.df <span class="ot">&lt;-</span> <span class="fu">read.table</span>(<span class="at">file =</span> <span class="st">&#39;data/iris.txt&#39;</span>,</span>
-<span id="cb2-2"><a href></a>           <span class="at">sep =</span> <span class="st">&#39;</span><span class="sc">\t</span><span class="st">&#39;</span>, <span class="at">header =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb2-3"><a href></a>iris.df[<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>, <span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a></a>iris.df <span class="ot">&lt;-</span> <span class="fu">read.table</span>(<span class="at">file =</span> <span class="st">&#39;data/iris.txt&#39;</span>,</span>
+<span id="cb2-2"><a></a>           <span class="at">sep =</span> <span class="st">&#39;</span><span class="sc">\t</span><span class="st">&#39;</span>, <span class="at">header =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb2-3"><a></a>iris.df[<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>, <span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>  Sepal.Length Sepal.Width Petal.Length
 1          5.1         3.5          1.4
@@ -1127,7 +1127,7 @@ Nina Norgren
 4          4.6         3.1          1.5
 5          5.0         3.6          1.4</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href></a><span class="fu">class</span>(iris.df)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a></a><span class="fu">class</span>(iris.df)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] &quot;data.frame&quot;</code></pre>
 </div>
@@ -1136,9 +1136,9 @@ Nina Norgren
 <section id="read.table---example-use-1" class="slide level2">
 <h2><code>read.table()</code> - example use</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href></a>persons <span class="ot">&lt;-</span> <span class="fu">read.table</span>(<span class="at">file=</span><span class="st">&#39;data/persons.txt&#39;</span>,</span>
-<span id="cb6-2"><a href></a>              <span class="at">sep =</span> <span class="st">&#39;,&#39;</span>, <span class="at">header =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb6-3"><a href></a>persons</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a></a>persons <span class="ot">&lt;-</span> <span class="fu">read.table</span>(<span class="at">file=</span><span class="st">&#39;data/persons.txt&#39;</span>,</span>
+<span id="cb6-2"><a></a>              <span class="at">sep =</span> <span class="st">&#39;,&#39;</span>, <span class="at">header =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb6-3"><a></a>persons</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>     Name Gender
 1   Alice Female
@@ -1151,10 +1151,10 @@ Nina Norgren
 <h2><code>read.table()</code> - example use</h2>
 <p>If needed, convert columns to factors for later plotting or calculations</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href></a>persons <span class="ot">&lt;-</span> <span class="fu">read.table</span>(<span class="at">file=</span><span class="st">&#39;data/persons.txt&#39;</span>,</span>
-<span id="cb8-2"><a href></a>              <span class="at">sep =</span> <span class="st">&#39;,&#39;</span>, <span class="at">header =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb8-3"><a href></a>persons<span class="sc">$</span>Gender <span class="ot">&lt;-</span> <span class="fu">as.factor</span>(persons<span class="sc">$</span>Gender)</span>
-<span id="cb8-4"><a href></a><span class="fu">str</span>(persons)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a></a>persons <span class="ot">&lt;-</span> <span class="fu">read.table</span>(<span class="at">file=</span><span class="st">&#39;data/persons.txt&#39;</span>,</span>
+<span id="cb8-2"><a></a>              <span class="at">sep =</span> <span class="st">&#39;,&#39;</span>, <span class="at">header =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb8-3"><a></a>persons<span class="sc">$</span>Gender <span class="ot">&lt;-</span> <span class="fu">as.factor</span>(persons<span class="sc">$</span>Gender)</span>
+<span id="cb8-4"><a></a><span class="fu">str</span>(persons)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>&#39;data.frame&#39;:   3 obs. of  2 variables:
  $ Name  : chr  &quot;Alice&quot; &quot;Bob&quot; &quot;Charlie&quot;
@@ -1179,22 +1179,23 @@ Nina Norgren
 <h2>Writing with <code>write.table()</code></h2>
 <p><code>read.table()</code> has the counterpart <code>write.table()</code>, which is used for writing to files:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href></a>df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">no.=</span><span class="fu">c</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>),</span>
-<span id="cb10-2"><a href></a>                 <span class="at">letter=</span><span class="fu">c</span>(<span class="st">&#39;a&#39;</span>,<span class="st">&#39;b&#39;</span>,<span class="st">&#39;c&#39;</span>),</span>
-<span id="cb10-3"><a href></a>                 <span class="at">isRed=</span><span class="fu">c</span>(<span class="cn">TRUE</span>,<span class="cn">FALSE</span>,<span class="cn">TRUE</span>))</span>
-<span id="cb10-4"><a href></a><span class="fu">write.table</span>(df, <span class="at">file =</span> <span class="st">&#39;data/my_df.txt&#39;</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a></a>df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">no.=</span><span class="fu">c</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>),</span>
+<span id="cb10-2"><a></a>                 <span class="at">letter=</span><span class="fu">c</span>(<span class="st">&#39;a&#39;</span>,<span class="st">&#39;b&#39;</span>,<span class="st">&#39;c&#39;</span>),</span>
+<span id="cb10-3"><a></a>                 <span class="at">isRed=</span><span class="fu">c</span>(<span class="cn">TRUE</span>,<span class="cn">FALSE</span>,<span class="cn">TRUE</span>))</span>
+<span id="cb10-4"><a></a><span class="fu">write.table</span>(df, <span class="at">file =</span> <span class="st">&#39;data/my_df.txt&#39;</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="writing-with-write.table-1" class="slide level2">
 <h2>Writing with <code>write.table()</code></h2>
 <p><code>read.table()</code> has the counterpart <code>write.table()</code>, which is used for writing to files:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href></a>df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">no.=</span><span class="fu">c</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>),</span>
-<span id="cb11-2"><a href></a>                 <span class="at">letter=</span><span class="fu">c</span>(<span class="st">&#39;a&#39;</span>,<span class="st">&#39;b&#39;</span>,<span class="st">&#39;c&#39;</span>),</span>
-<span id="cb11-3"><a href></a>                 <span class="at">isRed=</span><span class="fu">c</span>(<span class="cn">TRUE</span>,<span class="cn">FALSE</span>,<span class="cn">TRUE</span>))</span>
-<span id="cb11-4"><a href></a><span class="fu">write.table</span>(df, <span class="at">file =</span> <span class="st">&#39;data/my_df.txt&#39;</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a></a>df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">no.=</span><span class="fu">c</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>),</span>
+<span id="cb11-2"><a></a>                 <span class="at">letter=</span><span class="fu">c</span>(<span class="st">&#39;a&#39;</span>,<span class="st">&#39;b&#39;</span>,<span class="st">&#39;c&#39;</span>),</span>
+<span id="cb11-3"><a></a>                 <span class="at">isRed=</span><span class="fu">c</span>(<span class="cn">TRUE</span>,<span class="cn">FALSE</span>,<span class="cn">TRUE</span>))</span>
+<span id="cb11-4"><a></a><span class="fu">write.table</span>(df, <span class="at">file =</span> <span class="st">&#39;data/my_df.txt&#39;</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p><br></p>
+
 
 
 <img role="img" data-src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAOQAAABfCAYAAAD4Wms7AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAAFiUAABYlAUlSJPAAAAjbSURBVHhe7ZtRcusqDIbvSrq0zllLzzrOdA3tHvrQ9+4n1zaSDULYgoCtJv/DN9MmrgGhD5EU//fy8nIDAPgAQgLgCAgJgCMgJACOgJAAOMIg5Ovt/evn9vPzfXv/M/3+92P6efr96/32ql5/ItyXz7fpd+7nz+3jr3LtIW+3j/lePx+3t+n313/f0b35mq2NAMVkff9R6DvnHMvvf6/T7xznQuz+vN++l/fDPGTvO+HtU8ajT8zqheSAJYl6EYmQFKRmSVIh+d4hieS1/H5rWxshWY+TL0+AkfSd81RIvndhzI8iZGPMTFvWkOgUIE9CUl9YmvuEpIBykJ9ayM5zTrEMO5cDIXuwSp1SnMsGtPnoEbN6IamS9BxcM0JIa3LrCCHp3sXt7zMJee+cJ0KeMBZl7tIqHV3biDaGHjHr9KVOaHwOAA88oCda6PiGC7lrORSSKwETX8vb4xIUt8JKv5IltbyvjD/1aV61xb0vnwM51h1h0xybkFVIXUwpNtUxC2RtzgxYVLoKuXRyDY6oOPF18Ws8Ea3boavYFZLGGY0pTGh+fXhdT4KYw6pCcYzFSlfsmXiRiPoiKtjV7I1Vi+P8WtL3PSHjPDPFbOc190KKDspkKyWfFmT37AipjzOqTtHrpZhIjhJAfz/My5ZwLKRsT153LXtjNYmgCLn8nfbaUcxUuY39aKCrkHJC02TTKiZRGLRrikLq4s1ok9hHyJJQsi87c+CIvbGGeB2MgfIp7AQY6yKUxqw0P48jpJKo2tbBPUUhQyzSZIgQk9hFSDUBIx5IyAXaYufjI8QCzxIn+WWM2VML+egVUqOLkMXVXvIgQkYs10YCLWT5RONO4myL2QMLWR5cMSl5JfSYQEUhKydr5z4x++JaF4HHE3Imu15b4CmXthw1xkybH66uA+J4qpB8nbaaaSvVuvoZEvZ09kTiCbNUSeu1WUJVvr/w24Wc+y8XpXJOpTsuGnucj6aYyftTrn9Nuf37hdyuDaIFiltVCpibBGJ5NLI+5uOcUcfK41zRK2GIZ3SdbFPtX7xo+BUyG1tEmld5XDOhVCEnNAEPYyavCe8t/fUrJACgBxASAEdASAAcASEBcASEBMAREBIAR0BIABwBIQFwBIQEwBEQEgBHQEgAHGEQkg/l0vm+O8+X8pnFcJ6QzyUWDmmfCvclnCNdz1ZaDohn9I0ZeB7qheSDtk2JKoVUTuBfRiqkehDZTN+YgefBtGUNj0FRoh4k1/rIVCn5KNHDSfw+Qh62aYL6wlXsLiHrYlZGf2Ikhvu3xiAhjWtYDJVYU//WpyO4oisUn8wBXagXkpIkS9RVNEoik5B079atnLVNE0JImaSVmGJWSVGoiTyOLPN2fa2QkO98+nyps0xomnz3yWHgijYXuKpv3CualToht48HLBaE9E8fIRPOlIM5r823T/EFFCXvGVK2Cbn1F0L6B0LejdjqDqRKSJIsfg1C+gdCdkCrTiM4FHKOQYSs2rVC5ojdAegOhKyFK4/EVYWkeIhrUSH9AyFrYBlFO24qZNwH5bMthPQPhKwgJHS+bXMppPI/3lL/g4DR6xDyMiBkDVnVif4F4k7Iiay/WpyU1yDkZXQSkia1wJiJvaJNliJtx2eFnMmrpBa37F82JKQGJB3LgAoJAGgFQgLgCAgJgCMgJACOgJAAOAJCAuAICAmAIyAkAI6AkAA4AkIC4AgICYAjDELyeUh6GoDPOTae3eSzoOH8JJ+r9PDgK/clnPtcz6zGh67lY0pF+sYMPA/1QhaeCbSSCqkdfr6KVMj8SYmJViHvjBl4Hkxb1uVJAk7UYnLlTxGoiZs82nOvkMY2TVBfuIrdJaQ1ZhY4RgrK/banUfSYhvcNOxLu80r+N1tbEsP9gUq9kCRB+shOeC1OVJ6sLHkTIe95dKmiTRNCSE2+ViHVmFmhfplkDtd+/3vPYsOYhNQWo+XeqeRmuYGZgV/qUPU6dZs2uM1IyCAcMfSzYYWQS/+CIEv/ihV0TyKxMO0AIfsDIWughP9OBBk9TruQiyDJljvftpqFLGx5YyBkf8YJSdWkbZvWyOg26f5SjrGJaRUyXLeOnfoqt62mvtKWdWGnXQjZn0FC8ip75mSd0GYhyeXn4r7wuHKS9pa+xWPXRbZLJNstVdv4mvK1wMYAIbeJHJOgGie1WRKy9HoXdLEkQY7jL12aqlpUMeMxNt0L7NJdSP6y48yt6mlt7lbIUYlpEVJWs5Q4Lu0S0Wfl6MseCNmfrkI+tIwzBSFDH0Zt0wxCFis0/W0XiSDkGXQT8uFlnNESf+jnx5ljIYMY+oIgpTmWaBJP+ZdH+Lt0nBCyP32EpESdJ0xjSLJe0aa6NRydkEdCHrxPceJFi8XKicahxrbmSx1I2sqAL3UAAK1ASAAcASEBcASEBMAREBIAR0BIABwBIQFwBIQEwBEQEgBHQEgAHGEQko+L0XEofhRHOe9ogY9bhaNcdGDZxVEr7ks4IrYeC9t9yqJE35iB56FeSD7n2JSoUki+96gnJWpIhWSJ2g6u940ZeB5MW9bk8SI1uTgBU9QD3snTEfcIWdGmCbofV7G7hLTEzAIvEmW4f/zkS0oa17AYKrGm/q2x44quMObQPmDqhaQkOUpUroTZBCZC0r07beWKbZoQQsokraQlZkcUhZrI4ygq/kStkK1jB+0M/FKnTxLWcVabnOyMLklv6oTMFygI6R8IWQtv55Lt59TuCZ8P24TcvjCDkP4ZJmS6ZTuH8W3StvaiL2eqhCTJ4tcgpH+6ChmEYM75V8apbcrEPZlDIdc4BOROoVbInHPm9JkZt2XlFfrMajK6zSVRr0tKe4Xkz7jptaiQ/hn4GXI/gUYxtE3vFTLespJUcZWEkP6BkFVQ5fkNnyGV//GGv1cqvKz8EPIyxgmprNDDOaHNkNSyDZ/fsubx0BYU5TUIeRmdhOTPLDGjK+MVbRKUsGe3Wy2kUiW1uGULWDa+DUg6lqFbVgBAHRASAEdASAAcASEBcASEBMAREBIAN7zc/ge9tcIKf+lY7AAAAABJRU5ErkJggg==" style="width:80.0%" class="r-stretch"></section>

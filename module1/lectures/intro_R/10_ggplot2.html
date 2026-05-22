@@ -442,7 +442,7 @@
   <meta name="generator" content="quarto-1.7.30">
 
   <meta name="author" content="Nina Norgren">
-  <title>Plotting with ggplot2</title>
+  <title>Intro to Bioinformatics (5MO115) – Plotting with ggplot2</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
@@ -1084,7 +1084,7 @@ Nina Norgren
 <div class="columns">
 <div class="column" style="width:40%;">
 <div class="cell medium_code">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r medium_code number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href></a><span class="fu">hist</span>(iris<span class="sc">$</span>Sepal.Length)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r medium_code number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a></a><span class="fu">hist</span>(iris<span class="sc">$</span>Sepal.Length)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure>
@@ -1095,9 +1095,9 @@ Nina Norgren
 </div>
 </div><div class="column" style="width:60%;">
 <div class="cell medium_code">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r medium_code number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href></a><span class="fu">library</span>(ggplot2)</span>
-<span id="cb2-2"><a href></a><span class="fu">ggplot</span>(iris,<span class="fu">aes</span>(<span class="at">x=</span>Sepal.Length))<span class="sc">+</span></span>
-<span id="cb2-3"><a href></a>  <span class="fu">geom_histogram</span>(<span class="at">bins=</span><span class="dv">8</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r medium_code number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb2-2"><a></a><span class="fu">ggplot</span>(iris,<span class="fu">aes</span>(<span class="at">x=</span>Sepal.Length))<span class="sc">+</span></span>
+<span id="cb2-3"><a></a>  <span class="fu">geom_histogram</span>(<span class="at">bins=</span><span class="dv">8</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure>
@@ -1151,12 +1151,12 @@ Nina Norgren
 <p>Using base graphics for plotting</p>
 </div></div>
 <div class="cell medium_code">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r medium_code number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href></a><span class="fu">plot</span>(iris<span class="sc">$</span>Petal.Length,iris<span class="sc">$</span>Petal.Width,</span>
-<span id="cb3-2"><a href></a>     <span class="at">col=</span><span class="fu">c</span>(<span class="st">&quot;red&quot;</span>,<span class="st">&quot;green&quot;</span>,<span class="st">&quot;blue&quot;</span>)[iris<span class="sc">$</span>Species],</span>
-<span id="cb3-3"><a href></a>     <span class="at">pch=</span><span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">2</span>)[iris<span class="sc">$</span>Species])</span>
-<span id="cb3-4"><a href></a><span class="fu">legend</span>(<span class="at">x=</span><span class="dv">1</span>,<span class="at">y=</span><span class="fl">2.5</span>,</span>
-<span id="cb3-5"><a href></a>       <span class="at">legend=</span><span class="fu">c</span>(<span class="st">&quot;setosa&quot;</span>,<span class="st">&quot;versicolor&quot;</span>,<span class="st">&quot;virginica&quot;</span>),</span>
-<span id="cb3-6"><a href></a>       <span class="at">pch=</span><span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">2</span>),<span class="at">col=</span><span class="fu">c</span>(<span class="st">&quot;red&quot;</span>,<span class="st">&quot;green&quot;</span>,<span class="st">&quot;blue&quot;</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r medium_code number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a></a><span class="fu">plot</span>(iris<span class="sc">$</span>Petal.Length,iris<span class="sc">$</span>Petal.Width,</span>
+<span id="cb3-2"><a></a>     <span class="at">col=</span><span class="fu">c</span>(<span class="st">&quot;red&quot;</span>,<span class="st">&quot;green&quot;</span>,<span class="st">&quot;blue&quot;</span>)[iris<span class="sc">$</span>Species],</span>
+<span id="cb3-3"><a></a>     <span class="at">pch=</span><span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">2</span>)[iris<span class="sc">$</span>Species])</span>
+<span id="cb3-4"><a></a><span class="fu">legend</span>(<span class="at">x=</span><span class="dv">1</span>,<span class="at">y=</span><span class="fl">2.5</span>,</span>
+<span id="cb3-5"><a></a>       <span class="at">legend=</span><span class="fu">c</span>(<span class="st">&quot;setosa&quot;</span>,<span class="st">&quot;versicolor&quot;</span>,<span class="st">&quot;virginica&quot;</span>),</span>
+<span id="cb3-6"><a></a>       <span class="at">pch=</span><span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">2</span>),<span class="at">col=</span><span class="fu">c</span>(<span class="st">&quot;red&quot;</span>,<span class="st">&quot;green&quot;</span>,<span class="st">&quot;blue&quot;</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="ggplot2-vs-base-graphics-3" class="slide level2">
@@ -1176,8 +1176,8 @@ Nina Norgren
 </div>
 </div></div>
 <div class="cell medium_code">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource r medium_code number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href></a><span class="fu">ggplot</span>(iris,<span class="fu">aes</span>(Petal.Length,Sepal.Length,<span class="at">color=</span>Species))<span class="sc">+</span></span>
-<span id="cb4-2"><a href></a>  <span class="fu">geom_point</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource r medium_code number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a></a><span class="fu">ggplot</span>(iris,<span class="fu">aes</span>(Petal.Length,Sepal.Length,<span class="at">color=</span>Species))<span class="sc">+</span></span>
+<span id="cb4-2"><a></a>  <span class="fu">geom_point</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="grammar-of-graphics" class="slide level2">
@@ -1200,8 +1200,8 @@ Nina Norgren
 <section id="building-a-graph" class="slide level2">
 <h2>Building a graph</h2>
 <div class="cell medium_code">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r medium_code number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href></a><span class="fu">data</span>(iris)</span>
-<span id="cb5-2"><a href></a><span class="fu">head</span>(iris, <span class="at">n=</span><span class="dv">3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r medium_code number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a></a><span class="fu">data</span>(iris)</span>
+<span id="cb5-2"><a></a><span class="fu">head</span>(iris, <span class="at">n=</span><span class="dv">3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>  Sepal.Length Sepal.Width Petal.Length Petal.Width Species
 1          5.1         3.5          1.4         0.2  setosa
@@ -1215,7 +1215,7 @@ Nina Norgren
 <div class="columns">
 <div class="column" style="width:60%;">
 <div class="cell medium_code">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource r medium_code number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href></a><span class="fu">ggplot</span>(iris)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource r medium_code number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a></a><span class="fu">ggplot</span>(iris)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div><div class="column" style="width:40%;">
 <div class="cell">
@@ -1235,8 +1235,8 @@ Nina Norgren
 <div class="columns">
 <div class="column" style="width:60%;">
 <div class="cell medium_code">
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource r medium_code number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href></a><span class="fu">ggplot</span>(iris,<span class="fu">aes</span>(<span class="at">x=</span>Sepal.Length,</span>
-<span id="cb8-2"><a href></a>                <span class="at">y=</span>Sepal.Width))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource r medium_code number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a></a><span class="fu">ggplot</span>(iris,<span class="fu">aes</span>(<span class="at">x=</span>Sepal.Length,</span>
+<span id="cb8-2"><a></a>                <span class="at">y=</span>Sepal.Width))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div><div class="column" style="width:40%;">
 <div class="cell">
@@ -1256,9 +1256,9 @@ Nina Norgren
 <div class="columns">
 <div class="column" style="width:60%;">
 <div class="cell medium_code">
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource r medium_code number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href></a><span class="fu">ggplot</span>(iris,<span class="fu">aes</span>(<span class="at">x=</span>Sepal.Length,</span>
-<span id="cb9-2"><a href></a>                <span class="at">y=</span>Sepal.Width))<span class="sc">+</span></span>
-<span id="cb9-3"><a href></a>       <span class="fu">geom_point</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource r medium_code number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a></a><span class="fu">ggplot</span>(iris,<span class="fu">aes</span>(<span class="at">x=</span>Sepal.Length,</span>
+<span id="cb9-2"><a></a>                <span class="at">y=</span>Sepal.Width))<span class="sc">+</span></span>
+<span id="cb9-3"><a></a>       <span class="fu">geom_point</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div><div class="column" style="width:40%;">
 <div class="cell">
@@ -1277,10 +1277,10 @@ Nina Norgren
 <div class="columns">
 <div class="column" style="width:60%;">
 <div class="cell medium_code">
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource r medium_code number-lines code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href></a><span class="fu">ggplot</span>(iris,<span class="fu">aes</span>(<span class="at">x=</span>Sepal.Length,</span>
-<span id="cb10-2"><a href></a>                <span class="at">y=</span>Sepal.Width,</span>
-<span id="cb10-3"><a href></a>                <span class="at">colour=</span>Species))<span class="sc">+</span></span>
-<span id="cb10-4"><a href></a>       <span class="fu">geom_point</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource r medium_code number-lines code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a></a><span class="fu">ggplot</span>(iris,<span class="fu">aes</span>(<span class="at">x=</span>Sepal.Length,</span>
+<span id="cb10-2"><a></a>                <span class="at">y=</span>Sepal.Width,</span>
+<span id="cb10-3"><a></a>                <span class="at">colour=</span>Species))<span class="sc">+</span></span>
+<span id="cb10-4"><a></a>       <span class="fu">geom_point</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div><div class="column" style="width:40%;">
 <div class="cell">
@@ -1299,14 +1299,14 @@ Nina Norgren
 <div class="columns">
 <div class="column" style="width:60%;">
 <div class="cell medium_code">
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource r medium_code number-lines code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href></a><span class="fu">ggplot</span>(iris,<span class="fu">aes</span>(<span class="at">x=</span>Sepal.Length,</span>
-<span id="cb11-2"><a href></a>                <span class="at">y=</span>Sepal.Width))<span class="sc">+</span></span>
-<span id="cb11-3"><a href></a>       <span class="fu">geom_point</span>()<span class="sc">+</span></span>
-<span id="cb11-4"><a href></a>       <span class="fu">geom_line</span>()<span class="sc">+</span></span>
-<span id="cb11-5"><a href></a>       <span class="fu">labs</span>(<span class="at">title=</span><span class="st">&quot;My Plot&quot;</span>, </span>
-<span id="cb11-6"><a href></a>            <span class="at">x =</span> <span class="st">&quot;Length&quot;</span>, </span>
-<span id="cb11-7"><a href></a>            <span class="at">y =</span> <span class="st">&quot;Width&quot;</span>) <span class="sc">+</span></span>
-<span id="cb11-8"><a href></a>       <span class="fu">theme_minimal</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource r medium_code number-lines code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a></a><span class="fu">ggplot</span>(iris,<span class="fu">aes</span>(<span class="at">x=</span>Sepal.Length,</span>
+<span id="cb11-2"><a></a>                <span class="at">y=</span>Sepal.Width))<span class="sc">+</span></span>
+<span id="cb11-3"><a></a>       <span class="fu">geom_point</span>()<span class="sc">+</span></span>
+<span id="cb11-4"><a></a>       <span class="fu">geom_line</span>()<span class="sc">+</span></span>
+<span id="cb11-5"><a></a>       <span class="fu">labs</span>(<span class="at">title=</span><span class="st">&quot;My Plot&quot;</span>, </span>
+<span id="cb11-6"><a></a>            <span class="at">x =</span> <span class="st">&quot;Length&quot;</span>, </span>
+<span id="cb11-7"><a></a>            <span class="at">y =</span> <span class="st">&quot;Width&quot;</span>) <span class="sc">+</span></span>
+<span id="cb11-8"><a></a>       <span class="fu">theme_minimal</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div><div class="column" style="width:40%;">
 <div class="cell">
@@ -1319,6 +1319,7 @@ Nina Norgren
 </div>
 </div>
 </div></div>
+
 
 </section>
     </div>

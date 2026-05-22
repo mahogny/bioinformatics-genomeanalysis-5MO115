@@ -1,0 +1,33 @@
+---
+title: "Introduction to Bioinformatics (5MO115) — vt26"
+title-block-banner: false
+---
+
+Course materials for the spring 2026 instance of *Introduction to Bioinformatics and Genome Analysis* (course code **5MO115**) at Umeå University.
+
+Use the sidebar on the left to navigate lectures and exercises. Every exercise page has collapsible **Hint** and **Solution** callouts, plus an *Extra exercise material* section at the bottom for additional practice.
+
+## Module 1 — R and basics
+
+R is the workhorse of statistical bioinformatics. Module 1 covers the language from scratch (variables, types, vectors, matrices, data frames, control flow, reading data, plotting) and revisits the linear algebra and probability foundations needed for the rest of the course.
+
+- [Lecture series — intro to R](module1/lectures/intro_R/0_R_syllabus.qmd) (14 short decks)
+- Exercises: [linear algebra](module1/exercises/linalg/linalg.qmd) · [probability & Markov chains](module1/exercises/basicprob/basicprob.qmd) · [variables](module1/exercises/intro_R/creating_variables.qmd) · [data structures](module1/exercises/intro_R/complex_data_structures.qmd) · [reading & plotting](module1/exercises/intro_R/read_and_plot_data.qmd) · [control flow](module1/exercises/intro_R/loops_ifelse_functions.qmd)
+
+## Module 2 — Command line
+
+Most bioinformatics tools live on the command line. Module 2 covers Linux navigation, pipes, redirection, manipulating GTFs with `grep`/`awk`/`cut`, and running programs on a cluster.
+
+- [Setup](module2/instructions/set_up_wsl.qmd) (Windows users: WSL; everyone else: R/RStudio + optional HPC2N access)
+- [Lecture series — command line](module2/lectures/command_line/0_linux_syllabus.qmd)
+- Exercises: [exploring the command line](module2/exercises/command_line/exploring_the_commandline.qmd) · [GTF files](module2/exercises/command_line/gtf.qmd) · [running programs](module2/exercises/command_line/running_programs.qmd) · [storing & accessing data](module2/exercises/command_line/storing_accessing_cmd.qmd)
+
+## Module 4 — Statistics and RNA-seq
+
+Where everything comes together: classical statistical distributions, simulation and bootstrap, linear models (`lm` and Stan), and a hands-on RNA-seq differential expression analysis from FASTQ to volcano plot.
+
+- [Module 4 introduction](module4/intro.qmd)
+- [4.1 — Basic statistics](module4/4_1_basic_stats.qmd)
+- [4.2 — Simulations and bootstrapping](module4/4_2_sim_bootstrap.qmd)
+- [4.3 — Linear models for statistics](module4/4_3_linmod.qmd)
+- [4.4 — RNA-seq analysis](module4/4_4_rnaseq.qmd)
