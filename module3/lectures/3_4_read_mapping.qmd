@@ -9,7 +9,6 @@ format:
 
   - **Lecture 1:<span> </span>**Short read mapping
 
-<!-- end list -->
 
   - **Lecture 2:<span> </span>**Variant calling
 
@@ -32,10 +31,6 @@ format:
 
   - Canzar<span> and </span>Salzberg. 2015. Short Read Mapping: An Algorithmic Tour. URL: <https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5425171> 
 
-## **Hands-on exercises (1 total)**
+## Hands-on exercise
 
-**Hands-on exercise 3.4:** Mapping it out 🗺️
-
-To complete the activity, go to the following URL (you can also download the HTML file and open it in your favorite browser): [3\_4\_snp\_calling\_final\_v3\_hpc2n.html](https://www.canvas.umu.se/courses/21745/files/5400449?wrap=1 "3_4_snp_calling_final_v3_hpc2n.html")
-
-<span>If, for some reason, the HTML doesn't work in your browser, a print-out of the activity can be found here: [3\_4\_snp\_calling\_final\_v3\_hpc2n.pdf](https://www.canvas.umu.se/courses/21745/files/5400448?wrap=1 "3_4_snp_calling_final_v3_hpc2n.pdf")</span>
+→ [3.4 Read mapping and SNP calling](../exercises/3_4_snp_calling.html)

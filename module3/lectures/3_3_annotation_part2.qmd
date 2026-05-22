@@ -17,7 +17,6 @@ format:
 
   - **Lecture 1:** Hidden Markov models Part I: Introduction
 
-<!-- end list -->
 
   - <span>**Lecture 2:** <span>Hidden Markov models Part II: Profile HMMs</span></span>
 
@@ -38,32 +37,6 @@ format:
 
  
 
-## **Hands-on exercises (1 total)**
+## Hands-on exercise
 
-**Hands-on exercise 3.3:<span> </span>**annotation station 🔎
-
-To complete the activity, go to the following URL (you can also download the HTML file and open it in your favorite browser): [3\_3\_annotation\_v2\_hpc2n.html](https://www.canvas.umu.se/courses/21745/files/5400495?wrap=1 "3_3_annotation_v2_hpc2n.html")
-
-<span>If, for some reason, the HTML doesn't work in your browser, a print-out of the activity can be found here: [3\_3\_annotation\_v2\_hpc2n.pdf](https://www.canvas.umu.se/courses/21745/files/5400558?wrap=1 "3_3_annotation_v2_hpc2n.pdf")</span>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+→ [3.3 Annotation](../exercises/3_3_annotation.html)

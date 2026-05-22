@@ -5,31 +5,27 @@ format:
     theme: yeti
 ---
 
-Welcome to Module 3\!
+Welcome to Module 3!
 
- 
+In this module, you will learn how to **analyse whole-genome sequencing (WGS) data — from start to finish**. Specifically, you will:
 
-In this module, you will be learning how to **analyze whole-genome sequencing (WGS) data...from start to finish\!** Specifically, you will:
+- Learn how to derive meaningful **biological conclusions** from raw, paired-end **Illumina WGS data**.
+- Understand important steps in **bioinformatic pipelines for WGS data analysis**.
+- Obtain a high-level understanding of **important algorithms** used in WGS data analysis.
 
-  - <span>Learn how to derive meaningful</span> **biological conclusions** <span>from raw, paired-end </span>**Illumina WGS data**
-  - <span>Understand important steps in </span>**bioinformatic pipelines for WGS data analysis**
-  - <span>Obtain a high-level understanding of **important algorithms** used in WGS data analysis </span>
+Module 3 is organised into five "days" of material:
 
- 
+- **Day 1a:** [Quality control and pre-processing of WGS data](3_1a_quality_control.html)
+- **Day 1b:** [*De novo* assembly](3_1b_de_novo_assembly.html)
+- **Day 2:** [Genome annotation (part I)](3_2_annotation_part1.html)
+- **Day 3:** [Genome annotation (part II)](3_3_annotation_part2.html)
+- **Day 4:** [Read mapping and variant calling](3_4_read_mapping.html)
+- **Day 5:** [Phylogeny construction](3_5_phylogeny.html)
 
-<span>Because this course is entirely online, at 100% speed, students will be going at slightly different paces. However, if you want to follow along at the suggested pace, **Module 3 is organized into five "days" of material**:</span>
+## Optional graded assignments
 
-  - [**Day 1a: Quality control and pre-processing of WGS data**](https://www.canvas.umu.se/courses/21745/pages/module-3-dot-1a-quality-control-and-pre-processing-of-wgs-data "Module 3.1 - Quality control and pre-processing of WGS data")
-  - [**Day 1b: *De novo *assembly**](https://www.canvas.umu.se/courses/21745/pages/module-3-dot-1b-de-novo-assembly "Module 3.2 - De novo assembly")
-  - [**Day 2: Genome annotation (part I)**](https://www.canvas.umu.se/courses/21745/pages/module-3-dot-2-genome-annotation-part-i "Module 3.2 - Genome annotation (part I)")
-  - [**Day 3:** **Genome annotation (part II)**](https://www.canvas.umu.se/courses/21745/pages/module-3-dot-3-genome-annotation-part-ii "Module 3.3 - Genome annotation (part II)")
-  - [**Day 4:** **Read mapping and variant calling**](https://www.canvas.umu.se/courses/21745/pages/module-3-dot-4-read-mapping-and-variant-calling "Module 3.4 - Read mapping and variant calling")
-  - [**Day 5: Phylogeny construction**](https://www.canvas.umu.se/courses/21745/pages/module-3-dot-5-phylogeny-construction "Module 3.5 - Phylogeny construction")
+(Administered via Canvas; points are added to the final exam score.)
 
- 
-
-Module 3 will consist of the following ***optional*** graded assignments (points will be added to the final exam score):
-
-  - **Quiz 3.1 (0.5 points):<span> </span>**covers topics from Module 3, Days 1 (optional)
-  - **Quiz 3.2 (0.5 points):<span> </span>**covers topics from Module 3, Days 2-3 (optional)
-  - **Module 3 hand-in assignment (3 points):**<span> covers topics from Days 1-5 (optional)</span>
+- **Quiz 3.1** (0.5 points): covers Module 3 Day 1.
+- **Quiz 3.2** (0.5 points): covers Module 3 Days 2–3.
+- **Module 3 hand-in assignment** (3 points): covers Days 1–5.

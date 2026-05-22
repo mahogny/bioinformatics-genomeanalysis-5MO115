@@ -52,11 +52,12 @@ format:
 
 1.  Create a directory named `activity1` in your home directory, and then move to `activity1`:
 
-<!-- end list -->
 
-    cd ~
-    mkdir activity1
-    cd activity1
+```bash
+cd ~
+mkdir activity1
+cd activity1
+```
 
 2.  For this activity, we will use raw reads associated with a clinical *Salmonella enterica* isolate, which are stored on a remote server. This particular *Salmonella enterica* strain was isolated in 2017 from the blood of a 77-year old man in Switzerland with no known travel history. The isolate underwent whole-genome sequencing (WGS) using an Illumina MiSeq platform and a Nextera XT library preparation kit.
 
@@ -64,21 +65,25 @@ The isolate’s genome was sequenced using paired-end reads: forward reads are s
 
 Let’s download the forward reads from the remote server to our local computer using the `wget` command:
 
-    wget http://beagle.henlab.org/public/course_introtobioinfo/mystery_salmonella_A_1.fastq.gz
+```bash
+wget http://beagle.henlab.org/public/course_introtobioinfo/mystery_salmonella_A_1.fastq.gz
+```
 
 If we type `ls`, we should see our forward reads in our current directory:
 
-``` 
+```bash
 ls
 ```
 
 Now, let’s download the reverse reads:
 
-    wget http://beagle.henlab.org/public/course_introtobioinfo/mystery_salmonella_A_2.fastq.gz
+```bash
+wget http://beagle.henlab.org/public/course_introtobioinfo/mystery_salmonella_A_2.fastq.gz
+```
 
 If we type `ls`, we’ll see that we now have forward and reverse reads in our current directory:
 
-``` 
+```bash
 ls
 ```
 
@@ -102,32 +107,42 @@ Figure 2: Output of FastQC (Babraham Bioinformatics)
 
 To use FastQC, load the `FastQC` module (using `ml`, as below, or the long form, `module load`):
 
-    module purge > /dev/null 2>&1
-    ml FastQC/0.12.1-Java-11
+```bash
+module purge > /dev/null 2>&1
+ml FastQC/0.12.1-Java-11
+```
 
 Once that finishes, we can check if FastQC is loaded by running
 
-    fastqc --version
+```bash
+fastqc --version
+```
 
 This will print the version of FastQC that is installed.
 
 We can also run the following to print the FastQC help message (explains how to run FastQC, the different options and what they do, etc.):
 
-    fastqc -h
+```bash
+fastqc -h
+```
 
 4.  Now let’s run FastQC on our raw Illumina reads\!
 
 The general format for running FastQC from the command line is as follows (note: don’t execute this command; it is just an example):
 
-    fastqc </path/to/first_reads.fastq.gz> </path/to/second_reads.fastq.gz> </path/to/third_reads.fastq.gz> </path/to/nth_reads.fastq.gz>
+```bash
+fastqc </path/to/first_reads.fastq.gz> </path/to/second_reads.fastq.gz> </path/to/third_reads.fastq.gz> </path/to/nth_reads.fastq.gz>
+```
 
 Let’s try running FastQC with our forward and reverse reads. Because they are already in our current directory, we can just supply the names of the files:
 
-    fastqc mystery_salmonella_A_1.fastq.gz mystery_salmonella_A_2.fastq.gz
+```bash
+fastqc mystery_salmonella_A_1.fastq.gz mystery_salmonella_A_2.fastq.gz
+```
 
 Once FastQC is finished, we can type `ls` and see that we now have four additional files: a `.zip` and a `.html` file for our two `.fastq.gz` files with our forward and reverse Illumina raw reads:
 
-``` 
+```bash
 ls
 ```
 
@@ -141,11 +156,13 @@ ls
 
 Let’s get trimming\! Back in your terminal, make sure you are in your `activity1` directory with the forward and reverse reads from our Mystery Salmonella A isolate (`mystery_salmonella_A_1.fastq.gz` and `mystery_salmonella_A_2.fastq.gz`):
 
-    pwd
+```bash
+pwd
+```
 
 should show that we are in our `activity1` directory
 
-``` 
+```bash
 ls
 ```
 
@@ -155,15 +172,18 @@ should show `mystery_salmonella_A_1.fastq.gz` and `mystery_salmonella_A_2.fastq.
 
 2.  Let’s load `fastp`; note that there are some other modules we need to load before loading `fastp` (we can see this by running `module spider fastp`):
 
-<!-- end list -->
 
-    module purge > /dev/null 2>&1
-    ml GCC/13.2.0
-    ml fastp/0.23.4
+```bash
+module purge > /dev/null 2>&1
+ml GCC/13.2.0
+ml fastp/0.23.4
+```
 
 We can check that fastp has been installed properly by running the following:
 
-    fastp --version
+```bash
+fastp --version
+```
 
 This command will print the version of fastp that has been installed.
 
@@ -171,7 +191,9 @@ This command will print the version of fastp that has been installed.
 
 The command to run fastp for paired-end Illumina reads takes the following form (note: don’t execute this command; it is just an example):
 
-    fastp -i </path/to/raw_forward_reads.fastq.gz> -I </path/to/raw_reverse_reads.fastq.gz> -o </path/to/trimmed_forward_reads.fastq.gz> -O </path/to/trimmed_reverse_reads.fastq.gz> --detect_adapter_for_pe --thread [number of threads] -j </path/to/report.json> -h </path/to/report.html>
+```bash
+fastp -i </path/to/raw_forward_reads.fastq.gz> -I </path/to/raw_reverse_reads.fastq.gz> -o </path/to/trimmed_forward_reads.fastq.gz> -O </path/to/trimmed_reverse_reads.fastq.gz> --detect_adapter_for_pe --thread [number of threads] -j </path/to/report.json> -h </path/to/report.html>
+```
 
 With this command, we:
 
@@ -185,13 +207,13 @@ With this command, we:
   - Specify where to output the JSON report produced by `fastp` (`-j`)
   - Specify where to output the HTML report produced by `fastp` (`-h`)
 
-<!-- end list -->
 
 4.  Now let’s run `fastp` as described above, using one thread:
 
-<!-- end list -->
 
-    fastp -i mystery_salmonella_A_1.fastq.gz -I mystery_salmonella_A_2.fastq.gz -o mystery_salmonella_A_trimmedP_1.fastq.gz -O mystery_salmonella_A_trimmedP_2.fastq.gz --detect_adapter_for_pe --thread 1 -j fastp.json -h fastp.html
+```bash
+fastp -i mystery_salmonella_A_1.fastq.gz -I mystery_salmonella_A_2.fastq.gz -o mystery_salmonella_A_trimmedP_1.fastq.gz -O mystery_salmonella_A_trimmedP_2.fastq.gz --detect_adapter_for_pe --thread 1 -j fastp.json -h fastp.html
+```
 
 What are we doing when we run this?
 
@@ -205,13 +227,13 @@ What are we doing when we run this?
   - We tell `fastp` where to output a JSON report (`-j fastp.json`)
   - We tell `fastp` where to output an HTML report (`-h fastp.html`)
 
-<!-- end list -->
 
 5.  Wait\! Once fastp is finished, let’s take a look at the sizes of our fastq.gz files to get a rough idea of the effect trimming had on our genome. To do this, we can use `ls` with the `-l` and `-h` options to list our files and their respective sizes in human-readable format; we can additionally supply `*.fastq.gz` after the command, which allows us to only list files ending in .fastq.gz:
 
-<!-- end list -->
 
-    ls -lh *.fastq.gz
+```bash
+ls -lh *.fastq.gz
+```
 
 
 
@@ -229,25 +251,32 @@ What are we doing when we run this?
 
 Let’s start by loading the MultiQC module; note that there are some other modules we need to load before loading `MultiQC` (we can see this by running `module spider MultiQC`):
 
-    module purge > /dev/null 2>&1
-    ml GCC/13.2.0  OpenMPI/4.1.6
-    ml MultiQC/1.22.3
+```bash
+module purge > /dev/null 2>&1
+ml GCC/13.2.0  OpenMPI/4.1.6
+ml MultiQC/1.22.3
+```
 
 Once that finishes, we can check if MultiQC is loaded by running
 
-    multiqc --version
+```bash
+multiqc --version
+```
 
 This will print the version of MultiQC that is installed.
 
 We can also run the following to print the MultiQC help message:
 
-    multiqc -h
+```bash
+multiqc -h
+```
 
 2.  Assuming we are already in our `activity1` directory, we can run MultiQC by simply running the following command:
 
-<!-- end list -->
 
-    multiqc .
+```bash
+multiqc .
+```
 
 That’s it\!
 

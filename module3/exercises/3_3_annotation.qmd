@@ -112,41 +112,53 @@ In this activity, we’ll start by using a general annotation pipeline (Prokka) 
 
 1.  Move to your `activity1` directory:
 
-<!-- end list -->
 
-    cd ~/activity1
+```bash
+cd ~/activity1
+```
 
 If, for some reason, you accidentally deleted your `activity1` directory, have no fear\! Just (i) `cd ~` and (ii) type `mkdir activity1` to create a new one.
 
 If we type `ls mystery_salmonella_A.fna`, we should see the mystery *Salmonella* genome we assembled in a previous activity:
 
-    ls mystery_salmonella_A.fna
+```bash
+ls mystery_salmonella_A.fna
+```
 
 If you accidentally deleted your `mystery_salmonella_A.fna` file, you can just copy the genome to your `activity1` directory with the following command:
 
-    wget http://beagle.henlab.org/public/course_introtobioinfo/mystery_salmonella_A.fna
+```bash
+wget http://beagle.henlab.org/public/course_introtobioinfo/mystery_salmonella_A.fna
+```
 
 2.  Now that we are in our `activity1` directory, let’s annotate `mystery_salmonella_A.fna`. To do this, we’ll use [Prokka](https://github.com/tseemann/prokka)\!
 
 Let’s start by loading the Prokka module; note that there are some other modules we need to load before loading `prokka` (we can see this by running `module spider prokka`):
 
-    module purge > /dev/null 2>&1
-    ml GCC/13.2.0  OpenMPI/4.1.6
-    ml prokka/1.14.5
+```bash
+module purge > /dev/null 2>&1
+ml GCC/13.2.0  OpenMPI/4.1.6
+ml prokka/1.14.5
+```
 
 Once `prokka` is loaded, try printing the help screen\!
 
-    prokka --help
+```bash
+prokka --help
+```
 
 We can also print the version:
 
-    prokka --version
+```bash
+prokka --version
+```
 
 3.  Now let’s annotate our genome by running Prokka as follows:
 
-<!-- end list -->
 
-    prokka --outdir mystery_salmonella_A_prokka_results --kingdom Bacteria --prefix  mystery_salmonella_A --cpus 1 --compliant mystery_salmonella_A.fna
+```bash
+prokka --outdir mystery_salmonella_A_prokka_results --kingdom Bacteria --prefix  mystery_salmonella_A --cpus 1 --compliant mystery_salmonella_A.fna
+```
 
 With this command, we are:
 
@@ -158,19 +170,19 @@ With this command, we are:
   - Telling prokka to make our output Genbank/ENA/DDJB compliant (`--compliant`)
   - Supplying the path to our input genome (`mystery_salmonella_A.fna`)
 
-<!-- end list -->
 
 4.  Wait\! Prokka will take a few minutes to annotate our genome. After it finishes, if we type `ls` to print the contents of our working directory, `activity1`, we should see a new directory listed, `mystery_salmonella_A_prokka_results` :
 
-<!-- end list -->
 
-``` 
+```bash
 ls
 ```
 
 If we type `ls` and supply the path to `mystery_salmonella_A_prokka_results`, we can see the files that prokka created:
 
-    ls mystery_salmonella_A_prokka_results
+```bash
+ls mystery_salmonella_A_prokka_results
+```
 
 Do you recognize any of the file extensions? You can read about each output file here: <https://github.com/tseemann/prokka>
 
@@ -188,37 +200,45 @@ We learned how to annotate a bacterial genome using a general annotation tool (P
 
 Let’s copy the ResFinder database to our current directory, `activity1`:
 
-    wget http://beagle.henlab.org/public/course_introtobioinfo/resfinder.fasta
+```bash
+wget http://beagle.henlab.org/public/course_introtobioinfo/resfinder.fasta
+```
 
 If we type `ls` to print the contents of our working directory, `activity1`, we should see (among other files) two files listed: `mystery_salmonella_A.fna` (our query sequence), and `resfinder.fasta` (our AMR database sequences):
 
-``` 
+```bash
 ls
 ```
 
 If we type `head` and supply the path to `resfinder.fasta`, we can see the first few lines of `resfinder.fasta`:
 
-    head resfinder.fasta
+```bash
+head resfinder.fasta
+```
 
 We should see a file in fasta format which contains nucleotide sequences.
 
 2.  Let’s load the command-line implementation of BLAST (i.e., `BLAST+`); note that there are some other modules we need to load before loading `BLAST+` (we can see this by running `module spider BLAST+/2.16.0`):
 
-<!-- end list -->
 
-    module purge > /dev/null 2>&1
-    ml GCC/13.2.0  OpenMPI/4.1.6
-    ml BLAST+/2.16.0
+```bash
+module purge > /dev/null 2>&1
+ml GCC/13.2.0  OpenMPI/4.1.6
+ml BLAST+/2.16.0
+```
 
 To test if our BLAST installation is working, we can print the help screen for nucleotide BLAST (blastn):
 
-    blastn -h
+```bash
+blastn -h
+```
 
 3.  To run BLAST, we first need to construct and format a BLAST database of our AMR gene sequences. To do this, we use the following command (note: don’t execute this command; it is just an example):
 
-<!-- end list -->
 
-    makeblastdb -in database.fasta -dbtype [nucl or prot]
+```bash
+makeblastdb -in database.fasta -dbtype [nucl or prot]
+```
 
 With this command, we
 
@@ -228,7 +248,9 @@ With this command, we
 
 To run `makeblastdb` and construct a custom BLAST database using the AMR gene sequences available in ResFinder, let’s run the following command:
 
-    makeblastdb -in resfinder.fasta -dbtype nucl
+```bash
+makeblastdb -in resfinder.fasta -dbtype nucl
+```
 
 With this command, we
 
@@ -238,21 +260,23 @@ With this command, we
 
 If we type `ls`, we should see some new files (`resfinder.fasta.*`):
 
-``` 
+```bash
 ls
 ```
 
 4.  Now, we can use nucleotide BLAST (`blastn`) to identify possible AMR genes present in our genome. `blastn` has a lot of options available; to check them out, run `blastn` with the `-h` command (for help):
 
-<!-- end list -->
 
-    blastn -h
+```bash
+blastn -h
+```
 
 5.  For our analysis, let’s keep things simple by taking advantage of BLAST’s default settings. Let’s identify AMR genes in our genome, `mystery_salmonella_A.fna`, using the following command:
 
-<!-- end list -->
 
-    blastn -query mystery_salmonella_A.fna -db resfinder.fasta -out blast_resfinder.txt -outfmt 6
+```bash
+blastn -query mystery_salmonella_A.fna -db resfinder.fasta -out blast_resfinder.txt -outfmt 6
+```
 
 With this command, we
 
@@ -262,21 +286,20 @@ With this command, we
   - Tell `blastn` what to name our output file; we can name it anything, but here, we’ll name it `blast_resfinder.txt` (`-out blast_resfinder.txt`)
   - Tell `blastn` which file format it should use for the output file; here, we are specifying output format `6`, which corresponds to a text file with [12 columns](http://www.metagenomics.wiki/tools/blast/blastn-output-format-6) (`-outfmt 6`)
 
-<!-- end list -->
 
 6.  After `blastn` finishes running, we should see a file named `blast_resfinder.txt` in our directory:
 
-<!-- end list -->
 
-``` 
+```bash
 ls
 ```
 
 7.  Let’s look at the first few lines of `blast_resfinder.txt` with the `head` command:
 
-<!-- end list -->
 
-    head blast_resfinder.txt
+```bash
+head blast_resfinder.txt
+```
 
 We should see that our data is formatted into 12 columns. Although blastn doesn’t print this, [the 12 default columns for blast outfmt 6 correspond to the following](http://www.metagenomics.wiki/tools/blast/blastn-output-format-6):
 
@@ -297,9 +320,10 @@ We should see that our data is formatted into 12 columns. Although blastn doesn�
 
 8.  If we use `cat` to print the output of `blast_resfinder.txt` in its entirety, we’ll see that there is a lot of information provided by BLAST:
 
-<!-- end list -->
 
-    cat blast_resfinder.txt
+```bash
+cat blast_resfinder.txt
+```
 
 We’ll see the names of contigs in our assembly, `mystery_salmonella_A.fna`, (i.e., our query sequences) listed in the first column, with AMR alleles reported in the second (e.g., sul2\_5). The third column contains the percentage of identical matches between query and subject (i.e., contigs in our assembly and AMR genes in our databse), while the second to last column contains our BLAST e-value.
 
@@ -313,19 +337,24 @@ This is a lot of information, and it can seem pretty overwhelming\! Luckily, num
 
 First, let’s load ABRicate; note that there are some other modules we need to load before loading `ABRicate` (we can see this by running `module spider ABRicate/1.0.0`):
 
-    module purge > /dev/null 2>&1
-    ml GCC/13.2.0  OpenMPI/4.1.6
-    ml ABRicate/1.0.0
+```bash
+module purge > /dev/null 2>&1
+ml GCC/13.2.0  OpenMPI/4.1.6
+ml ABRicate/1.0.0
+```
 
 We can test if `abricate` loaded by printing the help screen:
 
-    abricate --help
+```bash
+abricate --help
+```
 
 2.  To run ABRicate, our command takes the following structure (note: don’t execute this command; it is just an example):
 
-<!-- end list -->
 
-    abricate --mincov [integer between 0 and 100] --minid [integer between 0 and 100] --db [database_name] --threads [integer] assembly.fasta > output.txt
+```bash
+abricate --mincov [integer between 0 and 100] --minid [integer between 0 and 100] --db [database_name] --threads [integer] assembly.fasta > output.txt
+```
 
 With this command, we
 
@@ -339,7 +368,9 @@ With this command, we
 
 Let’s try running it ourselves on our genome:
 
-    abricate --mincov 80 --minid 80 --db resfinder --threads 1 mystery_salmonella_A.fna > mystery_salmonella_A_resfinder.txt
+```bash
+abricate --mincov 80 --minid 80 --db resfinder --threads 1 mystery_salmonella_A.fna > mystery_salmonella_A_resfinder.txt
+```
 
 With this command, we
 
@@ -355,15 +386,16 @@ ABRicate will print the number of genes it detected before it finishes. How many
 
 3.  If we type `ls`, we should see that ABRicate created a file named `mystery_salmonella_A_resfinder.txt`:
 
-<!-- end list -->
 
-``` 
+```bash
 ls
 ```
 
 If we use `cat` to print the output of `mystery_salmonella_A_resfinder.txt`, we’ll see that this is much easier to interpret than our raw BLAST results:
 
-    cat mystery_salmonella_A_resfinder.txt
+```bash
+cat mystery_salmonella_A_resfinder.txt
+```
 
 For a detailed explanation of ABRicate’s output format, [check out the README file (under “Output”).](https://github.com/tseemann/abricate)
 

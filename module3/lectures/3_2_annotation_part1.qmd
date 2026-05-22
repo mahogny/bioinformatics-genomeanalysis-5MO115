@@ -15,15 +15,12 @@ format:
 
   - **Lecture 1:** Pairwise sequence alignment Part I: Dot-matrix method
 
-<!-- end list -->
 
   - <span>**Lecture 2:** </span>Pairwise sequence alignment Part II: <span>Global alignment with dynamic programming</span>
 
-<!-- end list -->
 
   - **Lecture 3:** Pairwise sequence alignment <span>Part III: Local alignment with dynamic programming</span>
 
-<!-- end list -->
 
   - **Lecture 4:** Pairwise sequence alignment Part <span>IV: </span><span>Word/</span>*<span>k</span>*<span>-tuple methods</span>
 
@@ -91,45 +88,51 @@ In Module 3.2, we learned about **three different pairwise sequence alignment al
 
 (iii) Paste the DNA sequence of CMY-2 (below), in FASTA format, into the first sequence text box.
 
-CMY-2 (FASTA):
-
-    >blaCMY-2 446899258|WP_000976514.1|NG_048814|1|1|blaCMY-2|blaCMY|class_C_beta-lactamase_CMY-2 NG_048814:101-1246
-    atgatgaaaaaatcgttatgctgcgctctgctgctgacagcctctttctccacatttgctgccgcaaaaacagaacaaca
-    gattgccgatatcgttaatcgcaccatcaccccgttgatgcaggagcaggctattccgggtatggccgttgccgttatct
-    accagggaaaaccctattatttcacctggggtaaagccgatatcgccaataaccacccagtcacgcagcaaacgctgttt
-    gagctaggatcggttagtaagacgtttaacggcgtgttgggcggcgatgctatcgcccgcggcgaaattaagctcagcga
-    tccggtcacgaaatactggccagaactgacaggcaaacagtggcagggtatccgcctgctgcacttagccacctatacgg
-    caggcggcctaccgctgcagatccccgatgacgttagggataaagccgcattactgcatttttatcaaaactggcagccg
-    caatggactccgggcgctaagcgactttacgctaactccagcattggtctgtttggcgcgctggcggtgaaaccctcagg
-    aatgagttacgaagaggcaatgaccagacgcgtcctgcaaccattaaaactggcgcatacctggattacggttccgcaga
-    acgaacaaaaagattatgcctggggctatcgcgaagggaagcccgtacacgtttctccgggacaacttgacgccgaagcc
-    tatggcgtgaaatccagcgttattgatatggcccgctgggttcaggccaacatggatgccagccacgttcaggagaaaac
-    gctccagcagggcattgcgcttgcgcagtctcgctactggcgtattggcgatatgtaccagggattaggctgggagatgc
-    tgaactggccgctgaaagctgattcgatcatcaacggcagcgacagcaaagtggcattggcagcgcttcccgccgttgag
-    gtaaacccgcccgcccccgcagtgaaagcctcatgggtgcataaaacgggctccactggtggatttggcagctacgtagc
-    cttcgttccagaaaaaaaccttggcatcgtgatgctggcaaacaaaagctatcctaaccctgtccgtgtcgaggcggcct
-    ggcgcattcttgaaaagctgcaataa
+::: {.callout-note appearance="simple" icon=false}
+## CMY-2 (FASTA)
+```default
+>blaCMY-2 446899258|WP_000976514.1|NG_048814|1|1|blaCMY-2|blaCMY|class_C_beta-lactamase_CMY-2 NG_048814:101-1246
+atgatgaaaaaatcgttatgctgcgctctgctgctgacagcctctttctccacatttgctgccgcaaaaacagaacaaca
+gattgccgatatcgttaatcgcaccatcaccccgttgatgcaggagcaggctattccgggtatggccgttgccgttatct
+accagggaaaaccctattatttcacctggggtaaagccgatatcgccaataaccacccagtcacgcagcaaacgctgttt
+gagctaggatcggttagtaagacgtttaacggcgtgttgggcggcgatgctatcgcccgcggcgaaattaagctcagcga
+tccggtcacgaaatactggccagaactgacaggcaaacagtggcagggtatccgcctgctgcacttagccacctatacgg
+caggcggcctaccgctgcagatccccgatgacgttagggataaagccgcattactgcatttttatcaaaactggcagccg
+caatggactccgggcgctaagcgactttacgctaactccagcattggtctgtttggcgcgctggcggtgaaaccctcagg
+aatgagttacgaagaggcaatgaccagacgcgtcctgcaaccattaaaactggcgcatacctggattacggttccgcaga
+acgaacaaaaagattatgcctggggctatcgcgaagggaagcccgtacacgtttctccgggacaacttgacgccgaagcc
+tatggcgtgaaatccagcgttattgatatggcccgctgggttcaggccaacatggatgccagccacgttcaggagaaaac
+gctccagcagggcattgcgcttgcgcagtctcgctactggcgtattggcgatatgtaccagggattaggctgggagatgc
+tgaactggccgctgaaagctgattcgatcatcaacggcagcgacagcaaagtggcattggcagcgcttcccgccgttgag
+gtaaacccgcccgcccccgcagtgaaagcctcatgggtgcataaaacgggctccactggtggatttggcagctacgtagc
+cttcgttccagaaaaaaaccttggcatcgtgatgctggcaaacaaaagctatcctaaccctgtccgtgtcgaggcggcct
+ggcgcattcttgaaaagctgcaataa
+```
+:::
 
 (iv) Paste the DNA sequence of CMY-33 (below), in FASTA format, into the second sequence text box.
 
-CMY-33 (FASTA):
-
-    >blaCMY-33 1028104514|WP_063859835.1|NG_048828|1|1|blaCMY-33|blaCMY|class_C_beta-lactamase_CMY-33 NG_048828:1-1140
-    atgatgaaaaaatcgttatgctgcgctctgctgctgacagcctctttctccacatttgctgccgcaaaaacagaacaaca
-    gattgccgatatcgttaatcgcaccatcaccccgttgatgcaggagcaggctattccgggtatggccgttgccgttatct
-    accagggaaaaccctattatttcacctggggtaaagccgatatcgccaataaccacccagtcacgcagcaaacgctgttt
-    gagctaggatcggttagtaagacgtttaacggcgtgttgggcggcgatgctatcgcccgcggcgaaattaagctcagcga
-    tccggtcacgaaatactggccagaactgacaggcaaacagtggcagggtatccgcctgctgcacttagccacctatacgg
-    caggcggcctaccgctgcagatccccgatgacgttagggataaagccgcattactgcatttttatcaaaactggcagccg
-    caatggactccgggcgctaagcgactttacgctaactccagcattggtctgtttggcgcgctggcggtgaaaccctcagg
-    aatgagttacgaagaggcaatgaccagacgcgtcctgcaaccattaaaactggcgcatacctggattacggttccgcaga
-    acgaacaaaaagattatgcctggggctatcgcgaagggaagcccgtacacgtttctccgggacaacttgacgccgaagcc
-    tatggcgtgaaatccagcgttattgatatggcccgctgggttcaggccaacatggatgccagccacgttcaggagaaaac
-    gctccagcagggcattgcgcttgcgcagtctcgctactggcgtattggcgatatgtaccagggattaggctgggagatgc
-    tgaactggccgctgaaagctgattcgatcatcaacggcagcgacagcaaagtggcagcgcttcccgccgttgaggtaaac
-    ccgcccgcccccgcagtgaaagcctcatgggtgcataaaacgggctccactggtggatttggcagctacgtagccttcgt
-    tccagaaaaaaaccttggcatcgtgatgctggcaaacaaaagctatcctaaccctgtccgtgtcgaggcggcctggcgca
-    ttcttgaaaagctgcaataa
+::: {.callout-note appearance="simple" icon=false}
+## CMY-33 (FASTA)
+```default
+>blaCMY-33 1028104514|WP_063859835.1|NG_048828|1|1|blaCMY-33|blaCMY|class_C_beta-lactamase_CMY-33 NG_048828:1-1140
+atgatgaaaaaatcgttatgctgcgctctgctgctgacagcctctttctccacatttgctgccgcaaaaacagaacaaca
+gattgccgatatcgttaatcgcaccatcaccccgttgatgcaggagcaggctattccgggtatggccgttgccgttatct
+accagggaaaaccctattatttcacctggggtaaagccgatatcgccaataaccacccagtcacgcagcaaacgctgttt
+gagctaggatcggttagtaagacgtttaacggcgtgttgggcggcgatgctatcgcccgcggcgaaattaagctcagcga
+tccggtcacgaaatactggccagaactgacaggcaaacagtggcagggtatccgcctgctgcacttagccacctatacgg
+caggcggcctaccgctgcagatccccgatgacgttagggataaagccgcattactgcatttttatcaaaactggcagccg
+caatggactccgggcgctaagcgactttacgctaactccagcattggtctgtttggcgcgctggcggtgaaaccctcagg
+aatgagttacgaagaggcaatgaccagacgcgtcctgcaaccattaaaactggcgcatacctggattacggttccgcaga
+acgaacaaaaagattatgcctggggctatcgcgaagggaagcccgtacacgtttctccgggacaacttgacgccgaagcc
+tatggcgtgaaatccagcgttattgatatggcccgctgggttcaggccaacatggatgccagccacgttcaggagaaaac
+gctccagcagggcattgcgcttgcgcagtctcgctactggcgtattggcgatatgtaccagggattaggctgggagatgc
+tgaactggccgctgaaagctgattcgatcatcaacggcagcgacagcaaagtggcagcgcttcccgccgttgaggtaaac
+ccgcccgcccccgcagtgaaagcctcatgggtgcataaaacgggctccactggtggatttggcagctacgtagccttcgt
+tccagaaaaaaaccttggcatcgtgatgctggcaaacaaaagctatcctaaccctgtccgtgtcgaggcggcctggcgca
+ttcttgaaaagctgcaataa
+```
+:::
 
 (v) Under "Output Format", select "Pair"
 
@@ -201,20 +204,23 @@ CMY-33 (FASTA):
 
 **Let's use NCBI BLAST to identify a mystery gene\!**
 
-Our mystery gene:
-
-    >mystery_gene
-    atggtgacaaagagagtgcaacggatgatgttygcggcggcggcgtgcattccgctgctgctgggcagcgcgccgcttta
-    tgcgcagacgagtgcggtgcagcaaaagctggcggcgctggagaaaagcagcggagggcggctgggcgtcgcgctcatcg
-    ataccgcagataatacgcaggtgctttatcgcggtgatgaacgctttccaatgtgcagtaccagtaaagttatggcggcc
-    gcggcggtgcttaagcagagtgaaacgcaaaagcagctgcttaatcagcctgtcgagatcaagcctgccgatctggttaa
-    ctacaatccgattgccgaaaaacacgtcaacggcacaatgacgctggcagaactgagcgcggccgcgttgcagtacagcg
-    acaataccgccatgaacaaattgattgcccagctcggtggcccggaaggcgtgacggcttttgcccgcgcgatcggcgat
-    gagacgtttcgtctggatcgcactgaacctacgctgaataccgccattcccggcgacccgagagacaccaccacgccgcg
-    ggcgatggcgcagacgttgcgtcagcttacgctgggtcatgcgctgggcgaaacccagcgggcgcagttggtgacgtggc
-    tcaaaggcaatacgaccggcgcagccagcattcgggccggcttaccgacgtcgtggactgtgggtgataagaccggcagc
-    ggcgactacggcaccaccaatgatattgcggtgatctggccgcagggtcgtgcgccgctggttctggtgacctattttac
-    ccagccgcaacagaacgcagagagccgccgcgatgtgctggcttcagcggcgagaatcatcgccgaagggctgtaa
+::: {.callout-note appearance="simple" icon=false}
+## Mystery gene (FASTA)
+```default
+>mystery_gene
+atggtgacaaagagagtgcaacggatgatgttygcggcggcggcgtgcattccgctgctgctgggcagcgcgccgcttta
+tgcgcagacgagtgcggtgcagcaaaagctggcggcgctggagaaaagcagcggagggcggctgggcgtcgcgctcatcg
+ataccgcagataatacgcaggtgctttatcgcggtgatgaacgctttccaatgtgcagtaccagtaaagttatggcggcc
+gcggcggtgcttaagcagagtgaaacgcaaaagcagctgcttaatcagcctgtcgagatcaagcctgccgatctggttaa
+ctacaatccgattgccgaaaaacacgtcaacggcacaatgacgctggcagaactgagcgcggccgcgttgcagtacagcg
+acaataccgccatgaacaaattgattgcccagctcggtggcccggaaggcgtgacggcttttgcccgcgcgatcggcgat
+gagacgtttcgtctggatcgcactgaacctacgctgaataccgccattcccggcgacccgagagacaccaccacgccgcg
+ggcgatggcgcagacgttgcgtcagcttacgctgggtcatgcgctgggcgaaacccagcgggcgcagttggtgacgtggc
+tcaaaggcaatacgaccggcgcagccagcattcgggccggcttaccgacgtcgtggactgtgggtgataagaccggcagc
+ggcgactacggcaccaccaatgatattgcggtgatctggccgcagggtcgtgcgccgctggttctggtgacctattttac
+ccagccgcaacagaacgcagagagccgccgcgatgtgctggcttcagcggcgagaatcatcgccgaagggctgtaa
+```
+:::
 
 (i) Go to the NCBI BLAST home page: <https://blast.ncbi.nlm.nih.gov/Blast.cgi> 
 

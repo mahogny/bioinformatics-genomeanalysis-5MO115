@@ -19,6 +19,41 @@ ul.task-list li input[type="checkbox"] {
 width: 0.8em;
 margin: 0 0.8em 0.2em -1em;  vertical-align: middle;
 }
+
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+{ counter-reset: source-line 0; }
+pre.numberSource code > span
+{ position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+{ content: counter(source-line);
+position: relative; left: -1em; text-align: right; vertical-align: baseline;
+border: none; display: inline-block;
+-webkit-touch-callout: none; -webkit-user-select: none;
+-khtml-user-select: none; -moz-user-select: none;
+-ms-user-select: none; user-select: none;
+padding: 0 4px; width: 4em;
+}
+pre.numberSource { margin-left: 3em; padding-left: 4px; }
+div.sourceCode
+{ }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
@@ -2267,29 +2302,27 @@ vertical-align: -.125em;
 <ol type="1">
 <li>Move to your <code>activity1</code> directory:</li>
 </ol>
-<!-- end list -->
-<pre><code>cd ~/activity1</code></pre>
+<div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> ~/activity1</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>If, for some reason, you accidentally deleted your <code>activity1</code> directory, have no fear! Just (i) <code>cd ~</code> and (ii) type <code>mkdir activity1</code> to create a new one.</p>
 <p>If we type <code>ls mystery_salmonella_A.fna</code>, we should see the mystery <em>Salmonella</em> genome we assembled in a previous activity:</p>
-<pre><code>ls mystery_salmonella_A.fna</code></pre>
+<div class="sourceCode" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span> mystery_salmonella_A.fna</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>If you accidentally deleted your <code>mystery_salmonella_A.fna</code> file, you can just copy the genome to your <code>activity1</code> directory with the following command:</p>
-<pre><code>wget http://beagle.henlab.org/public/course_introtobioinfo/mystery_salmonella_A.fna</code></pre>
+<div class="sourceCode" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">wget</span> http://beagle.henlab.org/public/course_introtobioinfo/mystery_salmonella_A.fna</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <ol start="2" type="1">
 <li>Now that we are in our <code>activity1</code> directory, let’s annotate <code>mystery_salmonella_A.fna</code>. To do this, we’ll use <a href="https://github.com/tseemann/prokka">Prokka</a>!</li>
 </ol>
 <p>Let’s start by loading the Prokka module; note that there are some other modules we need to load before loading <code>prokka</code> (we can see this by running <code>module spider prokka</code>):</p>
-<pre><code>module purge &gt; /dev/null 2&gt;&amp;1
-ml GCC/13.2.0  OpenMPI/4.1.6
-ml prokka/1.14.5</code></pre>
+<div class="sourceCode" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="ex">module</span> purge <span class="op">&gt;</span> /dev/null <span class="dv">2</span><span class="op">&gt;&amp;</span><span class="dv">1</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="ex">ml</span> GCC/13.2.0  OpenMPI/4.1.6</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="ex">ml</span> prokka/1.14.5</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>Once <code>prokka</code> is loaded, try printing the help screen!</p>
-<pre><code>prokka --help</code></pre>
+<div class="sourceCode" id="cb5"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="ex">prokka</span> <span class="at">--help</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>We can also print the version:</p>
-<pre><code>prokka --version</code></pre>
+<div class="sourceCode" id="cb6"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="ex">prokka</span> <span class="at">--version</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <ol start="3" type="1">
 <li>Now let’s annotate our genome by running Prokka as follows:</li>
 </ol>
-<!-- end list -->
-<pre><code>prokka --outdir mystery_salmonella_A_prokka_results --kingdom Bacteria --prefix  mystery_salmonella_A --cpus 1 --compliant mystery_salmonella_A.fna</code></pre>
+<div class="sourceCode" id="cb7"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="ex">prokka</span> <span class="at">--outdir</span> mystery_salmonella_A_prokka_results <span class="at">--kingdom</span> Bacteria <span class="at">--prefix</span>  mystery_salmonella_A <span class="at">--cpus</span> 1 <span class="at">--compliant</span> mystery_salmonella_A.fna</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>With this command, we are:</p>
 <ul>
 <li>Calling <code>prokka</code></li>
@@ -2300,14 +2333,12 @@ ml prokka/1.14.5</code></pre>
 <li>Telling prokka to make our output Genbank/ENA/DDJB compliant (<code>--compliant</code>)</li>
 <li>Supplying the path to our input genome (<code>mystery_salmonella_A.fna</code>)</li>
 </ul>
-<!-- end list -->
 <ol start="4" type="1">
 <li>Wait! Prokka will take a few minutes to annotate our genome. After it finishes, if we type <code>ls</code> to print the contents of our working directory, <code>activity1</code>, we should see a new directory listed, <code>mystery_salmonella_A_prokka_results</code> :</li>
 </ol>
-<!-- end list -->
-<pre><code>ls</code></pre>
+<div class="sourceCode" id="cb8"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>If we type <code>ls</code> and supply the path to <code>mystery_salmonella_A_prokka_results</code>, we can see the files that prokka created:</p>
-<pre><code>ls mystery_salmonella_A_prokka_results</code></pre>
+<div class="sourceCode" id="cb9"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span> mystery_salmonella_A_prokka_results</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>Do you recognize any of the file extensions? You can read about each output file here: <a href="https://github.com/tseemann/prokka" class="uri">https://github.com/tseemann/prokka</a></p>
 <p>How many protein coding genes did Prokka find? (Hint: use <code>grep</code> and check the file ending in <code>*.faa</code>)</p>
 <p>How many transcript-associated genes (protein and RNAs) did Prokka find? (Hint: use <code>grep</code> and check the file ending in <code>*.ffn</code>)</p>
@@ -2319,26 +2350,24 @@ ml prokka/1.14.5</code></pre>
 <li>To do this, we will treat <code>mystery_salmonella_A.fna</code> as our query sequence. As our database, we will use the <a href="http://genepi.food.dtu.dk/resfinder">ResFinder</a> AMR gene database.</li>
 </ol>
 <p>Let’s copy the ResFinder database to our current directory, <code>activity1</code>:</p>
-<pre><code>wget http://beagle.henlab.org/public/course_introtobioinfo/resfinder.fasta</code></pre>
+<div class="sourceCode" id="cb10"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">wget</span> http://beagle.henlab.org/public/course_introtobioinfo/resfinder.fasta</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>If we type <code>ls</code> to print the contents of our working directory, <code>activity1</code>, we should see (among other files) two files listed: <code>mystery_salmonella_A.fna</code> (our query sequence), and <code>resfinder.fasta</code> (our AMR database sequences):</p>
-<pre><code>ls</code></pre>
+<div class="sourceCode" id="cb11"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>If we type <code>head</code> and supply the path to <code>resfinder.fasta</code>, we can see the first few lines of <code>resfinder.fasta</code>:</p>
-<pre><code>head resfinder.fasta</code></pre>
+<div class="sourceCode" id="cb12"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span> resfinder.fasta</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>We should see a file in fasta format which contains nucleotide sequences.</p>
 <ol start="2" type="1">
 <li>Let’s load the command-line implementation of BLAST (i.e., <code>BLAST+</code>); note that there are some other modules we need to load before loading <code>BLAST+</code> (we can see this by running <code>module spider BLAST+/2.16.0</code>):</li>
 </ol>
-<!-- end list -->
-<pre><code>module purge &gt; /dev/null 2&gt;&amp;1
-ml GCC/13.2.0  OpenMPI/4.1.6
-ml BLAST+/2.16.0</code></pre>
+<div class="sourceCode" id="cb13"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="ex">module</span> purge <span class="op">&gt;</span> /dev/null <span class="dv">2</span><span class="op">&gt;&amp;</span><span class="dv">1</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="ex">ml</span> GCC/13.2.0  OpenMPI/4.1.6</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="ex">ml</span> BLAST+/2.16.0</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>To test if our BLAST installation is working, we can print the help screen for nucleotide BLAST (blastn):</p>
-<pre><code>blastn -h</code></pre>
+<div class="sourceCode" id="cb14"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="ex">blastn</span> <span class="at">-h</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <ol start="3" type="1">
 <li>To run BLAST, we first need to construct and format a BLAST database of our AMR gene sequences. To do this, we use the following command (note: don’t execute this command; it is just an example):</li>
 </ol>
-<!-- end list -->
-<pre><code>makeblastdb -in database.fasta -dbtype [nucl or prot]</code></pre>
+<div class="sourceCode" id="cb15"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="ex">makeblastdb</span> <span class="at">-in</span> database.fasta <span class="at">-dbtype</span> [nucl or prot]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>With this command, we</p>
 <ul>
 <li>Call <code>makeblastdb</code>, BLAST’s command for constructing and formatting BLAST databases</li>
@@ -2346,7 +2375,7 @@ ml BLAST+/2.16.0</code></pre>
 <li>Specify whether our database contains nucleotide sequences (<code>-dbtype nucl</code>) or amino acid sequences (<code>-dbtype prot</code>)</li>
 </ul>
 <p>To run <code>makeblastdb</code> and construct a custom BLAST database using the AMR gene sequences available in ResFinder, let’s run the following command:</p>
-<pre><code>makeblastdb -in resfinder.fasta -dbtype nucl</code></pre>
+<div class="sourceCode" id="cb16"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="ex">makeblastdb</span> <span class="at">-in</span> resfinder.fasta <span class="at">-dbtype</span> nucl</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>With this command, we</p>
 <ul>
 <li>Call <code>makeblastdb</code>, BLAST’s command for constructing and formatting BLAST databases</li>
@@ -2354,17 +2383,15 @@ ml BLAST+/2.16.0</code></pre>
 <li>Tell <code>makeblastdb</code> that <code>resfinder.fasta</code> contains nucleotide sequences (<code>-dbtype nucl</code>)</li>
 </ul>
 <p>If we type <code>ls</code>, we should see some new files (<code>resfinder.fasta.*</code>):</p>
-<pre><code>ls</code></pre>
+<div class="sourceCode" id="cb17"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <ol start="4" type="1">
 <li>Now, we can use nucleotide BLAST (<code>blastn</code>) to identify possible AMR genes present in our genome. <code>blastn</code> has a lot of options available; to check them out, run <code>blastn</code> with the <code>-h</code> command (for help):</li>
 </ol>
-<!-- end list -->
-<pre><code>blastn -h</code></pre>
+<div class="sourceCode" id="cb18"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="ex">blastn</span> <span class="at">-h</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <ol start="5" type="1">
 <li>For our analysis, let’s keep things simple by taking advantage of BLAST’s default settings. Let’s identify AMR genes in our genome, <code>mystery_salmonella_A.fna</code>, using the following command:</li>
 </ol>
-<!-- end list -->
-<pre><code>blastn -query mystery_salmonella_A.fna -db resfinder.fasta -out blast_resfinder.txt -outfmt 6</code></pre>
+<div class="sourceCode" id="cb19"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="ex">blastn</span> <span class="at">-query</span> mystery_salmonella_A.fna <span class="at">-db</span> resfinder.fasta <span class="at">-out</span> blast_resfinder.txt <span class="at">-outfmt</span> 6</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>With this command, we</p>
 <ul>
 <li>Call the command line implementation of nucleotide BLAST (<code>blastn</code>)</li>
@@ -2373,17 +2400,14 @@ ml BLAST+/2.16.0</code></pre>
 <li>Tell <code>blastn</code> what to name our output file; we can name it anything, but here, we’ll name it <code>blast_resfinder.txt</code> (<code>-out blast_resfinder.txt</code>)</li>
 <li>Tell <code>blastn</code> which file format it should use for the output file; here, we are specifying output format <code>6</code>, which corresponds to a text file with <a href="http://www.metagenomics.wiki/tools/blast/blastn-output-format-6">12 columns</a> (<code>-outfmt 6</code>)</li>
 </ul>
-<!-- end list -->
 <ol start="6" type="1">
 <li>After <code>blastn</code> finishes running, we should see a file named <code>blast_resfinder.txt</code> in our directory:</li>
 </ol>
-<!-- end list -->
-<pre><code>ls</code></pre>
+<div class="sourceCode" id="cb20"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <ol start="7" type="1">
 <li>Let’s look at the first few lines of <code>blast_resfinder.txt</code> with the <code>head</code> command:</li>
 </ol>
-<!-- end list -->
-<pre><code>head blast_resfinder.txt</code></pre>
+<div class="sourceCode" id="cb21"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span> blast_resfinder.txt</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>We should see that our data is formatted into 12 columns. Although blastn doesn’t print this, <a href="http://www.metagenomics.wiki/tools/blast/blastn-output-format-6">the 12 default columns for blast outfmt 6 correspond to the following</a>:</p>
 <table class="caption-top table">
 <thead>
@@ -2459,8 +2483,7 @@ ml BLAST+/2.16.0</code></pre>
 <ol start="8" type="1">
 <li>If we use <code>cat</code> to print the output of <code>blast_resfinder.txt</code> in its entirety, we’ll see that there is a lot of information provided by BLAST:</li>
 </ol>
-<!-- end list -->
-<pre><code>cat blast_resfinder.txt</code></pre>
+<div class="sourceCode" id="cb22"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span> blast_resfinder.txt</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>We’ll see the names of contigs in our assembly, <code>mystery_salmonella_A.fna</code>, (i.e., our query sequences) listed in the first column, with AMR alleles reported in the second (e.g., sul2_5). The third column contains the percentage of identical matches between query and subject (i.e., contigs in our assembly and AMR genes in our databse), while the second to last column contains our BLAST e-value.</p>
 <p>This is a lot of information, and it can seem pretty overwhelming! Luckily, numerous BLAST wrappers, such as <a href="https://github.com/tseemann/abricate">ABRicate</a>, can be used to parse the output of BLAST and identify which genes in a database (if any) are present in a sequence, making it much easier to interpret BLAST results. Additionally, these tools can scale to hundreds, and even thousands, of genomes, making it possible to interpret BLAST results in aggregate (see the next section below!)</p>
 </section>
@@ -2470,16 +2493,15 @@ ml BLAST+/2.16.0</code></pre>
 <li>Let’s use ABRicate to identify AMR genes in our assembled genome, <code>mystery_salmonella_A.fna</code>, using the ResFinder database of AMR genes.</li>
 </ol>
 <p>First, let’s load ABRicate; note that there are some other modules we need to load before loading <code>ABRicate</code> (we can see this by running <code>module spider ABRicate/1.0.0</code>):</p>
-<pre><code>module purge &gt; /dev/null 2&gt;&amp;1
-ml GCC/13.2.0  OpenMPI/4.1.6
-ml ABRicate/1.0.0</code></pre>
+<div class="sourceCode" id="cb23"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="ex">module</span> purge <span class="op">&gt;</span> /dev/null <span class="dv">2</span><span class="op">&gt;&amp;</span><span class="dv">1</span></span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a><span class="ex">ml</span> GCC/13.2.0  OpenMPI/4.1.6</span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a><span class="ex">ml</span> ABRicate/1.0.0</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>We can test if <code>abricate</code> loaded by printing the help screen:</p>
-<pre><code>abricate --help</code></pre>
+<div class="sourceCode" id="cb24"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="ex">abricate</span> <span class="at">--help</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <ol start="2" type="1">
 <li>To run ABRicate, our command takes the following structure (note: don’t execute this command; it is just an example):</li>
 </ol>
-<!-- end list -->
-<pre><code>abricate --mincov [integer between 0 and 100] --minid [integer between 0 and 100] --db [database_name] --threads [integer] assembly.fasta &gt; output.txt</code></pre>
+<div class="sourceCode" id="cb25"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="ex">abricate</span> <span class="at">--mincov</span> [integer between 0 and 100] <span class="at">--minid</span> [integer between 0 and 100] <span class="at">--db</span> <span class="pp">[</span><span class="ss">database_name</span><span class="pp">]</span> <span class="at">--threads</span> <span class="pp">[</span><span class="ss">integer</span><span class="pp">]</span> assembly.fasta <span class="op">&gt;</span> output.txt</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>With this command, we</p>
 <ul>
 <li>Call <code>abricate</code></li>
@@ -2491,7 +2513,7 @@ ml ABRicate/1.0.0</code></pre>
 <li>Specify the name of an output file where ABRicate will print the results (<code>&gt; output.txt</code>)</li>
 </ul>
 <p>Let’s try running it ourselves on our genome:</p>
-<pre><code>abricate --mincov 80 --minid 80 --db resfinder --threads 1 mystery_salmonella_A.fna &gt; mystery_salmonella_A_resfinder.txt</code></pre>
+<div class="sourceCode" id="cb26"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="ex">abricate</span> <span class="at">--mincov</span> 80 <span class="at">--minid</span> 80 <span class="at">--db</span> resfinder <span class="at">--threads</span> 1 mystery_salmonella_A.fna <span class="op">&gt;</span> mystery_salmonella_A_resfinder.txt</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>With this command, we</p>
 <ul>
 <li>Call <code>abricate</code> (<code>abricate</code>)</li>
@@ -2506,10 +2528,9 @@ ml ABRicate/1.0.0</code></pre>
 <ol start="3" type="1">
 <li>If we type <code>ls</code>, we should see that ABRicate created a file named <code>mystery_salmonella_A_resfinder.txt</code>:</li>
 </ol>
-<!-- end list -->
-<pre><code>ls</code></pre>
+<div class="sourceCode" id="cb27"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>If we use <code>cat</code> to print the output of <code>mystery_salmonella_A_resfinder.txt</code>, we’ll see that this is much easier to interpret than our raw BLAST results:</p>
-<pre><code>cat mystery_salmonella_A_resfinder.txt</code></pre>
+<div class="sourceCode" id="cb28"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span> mystery_salmonella_A_resfinder.txt</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>For a detailed explanation of ABRicate’s output format, <a href="https://github.com/tseemann/abricate">check out the README file (under “Output”).</a></p>
 </section>
 <section id="detecting-plasmid-replicons-in-assembled-bacterial-genomes-with-abricate" class="level2">

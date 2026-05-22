@@ -172,17 +172,20 @@ Conveniently, [QUAST](https://github.com/ablab/quast) is able to report many of 
 
 1.  Let’s make sure that we are starting from our home directory. To do so, `cd` (change directories) to your home directory:
 
-<!-- end list -->
 
-    cd ~
+```bash
+cd ~
+```
 
 If we type `pwd` to print our current working directory, we should see we are in our home directory:
 
-    pwd
+```bash
+pwd
+```
 
 If we type `ls`, we should see that our `activity1` directory is still there:
 
-``` 
+```bash
 ls
 ```
 
@@ -190,23 +193,28 @@ If, for some reason, you accidentally deleted your `activity1` directory, have n
 
 2.  To assemble our genome, we are going to want to use our trimmed read pairs that we trimmed using fastp (the trimmedP.fastq.gz files from Activity 3.1). These should be in our `activity1` directory, so let’s move to our `activity1` directory:
 
-<!-- end list -->
 
-    cd activity1
+```bash
+cd activity1
+```
 
 If we type `ls`, we should see that the file containing our trimmed forward read pairs for our Mystery Salmonella A isolate, `mystery_salmonella_A_trimmedP_1.fastq.gz`, should be among the files in our current working directory (`activity1`), as well as the file containing its trimmed reverse read pairs, `mystery_salmonella_A_trimmedP_2.fastq.gz`:
 
-``` 
+```bash
 ls
 ```
 
 If, for some reason, you accidentally deleted your `activity1` directory, or if you deleted your `trimmedP.fastq.gz` files, you can just copy the backup trimmedP files to your `activity1` directory with the following commands\! To copy the trimmed forward reads to your computer:
 
-    wget http://beagle.henlab.org/public/course_introtobioinfo/mystery_salmonella_A_trimmedP_1.fastq.gz
+```bash
+wget http://beagle.henlab.org/public/course_introtobioinfo/mystery_salmonella_A_trimmedP_1.fastq.gz
+```
 
 To copy the trimmed reverse reads to your computer:
 
-    wget http://beagle.henlab.org/public/course_introtobioinfo/mystery_salmonella_A_trimmedP_2.fastq.gz
+```bash
+wget http://beagle.henlab.org/public/course_introtobioinfo/mystery_salmonella_A_trimmedP_2.fastq.gz
+```
 
 These results were obtained by running fastp using the exact same commands that you ran previously, with the exact same input files\!
 
@@ -214,23 +222,30 @@ These results were obtained by running fastp using the exact same commands that 
 
 Let’s start by loading the SKESA module; note that there are some other modules we need to load before loading `SKESA` (we can see this by running `module spider SKESA`):
 
-    module purge > /dev/null 2>&1
-    ml GCC/13.2.0  OpenMPI/4.1.6
-    ml SKESA/2.4.0_saute.1.3.0_2
+```bash
+module purge > /dev/null 2>&1
+ml GCC/13.2.0  OpenMPI/4.1.6
+ml SKESA/2.4.0_saute.1.3.0_2
+```
 
 To make sure SKESA is loaded, let’s check which version we’ve installed:
 
-    skesa --version
+```bash
+skesa --version
+```
 
 We can also print the help screen for SKESA:
 
-    skesa --help
+```bash
+skesa --help
+```
 
 4.  The general format for running SKESA using paired-end Illumina reads from a bacterial isolate is as follows (note: don’t execute this command; it is just an example):
 
-<!-- end list -->
 
-    skesa --reads </path/to/isolate_trimmedP_1.fastq.gz>,</path/to/isolate_trimmedP_2.fastq.gz> --cores <number of cores> --memory <memory available in Gb> --contigs_out <name of output fasta file>
+```bash
+skesa --reads </path/to/isolate_trimmedP_1.fastq.gz>,</path/to/isolate_trimmedP_2.fastq.gz> --cores <number of cores> --memory <memory available in Gb> --contigs_out <name of output fasta file>
+```
 
 Let’s go through this command, piece-by-piece:
 
@@ -254,7 +269,9 @@ You can hypothetically name your output file anything, but let’s name ours aft
 
 Now, let’s put it all together by running the following command:
 
-    skesa --reads mystery_salmonella_A_trimmedP_1.fastq.gz,mystery_salmonella_A_trimmedP_2.fastq.gz --cores 4 --memory 16 --contigs_out mystery_salmonella_A.fna
+```bash
+skesa --reads mystery_salmonella_A_trimmedP_1.fastq.gz,mystery_salmonella_A_trimmedP_2.fastq.gz --cores 4 --memory 16 --contigs_out mystery_salmonella_A.fna
+```
 
 5.  Wait\! Assembling our genome can take a bit of time (10-15 minutes or so).
 
@@ -264,17 +281,20 @@ Now, let’s put it all together by running the following command:
 
 1.  Let’s start by making sure that we are starting from our `activity1` directory, which is in our home (`~`) directory. To move to our `activity1` directory, run the following command:
 
-<!-- end list -->
 
-    cd ~/activity1
+```bash
+cd ~/activity1
+```
 
 If we type `pwd`, we should see that we are now in `activity1`:
 
-    pwd
+```bash
+pwd
+```
 
 If we type `ls`, we should see that the output file we created while running SKESA, `mystery_salmonella_A.fna` is present among the files in `activity1`:
 
-``` 
+```bash
 ls
 ```
 
@@ -282,35 +302,45 @@ ls
 
 Let’s start by loading the QUAST module; note that there are some other modules we need to load before loading `QUAST` (we can see this by running `module spider QUAST`):
 
-    module purge > /dev/null 2>&1
-    ml GCC/13.2.0
-    ml QUAST/5.2.0
+```bash
+module purge > /dev/null 2>&1
+ml GCC/13.2.0
+ml QUAST/5.2.0
+```
 
 To check if QUAST is loaded, run the following command to check its version:
 
-    quast --version
+```bash
+quast --version
+```
 
 3.  The general format for running QUAST to evaluate an assembled genome in fasta format is as follows (note: don’t execute this command; it is just an example):
 
-<!-- end list -->
 
-    quast -o </path/to/desired/output_directory> --min-contig 1 </path/to/input/contigs.fasta>
+```bash
+quast -o </path/to/desired/output_directory> --min-contig 1 </path/to/input/contigs.fasta>
+```
 
 While QUAST has many options other than this (use `quast -h` to see them), we will just supply our input assembly (`mystery_salmonella_A.fna`), an output directory (we could name this anything, but let’s call it `mystery_salmonella_A_quast`), the number of threads (this depends on our computer, but here we will just use `--threads 1`), and we will change the `--min-contig` option to `--min-contig 1` (by default, QUAST sets this parameter to `--min-contig 500`, but we will lower it to 1 to consider all of our contigs in our assembly, not just those over 500 bp in length)
 
 To that end, run QUAST using the following command:
 
-    quast -o mystery_salmonella_A_quast --threads 1 --min-contig 1 mystery_salmonella_A.fna
+```bash
+quast -o mystery_salmonella_A_quast --threads 1 --min-contig 1 mystery_salmonella_A.fna
+```
 
 4.  When QUAST finishes, we can take a look at one of the text files with a summary of our results. If we type `ls` and supply the path to our directory with our QUAST results, `mystery_salmonella_A_quast`, we’ll see that QUAST has produced numerous reports:
 
-<!-- end list -->
 
-    ls mystery_salmonella_A_quast
+```bash
+ls mystery_salmonella_A_quast
+```
 
 If you want to look at the graphical reports that QUAST produced, you can open them in your browser. However, we can quickly view one of the short text-based reports, `report.txt`, using `cat`, which will print the text to our terminal in its entirety:
 
-    cat mystery_salmonella_A_quast/report.txt
+```bash
+cat mystery_salmonella_A_quast/report.txt
+```
 
 We can see a lot of valuable statistics for our assembled genome, including its N50, L50, total length, longest contig, distribution of contig lengths, and GC content.
 

@@ -155,17 +155,20 @@ In this Activity, we will be identifying SNPs in a bacterial genome by writing o
 
 1.  Let’s make sure that we are starting from our home directory. To do so, `cd` (change directories) to your home directory:
 
-<!-- end list -->
 
-    cd ~
+```bash
+cd ~
+```
 
 If we type `pwd` to print our current working directory, we should see we are in our home directory:
 
-    pwd
+```bash
+pwd
+```
 
 If we type `ls`, we should see that our `activity1` directory is still there:
 
-``` 
+```bash
 ls
 ```
 
@@ -173,23 +176,28 @@ ls
 
 2.  Let’s change directories and move into our `activity1` directory:
 
-<!-- end list -->
 
-    cd activity1
+```bash
+cd activity1
+```
 
 If we type `ls`, we should see that the file containing our trimmed forward read pairs for our Mystery Salmonella A isolate, `mystery_salmonella_A_trimmedP_1.fastq.gz`, should be among the files in our current working directory (`activity1`), as well as the file containing its trimmed reverse read pairs, `mystery_salmonella_A_trimmedP_2.fastq.gz`:
 
-``` 
+```bash
 ls
 ```
 
 If, for some reason, you deleted your `trimmedP.fastq.gz` files, you can just copy the backup trimmedP files to your `activity1` directory with the following commands\! To copy the trimmed forward reads to your computer:
 
-    wget http://beagle.henlab.org/public/course_introtobioinfo/mystery_salmonella_A_trimmedP_1.fastq.gz
+```bash
+wget http://beagle.henlab.org/public/course_introtobioinfo/mystery_salmonella_A_trimmedP_1.fastq.gz
+```
 
 To copy the trimmed reverse reads to your computer:
 
-    wget http://beagle.henlab.org/public/course_introtobioinfo/mystery_salmonella_A_trimmedP_2.fastq.gz
+```bash
+wget http://beagle.henlab.org/public/course_introtobioinfo/mystery_salmonella_A_trimmedP_2.fastq.gz
+```
 
 3.  Our variant calling pipeline will utilize `bwa` for read mapping. As such, we need to supply a closely related reference genome, so that we can map reads to it and (later) identify variants relative to it\! For this activity, we’ll use the closed chromosome of the *Salmonella enterica* species “reference genome” (per NCBI) as our reference genome for variant calling.
 
@@ -197,17 +205,21 @@ This *Salmonella enterica* strain, [LT2](https://www.ncbi.nlm.nih.gov/nuccore/NC
 
 For your convenience, the LT2 chromosome has been uploaded to the remote server; you can download it to your local computer using the command below (for a challenge, you can try to download the chromosome from the NCBI Nucleotide database yourself, using the accession number NC\_003197.2\!):
 
-    wget http://beagle.henlab.org/public/course_introtobioinfo/NC_003197.2.fna
+```bash
+wget http://beagle.henlab.org/public/course_introtobioinfo/NC_003197.2.fna
+```
 
 If we type `ls`, we should see our reference chromosome, `NC_003197.2.fna`:
 
-``` 
+```bash
 ls
 ```
 
 Because this is a fasta file, we can use `grep` to see the header as follows:
 
-    grep ">" NC_003197.2.fna
+```bash
+grep ">" NC_003197.2.fna
+```
 
 We should see one contig, corresponding to the “complete genome” (i.e., closed chromosome) of LT2.
 
@@ -215,30 +227,39 @@ We should see one contig, corresponding to the “complete genome” (i.e., clos
 
 First, we need to load bwa; note that there are some other modules we need to load before loading `BWA` (we can see this by running `module spider BWA/0.7.18`):
 
-    module purge > /dev/null 2>&1
-    ml GCCcore/13.2.0
-    ml BWA/0.7.18
+```bash
+module purge > /dev/null 2>&1
+ml GCCcore/13.2.0
+ml BWA/0.7.18
+```
 
 To make sure bwa is loaded, let’s print the help screen for bwa:
 
-    bwa
+```bash
+bwa
+```
 
 5.  While we’re at it, let’s additionally load the module for SAMtools (you’ll see why in a minute\!):
 
-<!-- end list -->
 
-    ml GCC/13.2.0
-    ml SAMtools/1.19.2
+```bash
+ml GCC/13.2.0
+ml SAMtools/1.19.2
+```
 
 To make sure SAMtools is loaded, let’s print the help screen for `samtools`:
 
-    samtools
+```bash
+samtools
+```
 
 6.  We will use the [bwa mem](https://bio-bwa.sourceforge.net/bwa.shtml) algorithm to map our trimmed Illumina reads to our reference genome. But before we do that, we need to index our reference genome.
 
 To create an index of our reference genome, which `bwa mem` can use for read mapping, we will use the `bwa index` command. The general format for running `bwa index` is as follows (note: don’t execute this command; it is just an example):
 
-    bwa index </path/to/reference_genome.fasta>
+```bash
+bwa index </path/to/reference_genome.fasta>
+```
 
 Let’s go through this command, piece-by-piece:
 
@@ -248,11 +269,13 @@ Let’s go through this command, piece-by-piece:
 
 Now, let’s actually index our own reference genome by running the following command\!
 
-    bwa index NC_003197.2.fna
+```bash
+bwa index NC_003197.2.fna
+```
 
 Once `bwa index` finishes (it should take a few seconds), if we type `ls`, we should see several new files in our current directory; these files have the same name as our reference genome (`NC_003197.2.fna`), but have some additional filename suffixes appended (e.g., `NC_003197.2.fna.bwt`, `NC_003197.2.fna.sa`):
 
-``` 
+```bash
 ls
 ```
 
@@ -260,11 +283,15 @@ ls
 
 First, let’s take a look at the help screen for bwa mem:
 
-    bwa mem
+```bash
+bwa mem
+```
 
 That’s a lot of parameters/options\! For this Activity, we’ll be creating a very basic, “vanilla” pipeline, so we don’t need to worry about most of these parameters. The general format for running `bwa mem` is as follows (note: don’t execute this command; it is just an example):
 
-    bwa mem -t <desired number of threads> </path/to/reference_genome.fasta> </path/to/isolate_trimmedP_1.fastq.gz> </path/to/isolate_trimmedP_2.fastq.gz>
+```bash
+bwa mem -t <desired number of threads> </path/to/reference_genome.fasta> </path/to/isolate_trimmedP_1.fastq.gz> </path/to/isolate_trimmedP_2.fastq.gz>
+```
 
 Let’s go through this command, piece-by-piece:
 
@@ -288,7 +315,9 @@ Figure 2: (A) An example of an alignment (B) in SAM format (zyxue.github.io)
 
 To overcome this, we can store our results in a bam file, a compressed binary representation of our sam file. Luckily for us, `samtools` is able to convert sam files to bam files:
 
-    samtools view -b -o <desired output bam file> </path/to/mapped_reads.sam>
+```bash
+samtools view -b -o <desired output bam file> </path/to/mapped_reads.sam>
+```
 
 In this command:
 
@@ -304,17 +333,22 @@ Okay…but what if we don’t have an input sam file? The whole purpose of this 
 
 To overcome this, we can pipe the output from `bwa mem` to `samtools` (note: don’t execute this command; it is just an example):
 
-    bwa mem -t <desired number of threads> </path/to/reference_genome.fasta> </path/to/isolate_trimmedP_1.fastq.gz> </path/to/isolate_trimmedP_2.fastq.gz> | samtools view -b -o <desired output bam file>
+```bash
+bwa mem -t <desired number of threads> </path/to/reference_genome.fasta> </path/to/isolate_trimmedP_1.fastq.gz> </path/to/isolate_trimmedP_2.fastq.gz> | samtools view -b -o <desired output bam file>
+```
 
 Let’s try running `bwa mem` and `samtools view`–all in one command\!–for ourselves:
 
-    bwa mem -t 1 NC_003197.2.fna mystery_salmonella_A_trimmedP_1.fastq.gz mystery_salmonella_A_trimmedP_2.fastq.gz | samtools view -b -o mystery_salmonella_A.bam -
+```bash
+bwa mem -t 1 NC_003197.2.fna mystery_salmonella_A_trimmedP_1.fastq.gz mystery_salmonella_A_trimmedP_2.fastq.gz | samtools view -b -o mystery_salmonella_A.bam -
+```
 
 8.  Wait\! `bwa mem` plus `samtools` will take a few minutes. Once it’s done, if we type `ls -lh *.bam`, we should see our output file, `mystery_salmonella_A.bam`, and its size:
 
-<!-- end list -->
 
-    ls -lh *.bam
+```bash
+ls -lh *.bam
+```
 
 
 
@@ -322,47 +356,61 @@ Let’s try running `bwa mem` and `samtools view`–all in one command\!–for o
 
 1.  Now that we have a bam file containing mapped reads relative to our LT2 reference genome (`mystery_salmonella_A.bam`), we can use `bcftools` to call variants\! But before that, we need to [sort our bam file by leftmost coordinates](https://www.htslib.org/doc/samtools-sort.html). To do this, we will use `samtools sort` (note: don’t execute this command; it is just an example):
 
-<!-- end list -->
 
-    samtools sort -o <desired name for sorted bam> </path/to/mapped_reads.bam>
+```bash
+samtools sort -o <desired name for sorted bam> </path/to/mapped_reads.bam>
+```
 
 Let’s run this command ourselves:
 
-    samtools sort -o mystery_salmonella_A.sorted.bam mystery_salmonella_A.bam
+```bash
+samtools sort -o mystery_salmonella_A.sorted.bam mystery_salmonella_A.bam
+```
 
 We can print some statistics for our bam file by running the following:
 
-    samtools flagstat mystery_salmonella_A.sorted.bam
+```bash
+samtools flagstat mystery_salmonella_A.sorted.bam
+```
 
 2.  Once that finishes, we need to index our reference genome (again\!), but this time, using `samtools faidx` (note: don’t execute this command; it is just an example):
 
-<!-- end list -->
 
-    samtools faidx </path/to/reference_genome.fasta>
+```bash
+samtools faidx </path/to/reference_genome.fasta>
+```
 
 Let’s run it ourselves to index our own reference genome:
 
-    samtools faidx NC_003197.2.fna
+```bash
+samtools faidx NC_003197.2.fna
+```
 
 If we type `ls *.fai`, we should see a new index for our reference genome:
 
-    ls *.fai
+```bash
+ls *.fai
+```
 
 3.  NOW (drumroll 🥁)…we can finally call our variants\! First, let’s load bcftools:
 
-<!-- end list -->
 
-    ml BCFtools/1.19
+```bash
+ml BCFtools/1.19
+```
 
 We can check that bcftools is loaded by printing the help screen:
 
-    bcftools
+```bash
+bcftools
+```
 
 4.  To call variants, we will use `bcftools`, specifically the `bcftools mpileup` and `bcftools call` commands (note: don’t execute this command; it is just an example):
 
-<!-- end list -->
 
-    bcftools mpileup -f </path/to/reference_genome.fasta> </path/to/mapped_reads.sorted.bam> | bcftools call -m -v -Ov --ploidy 1 -o <desired vcf output file>
+```bash
+bcftools mpileup -f </path/to/reference_genome.fasta> </path/to/mapped_reads.sorted.bam> | bcftools call -m -v -Ov --ploidy 1 -o <desired vcf output file>
+```
 
 Let’s go through this command, piece-by-piece:
 
@@ -386,11 +434,15 @@ Let’s go through this command, piece-by-piece:
 
 Now let’s run the command ourselves:
 
-    bcftools mpileup -f NC_003197.2.fna mystery_salmonella_A.sorted.bam | bcftools call -m -v -Ov --ploidy 1 -o mystery_salmonella_A.vcf
+```bash
+bcftools mpileup -f NC_003197.2.fna mystery_salmonella_A.sorted.bam | bcftools call -m -v -Ov --ploidy 1 -o mystery_salmonella_A.vcf
+```
 
 Once bcftools finishes, if we type `ls *.vcf`, we should see our vcf file `mystery_salmonella_A.vcf`:
 
-    ls *.vcf
+```bash
+ls *.vcf
+```
 
 
 
@@ -400,17 +452,22 @@ Once bcftools finishes, if we type `ls *.vcf`, we should see our vcf file `myste
 
 First, let’s load `vcftools`:
 
-    ml VCFtools/0.1.16
+```bash
+ml VCFtools/0.1.16
+```
 
 We can check that vcftools is loaded by printing the help screen:
 
-    man vcftools
+```bash
+man vcftools
+```
 
 2.  Now, let’s make a new vcf file, containing only SNPs with a quality score of at least 100. To do this, run the following command:
 
-<!-- end list -->
 
-    vcftools --vcf mystery_salmonella_A.vcf --minQ 100 --out mystery_salmonella_A_snps --recode --recode-INFO-all --remove-indels
+```bash
+vcftools --vcf mystery_salmonella_A.vcf --minQ 100 --out mystery_salmonella_A_snps --recode --recode-INFO-all --remove-indels
+```
 
 This command:
 
@@ -426,21 +483,25 @@ This command:
 
   - **Removes indels (`--remove-indels`)**
 
-<!-- end list -->
 
 3.  Now, let’s do the same, but this time, we’ll make a file with ONLY high-quality indels:
 
-<!-- end list -->
 
-    vcftools --vcf mystery_salmonella_A.vcf --minQ 100 --out mystery_salmonella_A_indels --recode --recode-INFO-all --keep-only-indels
+```bash
+vcftools --vcf mystery_salmonella_A.vcf --minQ 100 --out mystery_salmonella_A_indels --recode --recode-INFO-all --keep-only-indels
+```
 
 If we type `ls *.vcf`, we should see two new vcf files, `mystery_salmonella_A_snps.recode.vcf` and `mystery_salmonella_A_indels.recode.vcf`:
 
-    ls *.vcf
+```bash
+ls *.vcf
+```
 
 How many variants were in the original vcf file? How many SNPs are left after filtering? How many indels? We can check this using `grep`:
 
-    grep -cv "#" *.vcf
+```bash
+grep -cv "#" *.vcf
+```
 
 To view your vcf files, you can open them in your favorite text editor. Because they’re effectively tab-separated files, you can open them in Excel or Google spreadsheets as well\!
 
@@ -448,9 +509,10 @@ For even more fun, you can view your bam file and vcf files in [IGV](https://igv
 
 4.  Feel free to delete your `*.bam` files…we don’t need them anymore\!
 
-<!-- end list -->
 
-    rm *.bam
+```bash
+rm *.bam
+```
 
 
 

@@ -19,6 +19,41 @@ ul.task-list li input[type="checkbox"] {
 width: 0.8em;
 margin: 0 0.8em 0.2em -1em;  vertical-align: middle;
 }
+
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+{ counter-reset: source-line 0; }
+pre.numberSource code > span
+{ position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+{ content: counter(source-line);
+position: relative; left: -1em; text-align: right; vertical-align: baseline;
+border: none; display: inline-block;
+-webkit-touch-callout: none; -webkit-user-select: none;
+-khtml-user-select: none; -moz-user-select: none;
+-ms-user-select: none; user-select: none;
+padding: 0 4px; width: 4em;
+}
+pre.numberSource { margin-left: 3em; padding-left: 4px; }
+div.sourceCode
+{ }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
@@ -2297,73 +2332,70 @@ vertical-align: -.125em;
 <ol type="1">
 <li>Let’s make sure that we are starting from our home directory. To do so, <code>cd</code> (change directories) to your home directory:</li>
 </ol>
-<!-- end list -->
-<pre><code>cd ~</code></pre>
+<div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> ~</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>If we type <code>pwd</code> to print our current working directory, we should see we are in our home directory:</p>
-<pre><code>pwd</code></pre>
+<div class="sourceCode" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="bu">pwd</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>If we type <code>ls</code>, we should see that our <code>activity1</code> directory is still there:</p>
-<pre><code>ls</code></pre>
+<div class="sourceCode" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>(If, for some reason, you accidentally deleted your <code>activity1</code> directory, have no fear! Just type <code>mkdir activity1</code> to create a new one)</p>
 <ol start="2" type="1">
 <li>Let’s change directories and move into our <code>activity1</code> directory:</li>
 </ol>
-<!-- end list -->
-<pre><code>cd activity1</code></pre>
+<div class="sourceCode" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> activity1</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>If we type <code>ls</code>, we should see that the file containing our trimmed forward read pairs for our Mystery Salmonella A isolate, <code>mystery_salmonella_A_trimmedP_1.fastq.gz</code>, should be among the files in our current working directory (<code>activity1</code>), as well as the file containing its trimmed reverse read pairs, <code>mystery_salmonella_A_trimmedP_2.fastq.gz</code>:</p>
-<pre><code>ls</code></pre>
+<div class="sourceCode" id="cb5"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>If, for some reason, you deleted your <code>trimmedP.fastq.gz</code> files, you can just copy the backup trimmedP files to your <code>activity1</code> directory with the following commands! To copy the trimmed forward reads to your computer:</p>
-<pre><code>wget http://beagle.henlab.org/public/course_introtobioinfo/mystery_salmonella_A_trimmedP_1.fastq.gz</code></pre>
+<div class="sourceCode" id="cb6"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">wget</span> http://beagle.henlab.org/public/course_introtobioinfo/mystery_salmonella_A_trimmedP_1.fastq.gz</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>To copy the trimmed reverse reads to your computer:</p>
-<pre><code>wget http://beagle.henlab.org/public/course_introtobioinfo/mystery_salmonella_A_trimmedP_2.fastq.gz</code></pre>
+<div class="sourceCode" id="cb7"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">wget</span> http://beagle.henlab.org/public/course_introtobioinfo/mystery_salmonella_A_trimmedP_2.fastq.gz</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <ol start="3" type="1">
 <li>Our variant calling pipeline will utilize <code>bwa</code> for read mapping. As such, we need to supply a closely related reference genome, so that we can map reads to it and (later) identify variants relative to it! For this activity, we’ll use the closed chromosome of the <em>Salmonella enterica</em> species “reference genome” (per NCBI) as our reference genome for variant calling.</li>
 </ol>
 <p>This <em>Salmonella enterica</em> strain, <a href="https://www.ncbi.nlm.nih.gov/nuccore/NC_003197.2">LT2</a>, is closely related to our mystery strain and is a well-characterized, well-known strain with a closed genome consisting of one chromosome and one plasmid. For this Activity, we will be using the chromosome of LT2 only (NCBI Nucleotide accession NC_003197.2) and ignoring the plasmid (this is <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC6881799/">common practice</a>).</p>
 <p>For your convenience, the LT2 chromosome has been uploaded to the remote server; you can download it to your local computer using the command below (for a challenge, you can try to download the chromosome from the NCBI Nucleotide database yourself, using the accession number NC_003197.2!):</p>
-<pre><code>wget http://beagle.henlab.org/public/course_introtobioinfo/NC_003197.2.fna</code></pre>
+<div class="sourceCode" id="cb8"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">wget</span> http://beagle.henlab.org/public/course_introtobioinfo/NC_003197.2.fna</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>If we type <code>ls</code>, we should see our reference chromosome, <code>NC_003197.2.fna</code>:</p>
-<pre><code>ls</code></pre>
+<div class="sourceCode" id="cb9"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>Because this is a fasta file, we can use <code>grep</code> to see the header as follows:</p>
-<pre><code>grep &quot;&gt;&quot; NC_003197.2.fna</code></pre>
+<div class="sourceCode" id="cb10"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">grep</span> <span class="st">&quot;&gt;&quot;</span> NC_003197.2.fna</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>We should see one contig, corresponding to the “complete genome” (i.e., closed chromosome) of LT2.</p>
 <ol start="4" type="1">
 <li>The first step of our variant calling pipeline uses <code>bwa</code> to map reads to our reference genome (the closed LT2 chromosome).</li>
 </ol>
 <p>First, we need to load bwa; note that there are some other modules we need to load before loading <code>BWA</code> (we can see this by running <code>module spider BWA/0.7.18</code>):</p>
-<pre><code>module purge &gt; /dev/null 2&gt;&amp;1
-ml GCCcore/13.2.0
-ml BWA/0.7.18</code></pre>
+<div class="sourceCode" id="cb11"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="ex">module</span> purge <span class="op">&gt;</span> /dev/null <span class="dv">2</span><span class="op">&gt;&amp;</span><span class="dv">1</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="ex">ml</span> GCCcore/13.2.0</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="ex">ml</span> BWA/0.7.18</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>To make sure bwa is loaded, let’s print the help screen for bwa:</p>
-<pre><code>bwa</code></pre>
+<div class="sourceCode" id="cb12"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="ex">bwa</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <ol start="5" type="1">
 <li>While we’re at it, let’s additionally load the module for SAMtools (you’ll see why in a minute!):</li>
 </ol>
-<!-- end list -->
-<pre><code>ml GCC/13.2.0
-ml SAMtools/1.19.2</code></pre>
+<div class="sourceCode" id="cb13"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="ex">ml</span> GCC/13.2.0</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="ex">ml</span> SAMtools/1.19.2</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>To make sure SAMtools is loaded, let’s print the help screen for <code>samtools</code>:</p>
-<pre><code>samtools</code></pre>
+<div class="sourceCode" id="cb14"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="ex">samtools</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <ol start="6" type="1">
 <li>We will use the <a href="https://bio-bwa.sourceforge.net/bwa.shtml">bwa mem</a> algorithm to map our trimmed Illumina reads to our reference genome. But before we do that, we need to index our reference genome.</li>
 </ol>
 <p>To create an index of our reference genome, which <code>bwa mem</code> can use for read mapping, we will use the <code>bwa index</code> command. The general format for running <code>bwa index</code> is as follows (note: don’t execute this command; it is just an example):</p>
-<pre><code>bwa index &lt;/path/to/reference_genome.fasta&gt;</code></pre>
+<div class="sourceCode" id="cb15"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="ex">bwa</span> index <span class="op">&lt;</span>/path/to/reference_genome.fasta<span class="op">&gt;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>Let’s go through this command, piece-by-piece:</p>
 <ul>
 <li><p><strong>We call the command <code>bwa index</code> (<code>bwa index</code>)</strong></p></li>
 <li><p><strong>We supply the path to our reference genome in fasta format (<code>&lt;/path/to/reference_genome.fasta&gt;</code>)</strong></p></li>
 </ul>
 <p>Now, let’s actually index our own reference genome by running the following command!</p>
-<pre><code>bwa index NC_003197.2.fna</code></pre>
+<div class="sourceCode" id="cb16"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="ex">bwa</span> index NC_003197.2.fna</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>Once <code>bwa index</code> finishes (it should take a few seconds), if we type <code>ls</code>, we should see several new files in our current directory; these files have the same name as our reference genome (<code>NC_003197.2.fna</code>), but have some additional filename suffixes appended (e.g., <code>NC_003197.2.fna.bwt</code>, <code>NC_003197.2.fna.sa</code>):</p>
-<pre><code>ls</code></pre>
+<div class="sourceCode" id="cb17"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <ol start="7" type="1">
 <li>Now we have everything we need to run <code>bwa mem</code>!</li>
 </ol>
 <p>First, let’s take a look at the help screen for bwa mem:</p>
-<pre><code>bwa mem</code></pre>
+<div class="sourceCode" id="cb18"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="ex">bwa</span> mem</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>That’s a lot of parameters/options! For this Activity, we’ll be creating a very basic, “vanilla” pipeline, so we don’t need to worry about most of these parameters. The general format for running <code>bwa mem</code> is as follows (note: don’t execute this command; it is just an example):</p>
-<pre><code>bwa mem -t &lt;desired number of threads&gt; &lt;/path/to/reference_genome.fasta&gt; &lt;/path/to/isolate_trimmedP_1.fastq.gz&gt; &lt;/path/to/isolate_trimmedP_2.fastq.gz&gt;</code></pre>
+<div class="sourceCode" id="cb19"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="ex">bwa</span> mem <span class="at">-t</span> <span class="op">&lt;</span>desired number of threads<span class="op">&gt;</span> <span class="op">&lt;</span>/path/to/reference_genome.fasta<span class="op">&gt;</span> <span class="op">&lt;</span>/path/to/isolate_trimmedP_1.fastq.gz<span class="op">&gt;</span> <span class="op">&lt;</span>/path/to/isolate_trimmedP_2.fastq.gz<span class="op">&gt;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>Let’s go through this command, piece-by-piece:</p>
 <ul>
 <li><p><strong>We call the command <code>bwa mem</code> (<code>bwa mem</code>)</strong></p></li>
@@ -2380,7 +2412,7 @@ ml SAMtools/1.19.2</code></pre>
 </div>
 <p>Figure 2: (A) An example of an alignment (B) in SAM format (zyxue.github.io)</p>
 <p>To overcome this, we can store our results in a bam file, a compressed binary representation of our sam file. Luckily for us, <code>samtools</code> is able to convert sam files to bam files:</p>
-<pre><code>samtools view -b -o &lt;desired output bam file&gt; &lt;/path/to/mapped_reads.sam&gt;</code></pre>
+<div class="sourceCode" id="cb20"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="ex">samtools</span> view <span class="at">-b</span> <span class="at">-o</span> <span class="op">&lt;</span>desired output bam file<span class="op">&gt;</span> <span class="op">&lt;</span>/path/to/mapped_reads.sam<span class="op">&gt;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>In this command:</p>
 <ul>
 <li><p><strong>We call the command <code>samtools view</code> (<code>samtools view</code>)</strong></p></li>
@@ -2390,47 +2422,42 @@ ml SAMtools/1.19.2</code></pre>
 </ul>
 <p>Okay…but what if we don’t have an input sam file? The whole purpose of this was so that we wouldn’t have to deal with a large sam file!</p>
 <p>To overcome this, we can pipe the output from <code>bwa mem</code> to <code>samtools</code> (note: don’t execute this command; it is just an example):</p>
-<pre><code>bwa mem -t &lt;desired number of threads&gt; &lt;/path/to/reference_genome.fasta&gt; &lt;/path/to/isolate_trimmedP_1.fastq.gz&gt; &lt;/path/to/isolate_trimmedP_2.fastq.gz&gt; | samtools view -b -o &lt;desired output bam file&gt;</code></pre>
+<div class="sourceCode" id="cb21"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="ex">bwa</span> mem <span class="at">-t</span> <span class="op">&lt;</span>desired number of threads<span class="op">&gt;</span> <span class="op">&lt;</span>/path/to/reference_genome.fasta<span class="op">&gt;</span> <span class="op">&lt;</span>/path/to/isolate_trimmedP_1.fastq.gz<span class="op">&gt;</span> <span class="op">&lt;</span>/path/to/isolate_trimmedP_2.fastq.gz<span class="op">&gt;</span> <span class="kw">|</span> <span class="ex">samtools</span> view <span class="at">-b</span> <span class="at">-o</span> <span class="op">&lt;</span>desired output bam file<span class="op">&gt;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>Let’s try running <code>bwa mem</code> and <code>samtools view</code>–all in one command!–for ourselves:</p>
-<pre><code>bwa mem -t 1 NC_003197.2.fna mystery_salmonella_A_trimmedP_1.fastq.gz mystery_salmonella_A_trimmedP_2.fastq.gz | samtools view -b -o mystery_salmonella_A.bam -</code></pre>
+<div class="sourceCode" id="cb22"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="ex">bwa</span> mem <span class="at">-t</span> 1 NC_003197.2.fna mystery_salmonella_A_trimmedP_1.fastq.gz mystery_salmonella_A_trimmedP_2.fastq.gz <span class="kw">|</span> <span class="ex">samtools</span> view <span class="at">-b</span> <span class="at">-o</span> mystery_salmonella_A.bam <span class="at">-</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <ol start="8" type="1">
 <li>Wait! <code>bwa mem</code> plus <code>samtools</code> will take a few minutes. Once it’s done, if we type <code>ls -lh *.bam</code>, we should see our output file, <code>mystery_salmonella_A.bam</code>, and its size:</li>
 </ol>
-<!-- end list -->
-<pre><code>ls -lh *.bam</code></pre>
+<div class="sourceCode" id="cb23"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span> <span class="at">-lh</span> <span class="pp">*</span>.bam</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
 <section id="call-variants-using-bcftools" class="level2">
 <h2 class="anchored" data-anchor-id="call-variants-using-bcftools"><span class="header-section-number">2.2</span> Call variants using bcftools</h2>
 <ol type="1">
 <li>Now that we have a bam file containing mapped reads relative to our LT2 reference genome (<code>mystery_salmonella_A.bam</code>), we can use <code>bcftools</code> to call variants! But before that, we need to <a href="https://www.htslib.org/doc/samtools-sort.html">sort our bam file by leftmost coordinates</a>. To do this, we will use <code>samtools sort</code> (note: don’t execute this command; it is just an example):</li>
 </ol>
-<!-- end list -->
-<pre><code>samtools sort -o &lt;desired name for sorted bam&gt; &lt;/path/to/mapped_reads.bam&gt;</code></pre>
+<div class="sourceCode" id="cb24"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="ex">samtools</span> sort <span class="at">-o</span> <span class="op">&lt;</span>desired name for sorted bam<span class="op">&gt;</span> <span class="op">&lt;</span>/path/to/mapped_reads.bam<span class="op">&gt;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>Let’s run this command ourselves:</p>
-<pre><code>samtools sort -o mystery_salmonella_A.sorted.bam mystery_salmonella_A.bam</code></pre>
+<div class="sourceCode" id="cb25"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="ex">samtools</span> sort <span class="at">-o</span> mystery_salmonella_A.sorted.bam mystery_salmonella_A.bam</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>We can print some statistics for our bam file by running the following:</p>
-<pre><code>samtools flagstat mystery_salmonella_A.sorted.bam</code></pre>
+<div class="sourceCode" id="cb26"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="ex">samtools</span> flagstat mystery_salmonella_A.sorted.bam</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <ol start="2" type="1">
 <li>Once that finishes, we need to index our reference genome (again!), but this time, using <code>samtools faidx</code> (note: don’t execute this command; it is just an example):</li>
 </ol>
-<!-- end list -->
-<pre><code>samtools faidx &lt;/path/to/reference_genome.fasta&gt;</code></pre>
+<div class="sourceCode" id="cb27"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="ex">samtools</span> faidx <span class="op">&lt;</span>/path/to/reference_genome.fasta<span class="op">&gt;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>Let’s run it ourselves to index our own reference genome:</p>
-<pre><code>samtools faidx NC_003197.2.fna</code></pre>
+<div class="sourceCode" id="cb28"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="ex">samtools</span> faidx NC_003197.2.fna</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>If we type <code>ls *.fai</code>, we should see a new index for our reference genome:</p>
-<pre><code>ls *.fai</code></pre>
+<div class="sourceCode" id="cb29"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span> <span class="pp">*</span>.fai</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <ol start="3" type="1">
 <li>NOW (drumroll 🥁)…we can finally call our variants! First, let’s load bcftools:</li>
 </ol>
-<!-- end list -->
-<pre><code>ml BCFtools/1.19</code></pre>
+<div class="sourceCode" id="cb30"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="ex">ml</span> BCFtools/1.19</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>We can check that bcftools is loaded by printing the help screen:</p>
-<pre><code>bcftools</code></pre>
+<div class="sourceCode" id="cb31"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="ex">bcftools</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <ol start="4" type="1">
 <li>To call variants, we will use <code>bcftools</code>, specifically the <code>bcftools mpileup</code> and <code>bcftools call</code> commands (note: don’t execute this command; it is just an example):</li>
 </ol>
-<!-- end list -->
-<pre><code>bcftools mpileup -f &lt;/path/to/reference_genome.fasta&gt; &lt;/path/to/mapped_reads.sorted.bam&gt; | bcftools call -m -v -Ov --ploidy 1 -o &lt;desired vcf output file&gt;</code></pre>
+<div class="sourceCode" id="cb32"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="ex">bcftools</span> mpileup <span class="at">-f</span> <span class="op">&lt;</span>/path/to/reference_genome.fasta<span class="op">&gt;</span> <span class="op">&lt;</span>/path/to/mapped_reads.sorted.bam<span class="op">&gt;</span> <span class="kw">|</span> <span class="ex">bcftools</span> call <span class="at">-m</span> <span class="at">-v</span> <span class="at">-Ov</span> <span class="at">--ploidy</span> 1 <span class="at">-o</span> <span class="op">&lt;</span>desired vcf output file<span class="op">&gt;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>Let’s go through this command, piece-by-piece:</p>
 <ul>
 <li><p><strong>We call the command <code>bcftools mpileup</code> (<code>bcftools mpileup</code>)</strong></p></li>
@@ -2444,9 +2471,9 @@ ml SAMtools/1.19.2</code></pre>
 <li><p><strong>We specify a name for the vcf file that bcftools will output (<code>-o &lt;desired vcf output file&gt;</code>).</strong></p></li>
 </ul>
 <p>Now let’s run the command ourselves:</p>
-<pre><code>bcftools mpileup -f NC_003197.2.fna mystery_salmonella_A.sorted.bam | bcftools call -m -v -Ov --ploidy 1 -o mystery_salmonella_A.vcf</code></pre>
+<div class="sourceCode" id="cb33"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="ex">bcftools</span> mpileup <span class="at">-f</span> NC_003197.2.fna mystery_salmonella_A.sorted.bam <span class="kw">|</span> <span class="ex">bcftools</span> call <span class="at">-m</span> <span class="at">-v</span> <span class="at">-Ov</span> <span class="at">--ploidy</span> 1 <span class="at">-o</span> mystery_salmonella_A.vcf</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>Once bcftools finishes, if we type <code>ls *.vcf</code>, we should see our vcf file <code>mystery_salmonella_A.vcf</code>:</p>
-<pre><code>ls *.vcf</code></pre>
+<div class="sourceCode" id="cb34"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span> <span class="pp">*</span>.vcf</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
 <section id="filter-variants-using-vcftools" class="level2">
 <h2 class="anchored" data-anchor-id="filter-variants-using-vcftools"><span class="header-section-number">2.3</span> Filter variants using vcftools</h2>
@@ -2454,14 +2481,13 @@ ml SAMtools/1.19.2</code></pre>
 <li>Now we have a vcf file containing ALL of our variants, <code>mystery_salmonella_A.vcf</code>! The only problem? This includes low quality variant calls, which may be false positives! As such, let’s filter our vcf file using <code>vcftools</code>. vcftools lets you filter vcf files using TONS of different attributes (you can check out the manual <a href="https://vcftools.github.io/man_latest.html">here!</a>). In this Activity, we’ll use vcftools to remove low-quality variant calls. Further, we’ll split our variants into SNPs and indels, so that we can look at them separately.</li>
 </ol>
 <p>First, let’s load <code>vcftools</code>:</p>
-<pre><code>ml VCFtools/0.1.16</code></pre>
+<div class="sourceCode" id="cb35"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="ex">ml</span> VCFtools/0.1.16</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>We can check that vcftools is loaded by printing the help screen:</p>
-<pre><code>man vcftools</code></pre>
+<div class="sourceCode" id="cb36"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="fu">man</span> vcftools</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <ol start="2" type="1">
 <li>Now, let’s make a new vcf file, containing only SNPs with a quality score of at least 100. To do this, run the following command:</li>
 </ol>
-<!-- end list -->
-<pre><code>vcftools --vcf mystery_salmonella_A.vcf --minQ 100 --out mystery_salmonella_A_snps --recode --recode-INFO-all --remove-indels</code></pre>
+<div class="sourceCode" id="cb37"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="ex">vcftools</span> <span class="at">--vcf</span> mystery_salmonella_A.vcf <span class="at">--minQ</span> 100 <span class="at">--out</span> mystery_salmonella_A_snps <span class="at">--recode</span> <span class="at">--recode-INFO-all</span> <span class="at">--remove-indels</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>This command:</p>
 <ul>
 <li><p><strong>Calls <code>vcftools</code> (<code>vcftools</code>)</strong></p></li>
@@ -2471,23 +2497,20 @@ ml SAMtools/1.19.2</code></pre>
 <li><p><strong>Generates a new vcf file (<code>--recode --recode-INFO-all</code>)</strong></p></li>
 <li><p><strong>Removes indels (<code>--remove-indels</code>)</strong></p></li>
 </ul>
-<!-- end list -->
 <ol start="3" type="1">
 <li>Now, let’s do the same, but this time, we’ll make a file with ONLY high-quality indels:</li>
 </ol>
-<!-- end list -->
-<pre><code>vcftools --vcf mystery_salmonella_A.vcf --minQ 100 --out mystery_salmonella_A_indels --recode --recode-INFO-all --keep-only-indels</code></pre>
+<div class="sourceCode" id="cb38"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="ex">vcftools</span> <span class="at">--vcf</span> mystery_salmonella_A.vcf <span class="at">--minQ</span> 100 <span class="at">--out</span> mystery_salmonella_A_indels <span class="at">--recode</span> <span class="at">--recode-INFO-all</span> <span class="at">--keep-only-indels</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>If we type <code>ls *.vcf</code>, we should see two new vcf files, <code>mystery_salmonella_A_snps.recode.vcf</code> and <code>mystery_salmonella_A_indels.recode.vcf</code>:</p>
-<pre><code>ls *.vcf</code></pre>
+<div class="sourceCode" id="cb39"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span> <span class="pp">*</span>.vcf</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>How many variants were in the original vcf file? How many SNPs are left after filtering? How many indels? We can check this using <code>grep</code>:</p>
-<pre><code>grep -cv &quot;#&quot; *.vcf</code></pre>
+<div class="sourceCode" id="cb40"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="fu">grep</span> <span class="at">-cv</span> <span class="st">&quot;#&quot;</span> <span class="pp">*</span>.vcf</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>To view your vcf files, you can open them in your favorite text editor. Because they’re effectively tab-separated files, you can open them in Excel or Google spreadsheets as well!</p>
 <p>For even more fun, you can view your bam file and vcf files in <a href="https://igv.org/">IGV</a> or another genome browser! See the section “Viewing with IGV” <a href="https://datacarpentry.org/wrangling-genomics/04-variant_calling.html">here.</a></p>
 <ol start="4" type="1">
 <li>Feel free to delete your <code>*.bam</code> files…we don’t need them anymore!</li>
 </ol>
-<!-- end list -->
-<pre><code>rm *.bam</code></pre>
+<div class="sourceCode" id="cb41"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="fu">rm</span> <span class="pp">*</span>.bam</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
 </section>
 <section id="references" class="level1">

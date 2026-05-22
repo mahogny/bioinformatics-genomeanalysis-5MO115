@@ -9,7 +9,6 @@ format:
 
   - <span style="font-size: 12pt;">**Lecture 1:** *De novo* <span>assembly of Illumina reads</span></span>
 
-<!-- end list -->
 
   - **Lecture 2:** Quality control of assembled genomes
 
@@ -36,12 +35,6 @@ format:
 
  
 
-## **Hands-on exercises (1 total)**
+## Hands-on exercise
 
-**Hands-on exercise 3.1b:** Started from the bottom (raw reads) now we're here (contigs)\! 🧩
-
-***IMPORTANT NOTE:*** Genome assembly is computationally intensive\! **For this exercise, please request 4 CPUs.**
-
-To complete the activity, go to the following URL (you can also download the HTML file and open it in your favorite browser): [3\_1b\_activity\_de\_novo\_assembly\_v2\_hpc2n.html](https://www.canvas.umu.se/courses/21745/files/5400560?wrap=1 "3_1b_activity_de_novo_assembly_v2_hpc2n.html")
-
-<span>If, for some reason, the HTML doesn't work in your browser, a print-out of the activity can be found here: [3\_1b\_activity\_de\_novo\_assembly\_v2\_hpc2n.pdf](https://www.canvas.umu.se/courses/21745/files/5400499?wrap=1 "3_1b_activity_de_novo_assembly_v2_hpc2n.pdf")</span>
+→ [3.1b De novo assembly](../exercises/3_1b_de_novo_assembly.html)

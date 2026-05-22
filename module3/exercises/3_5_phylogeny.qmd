@@ -251,61 +251,77 @@ Table 1. 20 total genomes used in this Activity.
 
 1.  Move to your `activity1` directory:
 
-<!-- end list -->
 
-    cd ~/activity1
+```bash
+cd ~/activity1
+```
 
 If, for some reason, you accidentally deleted your `activity1` directory, have no fear\! Just (i) `cd ~` and (ii) type `mkdir activity1` to create a new one.
 
 If we type `ls mystery_salmonella_A.fna`, we should see the mystery *Salmonella* genome we assembled in a previous activity:
 
-    ls mystery_salmonella_A.fna
+```bash
+ls mystery_salmonella_A.fna
+```
 
 If, for some reason, you accidentally deleted your `mystery_salmonella_A.fna` file, you can just copy the genome to your `activity1` directory with the following command:
 
-    wget http://beagle.henlab.org/public/course_introtobioinfo/mystery_salmonella_A.fna
+```bash
+wget http://beagle.henlab.org/public/course_introtobioinfo/mystery_salmonella_A.fna
+```
 
 2.  Let’s download our 19 additional, closely related, publicly available *Salmonella enterica* genomes. All 19 genomes have been archived in a `*.tar.gz` file named `salmonella_genomes.tar.gz`. To copy it from the server to your computer, run the following command:
 
-<!-- end list -->
 
-    wget http://beagle.henlab.org/public/course_introtobioinfo/salmonella_genomes.tar.gz
+```bash
+wget http://beagle.henlab.org/public/course_introtobioinfo/salmonella_genomes.tar.gz
+```
 
 Once the file has been transferred, if we type `ls salmonella_genomes.tar.gz`, we should see the file `salmonella_genomes.tar.gz` in our current directory:
 
-    ls salmonella_genomes.tar.gz
+```bash
+ls salmonella_genomes.tar.gz
+```
 
 3.  Let’s untar our file `salmonella_genomes.tar.gz` to get the individual genomes:
 
-<!-- end list -->
 
-    tar -xzf salmonella_genomes.tar.gz
+```bash
+tar -xzf salmonella_genomes.tar.gz
+```
 
 If we type `ls`, we should see a directory named `salmonella_genomes` in our current directory:
 
-``` 
+```bash
 ls
 ```
 
 If we type `ls salmonella_genomes`, we can see that there are a bunch of fasta files in our new directory, `salmonella_genomes`:
 
-    ls salmonella_genomes
+```bash
+ls salmonella_genomes
+```
 
 We can count the number of `*.fna` files using the following command:
 
-    ls -lh salmonella_genomes/*.fna | wc -l
+```bash
+ls -lh salmonella_genomes/*.fna | wc -l
+```
 
 There should be 19 `*.fna` files in our directory `salmonella_genomes`.
 
 4.  Let’s copy our mystery *Salmonella* genome to our `salmonella_genomes` directory using `cp`:
 
-<!-- end list -->
 
-    cp mystery_salmonella_A.fna salmonella_genomes/
+```bash
+cp mystery_salmonella_A.fna salmonella_genomes/
+```
 
 We can count the number of `*.fna` files using the following command:
 
-    ls -lh salmonella_genomes/*.fna | wc -l
+```bash
+ls -lh salmonella_genomes/*.fna | wc -l
+```
 
 There should now be 20 `*.fna` files in our directory `salmonella_genomes`: 19 publicly available genomes, plus our mystery genome\!
 
@@ -313,19 +329,24 @@ There should now be 20 `*.fna` files in our directory `salmonella_genomes`: 19 p
 
 First, let’s load the mashtree module; note that there are some other modules we need to load before loading `Mashtree` (we can see this by running `module spider BWA/0.7.18`):
 
-    module purge > /dev/null 2>&1
-    ml GCC/13.2.0
-    ml Mashtree/1.4.6
+```bash
+module purge > /dev/null 2>&1
+ml GCC/13.2.0
+ml Mashtree/1.4.6
+```
 
 To check if mashtree is loaded, let’s print the mashtree help screen:
 
-    mashtree --help
+```bash
+mashtree --help
+```
 
 6.  Let’s use mashtree to construct our distance-based tree\! To do this, we’ll use the following command:
 
-<!-- end list -->
 
-    mashtree --numcpus 1 --genomesize 4700000 --mindepth 0 salmonella_genomes/*.fna > mashtree.nwk
+```bash
+mashtree --numcpus 1 --genomesize 4700000 --mindepth 0 salmonella_genomes/*.fna > mashtree.nwk
+```
 
 With this command, we:
 
@@ -341,7 +362,6 @@ With this command, we:
 
   - **Tell `mashtree` to save our tree to an output file named `mashtree.nwk` (`> mashtree.nwk`)**
 
-<!-- end list -->
 
 7.  Wait\! Once `mashtree` finishes, we can view it in iTOL (see the next section).
 
@@ -371,79 +391,94 @@ With this command, we:
 
 1.  Move to your `activity1` directory, if you aren’t there already:
 
-<!-- end list -->
 
-    cd ~/activity1
+```bash
+cd ~/activity1
+```
 
 2.  Let’s create a new directory for parsnp, named `parsnp`, which will contain our input files:
 
-<!-- end list -->
 
-    mkdir parsnp
+```bash
+mkdir parsnp
+```
 
 3.  Parsnp uses assembled genomes as input, one of which acts as a reference genome; to make it more convenient for us to run Parsnp, let’s move our assembled genomes to our new `parsnp` directory:
 
-<!-- end list -->
 
-    mv salmonella_genomes/*.fna parsnp
+```bash
+mv salmonella_genomes/*.fna parsnp
+```
 
 If we type `ls parsnp`, we should see our 20 assembled genomes:
 
-    ls parsnp
+```bash
+ls parsnp
+```
 
 4.  Now let’s change directories and move to our `parsnp` directory:
 
-<!-- end list -->
 
-    cd parsnp
+```bash
+cd parsnp
+```
 
 If we type `pwd`, we should see that we are now in our `parsnp` directory:
 
-    pwd
+```bash
+pwd
+```
 
 If we type `ls`, we should see our 20 genomes:
 
-``` 
+```bash
 ls
 ```
 
 5.  We will use `NC_003197.2.fna`, the closed, LT2 chromosome, as our reference genome, and the other 19 genomes as our input genomes (Parsnp will include all of them in our final tree). To make it easier to run Parsnp, let’s create a new directory, `fna`, in our current directory, `parsnp`:
 
-<!-- end list -->
 
-    mkdir fna
+```bash
+mkdir fna
+```
 
 6.  Now let’s move all of our genomes to `fna`:
 
-<!-- end list -->
 
-    mv *.fna fna/
+```bash
+mv *.fna fna/
+```
 
 If we type `ls`, we should see that now there are no genomes in our current working directory, only our `fna` directory:
 
-``` 
+```bash
 ls
 ```
 
 If we type `ls fna`, we should see that all 20 genomes are in our `fna`directory:
 
-    ls fna
+```bash
+ls fna
+```
 
 7.  Let’s move our reference genome, `NC_003197.2.fna`, to our working directory, `parsnp`:
 
-<!-- end list -->
 
-    mv fna/NC_003197.2.fna .
+```bash
+mv fna/NC_003197.2.fna .
+```
 
 Now if we type `ls`, we can see our reference genome `NC_003197.2.fna` and the `fna` directory in our current directory:
 
-``` 
+```bash
 ls
 ```
 
 If we type `ls fna`, we will see 19 genomes in our `fna` directory:
 
-    ls fna
+```bash
+ls fna
+```
 
 8.  Now that everything is set up and ready to go, let’s run Parsnp\!
 
@@ -451,22 +486,27 @@ We’ll run Parsnp using [apptainer](https://apptainer.org/), plus a pre-built P
 
 To do this, let’s download the Parsnp container using `apptainer pull`:
 
-    apptainer pull docker://quay.io/biocontainers/parsnp:2.1.3--h077b44d_0
+```bash
+apptainer pull docker://quay.io/biocontainers/parsnp:2.1.3--h077b44d_0
+```
 
 If we type `ls`, we should see the Parsnp container in our current directory (`parsnp_2.1.3--h077b44d_0.sif`).
 
 Once the Parsnp container has been downloaded, we can print its help screen by running the following:
 
-    apptainer run parsnp_2.1.3--h077b44d_0.sif parsnp --help
+```bash
+apptainer run parsnp_2.1.3--h077b44d_0.sif parsnp --help
+```
 
 The first part of the command (`apptainer run parsnp_2.1.3--h077b44d_0.sif`) tells apptainer which container to run. The second part of the command (`parsnp --help`) is the actual command to run Parsnp (if we had used modules instead of `apptainer`, we would have just run `parsnp --help` to run the command).
 
 9.  Let’s run the following to run Parsnp:
 
-<!-- end list -->
 
-    module purge > /dev/null 2>&1
-    apptainer run parsnp_2.1.3--h077b44d_0.sif parsnp -r NC_003197.2.fna -d fna -p 1 -x -c -o parsnp_out --use-fasttree
+```bash
+module purge > /dev/null 2>&1
+apptainer run parsnp_2.1.3--h077b44d_0.sif parsnp -r NC_003197.2.fna -d fna -p 1 -x -c -o parsnp_out --use-fasttree
+```
 
 With this command, we are:
 
@@ -480,13 +520,13 @@ With this command, we are:
   - Telling Parsnp to output our results in a directory named `parsnp_out` (`-o parsnp_out`)
   - Telling Parsnp to use `FastTree` to construct an approximate ML phylogeny (selected as our phylogeny construction algorithm because FastTree is very fast, and we’re impatient\! `--use-fasttree`)
 
-<!-- end list -->
 
 10. Wait\! When Parsnp finishes running, type `ls` to check out the files in our output directory, `parsnp_out`:
 
-<!-- end list -->
 
-    ls parsnp_out
+```bash
+ls parsnp_out
+```
 
 Notably, parsnp will produce a phylogenetic tree (`parsnp.tree`), constructed using FastTree, and a Gingr file (`parsnp.ggr`), which can be opened and viewed in Parsnp’s file viewer, Gingr\!
 

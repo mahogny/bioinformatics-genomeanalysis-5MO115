@@ -15,10 +15,6 @@ format:
   - Molecular phylogenetics: principles and practice:<span> </span>[<span>https://www.nature.com/articles/nrg3186</span><span class="external_link_icon" role="presentation"><span class="screenreader-only">Links to an external site.</span></span>](https://www.nature.com/articles/nrg3186) 
   - <span>Kapli, et al. 2020. Phylogenetic tree building in the genomic age. </span>*Nature Reviews Genetics*<span>. URL: </span>[<span>https://www.nature.com/articles/s41576-020-0233-0</span>](https://www.nature.com/articles/s41576-020-0233-0)
 
-## **Hands-on exercises (1 total)**
+## Hands-on exercise
 
-**Hands-on exercise 3.5:<span> </span>**One two tree 🌲
-
-To complete the activity, go to the following URL (you can also download the HTML file and open it in your favorite browser): [3\_5\_phylogeny\_construction\_hpc2n.html](https://www.canvas.umu.se/courses/21745/files/5400450?wrap=1 "3_5_phylogeny_construction_hpc2n.html")
-
-<span>If, for some reason, the HTML doesn't work in your browser, a print-out of the activity can be found here: [3\_5\_phylogeny\_construction\_hpc2n.pdf](https://www.canvas.umu.se/courses/21745/files/5400451?wrap=1 "3_5_phylogeny_construction_hpc2n.pdf")</span>
+→ [3.5 Phylogeny construction](../exercises/3_5_phylogeny.html)
