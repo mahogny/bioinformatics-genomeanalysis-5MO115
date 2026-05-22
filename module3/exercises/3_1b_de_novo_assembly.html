@@ -2194,7 +2194,10 @@ vertical-align: -.125em;
   <li><a href="#assemble-a-bacterial-genome-using-skesa" id="toc-assemble-a-bacterial-genome-using-skesa" class="nav-link" data-scroll-target="#assemble-a-bacterial-genome-using-skesa"><span class="header-section-number">2.1</span> Assemble a bacterial genome using SKESA</a></li>
   <li><a href="#assess-the-quality-of-an-assembled-genome-using-quast" id="toc-assess-the-quality-of-an-assembled-genome-using-quast" class="nav-link" data-scroll-target="#assess-the-quality-of-an-assembled-genome-using-quast"><span class="header-section-number">2.2</span> Assess the quality of an assembled genome using QUAST</a></li>
   </ul></li>
-  <li><a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references"><span class="header-section-number">3</span> References</a></li>
+  <li><a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references"><span class="header-section-number">3</span> References</a>
+  <ul class="collapse">
+  <li><a href="#extra-exercise-material" id="toc-extra-exercise-material" class="nav-link" data-scroll-target="#extra-exercise-material">Extra exercise material</a></li>
+  </ul></li>
   </ul>
 </nav>
 </div>
@@ -2277,21 +2280,21 @@ vertical-align: -.125em;
 <p>A De Bruijn graph is a directed graph which represents overlaps between sequences of symbols. Sequences can be reconstructed by moving between nodes in the graph. In the context of reconstructing a genome from Illumina data, the nodes are k-mers, or all possible sub-sequences of length k that are contained in a sequence. For example, if we wanted to find all 3-mers in a sequence of characters, “Salmonella”, we would have the following:</p>
 <p>“Sal”, “alm”, “lmo”, “mon”, “one”, “nel”, “ell”, “lla”</p>
 <p>Our k-mers will have k-1 overlap (in our case, k-1 = 3-1 = 2). Starting with “Sal”, we need the next 3-mer to begin with “a”, followed by “l”. So our next 3-mer is “alm”:</p>
-<p>Sal<br>
-  alm</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode default code-with-copy"><code class="sourceCode default"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>Sal</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>  alm</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>The third 3-mer needs to begin with “lm”, so it must be “lmo”:</p>
-<p>Sal<br>
-  alm<br>
-    lmo</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode default code-with-copy"><code class="sourceCode default"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>Sal</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  alm</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>    lmo</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>And the rest follow:</p>
-<p>Sal<br>
-  alm<br>
-    lmo<br>
-      mon<br>
-        one<br>
-          nel<br>
-            ell<br>
-              lla</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode default code-with-copy"><code class="sourceCode default"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>Sal</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  alm</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>    lmo</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>      mon</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>        one</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>          nel</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>            ell</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>              lla</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>Another example:</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
@@ -2340,38 +2343,38 @@ vertical-align: -.125em;
 <ol type="1">
 <li>Let’s make sure that we are starting from our home directory. To do so, <code>cd</code> (change directories) to your home directory:</li>
 </ol>
-<div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> ~</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> ~</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>If we type <code>pwd</code> to print our current working directory, we should see we are in our home directory:</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="bu">pwd</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="bu">pwd</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>If we type <code>ls</code>, we should see that our <code>activity1</code> directory is still there:</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>If, for some reason, you accidentally deleted your <code>activity1</code> directory, have no fear! Just type <code>mkdir activity1</code> to create a new one.</p>
 <ol start="2" type="1">
 <li>To assemble our genome, we are going to want to use our trimmed read pairs that we trimmed using fastp (the trimmedP.fastq.gz files from Activity 3.1). These should be in our <code>activity1</code> directory, so let’s move to our <code>activity1</code> directory:</li>
 </ol>
-<div class="sourceCode" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> activity1</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> activity1</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>If we type <code>ls</code>, we should see that the file containing our trimmed forward read pairs for our Mystery Salmonella A isolate, <code>mystery_salmonella_A_trimmedP_1.fastq.gz</code>, should be among the files in our current working directory (<code>activity1</code>), as well as the file containing its trimmed reverse read pairs, <code>mystery_salmonella_A_trimmedP_2.fastq.gz</code>:</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb8"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>If, for some reason, you accidentally deleted your <code>activity1</code> directory, or if you deleted your <code>trimmedP.fastq.gz</code> files, you can just copy the backup trimmedP files to your <code>activity1</code> directory with the following commands! To copy the trimmed forward reads to your computer:</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">wget</span> http://beagle.henlab.org/public/course_introtobioinfo/mystery_salmonella_A_trimmedP_1.fastq.gz</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb9"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">wget</span> http://beagle.henlab.org/public/course_introtobioinfo/mystery_salmonella_A_trimmedP_1.fastq.gz</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>To copy the trimmed reverse reads to your computer:</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">wget</span> http://beagle.henlab.org/public/course_introtobioinfo/mystery_salmonella_A_trimmedP_2.fastq.gz</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb10"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">wget</span> http://beagle.henlab.org/public/course_introtobioinfo/mystery_salmonella_A_trimmedP_2.fastq.gz</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>These results were obtained by running fastp using the exact same commands that you ran previously, with the exact same input files!</p>
 <ol start="3" type="1">
 <li>Now that we have our forward and reverse trimmed read pairs in gzipped fastq format (<code>.fastq.gz</code>), let’s use <a href="https://github.com/ncbi/SKESA">SKESA</a> to assemble our genome <em>de novo</em> (i.e., without a reference genome).</li>
 </ol>
 <p>Let’s start by loading the SKESA module; note that there are some other modules we need to load before loading <code>SKESA</code> (we can see this by running <code>module spider SKESA</code>):</p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="ex">module</span> purge <span class="op">&gt;</span> /dev/null <span class="dv">2</span><span class="op">&gt;&amp;</span><span class="dv">1</span></span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="ex">ml</span> GCC/13.2.0  OpenMPI/4.1.6</span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="ex">ml</span> SKESA/2.4.0_saute.1.3.0_2</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb11"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="ex">module</span> purge <span class="op">&gt;</span> /dev/null <span class="dv">2</span><span class="op">&gt;&amp;</span><span class="dv">1</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="ex">ml</span> GCC/13.2.0  OpenMPI/4.1.6</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="ex">ml</span> SKESA/2.4.0_saute.1.3.0_2</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>To make sure SKESA is loaded, let’s check which version we’ve installed:</p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="ex">skesa</span> <span class="at">--version</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb12"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="ex">skesa</span> <span class="at">--version</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>We can also print the help screen for SKESA:</p>
-<div class="sourceCode" id="cb10"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="ex">skesa</span> <span class="at">--help</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb13"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="ex">skesa</span> <span class="at">--help</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <ol start="4" type="1">
 <li>The general format for running SKESA using paired-end Illumina reads from a bacterial isolate is as follows (note: don’t execute this command; it is just an example):</li>
 </ol>
-<div class="sourceCode" id="cb11"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="ex">skesa</span> <span class="at">--reads</span> <span class="op">&lt;</span>/path/to/isolate_trimmedP_1.fastq.gz<span class="op">&gt;</span>,<span class="op">&lt;</span>/path/to/isolate_trimmedP_2.fastq.gz<span class="op">&gt;</span> --cores <span class="op">&lt;</span>number of cores<span class="op">&gt;</span> --memory <span class="op">&lt;</span>memory available in Gb<span class="op">&gt;</span> --contigs_out <span class="op">&lt;</span>name of output fasta file<span class="op">&gt;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb14"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="ex">skesa</span> <span class="at">--reads</span> <span class="op">&lt;</span>/path/to/isolate_trimmedP_1.fastq.gz<span class="op">&gt;</span>,<span class="op">&lt;</span>/path/to/isolate_trimmedP_2.fastq.gz<span class="op">&gt;</span> --cores <span class="op">&lt;</span>number of cores<span class="op">&gt;</span> --memory <span class="op">&lt;</span>memory available in Gb<span class="op">&gt;</span> --contigs_out <span class="op">&lt;</span>name of output fasta file<span class="op">&gt;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>Let’s go through this command, piece-by-piece:</p>
 <ul>
 <li><p><strong>We call the command <code>skesa</code> (<code>skesa</code>)</strong></p></li>
@@ -2391,7 +2394,7 @@ vertical-align: -.125em;
 </ul>
 <p>You can hypothetically name your output file anything, but let’s name ours after the isolate we are querying (we’ll use the extension <code>.fna</code>, because SKESA produces a fasta file, which contains the assembled contigs): <code>--contigs_out mystery_salmonella_A.fna</code></p>
 <p>Now, let’s put it all together by running the following command:</p>
-<div class="sourceCode" id="cb12"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="ex">skesa</span> <span class="at">--reads</span> mystery_salmonella_A_trimmedP_1.fastq.gz,mystery_salmonella_A_trimmedP_2.fastq.gz <span class="at">--cores</span> 4 <span class="at">--memory</span> 16 <span class="at">--contigs_out</span> mystery_salmonella_A.fna</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb15"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="ex">skesa</span> <span class="at">--reads</span> mystery_salmonella_A_trimmedP_1.fastq.gz,mystery_salmonella_A_trimmedP_2.fastq.gz <span class="at">--cores</span> 4 <span class="at">--memory</span> 16 <span class="at">--contigs_out</span> mystery_salmonella_A.fna</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <ol start="5" type="1">
 <li>Wait! Assembling our genome can take a bit of time (10-15 minutes or so).</li>
 </ol>
@@ -2401,33 +2404,33 @@ vertical-align: -.125em;
 <ol type="1">
 <li>Let’s start by making sure that we are starting from our <code>activity1</code> directory, which is in our home (<code>~</code>) directory. To move to our <code>activity1</code> directory, run the following command:</li>
 </ol>
-<div class="sourceCode" id="cb13"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> ~/activity1</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb16"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> ~/activity1</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>If we type <code>pwd</code>, we should see that we are now in <code>activity1</code>:</p>
-<div class="sourceCode" id="cb14"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="bu">pwd</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb17"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="bu">pwd</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>If we type <code>ls</code>, we should see that the output file we created while running SKESA, <code>mystery_salmonella_A.fna</code> is present among the files in <code>activity1</code>:</p>
-<div class="sourceCode" id="cb15"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb18"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <ol start="2" type="1">
 <li>Now that we have an assembled genome (<code>mystery_salmonella_A.fna</code>), let’s use <a href="https://github.com/ablab/quast">QUAST</a> to assess the quality of our genome. QUAST provides various metrics which we can use to evaluate the quality of our assembled genome.</li>
 </ol>
 <p>Let’s start by loading the QUAST module; note that there are some other modules we need to load before loading <code>QUAST</code> (we can see this by running <code>module spider QUAST</code>):</p>
-<div class="sourceCode" id="cb16"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="ex">module</span> purge <span class="op">&gt;</span> /dev/null <span class="dv">2</span><span class="op">&gt;&amp;</span><span class="dv">1</span></span>
-<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="ex">ml</span> GCC/13.2.0</span>
-<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a><span class="ex">ml</span> QUAST/5.2.0</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb19"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="ex">module</span> purge <span class="op">&gt;</span> /dev/null <span class="dv">2</span><span class="op">&gt;&amp;</span><span class="dv">1</span></span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="ex">ml</span> GCC/13.2.0</span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a><span class="ex">ml</span> QUAST/5.2.0</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>To check if QUAST is loaded, run the following command to check its version:</p>
-<div class="sourceCode" id="cb17"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="ex">quast</span> <span class="at">--version</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb20"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="ex">quast</span> <span class="at">--version</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <ol start="3" type="1">
 <li>The general format for running QUAST to evaluate an assembled genome in fasta format is as follows (note: don’t execute this command; it is just an example):</li>
 </ol>
-<div class="sourceCode" id="cb18"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="ex">quast</span> <span class="at">-o</span> <span class="op">&lt;</span>/path/to/desired/output_directory<span class="op">&gt;</span> --min-contig 1 <span class="op">&lt;</span>/path/to/input/contigs.fasta<span class="op">&gt;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb21"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="ex">quast</span> <span class="at">-o</span> <span class="op">&lt;</span>/path/to/desired/output_directory<span class="op">&gt;</span> --min-contig 1 <span class="op">&lt;</span>/path/to/input/contigs.fasta<span class="op">&gt;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>While QUAST has many options other than this (use <code>quast -h</code> to see them), we will just supply our input assembly (<code>mystery_salmonella_A.fna</code>), an output directory (we could name this anything, but let’s call it <code>mystery_salmonella_A_quast</code>), the number of threads (this depends on our computer, but here we will just use <code>--threads 1</code>), and we will change the <code>--min-contig</code> option to <code>--min-contig 1</code> (by default, QUAST sets this parameter to <code>--min-contig 500</code>, but we will lower it to 1 to consider all of our contigs in our assembly, not just those over 500 bp in length)</p>
 <p>To that end, run QUAST using the following command:</p>
-<div class="sourceCode" id="cb19"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="ex">quast</span> <span class="at">-o</span> mystery_salmonella_A_quast <span class="at">--threads</span> 1 <span class="at">--min-contig</span> 1 mystery_salmonella_A.fna</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb22"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="ex">quast</span> <span class="at">-o</span> mystery_salmonella_A_quast <span class="at">--threads</span> 1 <span class="at">--min-contig</span> 1 mystery_salmonella_A.fna</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <ol start="4" type="1">
 <li>When QUAST finishes, we can take a look at one of the text files with a summary of our results. If we type <code>ls</code> and supply the path to our directory with our QUAST results, <code>mystery_salmonella_A_quast</code>, we’ll see that QUAST has produced numerous reports:</li>
 </ol>
-<div class="sourceCode" id="cb20"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span> mystery_salmonella_A_quast</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb23"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span> mystery_salmonella_A_quast</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>If you want to look at the graphical reports that QUAST produced, you can open them in your browser. However, we can quickly view one of the short text-based reports, <code>report.txt</code>, using <code>cat</code>, which will print the text to our terminal in its entirety:</p>
-<div class="sourceCode" id="cb21"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span> mystery_salmonella_A_quast/report.txt</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb24"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span> mystery_salmonella_A_quast/report.txt</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>We can see a lot of valuable statistics for our assembled genome, including its N50, L50, total length, longest contig, distribution of contig lengths, and GC content.</p>
 </section>
 </section>
@@ -2439,6 +2442,446 @@ vertical-align: -.125em;
 <p>Koren, S., et al. 2013. <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4053942/">Reducing assembly complexity of microbial genomes with single-molecule sequencing.</a> <em>Genome Biology</em> 14(9):R101.</p>
 <p>PacBio Blog. September 21, 2016. “Genomes vs. GenNNNes: The Difference between Contigs and Scaffolds in Genome Assemblies”. Accessed April 15, 2019. URL: <a href="https://www.pacb.com/blog/genomes-vs-gennnnes-difference-contigs-scaffolds-genome-assemblies/" class="uri">https://www.pacb.com/blog/genomes-vs-gennnnes-difference-contigs-scaffolds-genome-assemblies/</a></p>
 <p>Souvorov, Agarwala, and Lipman. 2018. <a href="https://genomebiology.biomedcentral.com/articles/10.1186/s13059-018-1540-z">SKESA: strategic k-mer extension for scrupulous assemblies.</a> <em>Genome Biology</em> 19: 153.</p>
+<section id="extra-exercise-material" class="level2">
+<h2 class="anchored" data-anchor-id="extra-exercise-material">Extra exercise material</h2>
+<p>Theoretical questions on assembly metrics, k-mers, de Bruijn graphs, repeats, and coverage. Pen-and-paper unless a code chunk is shown.</p>
+<ul>
+<li><strong>QE1.1</strong> Given contigs of length 1000, 700, 500, 400, 200, 100, 50 (total = 2950 bp), compute <strong>N50</strong> and <strong>L50</strong> step by step. Why is N50 sensitive to one very long contig?</li>
+</ul>
+<div class="callout callout-style-simple callout-tip no-icon callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Hint
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-1" class="callout-1-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>Sort contigs from longest to shortest, then keep adding their lengths until you have passed half the total. The length of the contig that pushed you over half is N50; the count of contigs you needed is L50.</p>
+</div>
+</div>
+</div>
+<div class="callout callout-style-simple callout-note no-icon callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-2-contents" aria-controls="callout-2" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Solution
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-2" class="callout-2-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>lens <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1000</span>, <span class="dv">700</span>, <span class="dv">500</span>, <span class="dv">400</span>, <span class="dv">200</span>, <span class="dv">100</span>, <span class="dv">50</span>)</span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>lens <span class="ot">&lt;-</span> <span class="fu">sort</span>(lens, <span class="at">decreasing =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>half <span class="ot">&lt;-</span> <span class="fu">sum</span>(lens) <span class="sc">/</span> <span class="dv">2</span></span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a>csum <span class="ot">&lt;-</span> <span class="fu">cumsum</span>(lens)</span>
+<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a>i <span class="ot">&lt;-</span> <span class="fu">which</span>(csum <span class="sc">&gt;=</span> half)[<span class="dv">1</span>]</span>
+<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a><span class="fu">list</span>(<span class="at">N50 =</span> lens[i], <span class="at">L50 =</span> i, <span class="at">total =</span> <span class="fu">sum</span>(lens), <span class="at">half =</span> half)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>$N50
+[1] 700
+
+$L50
+[1] 2
+
+$total
+[1] 2950
+
+$half
+[1] 1475</code></pre>
+</div>
+</div>
+<p>Walking through: cumulative sums are 1000, 1700, 2200, … — half of 2950 is 1475, which is first exceeded at index 2 (cumulative 1700). So <strong>N50 = 700, L50 = 2</strong>.</p>
+<p>N50 is sensitive to a single long contig because it’s a <em>weighted median</em> — half the assembly’s bases live in contigs ≥ N50. Stretching one contig pulls a lot of bases over the half-way mark, dragging N50 up. Reporting alongside L50 and total assembly length is essential to avoid being misled.</p>
+</div>
+</div>
+</div>
+<ul>
+<li><strong>QE1.2</strong> A read of length L is broken into k-mers. Show that there are L − k + 1 k-mers per read. Derive the relationship <code>k-mer coverage = read coverage × (L − k + 1) / L</code>, and explain why a sequencer that gives you 100× <em>read</em> coverage may give you only 80× k-mer coverage at k = 31.</li>
+</ul>
+<div class="callout callout-style-simple callout-tip no-icon callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-3-contents" aria-controls="callout-3" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Hint
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-3" class="callout-3-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>A k-mer is a window of size k sliding along the read. How many distinct positions can the window start at, given the window must fit inside the read?</p>
+</div>
+</div>
+</div>
+<div class="callout callout-style-simple callout-note no-icon callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-4-contents" aria-controls="callout-4" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Solution
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-4" class="callout-4-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>A k-mer can start at positions 1, 2, …, L − k + 1 (any later start runs off the read end). So there are exactly L − k + 1 k-mers per read.</p>
+<p>Total k-mers = (number of reads) × (L − k + 1). Genome size G is fixed. Read coverage c_read = (reads × L) / G. K-mer coverage c_kmer = (reads × (L − k + 1)) / G = c_read × (L − k + 1) / L.</p>
+<p>For L = 150 and k = 31: factor = 120 / 150 = 0.8, so 100× read coverage → 80× k-mer coverage. Assemblers care about <em>k-mer</em> coverage, not read coverage, so trimming reads or picking a large k can quietly starve the assembler of evidence.</p>
+</div>
+</div>
+</div>
+<ul>
+<li><strong>QE1.3</strong> What goes wrong if k is <strong>too small</strong> (say k = 7) for a 5 Mb bacterial genome? What goes wrong if k is <strong>too large</strong> (say k = 99 with 150 bp reads)? Sketch the trade-off.</li>
+</ul>
+<div class="callout callout-style-simple callout-tip no-icon callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-5-contents" aria-controls="callout-5" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Hint
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-5" class="callout-5-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>For each extreme, ask: how many distinct k-mers are <em>possible</em>, and how many <em>actually appear</em> in the genome? When k is small, are k-mers likely to be unique? When k is large, how many k-mers do you get per read?</p>
+</div>
+</div>
+</div>
+<div class="callout callout-style-simple callout-note no-icon callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-6-contents" aria-controls="callout-6" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Solution
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-6" class="callout-6-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<ul>
+<li><strong>k too small (k = 7).</strong> Only 4⁷ = 16384 possible k-mers but the 5 Mb genome contains ~5 × 10⁶ k-mer positions, so nearly every 7-mer occurs hundreds of times. The de Bruijn graph collapses into a hairball: edges everywhere, no unique walk. Assembly is impossible.</li>
+<li><strong>k too large (k = 99, L = 150).</strong> Only L − k + 1 = 52 k-mers per read, and any sequencing error within a read destroys all 99 k-mers that span it. Coverage in k-mer space collapses; many true k-mers are missing from the graph, leading to fragmentation.</li>
+</ul>
+<p>Sweet spot for short Illumina + bacterial genome is typically k = 31–55. The trade-off: small k → graph is dense and tangled (repeats merge); large k → graph is sparse and broken (gaps and errors dominate).</p>
+</div>
+</div>
+</div>
+<ul>
+<li><strong>QE1.4</strong> Construct the (k = 3) de Bruijn graph for <code>ATGGAAGTC</code>. List the (k−1)-mer nodes and the directed edges (each edge is a k-mer). Walk it and confirm you recover the original sequence.</li>
+</ul>
+<div class="callout callout-style-simple callout-tip no-icon callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-7-contents" aria-controls="callout-7" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Hint
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-7" class="callout-7-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>For k = 3, each node is a 2-mer (prefix or suffix of a 3-mer). Each 3-mer becomes an edge from its first 2 letters to its last 2 letters.</p>
+</div>
+</div>
+</div>
+<div class="callout callout-style-simple callout-note no-icon callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-8-contents" aria-controls="callout-8" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Solution
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-8" class="callout-8-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>3-mers in <code>ATGGAAGTC</code> (7 of them): <code>ATG, TGG, GGA, GAA, AAG, AGT, GTC</code>.</p>
+<p>Nodes (2-mers visited): <code>AT, TG, GG, GA, AA, AG, GT, TC</code>.</p>
+<p>Edges (one per 3-mer):</p>
+<div class="sourceCode" id="cb27"><pre class="sourceCode default code-with-copy"><code class="sourceCode default"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>AT -&gt; TG    (from ATG)</span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>TG -&gt; GG    (from TGG)</span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>GG -&gt; GA    (from GGA)</span>
+<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a>GA -&gt; AA    (from GAA)</span>
+<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a>AA -&gt; AG    (from AAG)</span>
+<span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a>AG -&gt; GT    (from AGT)</span>
+<span id="cb27-7"><a href="#cb27-7" aria-hidden="true" tabindex="-1"></a>GT -&gt; TC    (from GTC)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Walking from <code>AT</code> along all 7 edges spells out <code>AT → TG → GG → GA → AA → AG → GT → TC</code>. Concatenating the first letter of each node plus the suffix of the last node gives <code>A T G G A A G T C</code> — the original sequence. ✓</p>
+</div>
+</div>
+</div>
+<ul>
+<li><strong>QE1.5</strong> A genome contains the motif <code>ACTGCT</code> (length 6) at three different positions. Sketch what the de Bruijn graph looks like around the repeat for <strong>k &lt; 6</strong> versus <strong>k &gt; 6</strong>. Explain in one sentence why repeats longer than k cause assembly fragmentation.</li>
+</ul>
+<div class="callout callout-style-simple callout-tip no-icon callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-9-contents" aria-controls="callout-9" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Hint
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-9" class="callout-9-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>At what k does the entire repeat fit inside a single k-mer? Until that happens, the repeat is “stitched together” from shorter pieces shared by all three copies.</p>
+</div>
+</div>
+</div>
+<div class="callout callout-style-simple callout-note no-icon callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-10-contents" aria-controls="callout-10" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Solution
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-10" class="callout-10-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<ul>
+<li><strong>k &lt; 6 (e.g. k = 4).</strong> Every 4-mer inside <code>ACTGCT</code> (<code>ACTG</code>, <code>CTGC</code>, <code>TGCT</code>) occurs three times in the genome. The graph has a single shared “ACTGCT” path that all three copies funnel through, with three incoming edges (one per upstream context) and three outgoing edges (one per downstream context). The assembler can’t tell which incoming edge pairs with which outgoing — it has to stop and start a new contig at each junction.</li>
+<li><strong>k &gt; 6 (e.g. k = 7).</strong> A 7-mer like <code>XACTGCT</code> includes one upstream base, so each of the three repeat copies has a <em>distinct</em> 7-mer. The repeat is no longer shared: the path is unique per copy, and the assembler can extend straight through.</li>
+</ul>
+<p><strong>One-liner:</strong> repeats longer than k merge into a single shared graph node, creating ambiguous junctions that the assembler can only resolve by ending contigs.</p>
+</div>
+</div>
+</div>
+<ul>
+<li><strong>QE1.6</strong> List <strong>three</strong> properties of bacterial genomes that make them easier to assemble than eukaryotic ones, and <strong>one</strong> property that still makes bacterial assembly hard.</li>
+</ul>
+<div class="callout callout-style-simple callout-tip no-icon callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-11-contents" aria-controls="callout-11" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Hint
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-11" class="callout-11-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>Think about: size, repeat content, ploidy, and the kinds of repeats that do exist in bacteria (e.g. rRNA operons, mobile elements).</p>
+</div>
+</div>
+</div>
+<div class="callout callout-style-simple callout-note no-icon callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-12-contents" aria-controls="callout-12" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Solution
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-12" class="callout-12-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>Bacterial assembly is easier because:</p>
+<ol type="1">
+<li><strong>Small genome</strong> (typically 1–10 Mb) — modest k-mer space, modest compute.</li>
+<li><strong>Haploid</strong> — no allelic heterozygosity to disentangle (a SNP either is or isn’t there).</li>
+<li><strong>Low repeat content</strong> — most of the genome is unique single-copy sequence; in eukaryotes, 30–70 % can be repetitive.</li>
+</ol>
+<p>Bacterial assembly is <strong>still hard</strong> because rRNA operons (5S–16S–23S) are typically present in 5–7 nearly-identical copies and are several kb long — well beyond Illumina read length. These collapse in the de Bruijn graph and produce the most common gaps in bacterial assemblies.</p>
+</div>
+</div>
+</div>
+<ul>
+<li><strong>QE1.7</strong> A QUAST run on a <em>Salmonella</em> assembly reports: N50 = 12 kb, total length = 5.1 Mb, # contigs = 850, # Ns = 4000, largest contig = 85 kb. Is this a “good” assembly? Defend your answer using at least three metrics.</li>
+</ul>
+<div class="callout callout-style-simple callout-tip no-icon callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-13-contents" aria-controls="callout-13" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Hint
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-13" class="callout-13-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>What do you <em>expect</em> for a <em>Salmonella</em> genome? Compare each metric to that expectation.</p>
+</div>
+</div>
+</div>
+<div class="callout callout-style-simple callout-note no-icon callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-14-contents" aria-controls="callout-14" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Solution
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-14" class="callout-14-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p><em>Salmonella enterica</em> has a ~5 Mb circular chromosome, ideally producing one or a few large contigs in a perfect assembly.</p>
+<ul>
+<li><strong>Total length (5.1 Mb)</strong> — matches the expected genome size. ✓ The assembly is neither truncated nor inflated by contamination.</li>
+<li><strong># contigs (850)</strong> — far higher than ideal. A clean short-read <em>Salmonella</em> assembly is typically 50–200 contigs; 850 suggests low coverage, high error, or stringent filtering kept tiny contigs.</li>
+<li><strong>N50 (12 kb)</strong> — modest. Good short-read assemblies hit 50–200 kb. Twelve kb means half the assembly is in contigs <em>shorter</em> than a typical operon.</li>
+<li><strong>Largest contig (85 kb)</strong> — reasonable but not great; the rRNA operons (≈5 kb × 7 copies) and IS elements are still breaking things up.</li>
+<li><strong># Ns (4000)</strong> — small relative to 5 Mb (~0.08 %); the contigs themselves are clean, the fragmentation is the issue.</li>
+</ul>
+<p><strong>Verdict:</strong> usable for variant calling and gene presence/absence (where contiguity matters less), but you’d want long-read scaffolding (Nanopore/PacBio) before publishing or doing structural variant work.</p>
+</div>
+</div>
+</div>
+<ul>
+<li><strong>QE1.8</strong> Using the Lander–Waterman result, P(base uncovered) = e^−c for coverage c. What fraction of the genome is uncovered at c = 5×? At c = 30×? At c = 200×? Why does extra coverage past ~50× give diminishing returns for assembly?</li>
+</ul>
+<div class="callout callout-style-simple callout-tip no-icon callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-15-contents" aria-controls="callout-15" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Hint
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-15" class="callout-15-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>e^−5, e^−30, e^−200 — three very different orders of magnitude.</p>
+</div>
+</div>
+</div>
+<div class="callout callout-style-simple callout-note no-icon callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-16-contents" aria-controls="callout-16" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Solution
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-16" class="callout-16-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>c <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">5</span>, <span class="dv">30</span>, <span class="dv">200</span>)</span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>p_uncov <span class="ot">&lt;-</span> <span class="fu">exp</span>(<span class="sc">-</span>c)</span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a><span class="fu">data.frame</span>(<span class="at">coverage =</span> c, <span class="at">fraction_uncovered =</span> p_uncov,</span>
+<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a>           <span class="at">bases_missing_in_5Mb =</span> p_uncov <span class="sc">*</span> <span class="fl">5e6</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  coverage fraction_uncovered bases_missing_in_5Mb
+1        5       6.737947e-03         3.368973e+04
+2       30       9.357623e-14         4.678811e-07
+3      200       1.383897e-87         6.919483e-81</code></pre>
+</div>
+</div>
+<ul>
+<li>5× → ~0.67 % uncovered (~33 kb of a 5 Mb genome).</li>
+<li>30× → ~9 × 10⁻¹⁴ — effectively zero bases uncovered.</li>
+<li>200× → ~10⁻⁸⁷ — astronomically zero.</li>
+</ul>
+<p>Past ~30–50× the random-uncovered-base concern is gone; remaining assembly problems come from <strong>non-random</strong> issues that more coverage doesn’t fix: high-GC dropout, secondary structure, low-complexity regions, repeats longer than the read. Extra coverage past this point doesn’t extend contigs — it just makes assembly slower and pushes the assembler toward over-merging error variants. Many bacterial assemblers (including SKESA) actually <em>downsample</em> high-coverage data.</p>
+</div>
+</div>
+</div>
+<ul>
+<li><strong>QE1.9</strong> Single reads can’t span a repeat longer than the read length. How does paired-end information help bridge such a repeat in the de Bruijn graph? What insert size would you choose for a genome whose longest repeat is ~700 bp?</li>
+</ul>
+<div class="callout callout-style-simple callout-tip no-icon callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-17-contents" aria-controls="callout-17" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Hint
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-17" class="callout-17-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>A read pair “anchors” two reads at known distance apart. If one end maps to unique sequence and the other end maps just past the repeat…</p>
+</div>
+</div>
+</div>
+<div class="callout callout-style-simple callout-note no-icon callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-18-contents" aria-controls="callout-18" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Solution
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-18" class="callout-18-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>A repeat longer than the read collapses into a single shared graph node with multiple incoming and outgoing edges (see QE1.5). A read pair with insert size &gt; repeat length provides the missing information: read 1 anchors in the <em>unique</em> region upstream of the repeat, read 2 anchors in the <em>unique</em> region downstream. Both reads sit on either side of the repeat, even if neither one spans it. The assembler / scaffolder can now match incoming edge X with the correct outgoing edge Y, because the unique anchors on the read pair commit to a specific pairing.</p>
+<p>For a 700 bp repeat, you want the <em>insert size</em> (not the read length) to comfortably exceed 700 bp — so an insert size around 800–1000 bp gives you anchors on both flanks for most pairs. Add a margin for insert-size variability: a 250 bp mean insert won’t help here; a 600 bp mean insert helps only some of the time; ~1 kb is comfortable.</p>
+<p>(For repeats &gt; 1 kb, the standard answer is to add a long-read library — see QE1.10.)</p>
+</div>
+</div>
+</div>
+<ul>
+<li><strong>QE1.10</strong> Short Illumina reads have high per-base accuracy (Q30+) but limited span; Nanopore/PacBio reads have lower per-base accuracy (Q10–20 raw) but span tens of kb. Sketch a workflow that uses <strong>both</strong> and explain what each contributes.</li>
+</ul>
+<div class="callout callout-style-simple callout-tip no-icon callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-19-contents" aria-controls="callout-19" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Hint
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-19" class="callout-19-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>“Hybrid assembly” — use long reads to lay down a scaffold and short reads to polish each base.</p>
+</div>
+</div>
+</div>
+<div class="callout callout-style-simple callout-note no-icon callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-20-contents" aria-controls="callout-20" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Solution
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-20" class="callout-20-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>A typical hybrid workflow (e.g. with Unicycler or Trycycler + Polypolish/Pilon):</p>
+<ol type="1">
+<li><strong>Assemble long reads</strong> (Nanopore or PacBio HiFi) with <code>flye</code> or <code>canu</code> → produces few, long contigs that span repeats and rRNA operons. Often closes the genome to a single circular chromosome + plasmids.</li>
+<li><strong>Polish with short reads</strong> — map Illumina reads back to the long-read assembly and correct base-level errors with <code>polypolish</code> or <code>pilon</code>. This typically fixes the systematic homopolymer indels that Nanopore is prone to.</li>
+<li><strong>Verify</strong> — re-map short reads, look for residual mismatches, check completeness with <code>BUSCO</code> or <code>CheckM</code>.</li>
+</ol>
+<p>What each side contributes:</p>
+<ul>
+<li><strong>Long reads → contiguity / structure.</strong> They span repeats &gt; read length and resolve graph branches. Without them, repeats fragment the assembly.</li>
+<li><strong>Short reads → per-base accuracy.</strong> They fix the small (1–2 bp) errors that long reads leave behind, especially in homopolymer runs.</li>
+</ul>
+<p>PacBio HiFi has narrowed the gap (per-base Q30 <em>and</em> long), so HiFi-only assemblies are increasingly competitive — but for many labs, hybrid Illumina + Nanopore is still the cost-effective sweet spot.</p>
+</div>
+</div>
+</div>
+</section>
 </section>
 
 </main>

@@ -560,3 +560,190 @@ Zhou, Shen, Hittinger, and Rokas. 2018. [Evaluating Fast Maximum Likelihood-Base
 
 
 
+
+## Extra exercise material
+
+Theoretical questions on tree-building, substitution models, bootstrap, and rooting. Pen-and-paper unless a code chunk is shown.
+
+- **QE1.1** Two aligned 1000-bp sequences differ at 50 positions. Compute the **raw (p) distance** and the **Jukes–Cantor corrected distance**. Why is the JC distance greater than p?
+
+::: {.callout-tip collapse="true" appearance="minimal"}
+## Hint
+$p = $ fraction of sites that differ. JC: $d_{JC} = -\tfrac{3}{4}\ln\!\left(1 - \tfrac{4}{3}p\right)$.
+:::
+
+::: {.callout-note collapse="true" appearance="minimal"}
+## Solution
+```{r, eval=TRUE}
+p <- 50 / 1000
+d_jc <- -3/4 * log(1 - 4/3 * p)
+list(p = p, d_jc = d_jc)
+```
+p = 0.05; JC distance ≈ 0.0517. JC > p because the raw count under-counts *multiple substitutions* at the same site: at p = 5 % the correction is small, but as p grows the correction explodes (and p saturates near 0.75 — see QE1.2).
+:::
+
+- **QE1.2** Show that the raw distance p saturates at 0.75 for unrelated sequences, and that JC corrects for this. What happens to the JC formula at p = 0.74? At p = 0.75?
+
+::: {.callout-tip collapse="true" appearance="minimal"}
+## Hint
+For two random sequences of equal base composition, what fraction of positions match by chance? Then inspect $1 - \tfrac{4}{3}p$.
+:::
+
+::: {.callout-note collapse="true" appearance="minimal"}
+## Solution
+Two random sequences with equal base frequencies (each of A,C,G,T at 25 %) agree at any given site with probability 1/4, so they *differ* with probability 3/4 = 0.75. Raw distance saturates at this value regardless of how long ago they actually diverged.
+
+```{r, eval=TRUE}
+p_vals <- c(0.05, 0.30, 0.50, 0.70, 0.74, 0.7499)
+d_jc <- -3/4 * log(1 - 4/3 * p_vals)
+data.frame(p = p_vals, d_jc = d_jc)
+```
+At p = 0.74, JC ≈ 1.65 substitutions per site; as p → 0.75, JC → ∞. The corrected distance recognises that high p means *many* substitutions have happened, possibly multiple per site. Above ~0.65 the estimate becomes very noisy though, and any phylogeny relying on such distances is on shaky ground.
+:::
+
+- **QE1.3** **NJ vs UPGMA.** Both build trees from a distance matrix. State one assumption UPGMA makes that NJ does not, and give a scenario where applying UPGMA produces a clearly wrong tree.
+
+::: {.callout-tip collapse="true" appearance="minimal"}
+## Hint
+What does UPGMA require to be true about the rate of evolution along each branch?
+:::
+
+::: {.callout-note collapse="true" appearance="minimal"}
+## Solution
+UPGMA assumes a **molecular clock**: the rate of substitution is the same along every branch, so the distance from the root to each tip is identical (an *ultrametric* tree). NJ does not assume this — it allows different rates on different branches.
+
+Bad-for-UPGMA scenario: an outgroup or a fast-evolving lineage. Suppose A and B are sister taxa, but B has accumulated mutations twice as fast. UPGMA reads B as being more distant from A than it actually is and may group B with the outgroup instead — long-branch attraction in distance form. For real-world bacterial trees with different generation times or selective pressures across lineages, **always use NJ (or ML / Bayesian) rather than UPGMA**.
+:::
+
+- **QE1.4** **Maximum parsimony.** Given an alignment, MP returns the tree that minimises the total number of state changes across the tree. Give one strength and one weakness of MP relative to maximum likelihood.
+
+::: {.callout-tip collapse="true" appearance="minimal"}
+## Hint
+MP doesn't use a substitution model. Is that a feature or a bug?
+:::
+
+::: {.callout-note collapse="true" appearance="minimal"}
+## Solution
+**Strength.** MP is **model-free**: you don't have to commit to a JC/HKY/GTR substitution model, so MP can't be misled by a bad model choice. Computationally cheap, intuitive, and a sensible default when sequences are very closely related (low divergence ⇒ few multiple-hits to worry about).
+
+**Weakness.** MP **ignores branch length**, so it can't account for multiple substitutions at the same site. In high-divergence regions it under-counts changes systematically. This is the textbook setup for **long-branch attraction** (QE1.6): unrelated long branches share many homoplastic substitutions by chance, and MP groups them together because that gives the lowest change count. ML with a proper substitution model handles this correctly.
+:::
+
+- **QE1.5** A clade has **95 % bootstrap support**; another has 60 %. What does this mean? What does bootstrap *not* tell you?
+
+::: {.callout-tip collapse="true" appearance="minimal"}
+## Hint
+Bootstrap resamples the data, not the tree.
+:::
+
+::: {.callout-note collapse="true" appearance="minimal"}
+## Solution
+Bootstrap procedure: resample alignment columns *with replacement* to produce a pseudo-alignment of the same length, rebuild the tree, repeat (typically 100–1000 times). The bootstrap support for a clade is the fraction of pseudo-replicates that recover that clade.
+
+**95 %** → 95 % of resampled alignments support this clade; the signal is robust to which specific alignment columns you sample. **60 %** → the clade is sensitive to which columns are included; it depends on a handful of informative sites.
+
+What bootstrap does **not** tell you:
+
+- Nothing about whether the tree is **true** — only how robust it is to the data you have. A systematic bias (e.g. compositional non-stationarity, a wrong substitution model) gives wrong but high-bootstrap clades.
+- Nothing about other plausible topologies — only about this clade vs all alternatives lumped together.
+- Bootstrap is famously *anti-conservative* under high homoplasy: a value of 100 % does not mean "the clade is certainly correct."
+:::
+
+- **QE1.6** **Long-branch attraction.** Sketch how LBA can lead to a wrong tree. Why is it especially a problem for parsimony?
+
+::: {.callout-tip collapse="true" appearance="minimal"}
+## Hint
+Picture four taxa, two of which have very long branches (rapid evolution) and two short branches. What homoplastic ("by chance") similarities will the two long branches share?
+:::
+
+::: {.callout-note collapse="true" appearance="minimal"}
+## Solution
+Four-taxon setup with true tree `((A, B), (C, D))` where A and C have much longer branches (fast evolvers) than B and D. Over time, A and C accumulate many substitutions independently. By chance, many of these end up at the same alignment column and convert that column to the same state — *convergent* / *homoplastic* similarities.
+
+A parsimony analysis counts every shared state as evidence of common ancestry. The shared-by-chance positions outnumber the truly shared-derived ones from the deeper (A,B) and (C,D) splits, so MP infers `((A, C), (B, D))` — the long branches are *attracted* to each other.
+
+MP is uniquely vulnerable because it has no substitution model and so cannot down-weight obviously homoplastic sites. ML and Bayesian methods, given a reasonable substitution model with branch-length-dependent change probabilities, correctly recognise that long branches accumulate independent random changes.
+:::
+
+- **QE1.7** Why do you need an **outgroup** to root an unrooted tree? What makes a good outgroup choice for a tree of *Salmonella* serovars?
+
+::: {.callout-tip collapse="true" appearance="minimal"}
+## Hint
+An unrooted tree has no preferred direction of time. Adding an outgroup creates a known "early-branching" leaf.
+:::
+
+::: {.callout-note collapse="true" appearance="minimal"}
+## Solution
+A standard phylogenetic method produces an *unrooted* topology — it tells you which taxa are more similar than others but not which split happened first. To root, you need an external reference point: an outgroup that is definitely *more distantly* related than any pair of ingroup taxa. The branch connecting the outgroup to the rest of the tree must include the root, so placing the root on that branch orients time.
+
+A good outgroup is:
+
+- **Definitely outside the ingroup** (no ambiguity about which "side" of the root it sits on).
+- **Not so distant that it's a long branch by itself** — that re-introduces long-branch attraction and can pull the root toward whichever ingroup taxon happens to be evolving fast.
+- **Reasonably well-sequenced and not from a hyper-mutator lineage.**
+
+For *Salmonella* serovars: another *Salmonella* species (e.g. *S. bongori* is the classic outgroup for *S. enterica* serovars), or a close *Enterobacteriaceae* relative like *Escherichia coli* if you want a deeper root. Don't use a Gram-positive species as the outgroup — too far away.
+:::
+
+- **QE1.8** In a **SNP-based** tree (e.g. from Parsnp / FastTree on core-genome SNPs), what do branch lengths measure? In a tree built from a **concatenated whole-genome alignment**, what do they measure? Why can SNP-only trees produce misleadingly long branches?
+
+::: {.callout-tip collapse="true" appearance="minimal"}
+## Hint
+A SNP-only alignment excludes monomorphic (constant) sites by construction.
+:::
+
+::: {.callout-note collapse="true" appearance="minimal"}
+## Solution
+- **Concatenated whole-genome tree**: branch lengths are expected substitutions per site over the *entire* alignment. They are directly comparable to substitution rates and to each other.
+- **SNP-only tree**: branch lengths are substitutions *per variable site*. The constant sites (~99.9 % of the genome for closely related strains) are thrown away.
+
+If you forget to *ascertainment-correct* for the missing constant sites, every branch gets multiplied by roughly (genome length) / (number of SNPs) — branch lengths look enormous and you can't compare them across studies. Some tools (RAxML's `-m ASC_GTRGAMMA` / `--asc-corr lewis`) apply a Lewis ascertainment correction that recovers comparable branch lengths. Always check whether your SNP-tree workflow includes this; otherwise treat branch lengths as relative within the tree only.
+:::
+
+- **QE1.9** **Mashtree** builds trees from MinHash sketches of whole genomes; tools like Parsnp + FastTree build trees from core-genome SNPs. What does mashtree gain in speed, and what does it lose vs. SNP-based methods?
+
+::: {.callout-tip collapse="true" appearance="minimal"}
+## Hint
+What information is in a MinHash sketch, and what is not?
+:::
+
+::: {.callout-note collapse="true" appearance="minimal"}
+## Solution
+**Mash / MinHash:** each genome is reduced to a fixed-size sketch of ~1000 hashed k-mers. Pairwise Mash distance is essentially 1 − (Jaccard similarity of the two sketches), converted to an approximate sequence-divergence estimate.
+
+**Gains:**
+
+- **Speed and scale.** Distances scale O(N) per genome regardless of genome size; you can build trees from 10 000+ genomes in minutes — try that with Parsnp.
+- **Assembly-free.** Works on raw reads or assemblies. No alignment step.
+- **Robust to accessory-genome content** because k-mers from any part of the genome contribute.
+
+**Losses:**
+
+- **Approximate, not exact.** Two genomes with the same MinHash distance can have very different SNP profiles; the relation is noisy below ~0.001 distance (very close strains).
+- **Distance-based only.** You lose all character-state information — you can't do an ML / Bayesian analysis on sketches.
+- **No substitution-model correction.** The Mash distance is essentially raw; ASC-correction, GTR, etc. don't apply.
+- **No bootstrap confidence per clade.** (mashtree provides a different "min-confidence" estimate.)
+
+**Rule of thumb:** mashtree for screening (which strains cluster together among 5000 genomes?), SNP-based ML for the final publication-grade tree of the ~50 most relevant strains.
+:::
+
+- **QE1.10** **Substitution-model choice.** When is JC adequate? When do you need GTR + Γ + I? What does each extra parameter capture?
+
+::: {.callout-tip collapse="true" appearance="minimal"}
+## Hint
+JC = simplest (all rates equal, equal base frequencies). GTR = most general reversible model (6 rates, 4 frequencies). Γ adds rate variation across sites. I adds a fraction of invariant sites.
+:::
+
+::: {.callout-note collapse="true" appearance="minimal"}
+## Solution
+| Model | What it adds | When you need it |
+|-------|--------------|------------------|
+| **JC** | All 6 substitution rates equal; equal base frequencies. | Very close strains, short alignments, simple SNP-distance work. |
+| **K2P** | Distinguishes transitions vs transversions. | Most coding sequences (Ts:Tv ≈ 2–3 in bacteria). |
+| **HKY** | K2P + unequal base frequencies. | Genomes with skewed GC content. |
+| **GTR** | All 6 substitution rates free, 4 base frequencies. | The default for whole-genome data and any non-trivial divergence. |
+| **+ Γ** | Rate heterogeneity across sites (a Γ-distributed rate multiplier). | Real alignments: some sites evolve faster than others (e.g. 3rd codon positions, hypervariable loops). Almost always improves fit. |
+| **+ I** | A fraction of *invariant* sites (sites that never change, e.g. functionally constrained positions). | When part of the alignment has stayed constant despite enough time for others to change. |
+
+**GTR + Γ + I** is the standard one-size-fits-most choice for empirical work. Use a model-test tool (`jModelTest`, `IQ-TREE`'s ModelFinder) to pick the best fit by AIC/BIC for your specific dataset — and remember that beyond a point, more parameters *over-fit* and hurt rather than help.
+:::
