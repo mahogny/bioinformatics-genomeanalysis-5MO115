@@ -19,13 +19,90 @@ We included bootstrapping in this course simply because it is such a Swiss army 
 
 The central limit theorem states that the average of N i.i.d. variables having variance $\sigma^2$ converges toward a normal distribution with variance $\sigma^2 / N$. With bootstrap we can show also what a complex distribution it can have for small N!
 
-- Take inspiration from `bootstrap_basics.R` (course file).
+- Take inspiration from `bootstrap_basics.R` (in [`bootstrap_and_sim.zip`](data/bootstrap_and_sim.zip)).
 - As for the number of bootstraps, just keep it "somewhat high". The higher it is, the more precise is your answer. Motivating the number of bootstraps is beyond this course. In practice, the number is picked based on experience. By running the same bootstrap multiple times, you can assess if the precision appears "good enough" for your problem. Tricks to increase precision include parametric bootstrapping, and bias correction. Again, both of these are outside this course, but see Deep reading at the end of this module.
 
 - **Q1.1**. Plot the distribution of the mean for several different N; get an intuition for what is going on.
+
+::: {.callout-tip collapse="true" appearance="minimal"}
+## Hint
+For each `N`, draw `N` samples from your base distribution, take the mean, and repeat many times. `replicate()` is your friend.
+:::
+
+::: {.callout-tip collapse="true" appearance="minimal"}
+## Hint
+Use `hist()` (or `ggplot`) on the vector of means. Try `N <- c(1, 2, 5, 10, 50)` and use `par(mfrow=c(2,3))` to see them side by side.
+:::
+
+::: {.callout-note collapse="true" appearance="minimal"}
+## Solution
+```{r, eval=FALSE}
+nboot <- 10000
+Ns <- c(1, 2, 5, 10, 50)
+par(mfrow = c(2, 3))
+for (N in Ns) {
+  means <- replicate(nboot, mean(runif(N)))  # base dist = Uniform(0,1)
+  hist(means, breaks = 40, main = paste("N =", N), xlab = "sample mean")
+}
+# As N grows the histogram narrows and looks more Gaussian — the CLT in action.
+```
+:::
+
 - **Q1.2.** Change the distribution of the samples to be Poisson(5). What does the distribution of the mean look like?
+
+::: {.callout-tip collapse="true" appearance="minimal"}
+## Hint
+Swap `runif(N)` for `rpois(N, lambda = 5)`. Everything else stays the same.
+:::
+
+::: {.callout-note collapse="true" appearance="minimal"}
+## Solution
+```{r, eval=FALSE}
+nboot <- 10000
+Ns <- c(1, 2, 5, 10, 50)
+par(mfrow = c(2, 3))
+for (N in Ns) {
+  means <- replicate(nboot, mean(rpois(N, lambda = 5)))
+  hist(means, breaks = 40, main = paste("N =", N), xlab = "sample mean")
+}
+# For N=1 you see the discrete Poisson; as N grows it becomes a smooth bell
+# centred at 5 with variance 5/N — exactly what the CLT predicts.
+```
+:::
+
 - **Q1.3**. Optional: Make the distribution of the samples a Gaussian mixture model and see how it affects things.
     - GMMs are also used for unsupervised clustering. If you are interested, see for example this video for an introduction to how they can be fitted to data: <https://www.youtube.com/watch?v=REypj2sy_5U>.
+
+::: {.callout-tip collapse="true" appearance="minimal"}
+## Hint
+To sample from a GMM: first pick a component (e.g. with `sample()` according to mixture weights), then draw from that component's `rnorm()`.
+:::
+
+::: {.callout-tip collapse="true" appearance="minimal"}
+## Hint
+A two-component mixture with well-separated means gives a clearly bimodal base distribution — but the mean-of-N still converges to a single Gaussian.
+:::
+
+::: {.callout-note collapse="true" appearance="minimal"}
+## Solution
+```{r, eval=FALSE}
+rgmm <- function(n, mus = c(-3, 3), sds = c(1, 1), w = c(0.5, 0.5)) {
+  k <- sample(seq_along(mus), n, replace = TRUE, prob = w)
+  rnorm(n, mean = mus[k], sd = sds[k])
+}
+
+nboot <- 10000
+Ns <- c(1, 2, 5, 10, 50)
+par(mfrow = c(2, 3))
+for (N in Ns) {
+  means <- replicate(nboot, mean(rgmm(N)))
+  hist(means, breaks = 40, main = paste("N =", N), xlab = "sample mean")
+}
+# N=1: clearly bimodal. As N grows the bimodality vanishes and a single
+# Gaussian emerges around the overall mean. The CLT works even for ugly
+# base distributions, as long as the variance is finite.
+```
+:::
 
 ## Simulations, with and without bootstrap
 
@@ -33,30 +110,279 @@ The central limit theorem states that the average of N i.i.d. variables having v
 
 **Use bootstrap over a simulation of a birth-death process:**
 
-- The example code is in `birth_death.R` (course file).
+- The example code is in `birth_death.R` (in [`bootstrap_and_sim.zip`](data/bootstrap_and_sim.zip)).
 - **Q2.1** Very optional, if you like math. If X ~ Poisson(a) and Y ~ Poisson(b), show that X+Y ~ Poisson(a+b).
-    - Hint: This is mainly a brute-force exercise in computing sums. Use that X and Y are positive variables, and thus the sum is finite.
+
+::: {.callout-tip collapse="true" appearance="minimal"}
+## Hint
+This is mainly a brute-force exercise in computing sums. Use that X and Y are positive variables, and thus the sum is finite.
+:::
+
+::: {.callout-tip collapse="true" appearance="minimal"}
+## Hint
+Write $P(X+Y=n)$ as a convolution $\sum_{k=0}^{n} P(X=k)\,P(Y=n-k)$. Pull out $e^{-(a+b)}/n!$ and recognise the binomial theorem inside.
+:::
+
+::: {.callout-note collapse="true" appearance="minimal"}
+## Solution
+Using independence and the convolution formula,
+$$
+P(X+Y=n) = \sum_{k=0}^{n} P(X=k)\,P(Y=n-k)
+        = \sum_{k=0}^{n} \frac{a^{k} e^{-a}}{k!}\,\frac{b^{n-k} e^{-b}}{(n-k)!}.
+$$
+Factor out the constants and multiply by $n!/n!$:
+$$
+= \frac{e^{-(a+b)}}{n!} \sum_{k=0}^{n} \binom{n}{k}\, a^{k}\, b^{n-k}.
+$$
+By the binomial theorem the sum equals $(a+b)^n$, so
+$$
+P(X+Y=n) = \frac{(a+b)^{n} e^{-(a+b)}}{n!},
+$$
+which is exactly the pmf of $\text{Poisson}(a+b)$. $\blacksquare$
+:::
+
 - **Q2.2** If you start with n=10, and $\alpha = 0.95$, what is the average time until the population dies out?
     - To compute the average, wrap all the code in a loop, and run it multiple times. Keep the time of death for each iteration in the loop.
-    - Hint: You do not need to use functions if you prefer not; you can instead opt to wrap all the code inside a plain for-loop.
-    - Hint: In a for-loop, you can keep adding values to a list as follows:
-    - `mylist <- c(); for (...) { ...... mylist <- c(mylist, new_value) }`
+
+::: {.callout-tip collapse="true" appearance="minimal"}
+## Hint
+You do not need to use functions if you prefer not; you can instead opt to wrap all the code inside a plain for-loop.
+:::
+
+::: {.callout-tip collapse="true" appearance="minimal"}
+## Hint
+In a for-loop, you can keep adding values to a list as follows:
+`mylist <- c(); for (...) { ...... mylist <- c(mylist, new_value) }`
+:::
+
+::: {.callout-note collapse="true" appearance="minimal"}
+## Solution
+```{r, eval=FALSE}
+alpha <- 0.95
+n0    <- 10
+nboot <- 2000
+
+times_of_death <- c()
+for (b in 1:nboot) {
+  n <- n0
+  t <- 0
+  while (n > 0) {
+    n <- rbinom(1, n, alpha)   # each individual survives with prob alpha
+    t <- t + 1
+  }
+  times_of_death <- c(times_of_death, t)
+}
+
+mean(times_of_death)
+# Roughly ~65 timesteps for n0=10, alpha=0.95 (exact value varies with seed).
+```
+:::
+
 - **Q2.3** If you start with n=10, and $\alpha = 0.95$, what is the standard deviation of the time until death?
+
+::: {.callout-tip collapse="true" appearance="minimal"}
+## Hint
+Reuse the `times_of_death` vector from Q2.2 and call `sd()`.
+:::
+
+::: {.callout-note collapse="true" appearance="minimal"}
+## Solution
+```{r, eval=FALSE}
+sd(times_of_death)
+# Typically around 18-20 timesteps — the distribution is fairly broad and right-skewed.
+hist(times_of_death, breaks = 40)
+```
+:::
+
 - **Q2.4** Optional: A measure of relative variance is `std(t) / mean(t)`; qualitatively, how does this depend on n?
     - bonus: Generate a plot showing the trend.
+
+::: {.callout-tip collapse="true" appearance="minimal"}
+## Hint
+Wrap Q2.2 in an outer loop over starting populations `n0`. Save `mean` and `sd` for each.
+:::
+
+::: {.callout-tip collapse="true" appearance="minimal"}
+## Hint
+The ratio `sd/mean` decreases as `n0` grows — larger starting populations have more deterministic crash times (relatively speaking).
+:::
+
+::: {.callout-note collapse="true" appearance="minimal"}
+## Solution
+```{r, eval=FALSE}
+alpha <- 0.95
+nboot <- 1000
+n0s   <- c(2, 5, 10, 20, 50, 100, 200)
+
+ratios <- sapply(n0s, function(n0) {
+  ts <- replicate(nboot, {
+    n <- n0; t <- 0
+    while (n > 0) { n <- rbinom(1, n, alpha); t <- t + 1 }
+    t
+  })
+  sd(ts) / mean(ts)
+})
+
+plot(n0s, ratios, type = "b", log = "x",
+     xlab = "starting n", ylab = "sd(t) / mean(t)")
+# Ratio shrinks with n — relative noise drops, consistent with a 1/sqrt(n)-ish trend.
+```
+:::
+
 - **Q2.5** Optional: The average follows a normal distribution, with the induced variance $\sigma^2 / n$; how many bootstraps need you generate to get the variance of mean time to population crash within ±1 individual, with 95% confidence interval? (This is a bit more mathy; if you know $\sigma$ then `qnorm()` and some math can give you n.)
+
+::: {.callout-tip collapse="true" appearance="minimal"}
+## Hint
+A 95% CI for the mean has half-width $1.96 \cdot \sigma / \sqrt{n}$. Set this equal to 1 and solve for $n$.
+:::
+
+::: {.callout-note collapse="true" appearance="minimal"}
+## Solution
+We require $1.96 \cdot \sigma / \sqrt{n} \le 1$, i.e. $n \ge (1.96\,\sigma)^2$.
+
+```{r, eval=FALSE}
+sigma <- sd(times_of_death)         # from Q2.3, e.g. ~19
+n_needed <- ceiling((qnorm(0.975) * sigma)^2)
+n_needed
+# With sigma ~= 19 this gives n_needed ~= 1400 bootstraps.
+```
+:::
 
 **Practice simulation of the discrete time and finite population Lotka–Volterra model in R:**
 
 Optional: You can do some background reading about the original Lotka–Volterra equations on [Wikipedia](https://en.wikipedia.org/wiki/Lotka%E2%80%93Volterra_equations).
 
-- Start with the prewritten script `lotka_volterra.R`.
+- Start with the prewritten script `lotka_volterra.R` (in [`bootstrap_and_sim.zip`](data/bootstrap_and_sim.zip)).
 - **Q3.1** Currently it plots prey *vs* time, and predators *vs* time; plot instead prey *vs* predators, what is also called the [phase space](https://en.wikipedia.org/wiki/Phase_space) of the state in which the system can be in.
+
+::: {.callout-tip collapse="true" appearance="minimal"}
+## Hint
+Replace the two time-series plots with a single `plot(prey, predators, type = "l")`. The trajectory should curl around an attractor.
+:::
+
+::: {.callout-note collapse="true" appearance="minimal"}
+## Solution
+```{r, eval=FALSE}
+# After running the simulation loop from lotka_volterra.R:
+plot(prey, predators, type = "l",
+     xlab = "prey", ylab = "predators",
+     main = "Phase space")
+points(prey[1], predators[1], pch = 19, col = "green")   # start
+points(tail(prey,1), tail(predators,1), pch = 19, col = "red")  # end
+```
+:::
+
 - **Q3.2** Play with the parameters. For how long can you make it cycle? What seems to make the population crash? (no single correct answer)
+
+::: {.callout-tip collapse="true" appearance="minimal"}
+## Hint
+Try lowering predator efficiency or increasing prey reproduction — cycles widen. Crashes tend to happen when a population dips below ~1 and rounding/randomness kills the last individual.
+:::
+
+::: {.callout-note collapse="true" appearance="minimal"}
+## Solution
+There is no single correct answer. Typical observations:
+
+- Small finite populations crash quickly because Poisson/binomial noise can wipe out predators or prey when their count is low.
+- Very aggressive predation (high attack rate) overshoots the prey and then predators starve.
+- Balanced parameters with larger starting populations can cycle for thousands of timesteps before noise eventually causes a crash.
+
+```{r, eval=FALSE}
+# Example: try a parameter sweep, looking at survival time
+# (see Q3.3 for the wrapped function).
+```
+:::
+
 - **Q3.3** Wrap the simulation in a function so you can bootstrap it.
+
+::: {.callout-tip collapse="true" appearance="minimal"}
+## Hint
+Make the parameters (`n_prey0`, `n_pred0`, the rates, `tmax`) function arguments. Return a data frame or list with the trajectories and the time-of-crash.
+:::
+
+::: {.callout-note collapse="true" appearance="minimal"}
+## Solution
+```{r, eval=FALSE}
+simulate_lv <- function(n_prey0 = 100, n_pred0 = 20,
+                        a = 0.1, b = 0.005,
+                        c = 0.005, d = 0.05,
+                        tmax = 2000) {
+  prey      <- numeric(tmax); prey[1]      <- n_prey0
+  predators <- numeric(tmax); predators[1] <- n_pred0
+  t_crash   <- NA
+  for (t in 2:tmax) {
+    # ... whatever update rule lotka_volterra.R uses,
+    # written in terms of the function arguments above.
+    if (prey[t] <= 0 || predators[t] <= 0) { t_crash <- t; break }
+  }
+  list(prey = prey, predators = predators, t_crash = t_crash)
+}
+```
+:::
+
 - **Q3.4** What is the average time until all prey are eaten?
+
+::: {.callout-tip collapse="true" appearance="minimal"}
+## Hint
+Call `simulate_lv()` many times with `replicate()`, pull out `t_crash`, and take `mean()`. Treat runs that survive to `tmax` carefully — either bump up `tmax` or exclude them.
+:::
+
+::: {.callout-note collapse="true" appearance="minimal"}
+## Solution
+```{r, eval=FALSE}
+nboot <- 500
+ts <- replicate(nboot, simulate_lv()$t_crash)
+mean(ts, na.rm = TRUE)
+# The exact value depends entirely on the parameters chosen.
+```
+:::
+
 - **Q3.5** What is the variance in time? Is the distribution symmetric?
+
+::: {.callout-tip collapse="true" appearance="minimal"}
+## Hint
+`var(ts)` and `sd(ts)`; check symmetry visually with `hist(ts)` and compare `mean(ts)` to `median(ts)`.
+:::
+
+::: {.callout-note collapse="true" appearance="minimal"}
+## Solution
+```{r, eval=FALSE}
+var(ts, na.rm = TRUE)
+sd(ts,  na.rm = TRUE)
+hist(ts, breaks = 40)
+abline(v = mean(ts, na.rm = TRUE), col = "red")
+abline(v = median(ts, na.rm = TRUE), col = "blue")
+# Typically right-skewed: many runs crash relatively early, with a long tail
+# of "lucky" runs that cycle for a long time. mean > median.
+```
+:::
+
 - **Q3.6** Assuming the model can run for eternity (simply ignore any samples after it crashes), what is the average number of prey?
+
+::: {.callout-tip collapse="true" appearance="minimal"}
+## Hint
+For each run, take `prey[1:t_crash-1]` (the pre-crash trajectory) and average those. Then average across runs.
+:::
+
+::: {.callout-tip collapse="true" appearance="minimal"}
+## Hint
+Equivalently: pool all pre-crash prey counts from all bootstrap runs into one big vector and take the mean.
+:::
+
+::: {.callout-note collapse="true" appearance="minimal"}
+## Solution
+```{r, eval=FALSE}
+nboot <- 500
+all_prey <- c()
+for (b in 1:nboot) {
+  sim <- simulate_lv()
+  tc  <- if (is.na(sim$t_crash)) length(sim$prey) else sim$t_crash - 1
+  all_prey <- c(all_prey, sim$prey[1:tc])
+}
+mean(all_prey)
+# This is the long-run time-average prey population, conditional on survival.
+```
+:::
 
 ## Deep reading
 

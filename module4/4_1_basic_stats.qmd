@@ -23,22 +23,168 @@ You have already studied statistics, but some sections here are likely still new
 **Practice statistical distribution analysis using the demo (optional):**
 
 - **Q1.1**. You have a stochastic variable X following a normal distribution, with mean 3 and standard deviation 5. What is the probability of X being greater than 7?
+
+::: {.callout-tip collapse="true" appearance="minimal"}
+## Hint
+Standardize: how many standard deviations above the mean is 7? Then read off the upper tail of a standard normal.
+:::
+
+::: {.callout-tip collapse="true" appearance="minimal"}
+## Hint
+z = (7 - 3) / 5 = 0.8. You want P(Z > 0.8) for Z ~ N(0,1).
+:::
+
+::: {.callout-note collapse="true" appearance="minimal"}
+## Solution
+```{r, eval=TRUE}
+1 - pnorm(7, mean = 3, sd = 5)
+```
+Roughly 0.21.
+:::
+
 - **Q1.2**. Assume Z ~ N(0,2). What is P(Z > 10)?
+
+::: {.callout-tip collapse="true" appearance="minimal"}
+## Hint
+Watch the parameterisation: in R's `pnorm`, the second parameter of N(μ, σ) is the standard deviation, not the variance. Many textbooks use variance — check which is meant here.
+:::
+
+::: {.callout-note collapse="true" appearance="minimal"}
+## Solution
+Reading N(0,2) as μ=0, σ=2:
+```{r, eval=TRUE}
+1 - pnorm(10, mean = 0, sd = 2)
+```
+Essentially zero (5 sigma away).
+:::
+
 - **Q1.3**. Assume Z ~ N(0,3). What is P(Z > 2 & Z < 5)?
+
+::: {.callout-tip collapse="true" appearance="minimal"}
+## Hint
+P(a < Z < b) = F(b) - F(a), where F is the cumulative distribution function.
+:::
+
+::: {.callout-note collapse="true" appearance="minimal"}
+## Solution
+```{r, eval=TRUE}
+pnorm(5, mean = 0, sd = 3) - pnorm(2, mean = 0, sd = 3)
+```
+:::
 
 **Practice statistical distribution analysis using R (this is likely new to you!):**
 
 - **Q2.1**. Look at the [R help for the normal distribution](https://www.rdocumentation.org/packages/stats/versions/3.6.2/topics/Normal).
+
+::: {.callout-tip collapse="true" appearance="minimal"}
+## Hint
+In R, `?Normal` or `?pnorm` opens the help page. Note the four functions: `dnorm` (density), `pnorm` (CDF), `qnorm` (quantile), `rnorm` (random).
+:::
+
+::: {.callout-note collapse="true" appearance="minimal"}
+## Solution
+```{r, eval=FALSE}
+?Normal
+?pnorm
+```
+:::
+
 - **Q2.2**. Produce 3 random numbers that are normally distributed with mean 3 and sigma 5.
+
+::: {.callout-tip collapse="true" appearance="minimal"}
+## Hint
+The `r` prefix in `rnorm` stands for "random".
+:::
+
+::: {.callout-note collapse="true" appearance="minimal"}
+## Solution
+```{r, eval=TRUE}
+rnorm(3, mean = 3, sd = 5)
+```
+:::
+
 - **Q2.3**. Assume X ~ N(0,1). What is P(X > 0)? (you don't need R to compute this; but check that the answer from R makes sense)
-    - hint: `pnorm`
+
+::: {.callout-tip collapse="true" appearance="minimal"}
+## Hint
+By symmetry the answer should be exactly 0.5. Use `pnorm` to confirm.
+:::
+
+::: {.callout-note collapse="true" appearance="minimal"}
+## Solution
+```{r, eval=TRUE}
+1 - pnorm(0, mean = 0, sd = 1)
+```
+:::
+
 - **Q2.4**. Assume X ~ N(0,2). What is P(X > 10)?
+
+::: {.callout-tip collapse="true" appearance="minimal"}
+## Hint
+Same as Q1.2 — `1 - pnorm(...)` for the upper tail.
+:::
+
+::: {.callout-note collapse="true" appearance="minimal"}
+## Solution
+```{r, eval=TRUE}
+1 - pnorm(10, mean = 0, sd = 2)
+```
+:::
+
 - **Q2.5**. Assume X ~ N(0,5). What is P(X > 10 & X < 20)?
-    - hint: use `pnorm` twice
+
+::: {.callout-tip collapse="true" appearance="minimal"}
+## Hint
+Subtract two CDF evaluations: P(10 < X < 20) = F(20) - F(10).
+:::
+
+::: {.callout-note collapse="true" appearance="minimal"}
+## Solution
+```{r, eval=TRUE}
+pnorm(20, mean = 0, sd = 5) - pnorm(10, mean = 0, sd = 5)
+```
+:::
+
 - **Q2.6.** Optional: verify the answers above using the visual demo.
+
+::: {.callout-tip collapse="true" appearance="minimal"}
+## Hint
+Open <http://demo-statdist.serve.scilifelab.se>, pick a normal distribution, set μ and σ to match the question, then shade the region of interest.
+:::
+
+::: {.callout-note collapse="true" appearance="minimal"}
+## Solution
+Visual check only — the shaded area in the demo should agree (within rounding) with the values returned by `pnorm`.
+:::
+
 - **Q2.7**. Assume X ~ Binom(theta=0.5, n=10); what is P(X=10)? Note that since the binomial distribution is discrete, you can here use the probability density function directly rather than using the cumulative density function (but either works).
-    - hint: look at the [R help for the binomial distribution](https://stat.ethz.ch/R-manual/R-devel/library/stats/html/Binomial.html).
+
+::: {.callout-tip collapse="true" appearance="minimal"}
+## Hint
+For a discrete distribution, the "density" `dbinom(k, size, prob)` gives P(X = k) directly.
+:::
+
+::: {.callout-note collapse="true" appearance="minimal"}
+## Solution
+```{r, eval=TRUE}
+dbinom(10, size = 10, prob = 0.5)
+```
+:::
+
 - **Q2.8**. Verify above using basic probability theory. This case is a simple special case!
+
+::: {.callout-tip collapse="true" appearance="minimal"}
+## Hint
+P(all 10 flips heads) = (1/2)^10.
+:::
+
+::: {.callout-note collapse="true" appearance="minimal"}
+## Solution
+```{r, eval=TRUE}
+0.5^10
+```
+1/1024 ≈ 0.000977, matching `dbinom`.
+:::
 
 ## The Poisson distribution
 
@@ -52,9 +198,59 @@ You have already studied statistics, but some sections here are likely still new
 Assume X ~ Poisson(1).
 
 - **Q3.1.** What is P(x=0)? P(x=1)?
+
+::: {.callout-tip collapse="true" appearance="minimal"}
+## Hint
+`dpois(k, lambda)` gives the Poisson probability mass at k.
+:::
+
+::: {.callout-note collapse="true" appearance="minimal"}
+## Solution
+```{r, eval=TRUE}
+dpois(0, lambda = 1)
+dpois(1, lambda = 1)
+```
+Both equal 1/e ≈ 0.368.
+:::
+
 - **Q3.2.** Plot a barplot of P(X=n) for n=0…10.
+
+::: {.callout-tip collapse="true" appearance="minimal"}
+## Hint
+Build a vector with `dpois(0:10, lambda = 1)` and feed it to `barplot()`. Use `names.arg = 0:10` to label the bars.
+:::
+
+::: {.callout-note collapse="true" appearance="minimal"}
+## Solution
+```{r, eval=TRUE}
+n <- 0:10
+barplot(dpois(n, lambda = 1), names.arg = n,
+        xlab = "n", ylab = "P(X = n)")
+```
+:::
+
 - **Q3.3.** What is P(x ≥ 4)?
-    - hint: you can either integrate, or you can relate this to P(x=0), P(x=1), P(x=2) and P(x=3).
+
+::: {.callout-tip collapse="true" appearance="minimal"}
+## Hint
+You can either integrate, or you can relate this to P(x=0), P(x=1), P(x=2) and P(x=3).
+:::
+
+::: {.callout-tip collapse="true" appearance="minimal"}
+## Hint
+`ppois(q, lambda)` returns P(X ≤ q). So P(X ≥ 4) = 1 - P(X ≤ 3).
+:::
+
+::: {.callout-note collapse="true" appearance="minimal"}
+## Solution
+```{r, eval=TRUE}
+1 - ppois(3, lambda = 1)
+# equivalently:
+ppois(3, lambda = 1, lower.tail = FALSE)
+# or by summation:
+1 - sum(dpois(0:3, lambda = 1))
+```
+:::
 
 Counting DNA or RNA molecules is approximately Poisson-distributed. However, since we PCR-amplify them and produce copies (correlated!), this approximation breaks down if we pick too many molecules. Go to <https://demo-poisson.serve.scilifelab.se> and the tab "repeated sampling". You can set how many molecules you have originally in a tube, and how many molecules you sample using a sequencer.
 
@@ -62,8 +258,30 @@ Counting DNA or RNA molecules is approximately Poisson-distributed. However, sin
     - number of points = how many molecules you can sample from
     - number of samples = how many molecules you pick
     - The table below shows the distribution of how many times a molecule has been sampled. If you don't sample at all, 100% of points will have numsamples=0.
-    - Hint: random seed controls the random sampling. Try different seeds to see how trying again affects the variation in your answer.
-    - Hint: singlets are those with numsamples=1.
+
+::: {.callout-tip collapse="true" appearance="minimal"}
+## Hint
+Random seed controls the random sampling. Try different seeds to see how trying again affects the variation in your answer. Singlets are those with numsamples=1.
+:::
+
+::: {.callout-tip collapse="true" appearance="minimal"}
+## Hint
+Analytically: if you sample s molecules from N=100 with replacement, the expected occupancy per molecule is λ = s/N. The fraction of molecules hit ≥ 2 times is roughly 1 - (1+λ)e^(-λ). Solve for when this is 0.1.
+:::
+
+::: {.callout-note collapse="true" appearance="minimal"}
+## Solution
+```{r, eval=TRUE}
+# Fraction of molecules sampled >= 2 times, as a function of total samples s,
+# for N = 100 molecules.
+N <- 100
+s <- 1:100
+lambda <- s / N
+doublet_frac <- 1 - ppois(1, lambda)   # P(X >= 2)
+data.frame(s = s, doublet_frac = round(doublet_frac, 3))[s %in% c(10, 20, 30, 50, 70), ]
+```
+Doublet rate crosses 10% somewhere around s ≈ 50–55 samples; the demo should agree.
+:::
 
 Optional related reading: [The birthday problem/paradox](https://en.wikipedia.org/wiki/Birthday_problem).
 
@@ -80,6 +298,65 @@ Pay particular attention to:
 **Practice statistical testing using R:**
 
 - Look up the [R help for t-testing](https://www.rdocumentation.org/packages/stats/versions/3.6.2/topics/t.test).
-- **Q4.1.** Investigate `diabetes.csv` (course file). Perform a t-test to check if the BMI of those with `Outcome=1` (i.e. those getting diabetes) is higher than those who do not. Is this a paired test?
+- **Q4.1.** Investigate [`diabetes.csv`](data/diabetes.csv.zip). Perform a t-test to check if the BMI of those with `Outcome=1` (i.e. those getting diabetes) is higher than those who do not. Is this a paired test?
+
+::: {.callout-tip collapse="true" appearance="minimal"}
+## Hint
+Read the CSV with `read.csv()`, then split BMI by `Outcome` and feed the two vectors to `t.test()`. Use `alternative = "greater"` for a one-sided test.
+:::
+
+::: {.callout-tip collapse="true" appearance="minimal"}
+## Hint
+"Paired" means each observation in group A has a natural partner in group B (e.g. before/after on the same patient). Here the two groups are different patients — so no.
+:::
+
+::: {.callout-note collapse="true" appearance="minimal"}
+## Solution
+```{r, eval=FALSE}
+d <- read.csv("diabetes.csv")
+bmi_pos <- d$BMI[d$Outcome == 1]
+bmi_neg <- d$BMI[d$Outcome == 0]
+t.test(bmi_pos, bmi_neg, alternative = "greater")
+# equivalently using the formula interface:
+t.test(BMI ~ Outcome, data = d, alternative = "less")  # 0 < 1 ordering
+```
+Not a paired test — the two groups are different individuals, with different sample sizes.
+:::
+
 - **Q4.2.** For "large" number of samples, you can also perform a non-parametric test, which makes fewer assumptions about the distribution of the samples. One such is `wilcox.test()`; how does it seem to compare to the t-test here?
+
+::: {.callout-tip collapse="true" appearance="minimal"}
+## Hint
+Same call signature as `t.test()`. Compare the p-values; for reasonably symmetric, large-N data they should be in the same ballpark.
+:::
+
+::: {.callout-note collapse="true" appearance="minimal"}
+## Solution
+```{r, eval=FALSE}
+d <- read.csv("diabetes.csv")
+bmi_pos <- d$BMI[d$Outcome == 1]
+bmi_neg <- d$BMI[d$Outcome == 0]
+wilcox.test(bmi_pos, bmi_neg, alternative = "greater")
+```
+Both tests give very small p-values here — BMI is clearly higher in the diabetic group. The Wilcoxon makes no normality assumption but tends to be slightly less powerful when normality actually holds.
+:::
+
 - **Q4.3.** Optional: Perform similar tests on other variables in `diabetes.csv`; does it match your expectations?
+
+::: {.callout-tip collapse="true" appearance="minimal"}
+## Hint
+Loop over the numeric columns and apply `t.test(col ~ Outcome, data = d)`. Watch out for columns where a value of 0 actually means "missing" (e.g. `Insulin`, `SkinThickness`).
+:::
+
+::: {.callout-note collapse="true" appearance="minimal"}
+## Solution
+```{r, eval=FALSE}
+d <- read.csv("diabetes.csv")
+vars <- setdiff(colnames(d), "Outcome")
+pvals <- sapply(vars, function(v) {
+  t.test(d[[v]] ~ d$Outcome)$p.value
+})
+sort(pvals)
+```
+Glucose, BMI, Age and Pregnancies all separate the two groups strongly — consistent with known risk factors for type 2 diabetes. Variables like `BloodPressure` and `SkinThickness` separate less clearly, partly because zeros in the raw data encode missing values.
+:::
