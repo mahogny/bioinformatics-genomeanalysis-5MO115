@@ -19,6 +19,41 @@ ul.task-list li input[type="checkbox"] {
 width: 0.8em;
 margin: 0 0.8em 0.2em -1em;  vertical-align: middle;
 }
+
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+{ counter-reset: source-line 0; }
+pre.numberSource code > span
+{ position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+{ content: counter(source-line);
+position: relative; left: -1em; text-align: right; vertical-align: baseline;
+border: none; display: inline-block;
+-webkit-touch-callout: none; -webkit-user-select: none;
+-khtml-user-select: none; -moz-user-select: none;
+-ms-user-select: none; user-select: none;
+padding: 0 4px; width: 4em;
+}
+pre.numberSource { margin-left: 3em; padding-left: 4px; }
+div.sourceCode
+{ }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
@@ -2207,29 +2242,458 @@ $presentation-heading-color: #383d3d !default;
 <p><strong>Practice statistical distribution analysis using the demo (optional):</strong></p>
 <ul>
 <li><strong>Q1.1</strong>. You have a stochastic variable X following a normal distribution, with mean 3 and standard deviation 5. What is the probability of X being greater than 7?</li>
+</ul>
+<div class="callout callout-style-simple callout-tip no-icon callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Hint
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-1" class="callout-1-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>Standardize: how many standard deviations above the mean is 7? Then read off the upper tail of a standard normal.</p>
+</div>
+</div>
+</div>
+<div class="callout callout-style-simple callout-tip no-icon callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-2-contents" aria-controls="callout-2" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Hint
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-2" class="callout-2-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>z = (7 - 3) / 5 = 0.8. You want P(Z &gt; 0.8) for Z ~ N(0,1).</p>
+</div>
+</div>
+</div>
+<div class="callout callout-style-simple callout-note no-icon callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-3-contents" aria-controls="callout-3" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Solution
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-3" class="callout-3-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span> <span class="sc">-</span> <span class="fu">pnorm</span>(<span class="dv">7</span>, <span class="at">mean =</span> <span class="dv">3</span>, <span class="at">sd =</span> <span class="dv">5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.2118554</code></pre>
+</div>
+</div>
+<p>Roughly 0.21.</p>
+</div>
+</div>
+</div>
+<ul>
 <li><strong>Q1.2</strong>. Assume Z ~ N(0,2). What is P(Z &gt; 10)?</li>
+</ul>
+<div class="callout callout-style-simple callout-tip no-icon callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-4-contents" aria-controls="callout-4" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Hint
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-4" class="callout-4-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>Watch the parameterisation: in R’s <code>pnorm</code>, the second parameter of N(μ, σ) is the standard deviation, not the variance. Many textbooks use variance — check which is meant here.</p>
+</div>
+</div>
+</div>
+<div class="callout callout-style-simple callout-note no-icon callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-5-contents" aria-controls="callout-5" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Solution
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-5" class="callout-5-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>Reading N(0,2) as μ=0, σ=2:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span> <span class="sc">-</span> <span class="fu">pnorm</span>(<span class="dv">10</span>, <span class="at">mean =</span> <span class="dv">0</span>, <span class="at">sd =</span> <span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 2.866516e-07</code></pre>
+</div>
+</div>
+<p>Essentially zero (5 sigma away).</p>
+</div>
+</div>
+</div>
+<ul>
 <li><strong>Q1.3</strong>. Assume Z ~ N(0,3). What is P(Z &gt; 2 &amp; Z &lt; 5)?</li>
 </ul>
+<div class="callout callout-style-simple callout-tip no-icon callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-6-contents" aria-controls="callout-6" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Hint
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-6" class="callout-6-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>P(a &lt; Z &lt; b) = F(b) - F(a), where F is the cumulative distribution function.</p>
+</div>
+</div>
+</div>
+<div class="callout callout-style-simple callout-note no-icon callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-7-contents" aria-controls="callout-7" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Solution
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-7" class="callout-7-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">pnorm</span>(<span class="dv">5</span>, <span class="at">mean =</span> <span class="dv">0</span>, <span class="at">sd =</span> <span class="dv">3</span>) <span class="sc">-</span> <span class="fu">pnorm</span>(<span class="dv">2</span>, <span class="at">mean =</span> <span class="dv">0</span>, <span class="at">sd =</span> <span class="dv">3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.2047022</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
 <p><strong>Practice statistical distribution analysis using R (this is likely new to you!):</strong></p>
 <ul>
 <li><strong>Q2.1</strong>. Look at the <a href="https://www.rdocumentation.org/packages/stats/versions/3.6.2/topics/Normal">R help for the normal distribution</a>.</li>
+</ul>
+<div class="callout callout-style-simple callout-tip no-icon callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-8-contents" aria-controls="callout-8" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Hint
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-8" class="callout-8-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>In R, <code>?Normal</code> or <code>?pnorm</code> opens the help page. Note the four functions: <code>dnorm</code> (density), <code>pnorm</code> (CDF), <code>qnorm</code> (quantile), <code>rnorm</code> (random).</p>
+</div>
+</div>
+</div>
+<div class="callout callout-style-simple callout-note no-icon callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-9-contents" aria-controls="callout-9" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Solution
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-9" class="callout-9-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>?Normal</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>?pnorm</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+</div>
+</div>
+<ul>
 <li><strong>Q2.2</strong>. Produce 3 random numbers that are normally distributed with mean 3 and sigma 5.</li>
-<li><strong>Q2.3</strong>. Assume X ~ N(0,1). What is P(X &gt; 0)? (you don’t need R to compute this; but check that the answer from R makes sense)
+</ul>
+<div class="callout callout-style-simple callout-tip no-icon callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-10-contents" aria-controls="callout-10" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Hint
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-10" class="callout-10-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>The <code>r</code> prefix in <code>rnorm</code> stands for “random”.</p>
+</div>
+</div>
+</div>
+<div class="callout callout-style-simple callout-note no-icon callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-11-contents" aria-controls="callout-11" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Solution
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-11" class="callout-11-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">rnorm</span>(<span class="dv">3</span>, <span class="at">mean =</span> <span class="dv">3</span>, <span class="at">sd =</span> <span class="dv">5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 4.3198061 5.2470533 0.6062021</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
 <ul>
-<li>hint: <code>pnorm</code></li>
-</ul></li>
+<li><strong>Q2.3</strong>. Assume X ~ N(0,1). What is P(X &gt; 0)? (you don’t need R to compute this; but check that the answer from R makes sense)</li>
+</ul>
+<div class="callout callout-style-simple callout-tip no-icon callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-12-contents" aria-controls="callout-12" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Hint
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-12" class="callout-12-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>By symmetry the answer should be exactly 0.5. Use <code>pnorm</code> to confirm.</p>
+</div>
+</div>
+</div>
+<div class="callout callout-style-simple callout-note no-icon callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-13-contents" aria-controls="callout-13" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Solution
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-13" class="callout-13-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span> <span class="sc">-</span> <span class="fu">pnorm</span>(<span class="dv">0</span>, <span class="at">mean =</span> <span class="dv">0</span>, <span class="at">sd =</span> <span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.5</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<ul>
 <li><strong>Q2.4</strong>. Assume X ~ N(0,2). What is P(X &gt; 10)?</li>
-<li><strong>Q2.5</strong>. Assume X ~ N(0,5). What is P(X &gt; 10 &amp; X &lt; 20)?
+</ul>
+<div class="callout callout-style-simple callout-tip no-icon callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-14-contents" aria-controls="callout-14" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Hint
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-14" class="callout-14-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>Same as Q1.2 — <code>1 - pnorm(...)</code> for the upper tail.</p>
+</div>
+</div>
+</div>
+<div class="callout callout-style-simple callout-note no-icon callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-15-contents" aria-controls="callout-15" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Solution
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-15" class="callout-15-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span> <span class="sc">-</span> <span class="fu">pnorm</span>(<span class="dv">10</span>, <span class="at">mean =</span> <span class="dv">0</span>, <span class="at">sd =</span> <span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 2.866516e-07</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
 <ul>
-<li>hint: use <code>pnorm</code> twice</li>
-</ul></li>
+<li><strong>Q2.5</strong>. Assume X ~ N(0,5). What is P(X &gt; 10 &amp; X &lt; 20)?</li>
+</ul>
+<div class="callout callout-style-simple callout-tip no-icon callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-16-contents" aria-controls="callout-16" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Hint
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-16" class="callout-16-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>Subtract two CDF evaluations: P(10 &lt; X &lt; 20) = F(20) - F(10).</p>
+</div>
+</div>
+</div>
+<div class="callout callout-style-simple callout-note no-icon callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-17-contents" aria-controls="callout-17" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Solution
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-17" class="callout-17-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">pnorm</span>(<span class="dv">20</span>, <span class="at">mean =</span> <span class="dv">0</span>, <span class="at">sd =</span> <span class="dv">5</span>) <span class="sc">-</span> <span class="fu">pnorm</span>(<span class="dv">10</span>, <span class="at">mean =</span> <span class="dv">0</span>, <span class="at">sd =</span> <span class="dv">5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.02271846</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<ul>
 <li><strong>Q2.6.</strong> Optional: verify the answers above using the visual demo.</li>
-<li><strong>Q2.7</strong>. Assume X ~ Binom(theta=0.5, n=10); what is P(X=10)? Note that since the binomial distribution is discrete, you can here use the probability density function directly rather than using the cumulative density function (but either works).
+</ul>
+<div class="callout callout-style-simple callout-tip no-icon callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-18-contents" aria-controls="callout-18" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Hint
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-18" class="callout-18-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>Open <a href="http://demo-statdist.serve.scilifelab.se" class="uri">http://demo-statdist.serve.scilifelab.se</a>, pick a normal distribution, set μ and σ to match the question, then shade the region of interest.</p>
+</div>
+</div>
+</div>
+<div class="callout callout-style-simple callout-note no-icon callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-19-contents" aria-controls="callout-19" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Solution
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-19" class="callout-19-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>Visual check only — the shaded area in the demo should agree (within rounding) with the values returned by <code>pnorm</code>.</p>
+</div>
+</div>
+</div>
 <ul>
-<li>hint: look at the <a href="https://stat.ethz.ch/R-manual/R-devel/library/stats/html/Binomial.html">R help for the binomial distribution</a>.</li>
-</ul></li>
+<li><strong>Q2.7</strong>. Assume X ~ Binom(theta=0.5, n=10); what is P(X=10)? Note that since the binomial distribution is discrete, you can here use the probability density function directly rather than using the cumulative density function (but either works).</li>
+</ul>
+<div class="callout callout-style-simple callout-tip no-icon callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-20-contents" aria-controls="callout-20" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Hint
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-20" class="callout-20-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>For a discrete distribution, the “density” <code>dbinom(k, size, prob)</code> gives P(X = k) directly.</p>
+</div>
+</div>
+</div>
+<div class="callout callout-style-simple callout-note no-icon callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-21-contents" aria-controls="callout-21" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Solution
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-21" class="callout-21-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dbinom</span>(<span class="dv">10</span>, <span class="at">size =</span> <span class="dv">10</span>, <span class="at">prob =</span> <span class="fl">0.5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.0009765625</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<ul>
 <li><strong>Q2.8</strong>. Verify above using basic probability theory. This case is a simple special case!</li>
 </ul>
+<div class="callout callout-style-simple callout-tip no-icon callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-22-contents" aria-controls="callout-22" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Hint
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-22" class="callout-22-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>P(all 10 flips heads) = (1/2)^10.</p>
+</div>
+</div>
+</div>
+<div class="callout callout-style-simple callout-note no-icon callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-23-contents" aria-controls="callout-23" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Solution
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-23" class="callout-23-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fl">0.5</span><span class="sc">^</span><span class="dv">10</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.0009765625</code></pre>
+</div>
+</div>
+<p>1/1024 ≈ 0.000977, matching <code>dbinom</code>.</p>
+</div>
+</div>
+</div>
 </section>
 <section id="the-poisson-distribution" class="level2">
 <h2 class="anchored" data-anchor-id="the-poisson-distribution">The Poisson distribution</h2>
@@ -2242,12 +2706,161 @@ $presentation-heading-color: #383d3d !default;
 <p>Assume X ~ Poisson(1).</p>
 <ul>
 <li><strong>Q3.1.</strong> What is P(x=0)? P(x=1)?</li>
-<li><strong>Q3.2.</strong> Plot a barplot of P(X=n) for n=0…10.</li>
-<li><strong>Q3.3.</strong> What is P(x ≥ 4)?
-<ul>
-<li>hint: you can either integrate, or you can relate this to P(x=0), P(x=1), P(x=2) and P(x=3).</li>
-</ul></li>
 </ul>
+<div class="callout callout-style-simple callout-tip no-icon callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-24-contents" aria-controls="callout-24" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Hint
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-24" class="callout-24-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p><code>dpois(k, lambda)</code> gives the Poisson probability mass at k.</p>
+</div>
+</div>
+</div>
+<div class="callout callout-style-simple callout-note no-icon callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-25-contents" aria-controls="callout-25" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Solution
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-25" class="callout-25-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dpois</span>(<span class="dv">0</span>, <span class="at">lambda =</span> <span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.3678794</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dpois</span>(<span class="dv">1</span>, <span class="at">lambda =</span> <span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.3678794</code></pre>
+</div>
+</div>
+<p>Both equal 1/e ≈ 0.368.</p>
+</div>
+</div>
+</div>
+<ul>
+<li><strong>Q3.2.</strong> Plot a barplot of P(X=n) for n=0…10.</li>
+</ul>
+<div class="callout callout-style-simple callout-tip no-icon callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-26-contents" aria-controls="callout-26" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Hint
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-26" class="callout-26-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>Build a vector with <code>dpois(0:10, lambda = 1)</code> and feed it to <code>barplot()</code>. Use <code>names.arg = 0:10</code> to label the bars.</p>
+</div>
+</div>
+</div>
+<div class="callout callout-style-simple callout-note no-icon callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-27-contents" aria-controls="callout-27" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Solution
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-27" class="callout-27-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">0</span><span class="sc">:</span><span class="dv">10</span></span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a><span class="fu">barplot</span>(<span class="fu">dpois</span>(n, <span class="at">lambda =</span> <span class="dv">1</span>), <span class="at">names.arg =</span> n,</span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>        <span class="at">xlab =</span> <span class="st">&quot;n&quot;</span>, <span class="at">ylab =</span> <span class="st">&quot;P(X = n)&quot;</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img role="img" src="data:image/png;base64,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" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<ul>
+<li><strong>Q3.3.</strong> What is P(x ≥ 4)?</li>
+</ul>
+<div class="callout callout-style-simple callout-tip no-icon callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-28-contents" aria-controls="callout-28" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Hint
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-28" class="callout-28-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>You can either integrate, or you can relate this to P(x=0), P(x=1), P(x=2) and P(x=3).</p>
+</div>
+</div>
+</div>
+<div class="callout callout-style-simple callout-tip no-icon callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-29-contents" aria-controls="callout-29" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Hint
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-29" class="callout-29-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p><code>ppois(q, lambda)</code> returns P(X ≤ q). So P(X ≥ 4) = 1 - P(X ≤ 3).</p>
+</div>
+</div>
+</div>
+<div class="callout callout-style-simple callout-note no-icon callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-30-contents" aria-controls="callout-30" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Solution
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-30" class="callout-30-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span> <span class="sc">-</span> <span class="fu">ppois</span>(<span class="dv">3</span>, <span class="at">lambda =</span> <span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.01898816</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="co"># equivalently:</span></span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ppois</span>(<span class="dv">3</span>, <span class="at">lambda =</span> <span class="dv">1</span>, <span class="at">lower.tail =</span> <span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.01898816</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="co"># or by summation:</span></span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span> <span class="sc">-</span> <span class="fu">sum</span>(<span class="fu">dpois</span>(<span class="dv">0</span><span class="sc">:</span><span class="dv">3</span>, <span class="at">lambda =</span> <span class="dv">1</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.01898816</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
 <p>Counting DNA or RNA molecules is approximately Poisson-distributed. However, since we PCR-amplify them and produce copies (correlated!), this approximation breaks down if we pick too many molecules. Go to <a href="https://demo-poisson.serve.scilifelab.se" class="uri">https://demo-poisson.serve.scilifelab.se</a> and the tab “repeated sampling”. You can set how many molecules you have originally in a tube, and how many molecules you sample using a sequencer.</p>
 <ul>
 <li><strong>Q3.4.</strong> For 100 molecules, how many samples can you take while keeping doublets &lt; 10%? Does this fit with your intuition?
@@ -2255,10 +2868,73 @@ $presentation-heading-color: #383d3d !default;
 <li>number of points = how many molecules you can sample from</li>
 <li>number of samples = how many molecules you pick</li>
 <li>The table below shows the distribution of how many times a molecule has been sampled. If you don’t sample at all, 100% of points will have numsamples=0.</li>
-<li>Hint: random seed controls the random sampling. Try different seeds to see how trying again affects the variation in your answer.</li>
-<li>Hint: singlets are those with numsamples=1.</li>
 </ul></li>
 </ul>
+<div class="callout callout-style-simple callout-tip no-icon callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-31-contents" aria-controls="callout-31" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Hint
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-31" class="callout-31-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>Random seed controls the random sampling. Try different seeds to see how trying again affects the variation in your answer. Singlets are those with numsamples=1.</p>
+</div>
+</div>
+</div>
+<div class="callout callout-style-simple callout-tip no-icon callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-32-contents" aria-controls="callout-32" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Hint
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-32" class="callout-32-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>Analytically: if you sample s molecules from N=100 with replacement, the expected occupancy per molecule is λ = s/N. The fraction of molecules hit ≥ 2 times is roughly 1 - (1+λ)e^(-λ). Solve for when this is 0.1.</p>
+</div>
+</div>
+</div>
+<div class="callout callout-style-simple callout-note no-icon callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-33-contents" aria-controls="callout-33" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Solution
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-33" class="callout-33-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Fraction of molecules sampled &gt;= 2 times, as a function of total samples s,</span></span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a><span class="co"># for N = 100 molecules.</span></span>
+<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a>N <span class="ot">&lt;-</span> <span class="dv">100</span></span>
+<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a>s <span class="ot">&lt;-</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">100</span></span>
+<span id="cb31-5"><a href="#cb31-5" aria-hidden="true" tabindex="-1"></a>lambda <span class="ot">&lt;-</span> s <span class="sc">/</span> N</span>
+<span id="cb31-6"><a href="#cb31-6" aria-hidden="true" tabindex="-1"></a>doublet_frac <span class="ot">&lt;-</span> <span class="dv">1</span> <span class="sc">-</span> <span class="fu">ppois</span>(<span class="dv">1</span>, lambda)   <span class="co"># P(X &gt;= 2)</span></span>
+<span id="cb31-7"><a href="#cb31-7" aria-hidden="true" tabindex="-1"></a><span class="fu">data.frame</span>(<span class="at">s =</span> s, <span class="at">doublet_frac =</span> <span class="fu">round</span>(doublet_frac, <span class="dv">3</span>))[s <span class="sc">%in%</span> <span class="fu">c</span>(<span class="dv">10</span>, <span class="dv">20</span>, <span class="dv">30</span>, <span class="dv">50</span>, <span class="dv">70</span>), ]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>    s doublet_frac
+10 10        0.005
+20 20        0.018
+30 30        0.037
+50 50        0.090
+70 70        0.156</code></pre>
+</div>
+</div>
+<p>Doublet rate crosses 10% somewhere around s ≈ 50–55 samples; the demo should agree.</p>
+</div>
+</div>
+</div>
 <p>Optional related reading: <a href="https://en.wikipedia.org/wiki/Birthday_problem">The birthday problem/paradox</a>.</p>
 </section>
 <section id="statistical-testing-in-r" class="level2">
@@ -2273,10 +2949,707 @@ $presentation-heading-color: #383d3d !default;
 <p><strong>Practice statistical testing using R:</strong></p>
 <ul>
 <li>Look up the <a href="https://www.rdocumentation.org/packages/stats/versions/3.6.2/topics/t.test">R help for t-testing</a>.</li>
-<li><strong>Q4.1.</strong> Investigate <code>diabetes.csv</code> (course file). Perform a t-test to check if the BMI of those with <code>Outcome=1</code> (i.e. those getting diabetes) is higher than those who do not. Is this a paired test?</li>
+<li><strong>Q4.1.</strong> Investigate <a href="data/diabetes.csv.zip"><code>diabetes.csv</code></a>. Perform a t-test to check if the BMI of those with <code>Outcome=1</code> (i.e. those getting diabetes) is higher than those who do not. Is this a paired test?</li>
+</ul>
+<div class="callout callout-style-simple callout-tip no-icon callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-34-contents" aria-controls="callout-34" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Hint
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-34" class="callout-34-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>Read the CSV with <code>read.csv()</code>, then split BMI by <code>Outcome</code> and feed the two vectors to <code>t.test()</code>. Use <code>alternative = &quot;greater&quot;</code> for a one-sided test.</p>
+</div>
+</div>
+</div>
+<div class="callout callout-style-simple callout-tip no-icon callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-35-contents" aria-controls="callout-35" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Hint
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-35" class="callout-35-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>“Paired” means each observation in group A has a natural partner in group B (e.g. before/after on the same patient). Here the two groups are different patients — so no.</p>
+</div>
+</div>
+</div>
+<div class="callout callout-style-simple callout-note no-icon callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-36-contents" aria-controls="callout-36" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Solution
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-36" class="callout-36-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>d <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&quot;diabetes.csv&quot;</span>)</span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>bmi_pos <span class="ot">&lt;-</span> d<span class="sc">$</span>BMI[d<span class="sc">$</span>Outcome <span class="sc">==</span> <span class="dv">1</span>]</span>
+<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a>bmi_neg <span class="ot">&lt;-</span> d<span class="sc">$</span>BMI[d<span class="sc">$</span>Outcome <span class="sc">==</span> <span class="dv">0</span>]</span>
+<span id="cb33-4"><a href="#cb33-4" aria-hidden="true" tabindex="-1"></a><span class="fu">t.test</span>(bmi_pos, bmi_neg, <span class="at">alternative =</span> <span class="st">&quot;greater&quot;</span>)</span>
+<span id="cb33-5"><a href="#cb33-5" aria-hidden="true" tabindex="-1"></a><span class="co"># equivalently using the formula interface:</span></span>
+<span id="cb33-6"><a href="#cb33-6" aria-hidden="true" tabindex="-1"></a><span class="fu">t.test</span>(BMI <span class="sc">~</span> Outcome, <span class="at">data =</span> d, <span class="at">alternative =</span> <span class="st">&quot;less&quot;</span>)  <span class="co"># 0 &lt; 1 ordering</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Not a paired test — the two groups are different individuals, with different sample sizes.</p>
+</div>
+</div>
+</div>
+<ul>
 <li><strong>Q4.2.</strong> For “large” number of samples, you can also perform a non-parametric test, which makes fewer assumptions about the distribution of the samples. One such is <code>wilcox.test()</code>; how does it seem to compare to the t-test here?</li>
+</ul>
+<div class="callout callout-style-simple callout-tip no-icon callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-37-contents" aria-controls="callout-37" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Hint
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-37" class="callout-37-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>Same call signature as <code>t.test()</code>. Compare the p-values; for reasonably symmetric, large-N data they should be in the same ballpark.</p>
+</div>
+</div>
+</div>
+<div class="callout callout-style-simple callout-note no-icon callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-38-contents" aria-controls="callout-38" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Solution
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-38" class="callout-38-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>d <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&quot;diabetes.csv&quot;</span>)</span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>bmi_pos <span class="ot">&lt;-</span> d<span class="sc">$</span>BMI[d<span class="sc">$</span>Outcome <span class="sc">==</span> <span class="dv">1</span>]</span>
+<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a>bmi_neg <span class="ot">&lt;-</span> d<span class="sc">$</span>BMI[d<span class="sc">$</span>Outcome <span class="sc">==</span> <span class="dv">0</span>]</span>
+<span id="cb34-4"><a href="#cb34-4" aria-hidden="true" tabindex="-1"></a><span class="fu">wilcox.test</span>(bmi_pos, bmi_neg, <span class="at">alternative =</span> <span class="st">&quot;greater&quot;</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Both tests give very small p-values here — BMI is clearly higher in the diabetic group. The Wilcoxon makes no normality assumption but tends to be slightly less powerful when normality actually holds.</p>
+</div>
+</div>
+</div>
+<ul>
 <li><strong>Q4.3.</strong> Optional: Perform similar tests on other variables in <code>diabetes.csv</code>; does it match your expectations?</li>
 </ul>
+<div class="callout callout-style-simple callout-tip no-icon callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-39-contents" aria-controls="callout-39" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Hint
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-39" class="callout-39-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>Loop over the numeric columns and apply <code>t.test(col ~ Outcome, data = d)</code>. Watch out for columns where a value of 0 actually means “missing” (e.g. <code>Insulin</code>, <code>SkinThickness</code>).</p>
+</div>
+</div>
+</div>
+<div class="callout callout-style-simple callout-note no-icon callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-40-contents" aria-controls="callout-40" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Solution
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-40" class="callout-40-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>d <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&quot;diabetes.csv&quot;</span>)</span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>vars <span class="ot">&lt;-</span> <span class="fu">setdiff</span>(<span class="fu">colnames</span>(d), <span class="st">&quot;Outcome&quot;</span>)</span>
+<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a>pvals <span class="ot">&lt;-</span> <span class="fu">sapply</span>(vars, <span class="cf">function</span>(v) {</span>
+<span id="cb35-4"><a href="#cb35-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">t.test</span>(d[[v]] <span class="sc">~</span> d<span class="sc">$</span>Outcome)<span class="sc">$</span>p.value</span>
+<span id="cb35-5"><a href="#cb35-5" aria-hidden="true" tabindex="-1"></a>})</span>
+<span id="cb35-6"><a href="#cb35-6" aria-hidden="true" tabindex="-1"></a><span class="fu">sort</span>(pvals)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Glucose, BMI, Age and Pregnancies all separate the two groups strongly — consistent with known risk factors for type 2 diabetes. Variables like <code>BloodPressure</code> and <code>SkinThickness</code> separate less clearly, partly because zeros in the raw data encode missing values.</p>
+</div>
+</div>
+</div>
+</section>
+<section id="extra-exercise-material" class="level2">
+<h2 class="anchored" data-anchor-id="extra-exercise-material">Extra exercise material</h2>
+<p>A second pass at the same material, for extra practice. Same conventions as above — try each question first, then peek.</p>
+<section id="distributions-extra" class="level3">
+<h3 class="anchored" data-anchor-id="distributions-extra">Distributions (extra)</h3>
+<ul>
+<li><strong>QE1.1</strong>. Assume X ~ N(10, 2) (i.e. μ=10, σ=2). What is P(X &lt; 8)?</li>
+</ul>
+<div class="callout callout-style-simple callout-tip no-icon callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-41-contents" aria-controls="callout-41" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Hint
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-41" class="callout-41-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p><code>pnorm(q, mean, sd)</code> returns P(X ≤ q) directly. No need to subtract from 1 for a lower-tail question.</p>
+</div>
+</div>
+</div>
+<div class="callout callout-style-simple callout-note no-icon callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-42-contents" aria-controls="callout-42" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Solution
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-42" class="callout-42-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="fu">pnorm</span>(<span class="dv">8</span>, <span class="at">mean =</span> <span class="dv">10</span>, <span class="at">sd =</span> <span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.1586553</code></pre>
+</div>
+</div>
+<p>Roughly 0.16 — one σ below the mean.</p>
+</div>
+</div>
+</div>
+<ul>
+<li><strong>QE1.2</strong>. Assume X ~ N(100, 15) (a classic IQ-style parameterisation). What fraction of the population has X between 85 and 130?</li>
+</ul>
+<div class="callout callout-style-simple callout-tip no-icon callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-43-contents" aria-controls="callout-43" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Hint
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-43" class="callout-43-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>P(a &lt; X &lt; b) = F(b) - F(a).</p>
+</div>
+</div>
+</div>
+<div class="callout callout-style-simple callout-note no-icon callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-44-contents" aria-controls="callout-44" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Solution
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-44" class="callout-44-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="fu">pnorm</span>(<span class="dv">130</span>, <span class="at">mean =</span> <span class="dv">100</span>, <span class="at">sd =</span> <span class="dv">15</span>) <span class="sc">-</span> <span class="fu">pnorm</span>(<span class="dv">85</span>, <span class="at">mean =</span> <span class="dv">100</span>, <span class="at">sd =</span> <span class="dv">15</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.8185946</code></pre>
+</div>
+</div>
+<p>About 0.82.</p>
+</div>
+</div>
+</div>
+<ul>
+<li><strong>QE1.3</strong>. Assume X ~ N(0, 1). Find the value <code>x</code> such that P(X &gt; x) = 0.025. (This is the classic critical value used to build a 95% confidence interval.)</li>
+</ul>
+<div class="callout callout-style-simple callout-tip no-icon callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-45-contents" aria-controls="callout-45" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Hint
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-45" class="callout-45-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>This is the inverse problem — given a probability, recover the quantile. Use <code>qnorm</code>.</p>
+</div>
+</div>
+</div>
+<div class="callout callout-style-simple callout-tip no-icon callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-46-contents" aria-controls="callout-46" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Hint
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-46" class="callout-46-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p><code>qnorm</code> returns the lower-tail quantile by default. If you want the upper-tail 2.5%, that is <code>qnorm(0.975)</code> or <code>qnorm(0.025, lower.tail = FALSE)</code>.</p>
+</div>
+</div>
+</div>
+<div class="callout callout-style-simple callout-note no-icon callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-47-contents" aria-controls="callout-47" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Solution
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-47" class="callout-47-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="fu">qnorm</span>(<span class="fl">0.975</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 1.959964</code></pre>
+</div>
+</div>
+<p>The famous 1.96.</p>
+</div>
+</div>
+</div>
+<ul>
+<li><strong>QE1.4</strong>. Assume X ~ N(50, 4). What is the density <code>dnorm(50, 50, 4)</code>? Is this a probability? Why or why not?</li>
+</ul>
+<div class="callout callout-style-simple callout-tip no-icon callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-48-contents" aria-controls="callout-48" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Hint
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-48" class="callout-48-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>For continuous distributions, <code>dnorm</code> returns the value of the probability <em>density</em> function — not a probability. The probability of X taking any single exact value is zero.</p>
+</div>
+</div>
+</div>
+<div class="callout callout-style-simple callout-note no-icon callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-49-contents" aria-controls="callout-49" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Solution
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-49" class="callout-49-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dnorm</span>(<span class="dv">50</span>, <span class="at">mean =</span> <span class="dv">50</span>, <span class="at">sd =</span> <span class="dv">4</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.09973557</code></pre>
+</div>
+</div>
+<p>This is about 0.0997. It is a density, not a probability — densities can exceed 1 for narrow distributions. Only integrals of <code>dnorm</code> (i.e. <code>pnorm</code> differences) yield probabilities.</p>
+</div>
+</div>
+</div>
+</section>
+<section id="poisson-extra" class="level3">
+<h3 class="anchored" data-anchor-id="poisson-extra">Poisson (extra)</h3>
+<ul>
+<li><strong>QE2.1</strong>. Assume X ~ Poisson(λ=3). What is P(X = 2)? What is P(X ≤ 2)?</li>
+</ul>
+<div class="callout callout-style-simple callout-tip no-icon callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-50-contents" aria-controls="callout-50" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Hint
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-50" class="callout-50-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p><code>dpois</code> for the point mass, <code>ppois</code> for the cumulative.</p>
+</div>
+</div>
+</div>
+<div class="callout callout-style-simple callout-note no-icon callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-51-contents" aria-controls="callout-51" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Solution
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-51" class="callout-51-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb44"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dpois</span>(<span class="dv">2</span>, <span class="at">lambda =</span> <span class="dv">3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.2240418</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb46"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ppois</span>(<span class="dv">2</span>, <span class="at">lambda =</span> <span class="dv">3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.4231901</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<ul>
+<li><strong>QE2.2</strong>. Assume X ~ Poisson(λ=5). Plot a barplot of P(X=n) for n=0…15. Where is the mode?</li>
+</ul>
+<div class="callout callout-style-simple callout-tip no-icon callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-52-contents" aria-controls="callout-52" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Hint
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-52" class="callout-52-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>For a Poisson with integer λ the mode sits at both λ and λ-1. For non-integer λ, it sits at floor(λ).</p>
+</div>
+</div>
+</div>
+<div class="callout callout-style-simple callout-note no-icon callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-53-contents" aria-controls="callout-53" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Solution
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-53" class="callout-53-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb48"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">0</span><span class="sc">:</span><span class="dv">15</span></span>
+<span id="cb48-2"><a href="#cb48-2" aria-hidden="true" tabindex="-1"></a><span class="fu">barplot</span>(<span class="fu">dpois</span>(n, <span class="at">lambda =</span> <span class="dv">5</span>), <span class="at">names.arg =</span> n,</span>
+<span id="cb48-3"><a href="#cb48-3" aria-hidden="true" tabindex="-1"></a>        <span class="at">xlab =</span> <span class="st">&quot;n&quot;</span>, <span class="at">ylab =</span> <span class="st">&quot;P(X = n)&quot;</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img role="img" src="data:image/png;base64,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" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Mode at n = 4 and n = 5 (equal heights).</p>
+</div>
+</div>
+</div>
+<ul>
+<li><strong>QE2.3</strong>. In a droplet-based single-cell experiment (e.g. 10x Genomics), the number of cells loaded into each droplet is approximately Poisson with mean λ. If you load at λ = 0.1 cells/droplet, what fraction of droplets are empty? What fraction contain exactly one cell? What fraction contain two or more (doublets)?</li>
+</ul>
+<div class="callout callout-style-simple callout-tip no-icon callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-54-contents" aria-controls="callout-54" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Hint
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-54" class="callout-54-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>Empty = <code>dpois(0, λ)</code>. Singlets = <code>dpois(1, λ)</code>. Doublets (≥2) = <code>1 - ppois(1, λ)</code>.</p>
+</div>
+</div>
+</div>
+<div class="callout callout-style-simple callout-tip no-icon callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-55-contents" aria-controls="callout-55" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Hint
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-55" class="callout-55-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>This is exactly why droplet protocols deliberately under-load: low λ keeps doublets rare, at the cost of mostly-empty droplets.</p>
+</div>
+</div>
+</div>
+<div class="callout callout-style-simple callout-note no-icon callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-56-contents" aria-controls="callout-56" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Solution
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-56" class="callout-56-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb49"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a>lambda <span class="ot">&lt;-</span> <span class="fl">0.1</span></span>
+<span id="cb49-2"><a href="#cb49-2" aria-hidden="true" tabindex="-1"></a>empty   <span class="ot">&lt;-</span> <span class="fu">dpois</span>(<span class="dv">0</span>, lambda)</span>
+<span id="cb49-3"><a href="#cb49-3" aria-hidden="true" tabindex="-1"></a>singlet <span class="ot">&lt;-</span> <span class="fu">dpois</span>(<span class="dv">1</span>, lambda)</span>
+<span id="cb49-4"><a href="#cb49-4" aria-hidden="true" tabindex="-1"></a>doublet <span class="ot">&lt;-</span> <span class="dv">1</span> <span class="sc">-</span> <span class="fu">ppois</span>(<span class="dv">1</span>, lambda)</span>
+<span id="cb49-5"><a href="#cb49-5" aria-hidden="true" tabindex="-1"></a><span class="fu">c</span>(<span class="at">empty =</span> empty, <span class="at">singlet =</span> singlet, <span class="at">doublet =</span> doublet)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>     empty    singlet    doublet 
+0.90483742 0.09048374 0.00467884 </code></pre>
+</div>
+</div>
+<p>About 90.5% empty, 9.05% singlets, and only ~0.47% doublets — the empty droplets are filtered out computationally afterwards.</p>
+</div>
+</div>
+</div>
+</section>
+<section id="statistical-testing-extra" class="level3">
+<h3 class="anchored" data-anchor-id="statistical-testing-extra">Statistical testing (extra)</h3>
+<ul>
+<li><strong>QE3.1</strong>. Using <code>diabetes.csv</code>, perform a t-test asking whether <code>Glucose</code> is higher in patients with <code>Outcome=1</code> than in those with <code>Outcome=0</code>.</li>
+</ul>
+<div class="callout callout-style-simple callout-tip no-icon callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-57-contents" aria-controls="callout-57" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Hint
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-57" class="callout-57-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>Same pattern as Q4.1 but on the <code>Glucose</code> column. Use <code>alternative = &quot;greater&quot;</code> for a one-sided test.</p>
+</div>
+</div>
+</div>
+<div class="callout callout-style-simple callout-note no-icon callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-58-contents" aria-controls="callout-58" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Solution
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-58" class="callout-58-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb51"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a>d <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&quot;diabetes.csv&quot;</span>)</span>
+<span id="cb51-2"><a href="#cb51-2" aria-hidden="true" tabindex="-1"></a>glu_pos <span class="ot">&lt;-</span> d<span class="sc">$</span>Glucose[d<span class="sc">$</span>Outcome <span class="sc">==</span> <span class="dv">1</span>]</span>
+<span id="cb51-3"><a href="#cb51-3" aria-hidden="true" tabindex="-1"></a>glu_neg <span class="ot">&lt;-</span> d<span class="sc">$</span>Glucose[d<span class="sc">$</span>Outcome <span class="sc">==</span> <span class="dv">0</span>]</span>
+<span id="cb51-4"><a href="#cb51-4" aria-hidden="true" tabindex="-1"></a><span class="fu">t.test</span>(glu_pos, glu_neg, <span class="at">alternative =</span> <span class="st">&quot;greater&quot;</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>The p-value is extremely small — glucose is the strongest single separator of diabetic vs. non-diabetic in this dataset, as you might expect.</p>
+</div>
+</div>
+</div>
+<ul>
+<li><strong>QE3.2</strong>. Repeat QE3.1 but use <code>wilcox.test()</code> instead. The <code>Glucose</code> column has some zero values that almost certainly mean “missing”. Filter them out first and re-run both tests. How much does it change the p-value?</li>
+</ul>
+<div class="callout callout-style-simple callout-tip no-icon callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-59-contents" aria-controls="callout-59" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Hint
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-59" class="callout-59-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>Subset with <code>d &lt;- d[d$Glucose &gt; 0, ]</code> before splitting.</p>
+</div>
+</div>
+</div>
+<div class="callout callout-style-simple callout-note no-icon callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-60-contents" aria-controls="callout-60" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Solution
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-60" class="callout-60-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb52"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a>d <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&quot;diabetes.csv&quot;</span>)</span>
+<span id="cb52-2"><a href="#cb52-2" aria-hidden="true" tabindex="-1"></a>d <span class="ot">&lt;-</span> d[d<span class="sc">$</span>Glucose <span class="sc">&gt;</span> <span class="dv">0</span>, ]</span>
+<span id="cb52-3"><a href="#cb52-3" aria-hidden="true" tabindex="-1"></a>glu_pos <span class="ot">&lt;-</span> d<span class="sc">$</span>Glucose[d<span class="sc">$</span>Outcome <span class="sc">==</span> <span class="dv">1</span>]</span>
+<span id="cb52-4"><a href="#cb52-4" aria-hidden="true" tabindex="-1"></a>glu_neg <span class="ot">&lt;-</span> d<span class="sc">$</span>Glucose[d<span class="sc">$</span>Outcome <span class="sc">==</span> <span class="dv">0</span>]</span>
+<span id="cb52-5"><a href="#cb52-5" aria-hidden="true" tabindex="-1"></a><span class="fu">t.test</span>(glu_pos, glu_neg, <span class="at">alternative =</span> <span class="st">&quot;greater&quot;</span>)</span>
+<span id="cb52-6"><a href="#cb52-6" aria-hidden="true" tabindex="-1"></a><span class="fu">wilcox.test</span>(glu_pos, glu_neg, <span class="at">alternative =</span> <span class="st">&quot;greater&quot;</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Both still give vanishingly small p-values — the effect is robust. Removing the zeros barely changes things because there are very few of them, but it’s the methodologically honest thing to do.</p>
+</div>
+</div>
+</div>
+<ul>
+<li><strong>QE3.3</strong>. Test whether <code>Age</code> differs between the two outcome groups. Is a one-sided or two-sided test more appropriate here? Justify.</li>
+</ul>
+<div class="callout callout-style-simple callout-tip no-icon callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-61-contents" aria-controls="callout-61" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Hint
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-61" class="callout-61-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>A one-sided test is appropriate only when you have a prior directional hypothesis. Type 2 diabetes risk increases with age — so “greater in Outcome=1” is a defensible one-sided hypothesis.</p>
+</div>
+</div>
+</div>
+<div class="callout callout-style-simple callout-note no-icon callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-62-contents" aria-controls="callout-62" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Solution
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-62" class="callout-62-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb53"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a>d <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&quot;diabetes.csv&quot;</span>)</span>
+<span id="cb53-2"><a href="#cb53-2" aria-hidden="true" tabindex="-1"></a><span class="fu">t.test</span>(Age <span class="sc">~</span> Outcome, <span class="at">data =</span> d)                       <span class="co"># two-sided</span></span>
+<span id="cb53-3"><a href="#cb53-3" aria-hidden="true" tabindex="-1"></a><span class="fu">t.test</span>(Age <span class="sc">~</span> Outcome, <span class="at">data =</span> d, <span class="at">alternative =</span> <span class="st">&quot;less&quot;</span>) <span class="co"># H1: mean(0) &lt; mean(1)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Either is defensible. A two-sided test is the safer default when in doubt; one-sided is fine if the directional hypothesis was pre-specified.</p>
+</div>
+</div>
+</div>
+</section>
+<section id="binomial-extra" class="level3">
+<h3 class="anchored" data-anchor-id="binomial-extra">Binomial (extra)</h3>
+<ul>
+<li><strong>QE4.1</strong>. Assume X ~ Binom(n=20, θ=0.3). What is P(X = 6)? What is P(X ≤ 6)?</li>
+</ul>
+<div class="callout callout-style-simple callout-tip no-icon callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-63-contents" aria-controls="callout-63" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Hint
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-63" class="callout-63-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p><code>dbinom</code> for the point mass, <code>pbinom</code> for the cumulative.</p>
+</div>
+</div>
+</div>
+<div class="callout callout-style-simple callout-note no-icon callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-64-contents" aria-controls="callout-64" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Solution
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-64" class="callout-64-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb54"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dbinom</span>(<span class="dv">6</span>, <span class="at">size =</span> <span class="dv">20</span>, <span class="at">prob =</span> <span class="fl">0.3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.191639</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb56"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb56-1"><a href="#cb56-1" aria-hidden="true" tabindex="-1"></a><span class="fu">pbinom</span>(<span class="dv">6</span>, <span class="at">size =</span> <span class="dv">20</span>, <span class="at">prob =</span> <span class="fl">0.3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.6080098</code></pre>
+</div>
+</div>
+<p>The mean is nθ = 6, so P(X = 6) is near the mode and P(X ≤ 6) sits a bit above 0.5.</p>
+</div>
+</div>
+</div>
+<ul>
+<li><strong>QE4.2</strong>. You sequence 50 reads at a position in the genome where the true allele frequency of a variant is θ = 0.5 (a heterozygous site). What is the probability of seeing ≤ 15 reads carrying the variant just by chance? Would seeing 15 or fewer be suspicious?</li>
+</ul>
+<div class="callout callout-style-simple callout-tip no-icon callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-65-contents" aria-controls="callout-65" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Hint
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-65" class="callout-65-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>This is a one-sided binomial tail probability: <code>pbinom(15, size = 50, prob = 0.5)</code>.</p>
+</div>
+</div>
+</div>
+<div class="callout callout-style-simple callout-note no-icon callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-66-contents" aria-controls="callout-66" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Solution
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-66" class="callout-66-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb58"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb58-1"><a href="#cb58-1" aria-hidden="true" tabindex="-1"></a><span class="fu">pbinom</span>(<span class="dv">15</span>, <span class="at">size =</span> <span class="dv">50</span>, <span class="at">prob =</span> <span class="fl">0.5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.003300224</code></pre>
+</div>
+</div>
+<p>About 0.0033 — seeing 15 or fewer would be quite unlikely under a true het. In practice this is exactly the kind of test used to flag allelic imbalance or genotyping errors.</p>
+</div>
+</div>
+</div>
+</section>
 </section>
 
 </main>

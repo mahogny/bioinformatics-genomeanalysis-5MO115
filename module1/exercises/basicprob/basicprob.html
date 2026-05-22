@@ -2292,6 +2292,7 @@ $presentation-heading-color: #383d3d !default;
   <li><a href="#exercises-in-probability" id="toc-exercises-in-probability" class="nav-link active" data-scroll-target="#exercises-in-probability">Exercises in probability</a></li>
   <li><a href="#exercises-on-expected-value-expectation" id="toc-exercises-on-expected-value-expectation" class="nav-link" data-scroll-target="#exercises-on-expected-value-expectation">Exercises on Expected value / Expectation</a></li>
   <li><a href="#exercises-in-markov-chains" id="toc-exercises-in-markov-chains" class="nav-link" data-scroll-target="#exercises-in-markov-chains">Exercises in Markov chains</a></li>
+  <li><a href="#extra-exercise-material" id="toc-extra-exercise-material" class="nav-link" data-scroll-target="#extra-exercise-material">Extra exercise material</a></li>
   </ul>
 </nav>
 </div>
@@ -3140,6 +3141,422 @@ Step-by-step solution
 </div>
 </div>
 <p><strong>Optional deeper reading:</strong> You can see how to model, for example, the continuous coin flip game here: <a href="https://physiology.med.cornell.edu/people/banfelder/qbio/resources_2016/S.1_markov.pdf" class="uri">https://physiology.med.cornell.edu/people/banfelder/qbio/resources_2016/S.1_markov.pdf</a>.</p>
+</section>
+</section>
+<section id="extra-exercise-material" class="level2">
+<h2 class="anchored" data-anchor-id="extra-exercise-material">Extra exercise material</h2>
+<p>A second pass at the same material, for extra practice.</p>
+<section id="basic-probability-extra" class="level3">
+<h3 class="anchored" data-anchor-id="basic-probability-extra">Basic probability (extra)</h3>
+<ul>
+<li><strong>QE1.1</strong> A diagnostic PCR test for a viral infection has sensitivity <span class="math inline">P(+ \mid \text{infected}) = 0.95</span> and specificity <span class="math inline">P(- \mid \text{healthy}) = 0.98</span>. In a screening population, the prevalence is <span class="math inline">P(\text{infected}) = 0.01</span>. A randomly tested person comes back positive. What is the probability that they are actually infected (the positive predictive value, PPV)?</li>
+</ul>
+<div class="callout callout-style-simple callout-tip no-icon callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-31-contents" aria-controls="callout-31" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Hint
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-31" class="callout-31-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>This is a conditional-probability problem. Write down the four joint probabilities (infected/healthy × test+/test−) and pick out the right ratio.</p>
+</div>
+</div>
+</div>
+<div class="callout callout-style-simple callout-tip no-icon callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-32-contents" aria-controls="callout-32" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Hint
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-32" class="callout-32-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p><span class="math inline">\text{PPV} = P(\text{infected} \mid +) = \dfrac{P(+ \mid \text{infected})\,P(\text{infected})}{P(+)}</span>, where <span class="math inline">P(+) = P(+ \mid \text{inf})P(\text{inf}) + P(+ \mid \text{healthy})P(\text{healthy})</span>.</p>
+</div>
+</div>
+</div>
+<div class="callout callout-style-simple callout-note no-icon callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-33-contents" aria-controls="callout-33" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Solution
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-33" class="callout-33-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p><span class="math inline">P(+) = 0.95\cdot 0.01 + 0.02 \cdot 0.99 = 0.0095 + 0.0198 = 0.0293</span>.</p>
+<p><span class="math display">\text{PPV} = \frac{0.95 \cdot 0.01}{0.0293} \approx 0.324</span></p>
+<p><strong>Answer:</strong> about <strong>32%</strong>. Even with a very specific test, a rare disease produces many false positives — this is the same intuition as Q1.14: rare events at scale are still dominated by the background. This is why screening tests are usually followed up by a confirmatory test.</p>
+</div>
+</div>
+</div>
+<ul>
+<li><p><strong>QE1.2</strong> An Illumina sequencer makes per-base errors with probability <span class="math inline">p_e = 0.001</span> (Phred Q30). At a particular position, the true base is <strong>A</strong>. When the sequencer makes an error, it produces one of the three other bases uniformly at random.</p>
+<ol type="a">
+<li>What is <span class="math inline">P(\text{read base} = \text{C} \mid \text{true base} = \text{A})</span>?</li>
+<li>What is <span class="math inline">P(\text{read base} = \text{A} \mid \text{true base} = \text{A})</span>?</li>
+<li>If you observe a <strong>C</strong> at this position, and your prior is <span class="math inline">P(\text{true} = \text{A}) = 0.999</span>, <span class="math inline">P(\text{true} = \text{C}) = 0.001</span> (the rest negligible), what is <span class="math inline">P(\text{true} = \text{C} \mid \text{read} = \text{C})</span>? Assume that when the true base is C, the sequencer reads C with probability <span class="math inline">1 - p_e</span>.</li>
+</ol></li>
+</ul>
+<div class="callout callout-style-simple callout-tip no-icon callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-34-contents" aria-controls="callout-34" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Hint
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-34" class="callout-34-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<ol type="a">
+<li>and (b) are direct. (c) is Bayes’ theorem again, like QE1.1.</li>
+</ol>
+</div>
+</div>
+</div>
+<div class="callout callout-style-simple callout-note no-icon callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-35-contents" aria-controls="callout-35" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Solution
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-35" class="callout-35-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<ol type="a">
+<li><span class="math inline">P(\text{C} \mid \text{A}) = p_e / 3 = 0.001/3 \approx 3.33 \times 10^{-4}</span>.</li>
+<li><span class="math inline">P(\text{A} \mid \text{A}) = 1 - p_e = 0.999</span>.</li>
+<li><span class="math inline">P(\text{read = C}) = P(\text{C}\mid\text{A})\cdot 0.999 + P(\text{C}\mid\text{C}) \cdot 0.001 = 3.33\times 10^{-4} \cdot 0.999 + 0.999 \cdot 0.001 \approx 3.33\times 10^{-4} + 9.99\times 10^{-4} = 1.33\times 10^{-3}</span>.</li>
+</ol>
+<p><span class="math display">P(\text{true = C} \mid \text{read = C}) = \frac{0.999 \cdot 0.001}{1.33 \times 10^{-3}} \approx 0.75</span></p>
+<p><strong>Answer:</strong> about <strong>75%</strong>. So a single read showing a variant is informative but not conclusive — this is why variant callers require multiple supporting reads.</p>
+</div>
+</div>
+</div>
+<ul>
+<li><strong>QE1.3</strong> A read is mapped to the genome. From past calibration, you know:
+<ul>
+<li><span class="math inline">P(\text{maps to correct location} \mid \text{read is high-quality}) = 0.99</span></li>
+<li><span class="math inline">P(\text{maps to correct location} \mid \text{read is low-quality}) = 0.6</span></li>
+<li>80% of your reads are high-quality.</li>
+</ul>
+A randomly picked read mapped to the correct location. What is the probability that it was a high-quality read?</li>
+</ul>
+<div class="callout callout-style-simple callout-tip no-icon callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-36-contents" aria-controls="callout-36" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Hint
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-36" class="callout-36-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>Bayes’ theorem on quality given outcome. Same structure as QE1.1.</p>
+</div>
+</div>
+</div>
+<div class="callout callout-style-simple callout-note no-icon callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-37-contents" aria-controls="callout-37" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Solution
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-37" class="callout-37-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p><span class="math inline">P(\text{correct}) = 0.99 \cdot 0.8 + 0.6 \cdot 0.2 = 0.792 + 0.12 = 0.912</span>.</p>
+<p><span class="math display">P(\text{HQ} \mid \text{correct}) = \frac{0.99 \cdot 0.8}{0.912} \approx 0.868</span></p>
+<p><strong>Answer:</strong> about <strong>87%</strong>. Correctly-mapped reads are slightly enriched for HQ compared to the 80% baseline, as expected.</p>
+</div>
+</div>
+</div>
+</section>
+<section id="markov-chains-extra" class="level3">
+<h3 class="anchored" data-anchor-id="markov-chains-extra">Markov chains (extra)</h3>
+<ul>
+<li><strong>QE2.1</strong> A gene can be in one of two states: <strong>ON</strong> (transcribing) or <strong>OFF</strong> (silent). Per time step:
+<ul>
+<li>if ON, it stays ON with probability 0.7 and switches to OFF with probability 0.3;</li>
+<li>if OFF, it stays OFF with probability 0.8 and switches to ON with probability 0.2.</li>
+</ul>
+<ol type="a">
+<li>Write the transition matrix <span class="math inline">P</span> with state order (ON, OFF).</li>
+<li>If the gene starts ON, what is the probability it is ON after <strong>3 time steps</strong>?</li>
+<li>Compute the <strong>stationary distribution</strong> <span class="math inline">\pi</span>. What fraction of time is the gene ON?</li>
+</ol></li>
+</ul>
+<div class="callout callout-style-simple callout-tip no-icon callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-38-contents" aria-controls="callout-38" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Hint
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-38" class="callout-38-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<ol start="2" type="a">
+<li>is entry <span class="math inline">(1,1)</span> of <span class="math inline">P^3</span> — use <code>%*%</code> in R. (c) follows the same recipe as Q3.9: <span class="math inline">(P^T - I)\pi^T = 0</span> plus normalization.</li>
+</ol>
+</div>
+</div>
+</div>
+<div class="callout callout-style-simple callout-note no-icon callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-39-contents" aria-controls="callout-39" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Solution
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-39" class="callout-39-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>P <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">c</span>(<span class="fl">0.7</span>, <span class="fl">0.3</span>,</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>              <span class="fl">0.2</span>, <span class="fl">0.8</span>), <span class="dv">2</span>, <span class="dv">2</span>, <span class="at">byrow =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a><span class="co"># (b) Start ON = (1, 0). After 3 steps, want P(ON) = (P^3)[1,1].</span></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>P3 <span class="ot">&lt;-</span> P <span class="sc">%*%</span> P <span class="sc">%*%</span> P</span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>P3</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>      [,1]  [,2]
+[1,] 0.475 0.525
+[2,] 0.350 0.650</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>P3[<span class="dv">1</span>, <span class="dv">1</span>]              <span class="co"># probability still ON after 3 steps</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.475</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># (c) Stationary distribution: (P^T - I) pi^T = 0, plus sum-to-one.</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>A <span class="ot">&lt;-</span> <span class="fu">t</span>(P) <span class="sc">-</span> <span class="fu">diag</span>(<span class="dv">2</span>)</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>A[<span class="dv">2</span>, ] <span class="ot">&lt;-</span> <span class="dv">1</span>            <span class="co"># replace last balance eq. with normalization</span></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>b <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>)</span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>pi <span class="ot">&lt;-</span> <span class="fu">solve</span>(A, b)</span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>pi                     <span class="co"># (P(ON), P(OFF))</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.4 0.6</code></pre>
+</div>
+</div>
+<p>By hand: <span class="math inline">\pi_{\text{ON}} \cdot 0.3 = \pi_{\text{OFF}} \cdot 0.2</span>, so <span class="math inline">\pi_{\text{ON}} / \pi_{\text{OFF}} = 2/3</span>. With normalization: <span class="math inline">\pi = (2/5, 3/5) = (0.4, 0.6)</span>. The gene is ON about <strong>40%</strong> of the time in the long run.</p>
+</div>
+</div>
+</div>
+<ul>
+<li><p><strong>QE2.2</strong> A bacterium is in one of three growth phases: <strong>Lag</strong>, <strong>Exp</strong> (exponential), <strong>Stat</strong> (stationary). Per time step the transition probabilities are:</p>
+<ul>
+<li>From Lag: stay 0.6, to Exp 0.4, to Stat 0.</li>
+<li>From Exp: stay 0.7, to Stat 0.3, to Lag 0.</li>
+<li>From Stat: stay 0.9, to Lag 0.1, to Exp 0.</li>
+</ul>
+<ol type="a">
+<li>Write the transition matrix with state order (Lag, Exp, Stat).</li>
+<li>Compute the stationary distribution.</li>
+<li>Which phase dominates in the long run?</li>
+</ol></li>
+</ul>
+<div class="callout callout-style-simple callout-tip no-icon callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-40-contents" aria-controls="callout-40" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Hint
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-40" class="callout-40-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>Re-use the matrix recipe from Q3.9 / Q3.11.</p>
+</div>
+</div>
+</div>
+<div class="callout callout-style-simple callout-note no-icon callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-41-contents" aria-controls="callout-41" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Solution
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-41" class="callout-41-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>P <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">c</span>(<span class="fl">0.6</span>, <span class="fl">0.4</span>, <span class="fl">0.0</span>,</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>              <span class="fl">0.0</span>, <span class="fl">0.7</span>, <span class="fl">0.3</span>,</span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>              <span class="fl">0.1</span>, <span class="fl">0.0</span>, <span class="fl">0.9</span>), <span class="dv">3</span>, <span class="dv">3</span>, <span class="at">byrow =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Check rows sum to 1</span></span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a><span class="fu">rowSums</span>(P)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 1 1 1</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Stationary distribution</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>A <span class="ot">&lt;-</span> <span class="fu">t</span>(P) <span class="sc">-</span> <span class="fu">diag</span>(<span class="dv">3</span>)</span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>A[<span class="dv">3</span>, ] <span class="ot">&lt;-</span> <span class="dv">1</span></span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>b <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">1</span>)</span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>pi <span class="ot">&lt;-</span> <span class="fu">solve</span>(A, b)</span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>pi              <span class="co"># (Lag, Exp, Stat)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.1578947 0.2105263 0.6315789</code></pre>
+</div>
+</div>
+<p>The Stat self-loop of 0.9 is the stickiest state, so the chain spends most of its time there — biologically, a closed batch culture spends most of its time in stationary phase, matching the standard textbook growth curve.</p>
+</div>
+</div>
+</div>
+<ul>
+<li><p><strong>QE2.3</strong> Consider the cell-cycle chain from Q3.11. Suppose a cell starts in <span class="math inline">G_1</span>. What is the expected number of steps until it first enters mitosis (<span class="math inline">M</span>)? This is the <strong>mean first-passage time</strong> from <span class="math inline">G_1</span> to <span class="math inline">M</span>.</p>
+<p>Use the standard trick: let <span class="math inline">h_i</span> be the expected number of steps to reach <span class="math inline">M</span> starting from state <span class="math inline">i</span>. Then <span class="math inline">h_M = 0</span> and for the other states <span class="math display">h_i = 1 + \sum_{j} P_{i,j}\, h_j</span> Solve this linear system for <span class="math inline">h_{G_1}, h_S, h_{G_2}</span>.</p></li>
+</ul>
+<div class="callout callout-style-simple callout-tip no-icon callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-42-contents" aria-controls="callout-42" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Hint
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-42" class="callout-42-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>Treat <span class="math inline">M</span> as an absorbing state (<span class="math inline">h_M = 0</span>). Then you have three unknowns (<span class="math inline">h_{G_1}, h_S, h_{G_2}</span>) and three linear equations.</p>
+</div>
+</div>
+</div>
+<div class="callout callout-style-simple callout-tip no-icon callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-43-contents" aria-controls="callout-43" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Hint
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-43" class="callout-43-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>In matrix form: let <span class="math inline">Q</span> be the 3×3 submatrix of <span class="math inline">P</span> on non-absorbing states. Then <span class="math inline">h = (I - Q)^{-1}\mathbf{1}</span>.</p>
+</div>
+</div>
+</div>
+<div class="callout callout-style-simple callout-note no-icon callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-44-contents" aria-controls="callout-44" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Solution
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-44" class="callout-44-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Full cell-cycle chain from Q3.11, order (G1, S, G2, M)</span></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>P <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">c</span>(<span class="fl">0.9</span>, <span class="fl">0.1</span>, <span class="dv">0</span>,   <span class="dv">0</span>,</span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>              <span class="dv">0</span>,   <span class="fl">0.7</span>, <span class="fl">0.3</span>, <span class="dv">0</span>,</span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>              <span class="dv">0</span>,   <span class="dv">0</span>,   <span class="fl">0.6</span>, <span class="fl">0.4</span>,</span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>              <span class="fl">0.8</span>, <span class="dv">0</span>,   <span class="dv">0</span>,   <span class="fl">0.2</span>), <span class="dv">4</span>, <span class="dv">4</span>, <span class="at">byrow =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Make M absorbing for the first-passage computation:</span></span>
+<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a><span class="co"># strip row/col 4 to get Q on transient states {G1, S, G2}</span></span>
+<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a>Q <span class="ot">&lt;-</span> P[<span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>, <span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>]</span>
+<span id="cb18-10"><a href="#cb18-10" aria-hidden="true" tabindex="-1"></a>Q</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>     [,1] [,2] [,3]
+[1,]  0.9  0.1  0.0
+[2,]  0.0  0.7  0.3
+[3,]  0.0  0.0  0.6</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Mean first-passage times to M from each transient state:</span></span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>h <span class="ot">&lt;-</span> <span class="fu">solve</span>(<span class="fu">diag</span>(<span class="dv">3</span>) <span class="sc">-</span> Q, <span class="fu">rep</span>(<span class="dv">1</span>, <span class="dv">3</span>))</span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(h) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;G1&quot;</span>, <span class="st">&quot;S&quot;</span>, <span class="st">&quot;G2&quot;</span>)</span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>h</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>       G1         S        G2 
+15.833333  5.833333  2.500000 </code></pre>
+</div>
+</div>
+<p>The expected number of steps from <span class="math inline">G_1</span> to <span class="math inline">M</span> is the first entry. Solving by hand: <span class="math inline">h_{G_2} = 1 + 0.6\,h_{G_2} \Rightarrow h_{G_2} = 2.5</span>; <span class="math inline">h_S = 1 + 0.7\,h_S + 0.3\,h_{G_2} \Rightarrow h_S = (1 + 0.75)/0.3 = 35/6 \approx 5.83</span>; <span class="math inline">h_{G_1} = 1 + 0.9\,h_{G_1} + 0.1\,h_S \Rightarrow h_{G_1} = (1 + 0.583)/0.1 \approx 15.83</span>.</p>
+<p><strong>Answer:</strong> about <strong>15.8 steps</strong> from <span class="math inline">G_1</span> to first reach <span class="math inline">M</span>. This makes sense given the long <span class="math inline">G_1</span> self-loop of 0.9.</p>
+</div>
+</div>
+</div>
+<ul>
+<li><strong>QE2.4</strong> Take the simple ON/OFF gene from QE2.1. Starting in the <strong>OFF</strong> state, what is the probability that the gene is ON for the <strong>first time</strong> at exactly step 3 (i.e. OFF, OFF, ON)?</li>
+</ul>
+<div class="callout callout-style-simple callout-tip no-icon callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-45-contents" aria-controls="callout-45" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Hint
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-45" class="callout-45-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>“First time ON at step 3” means: OFF at step 1, OFF at step 2, ON at step 3. Multiply conditional probabilities along this single path.</p>
+</div>
+</div>
+</div>
+<div class="callout callout-style-simple callout-note no-icon callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-46-contents" aria-controls="callout-46" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Solution
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-46" class="callout-46-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>Starting at OFF (step 0). The required path is OFF <span class="math inline">\to</span> OFF <span class="math inline">\to</span> OFF <span class="math inline">\to</span> ON, with probabilities <span class="math inline">0.8, 0.8, 0.2</span>:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>P <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">c</span>(<span class="fl">0.7</span>, <span class="fl">0.3</span>,</span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>              <span class="fl">0.2</span>, <span class="fl">0.8</span>), <span class="dv">2</span>, <span class="dv">2</span>, <span class="at">byrow =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Path OFF -&gt; OFF -&gt; OFF -&gt; ON has probability P[2,2] * P[2,2] * P[2,1]</span></span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>prob <span class="ot">&lt;-</span> P[<span class="dv">2</span>, <span class="dv">2</span>] <span class="sc">*</span> P[<span class="dv">2</span>, <span class="dv">2</span>] <span class="sc">*</span> P[<span class="dv">2</span>, <span class="dv">1</span>]</span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a>prob</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.128</code></pre>
+</div>
+</div>
+<p><strong>Answer:</strong> <span class="math inline">0.8 \cdot 0.8 \cdot 0.2 = 0.128</span>, i.e. <strong>12.8%</strong>. Geometric-like waiting time: the probability of first switching to ON at step <span class="math inline">k</span> is <span class="math inline">0.8^{k-1} \cdot 0.2</span> (a geometric distribution with success probability 0.2), and the mean waiting time is <span class="math inline">1/0.2 = 5</span> steps.</p>
+</div>
+</div>
+</div>
 </section>
 </section>
 

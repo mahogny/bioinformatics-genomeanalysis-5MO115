@@ -19,6 +19,41 @@ ul.task-list li input[type="checkbox"] {
 width: 0.8em;
 margin: 0 0.8em 0.2em -1em;  vertical-align: middle;
 }
+
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+{ counter-reset: source-line 0; }
+pre.numberSource code > span
+{ position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+{ content: counter(source-line);
+position: relative; left: -1em; text-align: right; vertical-align: baseline;
+border: none; display: inline-block;
+-webkit-touch-callout: none; -webkit-user-select: none;
+-khtml-user-select: none; -moz-user-select: none;
+-ms-user-select: none; user-select: none;
+padding: 0 4px; width: 4em;
+}
+pre.numberSource { margin-left: 3em; padding-left: 4px; }
+div.sourceCode
+{ }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
@@ -2353,20 +2388,175 @@ $presentation-heading-color: #383d3d !default;
 </ul>
 <p><strong>Practice solving linear least squares in R:</strong></p>
 <p>Look at the R help <a href="https://www.rdocumentation.org/packages/stats/versions/3.6.2/topics/lm">for <code>lm()</code></a> and <a href="https://www.rdocumentation.org/packages/stats/versions/3.6.2/topics/anova">for <code>anova()</code></a>.</p>
-<p>Work on the provided dataset <code>diabetes.csv</code> (course file).</p>
+<p>Work on the provided dataset <a href="data/diabetes.csv.zip"><code>diabetes.csv</code></a>.</p>
 <ul>
 <li><strong>Q1.1</strong>. Using the function <code>lm()</code>, fit the model <code>BloodPressure ~ Age</code>.
 <ul>
 <li>Does age predict blood pressure?</li>
 <li>Is it statistically significant?</li>
 </ul></li>
+</ul>
+<div class="callout callout-style-simple callout-tip no-icon callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Hint
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-1" class="callout-1-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>Load the data with <code>read.csv()</code>, then pass the formula to <code>lm()</code>. Inspect the fit using <code>summary()</code> or <code>anova()</code> to read off the coefficient and its p-value.</p>
+</div>
+</div>
+</div>
+<div class="callout callout-style-simple callout-note no-icon callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-2-contents" aria-controls="callout-2" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Solution
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-2" class="callout-2-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>d <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&quot;diabetes.csv&quot;</span>)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>fit <span class="ot">&lt;-</span> <span class="fu">lm</span>(BloodPressure <span class="sc">~</span> Age, <span class="at">data =</span> d)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(fit)</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">anova</span>(fit)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Age has a positive coefficient — older subjects tend to have higher blood pressure — and the effect is statistically significant (small p-value).</p>
+</div>
+</div>
+</div>
+<ul>
 <li><strong>Q1.2</strong>. Fit the model <code>BloodPressure ~ Age + Glucose</code>. Does this appear to affect the situation?</li>
+</ul>
+<div class="callout callout-style-simple callout-tip no-icon callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-3-contents" aria-controls="callout-3" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Hint
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-3" class="callout-3-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>Add <code>+ Glucose</code> to the right-hand side of the formula. Compare the p-value and coefficient of <code>Age</code> with what you got in Q1.1.</p>
+</div>
+</div>
+</div>
+<div class="callout callout-style-simple callout-note no-icon callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-4-contents" aria-controls="callout-4" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Solution
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-4" class="callout-4-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>fit2 <span class="ot">&lt;-</span> <span class="fu">lm</span>(BloodPressure <span class="sc">~</span> Age <span class="sc">+</span> Glucose, <span class="at">data =</span> d)</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(fit2)</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="fu">anova</span>(fit2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Once Glucose is in the model, the apparent effect of Age shrinks and becomes less significant. Some of what looked like an Age effect was actually explained by Glucose, which is itself correlated with Age — a flavour of Simpson’s paradox.</p>
+</div>
+</div>
+</div>
+<ul>
 <li><strong>Q1.3</strong>. Fit a model using all available variables. This can be done with the shorthand: <code>BloodPressure ~ .</code>
 <ul>
 <li>Is age still as significant? What do you think happened here?</li>
 </ul></li>
+</ul>
+<div class="callout callout-style-simple callout-tip no-icon callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-5-contents" aria-controls="callout-5" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Hint
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-5" class="callout-5-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>The dot <code>.</code> on the right-hand side means “every other column in <code>data</code>”. Refit and look again at the row for <code>Age</code> in the summary table.</p>
+</div>
+</div>
+</div>
+<div class="callout callout-style-simple callout-note no-icon callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-6-contents" aria-controls="callout-6" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Solution
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-6" class="callout-6-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>fit_all <span class="ot">&lt;-</span> <span class="fu">lm</span>(BloodPressure <span class="sc">~</span> ., <span class="at">data =</span> d)</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(fit_all)</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="fu">anova</span>(fit_all)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>After controlling for all the other variables, Age is often no longer significant. The variables are correlated with each other — much of the variance that Age was “claiming” in the simple model is really attributable to BMI, Glucose, etc. Correlation alone does not imply causation.</p>
+</div>
+</div>
+</div>
+<ul>
 <li><strong>Q1.4</strong> Optional: Plot Age vs some key variables to help your intuition about what is going on.</li>
 </ul>
+<div class="callout callout-style-simple callout-tip no-icon callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-7-contents" aria-controls="callout-7" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Hint
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-7" class="callout-7-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>A quick <code>plot(d$Age, d$Glucose)</code> is enough — repeat for BMI and a few other columns. <code>pairs(d)</code> gives all pairwise scatterplots at once.</p>
+</div>
+</div>
+</div>
+<div class="callout callout-style-simple callout-note no-icon callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-8-contents" aria-controls="callout-8" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Solution
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-8" class="callout-8-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(d<span class="sc">$</span>Age, d<span class="sc">$</span>Glucose)</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(d<span class="sc">$</span>Age, d<span class="sc">$</span>BMI)</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="fu">pairs</span>(d)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Older subjects tend to have higher Glucose, BMI, and so on. Because these predictors move together, the simple <code>BloodPressure ~ Age</code> model picks up effects that really belong to the other variables.</p>
+</div>
+</div>
+</div>
 <p>This example is a less extreme example of what is called <a href="https://en.wikipedia.org/wiki/Simpson%27s_paradox">Simpson’s paradox</a>. The more data you have to predict a certain thing, the more confused you are likely to be about causality. Correlations alone cannot be used to infer causation, especially not in biology!</p>
 </section>
 <section id="handle-other-statistical-distributions-using-rstan" class="level2">
@@ -2379,15 +2569,689 @@ $presentation-heading-color: #383d3d !default;
 <p>Note that STAN primarily is meant for Bayesian statistics (next module!) but it is very capable of computing maximum likelihood estimates for frequentist statistics (i.e. what we have done until now).</p>
 <p><strong>Practice using STAN:</strong></p>
 <ul>
-<li><strong>Q2.1</strong>. In the file <code>frog_stan.zip</code> (course file), check out <strong>frog.R</strong>, <strong>frog.stan</strong>, and make this example run on your computer. If you struggle to open the stan-file in RStudio, you will likely find it easiest with the “File → open file…” command in the RStudio menus.</li>
+<li><strong>Q2.1</strong>. In the file <a href="data/frog_stan.zip"><code>frog_stan.zip</code></a>, check out <strong>frog.R</strong>, <strong>frog.stan</strong>, and make this example run on your computer. If you struggle to open the stan-file in RStudio, you will likely find it easiest with the “File → open file…” command in the RStudio menus.</li>
+</ul>
+<div class="callout callout-style-simple callout-tip no-icon callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-9-contents" aria-controls="callout-9" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Hint
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-9" class="callout-9-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>Make sure the <code>rstan</code> package is installed (<code>install.packages(&quot;rstan&quot;)</code>). Unzip the archive into a directory, set that directory as the working directory in RStudio, then open <strong>frog.R</strong> and source it.</p>
+</div>
+</div>
+</div>
+<div class="callout callout-style-simple callout-note no-icon callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-10-contents" aria-controls="callout-10" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Solution
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-10" class="callout-10-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 1. unzip frog_stan.zip</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="co"># 2. setwd() to the unzipped folder, or open the project there</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="co"># 3. install.packages(&quot;rstan&quot;) if needed</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="co"># 4. open frog.R in RStudio and run it line by line</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(rstan)</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a><span class="fu">source</span>(<span class="st">&quot;frog.R&quot;</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>The script reads the frog counts, compiles <strong>frog.stan</strong>, runs the sampler, and prints / plots the result.</p>
+</div>
+</div>
+</div>
+<ul>
 <li><strong>Q2.2</strong>. Study the code and make yourself familiar with what it does. Note that <strong>frog.stan</strong> contains code that you should have a look at as well.</li>
 </ul>
+<div class="callout callout-style-simple callout-tip no-icon callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-11-contents" aria-controls="callout-11" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Hint
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-11" class="callout-11-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>Look at the <code>data</code>, <code>parameters</code>, and <code>model</code> blocks in <strong>frog.stan</strong>. What are the observations? What unknowns is STAN solving for? How is the rate at intermediate times computed from the two endpoint rates?</p>
+</div>
+</div>
+</div>
+<div class="callout callout-style-simple callout-note no-icon callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-12-contents" aria-controls="callout-12" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Solution
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-12" class="callout-12-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>The observed frog counts are modelled as Poisson-distributed: <code>counts[i] ~ Poisson(lambda[i])</code>. The rate <code>lambda[i]</code> is not free for each time point — instead it is linearly interpolated between two endpoint rates <code>a</code> and <code>b</code> using <code>lambda = x*a + (1-x)*b</code>, where <code>x</code> runs from 0 to 1 across the observation times. STAN samples (or maximises the likelihood over) <code>a</code> and <code>b</code> given the data.</p>
+</div>
+</div>
+</div>
 <p><strong>Note on the linear model / interpolation used in the model:</strong> This code has x-values in the range 0…1. This simplifies the interpolation code. Consider <span class="math inline">\(f(x) = x a + (1 - x) b\)</span>. Note that <span class="math inline">\(f(0) = b\)</span> and <span class="math inline">\(f(1) = a\)</span>. Thus these define the values at either extreme. A more general way of doing linear interpolation is however <span class="math inline">\(f(x) = \frac{x a}{N} + \frac{(1 - x) b}{N}\)</span>. With this definition, <span class="math inline">\(f(0) = b\)</span> and <span class="math inline">\(f(N) = a\)</span>. Thus it would be suitable for X being 0…N instead.</p>
 <ul>
 <li><strong>Q2.3</strong>: Plot the number of frogs over time. What does the trend look like?</li>
+</ul>
+<div class="callout callout-style-simple callout-tip no-icon callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-13-contents" aria-controls="callout-13" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Hint
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-13" class="callout-13-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>A plain <code>plot(time, count)</code> will do; add <code>type = &quot;b&quot;</code> to connect the points if you like.</p>
+</div>
+</div>
+</div>
+<div class="callout callout-style-simple callout-note no-icon callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-14-contents" aria-controls="callout-14" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Solution
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-14" class="callout-14-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(time, count, <span class="at">type =</span> <span class="st">&quot;b&quot;</span>, <span class="at">xlab =</span> <span class="st">&quot;time&quot;</span>, <span class="at">ylab =</span> <span class="st">&quot;frog count&quot;</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>The counts trend downward over time — the frog population looks like it is decreasing.</p>
+</div>
+</div>
+</div>
+<ul>
 <li><strong>Q2.4</strong>: After running the provided code, does the model fit the data?</li>
+</ul>
+<div class="callout callout-style-simple callout-tip no-icon callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-15-contents" aria-controls="callout-15" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Hint
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-15" class="callout-15-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>Compare the posterior (or MLE) values of <code>a</code> and <code>b</code> against the data, and overlay the fitted line <code>lambda = x*a + (1-x)*b</code> on the scatterplot from Q2.3.</p>
+</div>
+</div>
+</div>
+<div class="callout callout-style-simple callout-note no-icon callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-16-contents" aria-controls="callout-16" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Solution
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-16" class="callout-16-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(fit)</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="co"># overlay the interpolated rate on the observed counts</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Yes — the linear interpolation between the two endpoint rates captures the declining trend well, and the observed counts scatter around the fitted curve as expected for Poisson noise.</p>
+</div>
+</div>
+</div>
+<ul>
 <li><strong>Q2.5: Optional.</strong> In the STAN-code, you see that there is a limit on lambda to be ≥ 0. Why is this? (without limits, lambda is initially taken from a normal distribution around 0)</li>
 </ul>
+<div class="callout callout-style-simple callout-tip no-icon callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-17-contents" aria-controls="callout-17" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Hint
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-17" class="callout-17-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>What does <code>lambda</code> mean in a Poisson distribution? Is there any value it is not allowed to take?</p>
+</div>
+</div>
+</div>
+<div class="callout callout-style-simple callout-tip no-icon callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-18-contents" aria-controls="callout-18" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Hint
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-18" class="callout-18-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>Think about what happens to <code>Poisson(lambda)</code> when <code>lambda</code> is negative — the density (and its log) is not defined.</p>
+</div>
+</div>
+</div>
+<div class="callout callout-style-simple callout-note no-icon callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-19-contents" aria-controls="callout-19" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Solution
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-19" class="callout-19-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p><code>lambda</code> is the rate parameter of a Poisson distribution and must be non-negative — a Poisson with negative rate is undefined. Without the <code>&lt;lower=0&gt;</code> constraint, STAN initialises parameters from a normal distribution centred on 0 and would happily propose negative <code>lambda</code> values; the likelihood would then involve <code>log(lambda)</code> of a non-positive number, producing <code>NaN</code> or <code>-Inf</code>, and the sampler fails to start. The constraint reparameterises so that only valid values are ever proposed.</p>
+</div>
+</div>
+</div>
+</section>
+<section id="extra-exercise-material" class="level2">
+<h2 class="anchored" data-anchor-id="extra-exercise-material">Extra exercise material</h2>
+<p>A second pass at the same material, for extra practice. Same conventions as above — try each question first, then peek.</p>
+<section id="linear-models-on-diabetes.csv-extra" class="level3">
+<h3 class="anchored" data-anchor-id="linear-models-on-diabetes.csv-extra">Linear models on diabetes.csv (extra)</h3>
+<p>Work again on <a href="data/diabetes.csv.zip"><code>diabetes.csv</code></a>.</p>
+<ul>
+<li><strong>QE1.1</strong>. Fit <code>Glucose ~ BMI + Age</code>. Which predictor has the larger effect per unit, and which is more statistically significant? Are the two questions the same?</li>
+</ul>
+<div class="callout callout-style-simple callout-tip no-icon callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-20-contents" aria-controls="callout-20" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Hint
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-20" class="callout-20-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>Read both the <code>Estimate</code> column and the <code>Pr(&gt;|t|)</code> column of <code>summary(fit)</code>. A big coefficient is not the same as a small p-value — the standard error matters too. Also remember <code>BMI</code> and <code>Age</code> are on very different scales.</p>
+</div>
+</div>
+</div>
+<div class="callout callout-style-simple callout-note no-icon callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-21-contents" aria-controls="callout-21" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Solution
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-21" class="callout-21-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>d <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&quot;diabetes.csv&quot;</span>)</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>fit <span class="ot">&lt;-</span> <span class="fu">lm</span>(Glucose <span class="sc">~</span> BMI <span class="sc">+</span> Age, <span class="at">data =</span> d)</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(fit)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>The size of an estimate is measured in units of the predictor (mmol/kg/m² vs. mmol/year), so the raw numbers cannot be compared directly. Significance depends on <code>Estimate / Std.Error</code>, not on the magnitude of <code>Estimate</code> alone. To compare effect sizes fairly you would have to standardise the predictors first (<code>scale()</code>).</p>
+</div>
+</div>
+</div>
+<ul>
+<li><strong>QE1.2</strong>. Fit <code>Insulin ~ Age + BMI</code>. Then refit it as <code>Insulin ~ Age * BMI</code> (note the <code>*</code>). What new term appears, and what does it mean?</li>
+</ul>
+<div class="callout callout-style-simple callout-tip no-icon callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-22-contents" aria-controls="callout-22" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Hint
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-22" class="callout-22-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p><code>Age * BMI</code> expands to <code>Age + BMI + Age:BMI</code>. The <code>Age:BMI</code> row is the interaction.</p>
+</div>
+</div>
+</div>
+<div class="callout callout-style-simple callout-note no-icon callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-23-contents" aria-controls="callout-23" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Solution
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-23" class="callout-23-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>fit_add <span class="ot">&lt;-</span> <span class="fu">lm</span>(Insulin <span class="sc">~</span> Age <span class="sc">+</span> BMI, <span class="at">data =</span> d)</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>fit_int <span class="ot">&lt;-</span> <span class="fu">lm</span>(Insulin <span class="sc">~</span> Age <span class="sc">*</span> BMI, <span class="at">data =</span> d)</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(fit_int)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>The extra <code>Age:BMI</code> term asks whether the effect of BMI on insulin depends on Age (equivalently, whether the effect of Age depends on BMI). A non-zero interaction means the two predictors do not simply add.</p>
+</div>
+</div>
+</div>
+<ul>
+<li><strong>QE1.3</strong>. The column <code>Outcome</code> is binary (0 / 1, diabetic or not). Fit <code>Outcome ~ Glucose + BMI + Age</code> first with <code>lm()</code>, then with <code>glm(..., family = binomial)</code>. Why is <code>lm()</code> the wrong tool here?</li>
+</ul>
+<div class="callout callout-style-simple callout-tip no-icon callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-24-contents" aria-controls="callout-24" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Hint
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-24" class="callout-24-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>A linear model assumes the response is continuous and the residuals are normal. With a 0/1 outcome the fitted values can fall outside <code>[0, 1]</code> and the residuals are clearly not normal. Logistic regression (<code>glm</code> with <code>family = binomial</code>) models the log-odds instead.</p>
+</div>
+</div>
+</div>
+<div class="callout callout-style-simple callout-note no-icon callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-25-contents" aria-controls="callout-25" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Solution
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-25" class="callout-25-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>fit_lm  <span class="ot">&lt;-</span> <span class="fu">lm</span>(Outcome <span class="sc">~</span> Glucose <span class="sc">+</span> BMI <span class="sc">+</span> Age, <span class="at">data =</span> d)</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>fit_glm <span class="ot">&lt;-</span> <span class="fu">glm</span>(Outcome <span class="sc">~</span> Glucose <span class="sc">+</span> BMI <span class="sc">+</span> Age, <span class="at">data =</span> d, <span class="at">family =</span> binomial)</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(fit_glm)</span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a><span class="fu">range</span>(<span class="fu">predict</span>(fit_lm))                       <span class="co"># can go &lt;0 or &gt;1</span></span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a><span class="fu">range</span>(<span class="fu">predict</span>(fit_glm, <span class="at">type =</span> <span class="st">&quot;response&quot;</span>))   <span class="co"># bounded in [0, 1]</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p><code>lm()</code> will produce predicted “probabilities” outside <code>[0, 1]</code> and homoscedasticity is violated. <code>glm(..., family = binomial)</code> fits a logistic regression — coefficients are now on the log-odds scale, but the predicted probabilities are bounded and the likelihood is appropriate for binary data.</p>
+</div>
+</div>
+</div>
+<ul>
+<li><strong>QE1.4</strong>. Fit <code>Outcome ~ .</code> with <code>glm(family = binomial)</code>. Which variables come out as the strongest predictors of diabetes? Compare with what <code>lm(Outcome ~ .)</code> would have told you.</li>
+</ul>
+<div class="callout callout-style-simple callout-tip no-icon callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-26-contents" aria-controls="callout-26" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Hint
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-26" class="callout-26-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>Use <code>summary(fit)</code> and rank by p-value (or <code>|z value|</code>). The signs of the coefficients tell you the direction of association on the log-odds scale.</p>
+</div>
+</div>
+</div>
+<div class="callout callout-style-simple callout-note no-icon callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-27-contents" aria-controls="callout-27" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Solution
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-27" class="callout-27-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>fit_full <span class="ot">&lt;-</span> <span class="fu">glm</span>(Outcome <span class="sc">~</span> ., <span class="at">data =</span> d, <span class="at">family =</span> binomial)</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(fit_full)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Typically <code>Glucose</code>, <code>BMI</code>, and <code>Pregnancies</code> come out as strongly associated with <code>Outcome</code>. The relative ordering and significance from <code>glm()</code> is the trustworthy version; the <code>lm()</code> p-values are biased because the model assumptions are violated.</p>
+</div>
+</div>
+</div>
+</section>
+<section id="diagnostics-and-assumptions-extra" class="level3">
+<h3 class="anchored" data-anchor-id="diagnostics-and-assumptions-extra">Diagnostics and assumptions (extra)</h3>
+<ul>
+<li><strong>QE2.1</strong>. Re-fit <code>BloodPressure ~ Age + BMI + Glucose</code> and run <code>plot(fit)</code>. What four diagnostic plots come up, and what is each one checking?</li>
+</ul>
+<div class="callout callout-style-simple callout-tip no-icon callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-28-contents" aria-controls="callout-28" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Hint
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-28" class="callout-28-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>By default <code>plot.lm</code> shows: residuals vs fitted, Normal Q-Q of residuals, scale-location (sqrt-abs-residuals vs fitted), and residuals vs leverage with Cook’s distance.</p>
+</div>
+</div>
+</div>
+<div class="callout callout-style-simple callout-note no-icon callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-29-contents" aria-controls="callout-29" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Solution
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-29" class="callout-29-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>fit <span class="ot">&lt;-</span> <span class="fu">lm</span>(BloodPressure <span class="sc">~</span> Age <span class="sc">+</span> BMI <span class="sc">+</span> Glucose, <span class="at">data =</span> d)</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">2</span>))</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(fit)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<ul>
+<li>Residuals vs fitted: checks linearity and constant variance — looking for no trend.</li>
+<li>Normal Q-Q: checks normality of residuals — points should lie on the diagonal.</li>
+<li>Scale-location: checks homoscedasticity — flat horizontal line is good.</li>
+<li>Residuals vs leverage: flags individual points with high influence (Cook’s distance).</li>
+</ul>
+</div>
+</div>
+</div>
+<ul>
+<li><strong>QE2.2</strong>. From the Q-Q plot, do the residuals look normal? And if the scale-location plot fans out (residuals get bigger as fitted values grow), what is the technical name for that problem and what is one common fix?</li>
+</ul>
+<div class="callout callout-style-simple callout-tip no-icon callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-30-contents" aria-controls="callout-30" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Hint
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-30" class="callout-30-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>“Fanning out” = variance depends on the mean. Look up <em>heteroscedasticity</em>. Common fixes: transform the response (<code>log</code>, <code>sqrt</code>), use weighted least squares, or move to a GLM with a variance function that matches the data (Poisson, gamma, …).</p>
+</div>
+</div>
+</div>
+<div class="callout callout-style-simple callout-note no-icon callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-31-contents" aria-controls="callout-31" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Solution
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-31" class="callout-31-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">qqnorm</span>(<span class="fu">residuals</span>(fit)); <span class="fu">qqline</span>(<span class="fu">residuals</span>(fit))</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(fit, <span class="at">which =</span> <span class="dv">3</span>)   <span class="co"># scale-location</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Fanning residuals indicate <strong>heteroscedasticity</strong> — the constant-variance assumption is violated. A log- or sqrt-transform of the response, weighted least squares, or a GLM with an appropriate family (e.g. Poisson for count data) typically helps. Non-normal residuals can also point to outliers or a wrong link function.</p>
+</div>
+</div>
+</div>
+</section>
+<section id="anova-vs.-summary-extra" class="level3">
+<h3 class="anchored" data-anchor-id="anova-vs.-summary-extra">ANOVA vs. summary (extra)</h3>
+<ul>
+<li><strong>QE3.1</strong>. Fit <code>BloodPressure ~ Age + Glucose</code> and then <code>BloodPressure ~ Glucose + Age</code> on the same data. Compare <code>anova(fit)</code> for the two orderings, and compare <code>summary(fit)</code> for the two orderings. Which one changes, and why?</li>
+</ul>
+<div class="callout callout-style-simple callout-tip no-icon callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-32-contents" aria-controls="callout-32" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Hint
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-32" class="callout-32-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p><code>anova()</code> on a single <code>lm</code> gives <strong>sequential (Type-I)</strong> sums of squares: each term is tested <em>after</em> the previous ones. <code>summary()</code> reports the partial t-test for each coefficient <em>given all the others</em>, so order does not matter.</p>
+</div>
+</div>
+</div>
+<div class="callout callout-style-simple callout-note no-icon callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-33-contents" aria-controls="callout-33" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Solution
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-33" class="callout-33-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>fit1 <span class="ot">&lt;-</span> <span class="fu">lm</span>(BloodPressure <span class="sc">~</span> Age <span class="sc">+</span> Glucose, <span class="at">data =</span> d)</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>fit2 <span class="ot">&lt;-</span> <span class="fu">lm</span>(BloodPressure <span class="sc">~</span> Glucose <span class="sc">+</span> Age, <span class="at">data =</span> d)</span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a><span class="fu">anova</span>(fit1);   <span class="fu">anova</span>(fit2)     <span class="co"># different</span></span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(fit1); <span class="fu">summary</span>(fit2)   <span class="co"># same coefficients &amp; p-values</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>The <code>anova()</code> p-values change because Type-I SS allocate shared variance to whichever predictor enters first. The <code>summary()</code> coefficient table is invariant to ordering because every t-test is “this predictor, given all the others”. When predictors are correlated, the two views can disagree — prefer <code>summary()</code> (or <code>drop1()</code> / Type-II/III ANOVA) for interpretation.</p>
+</div>
+</div>
+</div>
+<ul>
+<li><strong>QE3.2</strong>. Compare two nested models with <code>anova(fit_small, fit_big)</code>. What null hypothesis is being tested?</li>
+</ul>
+<div class="callout callout-style-simple callout-tip no-icon callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-34-contents" aria-controls="callout-34" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Hint
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-34" class="callout-34-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>With two model arguments, <code>anova()</code> performs an F-test of whether the extra terms in the bigger model significantly improve the fit.</p>
+</div>
+</div>
+</div>
+<div class="callout callout-style-simple callout-note no-icon callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-35-contents" aria-controls="callout-35" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Solution
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-35" class="callout-35-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>fit_small <span class="ot">&lt;-</span> <span class="fu">lm</span>(BloodPressure <span class="sc">~</span> Age, <span class="at">data =</span> d)</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>fit_big   <span class="ot">&lt;-</span> <span class="fu">lm</span>(BloodPressure <span class="sc">~</span> Age <span class="sc">+</span> BMI <span class="sc">+</span> Glucose, <span class="at">data =</span> d)</span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a><span class="fu">anova</span>(fit_small, fit_big)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>H0: the extra coefficients (<code>BMI</code>, <code>Glucose</code>) are jointly zero — i.e. the smaller model fits just as well. A small p-value rejects H0 and favours the bigger model.</p>
+</div>
+</div>
+</div>
+</section>
+<section id="stan-extra" class="level3">
+<h3 class="anchored" data-anchor-id="stan-extra">STAN (extra)</h3>
+<p>These exercises build on <a href="data/frog_stan.zip"><code>frog_stan.zip</code></a>.</p>
+<ul>
+<li><strong>QE4.1</strong>. Sketch a tiny Stan model for Poisson regression: counts <code>y[i]</code> depend on a covariate <code>x[i]</code> via <code>log(lambda[i]) = alpha + beta * x[i]</code>. Write out the <code>data</code>, <code>parameters</code>, and <code>model</code> blocks.</li>
+</ul>
+<div class="callout callout-style-simple callout-tip no-icon callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-36-contents" aria-controls="callout-36" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Hint
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-36" class="callout-36-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>The response is integer-valued: use <code>int&lt;lower=0&gt; y[N];</code>. There is no positivity constraint needed on <code>alpha</code> and <code>beta</code> because we exponentiate. Use <code>poisson_log(alpha + beta * x[i])</code> or equivalently <code>poisson(exp(alpha + beta * x[i]))</code>.</p>
+</div>
+</div>
+</div>
+<div class="callout callout-style-simple callout-note no-icon callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-37-contents" aria-controls="callout-37" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Solution
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-37" class="callout-37-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co"># poisson_reg.stan</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="co"># data {</span></span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a><span class="co">#   int&lt;lower=0&gt; N;</span></span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a><span class="co">#   vector[N] x;</span></span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a><span class="co">#   int&lt;lower=0&gt; y[N];</span></span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a><span class="co"># }</span></span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a><span class="co"># parameters {</span></span>
+<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a><span class="co">#   real alpha;</span></span>
+<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a><span class="co">#   real beta;</span></span>
+<span id="cb16-10"><a href="#cb16-10" aria-hidden="true" tabindex="-1"></a><span class="co"># }</span></span>
+<span id="cb16-11"><a href="#cb16-11" aria-hidden="true" tabindex="-1"></a><span class="co"># model {</span></span>
+<span id="cb16-12"><a href="#cb16-12" aria-hidden="true" tabindex="-1"></a><span class="co">#   y ~ poisson_log(alpha + beta * x);   // log-link</span></span>
+<span id="cb16-13"><a href="#cb16-13" aria-hidden="true" tabindex="-1"></a><span class="co"># }</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>The <code>poisson_log</code> form is numerically more stable than computing <code>exp()</code> by hand. Compare to <strong>frog.stan</strong>: there <code>lambda</code> was modelled directly with a <code>&lt;lower=0&gt;</code> constraint and a linear (not log-linear) interpolation, which only works because the rates were not too close to 0.</p>
+</div>
+</div>
+</div>
+<ul>
+<li><strong>QE4.2</strong>. Modify <strong>frog.stan</strong> so that instead of linearly interpolating between two endpoint rates, <code>log(lambda)</code> is linear in time: <code>log(lambda[i]) = a + b * t[i]</code>. What changes in the <code>parameters</code> block, and do you still need <code>&lt;lower=0&gt;</code>?</li>
+</ul>
+<div class="callout callout-style-simple callout-tip no-icon callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-38-contents" aria-controls="callout-38" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Hint
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-38" class="callout-38-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>On the log scale <code>lambda</code> is automatically positive, so the constraint is no longer required for <code>a</code> and <code>b</code>. Pass <code>t</code> as part of <code>data</code>, drop the interpolation arithmetic, use <code>poisson_log</code>.</p>
+</div>
+</div>
+</div>
+<div class="callout callout-style-simple callout-note no-icon callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-39-contents" aria-controls="callout-39" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Solution
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-39" class="callout-39-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co"># data    { int N; vector[N] t; int y[N]; }</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="co"># parameters { real a; real b; }</span></span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a><span class="co"># model   { y ~ poisson_log(a + b * t); }</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Because <code>exp(a + b*t) &gt; 0</code> for all real <code>a</code>, <code>b</code>, the <code>&lt;lower=0&gt;</code> constraint is unnecessary. <code>b &lt; 0</code> would correspond to an exponentially declining frog population.</p>
+</div>
+</div>
+</div>
+<ul>
+<li><strong>QE4.3</strong>. Run <strong>frog.R</strong> twice: once with the default MCMC sampler (<code>stan(...)</code>) and once with maximum-likelihood (<code>optimizing(...)</code>). How should you interpret the two outputs differently?</li>
+</ul>
+<div class="callout callout-style-simple callout-tip no-icon callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-40-contents" aria-controls="callout-40" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Hint
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-40" class="callout-40-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p><code>stan()</code> gives you a <strong>posterior distribution</strong> over <code>a</code> and <code>b</code> — point estimates, credible intervals, full samples. <code>optimizing()</code> gives you a single point: the <strong>maximum-likelihood (or MAP) estimate</strong>, no uncertainty unless you bootstrap or use the Hessian.</p>
+</div>
+</div>
+</div>
+<div class="callout callout-style-simple callout-note no-icon callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-41-contents" aria-controls="callout-41" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Solution
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-41" class="callout-41-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(rstan)</span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>sm  <span class="ot">&lt;-</span> <span class="fu">stan_model</span>(<span class="st">&quot;frog.stan&quot;</span>)</span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>mle <span class="ot">&lt;-</span> <span class="fu">optimizing</span>(sm, <span class="at">data =</span> stan_data)   <span class="co"># point estimate</span></span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>post <span class="ot">&lt;-</span> <span class="fu">sampling</span>(sm, <span class="at">data =</span> stan_data)    <span class="co"># full posterior</span></span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>mle<span class="sc">$</span>par</span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(post)                                <span class="co"># mean, sd, 2.5%/97.5% per parameter</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>The MLE answers “what single value of <code>(a, b)</code> makes the data most likely?”. The Bayesian posterior answers “given the data and the prior, what is the full distribution of plausible <code>(a, b)</code> values?”. For reporting uncertainty, intervals from the posterior are usually more honest; the MLE is faster and is what classical <code>lm()</code> / <code>glm()</code> give you implicitly.</p>
+</div>
+</div>
+</div>
+</section>
 </section>
 
 </main>
