@@ -75,3 +75,150 @@ In this example:
 * The feature is a transcript associated with the same gene on chromosome 1
 * The transcript spans from position 1200 to 3000 on the positive strand
 * The transcript has attributes specifying the gene it belongs to ("ENSG000001"), a unique transcript ID ("ENST000001"), and a transcript name ("ExampleTranscript")
+
+
+## Extra exercise material
+
+A second pass at the same material, for extra practice. The exercises below use the Ensembl human annotation file `Homo_sapiens.GRCh38.gtf`. Replace the filename with whichever GTF you have available locally.
+
+### Filtering and counting (extra)
+
+- **QE1.1** Print all lines of the GTF that are **not** comment/header lines (i.e. lines that do not start with `#`). How many feature lines are there in total?
+
+::: {.callout-tip collapse="true" appearance="minimal"}
+## Hint
+Comment lines start with `#`. Use `grep -v` to invert a match. Pipe the result into `wc -l` to count lines.
+:::
+
+::: {.callout-note collapse="true" appearance="minimal"}
+## Solution
+```bash
+grep -v "^#" Homo_sapiens.GRCh38.gtf | wc -l
+```
+:::
+
+- **QE1.2** Extract all feature lines that belong to chromosome **X**. Be careful: a naive `grep X` would also match attribute strings, gene names, etc. Use `awk` to require that the first (tab-separated) column equals `X`.
+
+::: {.callout-tip collapse="true" appearance="minimal"}
+## Hint
+In `awk`, the variable `$1` is the first field. The default field separator is whitespace; for GTF files, set it to tab with `-F'\t'`.
+:::
+
+::: {.callout-note collapse="true" appearance="minimal"}
+## Solution
+```bash
+awk -F'\t' '$1 == "X"' Homo_sapiens.GRCh38.gtf | wc -l
+```
+:::
+
+### Working with columns (extra)
+
+- **QE2.1** Print only the chromosome, feature type, start and end positions (columns 1, 3, 4, 5) for all non-comment lines. Show the first 10 results.
+
+::: {.callout-tip collapse="true" appearance="minimal"}
+## Hint
+`cut -f` selects fields from a tab-delimited file. Combine with `grep -v` to skip comment lines, and `head` to limit the output.
+:::
+
+::: {.callout-note collapse="true" appearance="minimal"}
+## Solution
+```bash
+grep -v "^#" Homo_sapiens.GRCh38.gtf | cut -f1,3,4,5 | head
+```
+:::
+
+- **QE2.2** Print all lines where the feature type (column 3) is `exon`. How many exon lines are there?
+
+::: {.callout-tip collapse="true" appearance="minimal"}
+## Hint
+Use `awk -F'\t' '$3 == "exon"'` to keep only those rows. Pipe to `wc -l` to count.
+:::
+
+::: {.callout-note collapse="true" appearance="minimal"}
+## Solution
+```bash
+awk -F'\t' '$3 == "exon"' Homo_sapiens.GRCh38.gtf | wc -l
+```
+:::
+
+- **QE2.3** Find all `gene` entries that start at a genomic position greater than 1,000,000 bp (i.e. column 4 > 1000000).
+
+::: {.callout-tip collapse="true" appearance="minimal"}
+## Hint
+You can combine conditions in `awk` with `&&`. Numeric comparison works directly on the field, e.g. `$4 > 1000000`.
+:::
+
+::: {.callout-note collapse="true" appearance="minimal"}
+## Solution
+```bash
+awk -F'\t' '$3 == "gene" && $4 > 1000000' Homo_sapiens.GRCh38.gtf | head
+```
+:::
+
+### Counting unique values (extra)
+
+- **QE3.1** Count how many features there are **per chromosome**. List the chromosomes ranked from most to least features.
+
+::: {.callout-tip collapse="true" appearance="minimal"}
+## Hint
+The classic recipe is `... | sort | uniq -c | sort -rn`. First extract column 1, then sort, then count duplicates, then sort numerically in reverse.
+:::
+
+::: {.callout-tip collapse="true" appearance="minimal"}
+## Hint 2
+Remember to strip out the comment lines first, otherwise the header rows will pollute your counts.
+:::
+
+::: {.callout-note collapse="true" appearance="minimal"}
+## Solution
+```bash
+grep -v "^#" Homo_sapiens.GRCh38.gtf | cut -f1 | sort | uniq -c | sort -rn
+```
+:::
+
+- **QE3.2** Count how often each `gene_biotype` appears in the file (e.g. `protein_coding`, `lncRNA`, `miRNA`, ...). Show the most frequent ones first.
+
+::: {.callout-tip collapse="true" appearance="minimal"}
+## Hint
+The `gene_biotype` lives inside the 9th column (the attributes). Use `grep -o 'gene_biotype "[^"]*"'` to pull out just that tag-value pair from each line.
+:::
+
+::: {.callout-note collapse="true" appearance="minimal"}
+## Solution
+```bash
+grep -v "^#" Homo_sapiens.GRCh38.gtf \
+  | grep -o 'gene_biotype "[^"]*"' \
+  | sort | uniq -c | sort -rn
+```
+:::
+
+### Putting it all together (extra)
+
+- **QE4.1** Which chromosome contains the largest number of **protein-coding genes**? Build a single pipeline that:
+  1. Skips comment lines,
+  2. Keeps only rows whose feature type is `gene`,
+  3. Keeps only rows whose attributes contain `gene_biotype "protein_coding"`,
+  4. Extracts the chromosome column,
+  5. Counts occurrences per chromosome and ranks them.
+
+::: {.callout-tip collapse="true" appearance="minimal"}
+## Hint
+You can chain `awk` and `grep` with pipes. Filter on `$3 == "gene"` first to drastically shrink the input, then `grep 'gene_biotype "protein_coding"'`.
+:::
+
+::: {.callout-tip collapse="true" appearance="minimal"}
+## Hint 2
+After filtering, the last steps are the familiar `cut -f1 | sort | uniq -c | sort -rn` recipe.
+:::
+
+::: {.callout-note collapse="true" appearance="minimal"}
+## Solution
+```bash
+grep -v "^#" Homo_sapiens.GRCh38.gtf \
+  | awk -F'\t' '$3 == "gene"' \
+  | grep 'gene_biotype "protein_coding"' \
+  | cut -f1 \
+  | sort | uniq -c | sort -rn \
+  | head
+```
+:::

@@ -204,3 +204,223 @@ Think about what happens to `Poisson(lambda)` when `lambda` is negative — the 
 ## Solution
 `lambda` is the rate parameter of a Poisson distribution and must be non-negative — a Poisson with negative rate is undefined. Without the `<lower=0>` constraint, STAN initialises parameters from a normal distribution centred on 0 and would happily propose negative `lambda` values; the likelihood would then involve `log(lambda)` of a non-positive number, producing `NaN` or `-Inf`, and the sampler fails to start. The constraint reparameterises so that only valid values are ever proposed.
 :::
+
+## Extra exercise material
+
+A second pass at the same material, for extra practice. Same conventions as above — try each question first, then peek.
+
+### Linear models on diabetes.csv (extra)
+
+Work again on [`diabetes.csv`](data/diabetes.csv.zip).
+
+- **QE1.1**. Fit `Glucose ~ BMI + Age`. Which predictor has the larger effect per unit, and which is more statistically significant? Are the two questions the same?
+
+::: {.callout-tip collapse="true" appearance="minimal"}
+## Hint
+Read both the `Estimate` column and the `Pr(>|t|)` column of `summary(fit)`. A big coefficient is not the same as a small p-value — the standard error matters too. Also remember `BMI` and `Age` are on very different scales.
+:::
+
+::: {.callout-note collapse="true" appearance="minimal"}
+## Solution
+```{r, eval=FALSE}
+d <- read.csv("diabetes.csv")
+fit <- lm(Glucose ~ BMI + Age, data = d)
+summary(fit)
+```
+The size of an estimate is measured in units of the predictor (mmol/kg/m² vs. mmol/year), so the raw numbers cannot be compared directly. Significance depends on `Estimate / Std.Error`, not on the magnitude of `Estimate` alone. To compare effect sizes fairly you would have to standardise the predictors first (`scale()`).
+:::
+
+- **QE1.2**. Fit `Insulin ~ Age + BMI`. Then refit it as `Insulin ~ Age * BMI` (note the `*`). What new term appears, and what does it mean?
+
+::: {.callout-tip collapse="true" appearance="minimal"}
+## Hint
+`Age * BMI` expands to `Age + BMI + Age:BMI`. The `Age:BMI` row is the interaction.
+:::
+
+::: {.callout-note collapse="true" appearance="minimal"}
+## Solution
+```{r, eval=FALSE}
+fit_add <- lm(Insulin ~ Age + BMI, data = d)
+fit_int <- lm(Insulin ~ Age * BMI, data = d)
+summary(fit_int)
+```
+The extra `Age:BMI` term asks whether the effect of BMI on insulin depends on Age (equivalently, whether the effect of Age depends on BMI). A non-zero interaction means the two predictors do not simply add.
+:::
+
+- **QE1.3**. The column `Outcome` is binary (0 / 1, diabetic or not). Fit `Outcome ~ Glucose + BMI + Age` first with `lm()`, then with `glm(..., family = binomial)`. Why is `lm()` the wrong tool here?
+
+::: {.callout-tip collapse="true" appearance="minimal"}
+## Hint
+A linear model assumes the response is continuous and the residuals are normal. With a 0/1 outcome the fitted values can fall outside `[0, 1]` and the residuals are clearly not normal. Logistic regression (`glm` with `family = binomial`) models the log-odds instead.
+:::
+
+::: {.callout-note collapse="true" appearance="minimal"}
+## Solution
+```{r, eval=FALSE}
+fit_lm  <- lm(Outcome ~ Glucose + BMI + Age, data = d)
+fit_glm <- glm(Outcome ~ Glucose + BMI + Age, data = d, family = binomial)
+summary(fit_glm)
+range(predict(fit_lm))                       # can go <0 or >1
+range(predict(fit_glm, type = "response"))   # bounded in [0, 1]
+```
+`lm()` will produce predicted "probabilities" outside `[0, 1]` and homoscedasticity is violated. `glm(..., family = binomial)` fits a logistic regression — coefficients are now on the log-odds scale, but the predicted probabilities are bounded and the likelihood is appropriate for binary data.
+:::
+
+- **QE1.4**. Fit `Outcome ~ .` with `glm(family = binomial)`. Which variables come out as the strongest predictors of diabetes? Compare with what `lm(Outcome ~ .)` would have told you.
+
+::: {.callout-tip collapse="true" appearance="minimal"}
+## Hint
+Use `summary(fit)` and rank by p-value (or `|z value|`). The signs of the coefficients tell you the direction of association on the log-odds scale.
+:::
+
+::: {.callout-note collapse="true" appearance="minimal"}
+## Solution
+```{r, eval=FALSE}
+fit_full <- glm(Outcome ~ ., data = d, family = binomial)
+summary(fit_full)
+```
+Typically `Glucose`, `BMI`, and `Pregnancies` come out as strongly associated with `Outcome`. The relative ordering and significance from `glm()` is the trustworthy version; the `lm()` p-values are biased because the model assumptions are violated.
+:::
+
+### Diagnostics and assumptions (extra)
+
+- **QE2.1**. Re-fit `BloodPressure ~ Age + BMI + Glucose` and run `plot(fit)`. What four diagnostic plots come up, and what is each one checking?
+
+::: {.callout-tip collapse="true" appearance="minimal"}
+## Hint
+By default `plot.lm` shows: residuals vs fitted, Normal Q-Q of residuals, scale-location (sqrt-abs-residuals vs fitted), and residuals vs leverage with Cook's distance.
+:::
+
+::: {.callout-note collapse="true" appearance="minimal"}
+## Solution
+```{r, eval=FALSE}
+fit <- lm(BloodPressure ~ Age + BMI + Glucose, data = d)
+par(mfrow = c(2, 2))
+plot(fit)
+```
+- Residuals vs fitted: checks linearity and constant variance — looking for no trend.
+- Normal Q-Q: checks normality of residuals — points should lie on the diagonal.
+- Scale-location: checks homoscedasticity — flat horizontal line is good.
+- Residuals vs leverage: flags individual points with high influence (Cook's distance).
+:::
+
+- **QE2.2**. From the Q-Q plot, do the residuals look normal? And if the scale-location plot fans out (residuals get bigger as fitted values grow), what is the technical name for that problem and what is one common fix?
+
+::: {.callout-tip collapse="true" appearance="minimal"}
+## Hint
+"Fanning out" = variance depends on the mean. Look up *heteroscedasticity*. Common fixes: transform the response (`log`, `sqrt`), use weighted least squares, or move to a GLM with a variance function that matches the data (Poisson, gamma, ...).
+:::
+
+::: {.callout-note collapse="true" appearance="minimal"}
+## Solution
+```{r, eval=FALSE}
+qqnorm(residuals(fit)); qqline(residuals(fit))
+plot(fit, which = 3)   # scale-location
+```
+Fanning residuals indicate **heteroscedasticity** — the constant-variance assumption is violated. A log- or sqrt-transform of the response, weighted least squares, or a GLM with an appropriate family (e.g. Poisson for count data) typically helps. Non-normal residuals can also point to outliers or a wrong link function.
+:::
+
+### ANOVA vs. summary (extra)
+
+- **QE3.1**. Fit `BloodPressure ~ Age + Glucose` and then `BloodPressure ~ Glucose + Age` on the same data. Compare `anova(fit)` for the two orderings, and compare `summary(fit)` for the two orderings. Which one changes, and why?
+
+::: {.callout-tip collapse="true" appearance="minimal"}
+## Hint
+`anova()` on a single `lm` gives **sequential (Type-I)** sums of squares: each term is tested *after* the previous ones. `summary()` reports the partial t-test for each coefficient *given all the others*, so order does not matter.
+:::
+
+::: {.callout-note collapse="true" appearance="minimal"}
+## Solution
+```{r, eval=FALSE}
+fit1 <- lm(BloodPressure ~ Age + Glucose, data = d)
+fit2 <- lm(BloodPressure ~ Glucose + Age, data = d)
+anova(fit1);   anova(fit2)     # different
+summary(fit1); summary(fit2)   # same coefficients & p-values
+```
+The `anova()` p-values change because Type-I SS allocate shared variance to whichever predictor enters first. The `summary()` coefficient table is invariant to ordering because every t-test is "this predictor, given all the others". When predictors are correlated, the two views can disagree — prefer `summary()` (or `drop1()` / Type-II/III ANOVA) for interpretation.
+:::
+
+- **QE3.2**. Compare two nested models with `anova(fit_small, fit_big)`. What null hypothesis is being tested?
+
+::: {.callout-tip collapse="true" appearance="minimal"}
+## Hint
+With two model arguments, `anova()` performs an F-test of whether the extra terms in the bigger model significantly improve the fit.
+:::
+
+::: {.callout-note collapse="true" appearance="minimal"}
+## Solution
+```{r, eval=FALSE}
+fit_small <- lm(BloodPressure ~ Age, data = d)
+fit_big   <- lm(BloodPressure ~ Age + BMI + Glucose, data = d)
+anova(fit_small, fit_big)
+```
+H0: the extra coefficients (`BMI`, `Glucose`) are jointly zero — i.e. the smaller model fits just as well. A small p-value rejects H0 and favours the bigger model.
+:::
+
+### STAN (extra)
+
+These exercises build on [`frog_stan.zip`](data/frog_stan.zip).
+
+- **QE4.1**. Sketch a tiny Stan model for Poisson regression: counts `y[i]` depend on a covariate `x[i]` via `log(lambda[i]) = alpha + beta * x[i]`. Write out the `data`, `parameters`, and `model` blocks.
+
+::: {.callout-tip collapse="true" appearance="minimal"}
+## Hint
+The response is integer-valued: use `int<lower=0> y[N];`. There is no positivity constraint needed on `alpha` and `beta` because we exponentiate. Use `poisson_log(alpha + beta * x[i])` or equivalently `poisson(exp(alpha + beta * x[i]))`.
+:::
+
+::: {.callout-note collapse="true" appearance="minimal"}
+## Solution
+```{r, eval=FALSE}
+# poisson_reg.stan
+# data {
+#   int<lower=0> N;
+#   vector[N] x;
+#   int<lower=0> y[N];
+# }
+# parameters {
+#   real alpha;
+#   real beta;
+# }
+# model {
+#   y ~ poisson_log(alpha + beta * x);   // log-link
+# }
+```
+The `poisson_log` form is numerically more stable than computing `exp()` by hand. Compare to **frog.stan**: there `lambda` was modelled directly with a `<lower=0>` constraint and a linear (not log-linear) interpolation, which only works because the rates were not too close to 0.
+:::
+
+- **QE4.2**. Modify **frog.stan** so that instead of linearly interpolating between two endpoint rates, `log(lambda)` is linear in time: `log(lambda[i]) = a + b * t[i]`. What changes in the `parameters` block, and do you still need `<lower=0>`?
+
+::: {.callout-tip collapse="true" appearance="minimal"}
+## Hint
+On the log scale `lambda` is automatically positive, so the constraint is no longer required for `a` and `b`. Pass `t` as part of `data`, drop the interpolation arithmetic, use `poisson_log`.
+:::
+
+::: {.callout-note collapse="true" appearance="minimal"}
+## Solution
+```{r, eval=FALSE}
+# data    { int N; vector[N] t; int y[N]; }
+# parameters { real a; real b; }
+# model   { y ~ poisson_log(a + b * t); }
+```
+Because `exp(a + b*t) > 0` for all real `a`, `b`, the `<lower=0>` constraint is unnecessary. `b < 0` would correspond to an exponentially declining frog population.
+:::
+
+- **QE4.3**. Run **frog.R** twice: once with the default MCMC sampler (`stan(...)`) and once with maximum-likelihood (`optimizing(...)`). How should you interpret the two outputs differently?
+
+::: {.callout-tip collapse="true" appearance="minimal"}
+## Hint
+`stan()` gives you a **posterior distribution** over `a` and `b` — point estimates, credible intervals, full samples. `optimizing()` gives you a single point: the **maximum-likelihood (or MAP) estimate**, no uncertainty unless you bootstrap or use the Hessian.
+:::
+
+::: {.callout-note collapse="true" appearance="minimal"}
+## Solution
+```{r, eval=FALSE}
+library(rstan)
+sm  <- stan_model("frog.stan")
+mle <- optimizing(sm, data = stan_data)   # point estimate
+post <- sampling(sm, data = stan_data)    # full posterior
+mle$par
+print(post)                                # mean, sd, 2.5%/97.5% per parameter
+```
+The MLE answers "what single value of `(a, b)` makes the data most likely?". The Bayesian posterior answers "given the data and the prior, what is the full distribution of plausible `(a, b)` values?". For reporting uncertainty, intervals from the posterior are usually more honest; the MLE is faster and is what classical `lm()` / `glm()` give you implicitly.
+:::

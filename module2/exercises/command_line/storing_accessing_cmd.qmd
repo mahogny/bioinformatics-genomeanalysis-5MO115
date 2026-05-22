@@ -467,3 +467,182 @@ zcat long_seqs.txt.gz | head
 You can now download both raw reads and assembled genomes from NCBI on the command line, run a few EMBOSS tools, and combine `grep`, `awk`, `sort`, `gzip` and `tar` to inspect and filter sequence data. These same building blocks scale up to most day-to-day bioinformatics work.
 
 If you got stuck on a question, just refer to it by its number (e.g. *"I need help with Q2.3"*) when asking.
+
+<br>
+
+## Extra exercise material
+
+A second pass at the same material, for extra practice. The questions below are independent of Sections 1–4 above — you can run them in any empty working directory on HPC2N (or on your laptop where noted).
+
+### File and directory manipulation (extra)
+
+- **QE1.1** Create a directory called `project/` with three sub-directories `raw/`, `processed/` and `results/` in a single command. Then create an empty file `raw/sample.fastq` and verify the structure with `ls -R project`.
+
+::: {.callout-tip collapse="true" appearance="minimal"}
+## Hint
+`mkdir -p` creates parent directories as needed and does not complain if a directory already exists. You can list several paths on one `mkdir` line. `touch` creates an empty file.
+:::
+
+::: {.callout-note collapse="true" appearance="minimal"}
+## Solution
+```bash
+mkdir -p project/raw project/processed project/results
+touch project/raw/sample.fastq
+ls -R project
+```
+:::
+
+- **QE1.2** You have the `project/` tree from QE1.1. Make a backup copy of the whole `project/` directory as `project_backup/`, then rename `project_backup/raw/sample.fastq` to `sample_R1.fastq`. Finally remove the backup completely.
+
+::: {.callout-tip collapse="true" appearance="minimal"}
+## Hint
+`cp -r src dst` copies a directory recursively. `mv` both renames and moves. `rm -r` removes a directory and its contents — use `rm -ri` if you want to be prompted before each deletion.
+:::
+
+::: {.callout-note collapse="true" appearance="minimal"}
+## Solution
+```bash
+cp -r project project_backup
+mv project_backup/raw/sample.fastq project_backup/raw/sample_R1.fastq
+rm -r project_backup
+```
+:::
+
+### Permissions (extra)
+
+- **QE2.1** Run `ls -l` in a directory that contains a few files. Pick one file and read off the permission triplet (e.g. `-rw-r--r--`). Who can read it? Who can write it? Who can execute it?
+
+::: {.callout-tip collapse="true" appearance="minimal"}
+## Hint
+The 10 characters break down as: type (1) + owner rwx (3) + group rwx (3) + others rwx (3). A `-` means the permission is **not** granted.
+:::
+
+::: {.callout-note collapse="true" appearance="minimal"}
+## Solution
+```bash
+ls -l
+# -rw-r--r--  means: regular file, owner can read+write, group can read, others can read.
+# Nobody can execute it.
+```
+:::
+
+- **QE2.2** Create a small shell script `hello.sh` containing `echo "hello"`, then make it executable **only for the owner** (not for the group or others), and run it as `./hello.sh`.
+
+::: {.callout-tip collapse="true" appearance="minimal"}
+## Hint
+`chmod u+x file` adds the execute bit for the **u**ser (owner). `chmod 744 file` would achieve a similar but stricter result: `rwxr--r--`. Check with `ls -l hello.sh`.
+:::
+
+::: {.callout-note collapse="true" appearance="minimal"}
+## Solution
+```bash
+echo 'echo "hello"' > hello.sh
+chmod u+x hello.sh
+ls -l hello.sh
+./hello.sh
+```
+:::
+
+### Compression (extra)
+
+- **QE3.1** Create a text file `notes.txt` with a few lines of content. Compress it with `gzip`, peek at the compressed content with `zcat`, then restore the original with `gunzip`.
+
+::: {.callout-tip collapse="true" appearance="minimal"}
+## Hint
+`gzip file` replaces `file` with `file.gz`. `zcat file.gz` streams the decompressed content to stdout without touching the file on disk. `gunzip file.gz` undoes the compression.
+:::
+
+::: {.callout-note collapse="true" appearance="minimal"}
+## Solution
+```bash
+printf "line one\nline two\nline three\n" > notes.txt
+gzip notes.txt
+ls notes.txt.gz
+zcat notes.txt.gz
+gunzip notes.txt.gz
+cat notes.txt
+```
+:::
+
+- **QE3.2** Bundle the `project/` directory from QE1.1 into a single gzipped tar archive called `project.tar.gz`, list the contents of the archive **without extracting**, then extract it into a fresh directory `restored/`.
+
+::: {.callout-tip collapse="true" appearance="minimal"}
+## Hint
+Remember the `tar` flags: **c**reate, e**x**tract, **t** = list, **z** = gzip, **v**erbose, **f** = file. `-C <dir>` tells `tar` to change into `<dir>` before extracting.
+:::
+
+::: {.callout-note collapse="true" appearance="minimal"}
+## Solution
+```bash
+tar -czvf project.tar.gz project/
+tar -tzvf project.tar.gz
+mkdir -p restored
+tar -xzvf project.tar.gz -C restored
+ls -R restored
+```
+:::
+
+### Remote transfer (extra)
+
+- **QE4.1** Download the file at `http://beagle.henlab.org/public/course_bioinformatics_genomeanalysis/emboss_data_extended_v1.zip` and save it locally as `emboss_extra.zip` (i.e. with a name **different** from the URL's last segment). Do it once with `wget` and once with `curl`.
+
+::: {.callout-tip collapse="true" appearance="minimal"}
+## Hint
+`wget -O <name> <url>` writes to a chosen filename. With `curl` the equivalent is `curl -o <name> <url>` (lower-case `o`); `curl -O <url>` would keep the URL's filename.
+:::
+
+::: {.callout-note collapse="true" appearance="minimal"}
+## Solution
+```bash
+wget -O emboss_extra.zip http://beagle.henlab.org/public/course_bioinformatics_genomeanalysis/emboss_data_extended_v1.zip
+
+# or, equivalently:
+curl -o emboss_extra.zip http://beagle.henlab.org/public/course_bioinformatics_genomeanalysis/emboss_data_extended_v1.zip
+```
+:::
+
+- **QE4.2** You have a local file `results.txt` you want to send to your home directory on HPC2N (`username@kebnekaise.hpc2n.umu.se`). Write the `scp` command to upload it, and the `rsync` command that would do the same job but only re-transfer changed files if you run it again.
+
+::: {.callout-tip collapse="true" appearance="minimal"}
+## Hint
+`scp <src> <user>@<host>:<dst>` copies a single file. `rsync -avz <src> <user>@<host>:<dst>` is the recommended workhorse: **a**rchive mode, **v**erbose, **z**ipped over the wire, and it only re-sends what has changed. Replace `username` with your actual HPC2N login.
+:::
+
+::: {.callout-note collapse="true" appearance="minimal"}
+## Solution
+```bash
+# one-shot copy
+scp results.txt username@kebnekaise.hpc2n.umu.se:~/
+
+# resumable / incremental copy
+rsync -avz results.txt username@kebnekaise.hpc2n.umu.se:~/
+```
+To pull a file the other way, swap the arguments: `scp username@kebnekaise.hpc2n.umu.se:~/results.txt .`
+:::
+
+### Bioinformatics mini-pipeline (extra)
+
+- **QE5.1** Download the FASTQ file at `https://ftp.sra.ebi.ac.uk/vol1/fastq/SRR390/SRR390728/SRR390728_1.fastq.gz` (a small public run from ENA) using `wget`, then **without uncompressing it on disk**, count how many reads it contains. Recall that each read in a FASTQ takes exactly 4 lines.
+
+::: {.callout-tip collapse="true" appearance="minimal"}
+## Hint
+- `zcat file.fastq.gz` streams the decompressed content. Pipe into `wc -l` to count lines.
+- Divide the line count by 4 — or have the shell do it for you with `$(( … / 4 ))`.
+:::
+
+::: {.callout-tip collapse="true" appearance="minimal"}
+## Hint
+If the download is slow or blocked, any small `.fastq.gz` you already have on disk works just as well — the line-count trick is the same.
+:::
+
+::: {.callout-note collapse="true" appearance="minimal"}
+## Solution
+```bash
+wget https://ftp.sra.ebi.ac.uk/vol1/fastq/SRR390/SRR390728/SRR390728_1.fastq.gz
+
+lines=$(zcat SRR390728_1.fastq.gz | wc -l)
+echo "lines = $lines"
+echo "reads = $(( lines / 4 ))"
+```
+:::
+

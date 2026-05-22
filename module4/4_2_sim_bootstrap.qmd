@@ -387,3 +387,358 @@ mean(all_prey)
 ## Deep reading
 
 This is "the" book on bootstrapping: <https://www.hms.harvard.edu/bss/neuro/bornlab/nb204/statistics/bootstrap.pdf>
+
+## Extra exercise material
+
+A second pass at the same material, for extra practice. Same conventions as above — try each question first, then peek.
+
+### Bootstrap of the mean (extra)
+
+- **QE1.1** Repeat the CLT demo with an exponential base distribution, `rexp(N, rate = 1)`. The exponential is strongly right-skewed — at what N does the distribution of the mean start to look Gaussian?
+
+::: {.callout-tip collapse="true" appearance="minimal"}
+## Hint
+Same template as Q1.1: `replicate(nboot, mean(rexp(N, rate = 1)))`. Loop over a few values of N and `hist()` each.
+:::
+
+::: {.callout-tip collapse="true" appearance="minimal"}
+## Hint
+The theoretical mean is `1/rate = 1` and variance is `1/rate^2 = 1`, so the distribution of the mean should be centred on 1 with variance `1/N`. Skew is still visible at N=5 but mostly gone by N=30 or so.
+:::
+
+::: {.callout-note collapse="true" appearance="minimal"}
+## Solution
+```{r, eval=FALSE}
+nboot <- 10000
+Ns <- c(1, 2, 5, 10, 30, 100)
+par(mfrow = c(2, 3))
+for (N in Ns) {
+  means <- replicate(nboot, mean(rexp(N, rate = 1)))
+  hist(means, breaks = 40, main = paste("N =", N), xlab = "sample mean")
+}
+# Heavy right-skew at small N gradually symmetrises; by N~30 it is visually
+# indistinguishable from a Gaussian centred at 1 with sd ~ 1/sqrt(N).
+```
+:::
+
+- **QE1.2** Try a log-normal base distribution, `rlnorm(N, meanlog = 0, sdlog = 1)`. How does the convergence speed compare to the exponential?
+
+::: {.callout-tip collapse="true" appearance="minimal"}
+## Hint
+Log-normal is even more skewed than exponential — its tail is heavier. Expect to need larger N before the mean looks Gaussian.
+:::
+
+::: {.callout-note collapse="true" appearance="minimal"}
+## Solution
+```{r, eval=FALSE}
+nboot <- 10000
+Ns <- c(1, 5, 30, 100, 300, 1000)
+par(mfrow = c(2, 3))
+for (N in Ns) {
+  means <- replicate(nboot, mean(rlnorm(N, meanlog = 0, sdlog = 1)))
+  hist(means, breaks = 40, main = paste("N =", N), xlab = "sample mean")
+}
+# Convergence is slower than for the exponential: even at N=100 there is
+# visible right-skew. The CLT still works, but heavy tails slow it down.
+```
+:::
+
+- **QE1.3** Now try the Cauchy distribution, `rcauchy(N)`. The CLT *fails* here — generate the distribution of the mean for increasing N and explain in prose what goes wrong.
+
+::: {.callout-tip collapse="true" appearance="minimal"}
+## Hint
+The Cauchy has undefined mean and infinite variance — the assumptions of the CLT are violated.
+:::
+
+::: {.callout-tip collapse="true" appearance="minimal"}
+## Hint
+In fact, the mean of N Cauchy samples is itself Cauchy-distributed (with the same scale). So averaging does not help at all.
+:::
+
+::: {.callout-note collapse="true" appearance="minimal"}
+## Solution
+```{r, eval=FALSE}
+nboot <- 10000
+Ns <- c(1, 10, 100, 1000)
+par(mfrow = c(2, 2))
+for (N in Ns) {
+  means <- replicate(nboot, mean(rcauchy(N)))
+  hist(means, breaks = 100, main = paste("N =", N),
+       xlab = "sample mean", xlim = c(-20, 20))
+}
+```
+
+Prose: The CLT requires the base distribution to have *finite variance*. The
+Cauchy has no defined mean and infinite variance, so the theorem does not
+apply. Empirically: the distribution of `mean(rcauchy(N))` does not narrow
+as N grows — it stays Cauchy-distributed with the same scale parameter. The
+"law of large numbers" also fails: the sample mean does not converge to any
+fixed value. This is the canonical cautionary example for heavy-tailed data
+in biology (e.g. some gene-expression and network-degree distributions).
+
+```{r, eval=TRUE}
+# Quick sanity check: sample variance of the mean does not shrink with N.
+set.seed(1)
+var(replicate(2000, mean(rcauchy(10))))
+var(replicate(2000, mean(rcauchy(1000))))
+# Both are large and erratic — no 1/N scaling.
+```
+:::
+
+### Birth-death (extra)
+
+- **QE2.1** Run the birth-death simulation with `n0 = 10` and `alpha = 0.99` (a much more "stable" population). Estimate the probability that the population survives past `T = 500` timesteps.
+
+::: {.callout-tip collapse="true" appearance="minimal"}
+## Hint
+For each bootstrap iteration, run the simulation up to `T` timesteps and record whether `n > 0` at the end. The empirical survival probability is just the mean of that 0/1 vector.
+:::
+
+::: {.callout-note collapse="true" appearance="minimal"}
+## Solution
+```{r, eval=FALSE}
+alpha <- 0.99
+n0    <- 10
+T     <- 500
+nboot <- 2000
+
+survived <- replicate(nboot, {
+  n <- n0
+  for (t in 1:T) {
+    n <- rbinom(1, n, alpha)
+    if (n == 0) break
+  }
+  n > 0
+})
+
+mean(survived)   # empirical P(survive past T)
+# With alpha=0.99 and n0=10 a sizeable fraction makes it past 500 steps,
+# but many runs still die out — the exact figure depends on the seed.
+```
+:::
+
+- **QE2.2** Vary the initial population `n0` over a range (e.g. `c(2, 5, 10, 20, 50, 100)`) at fixed `alpha = 0.95`. Plot mean time-of-death against `n0`. Is the relationship linear, logarithmic, or something else?
+
+::: {.callout-tip collapse="true" appearance="minimal"}
+## Hint
+Wrap the inner simulation in `replicate()`, sweep `n0`, and `plot(n0s, mean_t)`. Try both linear and log axes.
+:::
+
+::: {.callout-tip collapse="true" appearance="minimal"}
+## Hint
+Mean time-to-extinction grows roughly logarithmically in `n0` for a Galton-Watson-like process at fixed per-individual survival.
+:::
+
+::: {.callout-note collapse="true" appearance="minimal"}
+## Solution
+```{r, eval=FALSE}
+alpha <- 0.95
+nboot <- 1000
+n0s   <- c(2, 5, 10, 20, 50, 100, 200, 500)
+
+mean_t <- sapply(n0s, function(n0) {
+  ts <- replicate(nboot, {
+    n <- n0; t <- 0
+    while (n > 0) { n <- rbinom(1, n, alpha); t <- t + 1 }
+    t
+  })
+  mean(ts)
+})
+
+par(mfrow = c(1, 2))
+plot(n0s, mean_t, type = "b", xlab = "n0", ylab = "mean time of death")
+plot(n0s, mean_t, type = "b", log = "x",
+     xlab = "n0 (log)", ylab = "mean time of death")
+# The right-hand log-x plot is roughly linear: mean death time ~ log(n0).
+```
+:::
+
+- **QE2.3** Optional: For `alpha = 0.95`, estimate the *median* and *interquartile range* of the time-of-death starting from `n0 = 10`. Compare to the mean and sd from Q2.2/Q2.3. Why might the median be a more honest summary?
+
+::: {.callout-tip collapse="true" appearance="minimal"}
+## Hint
+`median()` and `quantile(x, c(0.25, 0.75))`. The distribution is right-skewed, so the mean is pulled up by the long tail.
+:::
+
+::: {.callout-note collapse="true" appearance="minimal"}
+## Solution
+```{r, eval=FALSE}
+alpha <- 0.95
+n0    <- 10
+nboot <- 2000
+ts <- replicate(nboot, {
+  n <- n0; t <- 0
+  while (n > 0) { n <- rbinom(1, n, alpha); t <- t + 1 }
+  t
+})
+mean(ts);   median(ts)
+sd(ts);     IQR(ts)
+quantile(ts, c(0.25, 0.5, 0.75))
+# Median < mean because of the right-skewed tail of "lucky" long-lived runs.
+# The IQR is a more robust spread measure than sd for skewed data.
+```
+:::
+
+### Lotka-Volterra and other simulations (extra)
+
+- **QE3.1** Sensitivity analysis. Using `simulate_lv()` from Q3.3, vary the predator death rate `gamma` over `c(0.02, 0.05, 0.08, 0.12, 0.2)` while keeping all other parameters fixed. For each value, estimate mean time-to-crash from `nboot = 200` runs. Which `gamma` lets the system survive longest?
+
+::: {.callout-tip collapse="true" appearance="minimal"}
+## Hint
+Wrap `replicate(nboot, simulate_lv(gamma = g)$t_crash)` in `sapply()` over the `gamma` vector.
+:::
+
+::: {.callout-tip collapse="true" appearance="minimal"}
+## Hint
+Very low `gamma` → predators never die, eat all prey, then starve. Very high `gamma` → predators crash on their own. There is a sweet spot in between.
+:::
+
+::: {.callout-note collapse="true" appearance="minimal"}
+## Solution
+```{r, eval=FALSE}
+gammas <- c(0.02, 0.05, 0.08, 0.12, 0.2)
+nboot  <- 200
+mean_tc <- sapply(gammas, function(g) {
+  ts <- replicate(nboot, simulate_lv(gamma = g)$t_crash)
+  mean(ts, na.rm = TRUE)
+})
+plot(gammas, mean_tc, type = "b",
+     xlab = "predator death rate gamma",
+     ylab = "mean time to crash")
+# Expect a non-monotonic curve with a peak at the balanced value.
+```
+:::
+
+- **QE3.2** Find (by manual sweep) a parameter region that produces *sustained* oscillations — say, the system survives past `tmax = 5000` for at least 80% of bootstrap runs. Report the parameters and the empirical survival fraction.
+
+::: {.callout-tip collapse="true" appearance="minimal"}
+## Hint
+Larger starting populations and gentler rates are more forgiving of stochastic noise. Try `n_prey0 = 500`, `n_pred0 = 100`, mild `a`, `b`, `c`, `d`.
+:::
+
+::: {.callout-note collapse="true" appearance="minimal"}
+## Solution
+```{r, eval=FALSE}
+nboot <- 200
+res <- replicate(nboot, simulate_lv(
+  n_prey0 = 500, n_pred0 = 100,
+  a = 0.1, b = 0.001, c = 0.001, d = 0.05,
+  tmax = 5000
+)$t_crash)
+mean(is.na(res))   # fraction that survived to tmax
+# Tune the rates until this fraction is >= 0.8.
+```
+:::
+
+- **QE3.3** Estimate the average *period* of the prey-predator oscillation in phase space for one long surviving run. (Use any reasonable definition, e.g. consecutive maxima of the prey trajectory.)
+
+::: {.callout-tip collapse="true" appearance="minimal"}
+## Hint
+A simple way: find local maxima of `prey` with `which(diff(sign(diff(prey))) == -2) + 1`, then take `diff()` of those indices and average.
+:::
+
+::: {.callout-note collapse="true" appearance="minimal"}
+## Solution
+```{r, eval=FALSE}
+sim <- simulate_lv(n_prey0 = 500, n_pred0 = 100,
+                   a = 0.1, b = 0.001, c = 0.001, d = 0.05,
+                   tmax = 5000)
+prey <- sim$prey
+# Smooth a little so noise does not create spurious local maxima
+prey_s <- stats::filter(prey, rep(1/21, 21), sides = 2)
+peaks  <- which(diff(sign(diff(prey_s))) == -2) + 1
+periods <- diff(peaks)
+mean(periods); sd(periods)
+# Period depends on parameters; the classical continuous LV has period
+# ~ 2*pi/sqrt(a*c) in the linearised regime around equilibrium.
+```
+:::
+
+### Bonus: SIR and HWE
+
+- **QE4.1** Run `sir_basic.R` from the zip. Compute the *peak infected fraction* (`max(I) / popsize`) and the day at which the peak occurs. Bootstrap it: wrap the simulation in a function and run it `nboot = 200` times — what is the distribution of the peak fraction?
+
+::: {.callout-tip collapse="true" appearance="minimal"}
+## Hint
+Copy the body of `sir_basic.R` into a function `simulate_sir(beta = 0.1, gamma = 0.1, popsize = 20, ndays = 50)` returning the per-day SIR counts. Compute `max(I)/popsize` from each run.
+:::
+
+::: {.callout-note collapse="true" appearance="minimal"}
+## Solution
+```{r, eval=FALSE}
+simulate_sir <- function(beta = 0.1, gamma = 0.1,
+                        popsize = 20, ndays = 50) {
+  indiv <- data.frame(num = 1:popsize, state = "S")
+  indiv$state[1] <- "I"
+  log_SIR <- matrix(0, nrow = ndays, ncol = 3,
+                    dimnames = list(NULL, c("S","I","R")))
+  for (d in 1:ndays) {
+    log_SIR[d, ] <- c(sum(indiv$state == "S"),
+                      sum(indiv$state == "I"),
+                      sum(indiv$state == "R"))
+    next_indiv <- indiv
+    rate <- sum(indiv$state == "I") * beta
+    next_indiv$state[indiv$state == "S" &
+                     runif(nrow(indiv)) < rate] <- "I"
+    next_indiv$state[indiv$state == "I" &
+                     runif(nrow(indiv)) < gamma] <- "R"
+    indiv <- next_indiv
+  }
+  log_SIR
+}
+
+nboot <- 200
+peaks <- replicate(nboot, {
+  m <- simulate_sir()
+  max(m[, "I"]) / 20
+})
+hist(peaks, breaks = 30, xlab = "peak infected fraction")
+mean(peaks); sd(peaks)
+# Highly variable for popsize = 20 — many epidemics fizzle out, a few explode.
+```
+:::
+
+- **QE4.2** Optional: Complete the `hwe.R` script (fill in the `#TODO` lines so each child draws one allele uniformly at random from each parent). Run it for 50 generations starting from half AA and half aa, and check that genotype frequencies stabilise near the Hardy–Weinberg expectation $p^2 : 2pq : q^2$ with $p = q = 0.5$ (i.e. 25% AA, 50% Aa, 25% aa).
+
+::: {.callout-tip collapse="true" appearance="minimal"}
+## Hint
+`sample(c(parent$allele1, parent$allele2), 1)` picks one of the two parental alleles uniformly.
+:::
+
+::: {.callout-tip collapse="true" appearance="minimal"}
+## Hint
+After completing the loop, plot `log_num$num_AA / popsize`, `num_Aa / popsize`, `num_aa / popsize` over generations and compare to 0.25, 0.50, 0.25.
+:::
+
+::: {.callout-note collapse="true" appearance="minimal"}
+## Solution
+```{r, eval=FALSE}
+popsize <- 200   # bump up so HWE is visible above drift noise
+indiv <- data.frame(num = 1:popsize, allele1 = "A", allele2 = "A",
+                    stringsAsFactors = FALSE)
+indiv$allele1[(popsize/2 + 1):popsize] <- "a"
+indiv$allele2[(popsize/2 + 1):popsize] <- "a"
+
+log_num <- NULL
+for (gen in 1:50) {
+  log_num <- rbind(log_num, data.frame(
+    num_AA = sum(indiv$allele1 == "A" & indiv$allele2 == "A"),
+    num_aa = sum(indiv$allele1 == "a" & indiv$allele2 == "a"),
+    num_Aa = sum(indiv$allele1 != indiv$allele2)
+  ))
+  p1 <- sample(1:popsize, popsize, replace = TRUE)
+  p2 <- sample(1:popsize, popsize, replace = TRUE)
+  next_indiv <- data.frame(allele1 = NA, allele2 = NA)
+  for (i in 1:popsize) {
+    a1 <- sample(c(indiv$allele1[p1[i]], indiv$allele2[p1[i]]), 1)
+    a2 <- sample(c(indiv$allele1[p2[i]], indiv$allele2[p2[i]]), 1)
+    next_indiv[i, ] <- c(a1, a2)
+  }
+  indiv <- next_indiv
+}
+
+tail(log_num / popsize)
+# After a few generations: ~0.25 AA, ~0.50 Aa, ~0.25 aa,
+# matching Hardy-Weinberg with p = q = 0.5 (modulo drift).
+```
+:::

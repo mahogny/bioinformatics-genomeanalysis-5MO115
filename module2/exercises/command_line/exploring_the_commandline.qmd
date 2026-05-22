@@ -196,3 +196,187 @@ grep Female health_data_test.tsv >> ../processed_data/health_data_test_female.ts
 Make sure to inspect the files and verify that everything looks like it should.
 
 **Now you have the basic commands needed to navigate the command line and do some basic file manipulations**
+
+## Extra exercise material
+
+A second pass at the same material, for extra practice. These exercises assume you still have the `exercises_module2` folder with `rawdata/health_data_test.tsv` from the main exercise. If not, recreate it first.
+
+### Navigation (extra)
+
+- **QE1.1** From wherever you currently are, jump straight to your home directory with a single short command, then jump back to the previous directory you were in. Which two shortcuts let you do this without typing out the full paths?
+
+::: {.callout-tip collapse="true" appearance="minimal"}
+## Hint
+The tilde character `~` is a shortcut for your home folder. The dash `-` is a shortcut for the previous directory.
+:::
+
+::: {.callout-note collapse="true" appearance="minimal"}
+## Solution
+```bash
+cd ~      # go to home directory
+cd -      # go back to the previous directory
+```
+:::
+
+- **QE1.2** Starting from inside `exercises_module2/rawdata`, navigate into `processed_data` using a *relative* path (with `..`). Then do the same thing again using an *absolute* path (starting with `/`). Use `pwd` after each step to verify where you are.
+
+::: {.callout-tip collapse="true" appearance="minimal"}
+## Hint
+Relative paths use `..` to go one level up. Absolute paths always start with `/` and spell out the location from the root of the filesystem. `pwd` prints the absolute path of your current folder, which you can copy.
+:::
+
+::: {.callout-note collapse="true" appearance="minimal"}
+## Solution
+```bash
+# relative path
+cd ../processed_data
+pwd
+
+# back, then with absolute path (replace with the output of pwd)
+cd -
+cd /home/yourusername/exercises_module2/processed_data
+pwd
+```
+:::
+
+### Listing files (extra)
+
+- **QE2.1** List the contents of the `exercises_module2` folder showing all files (including hidden ones), in long format, with human-readable file sizes. Then sort the listing by file size, and again by modification time.
+
+::: {.callout-tip collapse="true" appearance="minimal"}
+## Hint
+Combine `ls` flags: `-l` (long), `-a` (all, including hidden files starting with `.`), `-h` (human-readable sizes). Use `-S` to sort by size, `-t` to sort by time.
+:::
+
+::: {.callout-note collapse="true" appearance="minimal"}
+## Solution
+```bash
+cd ~/exercises_module2
+ls -lah
+ls -lahS    # sorted by size (largest first)
+ls -laht    # sorted by modification time (newest first)
+```
+:::
+
+- **QE2.2** Inside the `processed_data` folder, list only the files matching the pattern `health_data_test_*.tsv`. Then list only files whose name starts with `health_data_test_` followed by exactly one letter from `{m, f}`, ending in `.tsv`.
+
+::: {.callout-tip collapse="true" appearance="minimal"}
+## Hint
+`*` matches any sequence of characters. `[abc]` matches a single character from the set `a`, `b`, or `c`. `?` matches exactly one of any character.
+:::
+
+::: {.callout-note collapse="true" appearance="minimal"}
+## Solution
+```bash
+cd ~/exercises_module2/processed_data
+ls health_data_test_*.tsv
+ls health_data_test_[mf]*.tsv
+```
+:::
+
+### File inspection (extra)
+
+- **QE3.1** Show only the first 5 lines of `rawdata/health_data_test.tsv`, then only the last 20 lines. Finally, count how many lines the file has in total.
+
+::: {.callout-tip collapse="true" appearance="minimal"}
+## Hint
+`head -n N file` shows the first N lines. `tail -n N file` shows the last N lines. `wc -l file` counts the lines.
+:::
+
+::: {.callout-note collapse="true" appearance="minimal"}
+## Solution
+```bash
+cd ~/exercises_module2
+head -n 5 rawdata/health_data_test.tsv
+tail -n 20 rawdata/health_data_test.tsv
+wc -l rawdata/health_data_test.tsv
+```
+:::
+
+- **QE3.2** Open `rawdata/health_data_test.tsv` in `less` and practice the following keyboard shortcuts: jump to the end of the file, jump back to the beginning, search forward for the word `Female`, then quit `less`.
+
+::: {.callout-tip collapse="true" appearance="minimal"}
+## Hint
+In `less`: press `G` to jump to the end, lowercase `g` to jump to the beginning, `/pattern` (then Enter) to search forward, `n` to jump to the next match, and `q` to quit.
+:::
+
+::: {.callout-note collapse="true" appearance="minimal"}
+## Solution
+```bash
+less rawdata/health_data_test.tsv
+# inside less:
+#   G        -> end of file
+#   g        -> start of file
+#   /Female  -> search forward for "Female", then press Enter
+#   n        -> jump to next match
+#   q        -> quit less
+```
+:::
+
+### History and recall (extra)
+
+- **QE4.1** You just ran a long `grep` command and want to re-run it without retyping. Use `!!` to repeat your very last command. Then run a new command (`wc -l`) that operates on the *same file* that was the last argument to the previous command — use the `!$` shortcut for that.
+
+::: {.callout-tip collapse="true" appearance="minimal"}
+## Hint
+`!!` expands to the entire previous command. `!$` expands to the last argument of the previous command. They are pure text expansions, so the shell will show you what gets executed.
+:::
+
+::: {.callout-note collapse="true" appearance="minimal"}
+## Solution
+```bash
+grep Female rawdata/health_data_test.tsv
+!!                     # re-runs: grep Female rawdata/health_data_test.tsv
+wc -l !$               # expands to: wc -l rawdata/health_data_test.tsv
+```
+:::
+
+- **QE4.2** Find a `grep` command you ran earlier in the session in two different ways: first by using `Ctrl-R` to do a reverse-incremental search through your history, then by piping `history` through `grep`.
+
+::: {.callout-tip collapse="true" appearance="minimal"}
+## Hint
+`Ctrl-R` opens an interactive reverse search; start typing part of the command and press Enter to run the match (or arrow keys/Esc to edit it). `history` prints your numbered command history, which you can pipe to `grep`.
+:::
+
+::: {.callout-note collapse="true" appearance="minimal"}
+## Solution
+```bash
+# Option 1: press Ctrl-R, then type "grep" -- bash shows the most recent match.
+#           Press Ctrl-R again to step further back, Enter to run, Esc to edit.
+
+# Option 2:
+history | grep grep
+```
+:::
+
+### A bioinformatics flavour (extra)
+
+- **QE5.1** FASTQ files store sequencing reads, with **4 lines per read** (a header starting with `@`, the sequence, a `+` separator, and the quality string). Suppose you have a file `reads.fastq` in your `rawdata` folder. Write a command that counts how many lines it has, and then explain how you would get the number of reads from that. (You can test this on `health_data_test.tsv` if you don't have a real FASTQ file at hand — the line-counting command is the same.)
+
+::: {.callout-tip collapse="true" appearance="minimal"}
+## Hint
+`wc -l file` gives you the number of lines. To get the number of reads in a FASTQ file, divide the line count by 4.
+:::
+
+::: {.callout-tip collapse="true" appearance="minimal"}
+## Hint 2
+You can do the arithmetic directly in bash with `$(( ... ))`, combined with command substitution `$(...)`:
+
+```bash
+echo $(( $(wc -l < file) / 4 ))
+```
+:::
+
+::: {.callout-note collapse="true" appearance="minimal"}
+## Solution
+```bash
+# Count lines
+wc -l rawdata/reads.fastq
+
+# Number of reads = lines / 4. One-liner:
+echo $(( $(wc -l < rawdata/reads.fastq) / 4 ))
+
+# For a gzipped FASTQ (reads.fastq.gz), stream it through zcat first:
+echo $(( $(zcat rawdata/reads.fastq.gz | wc -l) / 4 ))
+```
+:::

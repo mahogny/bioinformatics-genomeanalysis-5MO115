@@ -263,3 +263,219 @@ for (col in data) {
 
 ```
 :::
+
+## Extra exercise material
+
+A second pass at the same material, for extra practice. Try to solve each question on your own before peeking at the hints or solutions.
+
+### Loops (extra)
+
+- **QE1.1** Write a `for` loop that computes the factorial of 8 (that is, 1 * 2 * 3 * ... * 8) without using the built-in `factorial()` function. Store the result in a variable called `fact` and print it.
+
+::: {.callout-tip collapse="true" appearance="minimal"}
+## Hint
+Initialise an accumulator *outside* the loop. For multiplication, the natural starting value is 1 (not 0). Loop over `1:8` and multiply the accumulator by each value.
+:::
+
+::: {.callout-note collapse="true" appearance="minimal"}
+## Solution
+```{r, eval=TRUE}
+fact <- 1
+for (i in 1:8) {
+    fact <- fact * i
+}
+print(fact)
+```
+:::
+
+- **QE1.2** Build the first 10 numbers of the Fibonacci sequence (1, 1, 2, 3, 5, 8, ...) using a `for` loop, and store them in a vector called `fib`. Print the resulting vector.
+
+::: {.callout-tip collapse="true" appearance="minimal"}
+## Hint
+Start by creating a numeric vector of length 10 (for example with `numeric(10)`) and set the first two entries to 1. Then loop from `i = 3` to `10` and set `fib[i] <- fib[i-1] + fib[i-2]`.
+:::
+
+::: {.callout-note collapse="true" appearance="minimal"}
+## Solution
+```{r, eval=TRUE}
+fib <- numeric(10)
+fib[1] <- 1
+fib[2] <- 1
+for (i in 3:10) {
+    fib[i] <- fib[i-1] + fib[i-2]
+}
+print(fib)
+```
+:::
+
+- **QE1.3** Compute the sum of the squares of the numbers from 1 to 20 (i.e. 1^2 + 2^2 + ... + 20^2) using a `for` loop. Do not use `sum()`. Print the result.
+
+::: {.callout-tip collapse="true" appearance="minimal"}
+## Hint
+Initialise a counter at 0 outside the loop, then loop over `1:20` and add `i^2` to the counter on each iteration.
+:::
+
+::: {.callout-note collapse="true" appearance="minimal"}
+## Solution
+```{r, eval=TRUE}
+total <- 0
+for (i in 1:20) {
+    total <- total + i^2
+}
+print(total)
+```
+:::
+
+### if/else (extra)
+
+- **QE2.1** Given a BMI value, classify it into one of four categories using an `if`/`else if`/`else` chain: `"underweight"` (BMI < 18.5), `"normal"` (18.5 <= BMI < 25), `"overweight"` (25 <= BMI < 30), and `"obese"` (BMI >= 30). Try it on `bmi <- 27.4`.
+
+::: {.callout-tip collapse="true" appearance="minimal"}
+## Hint
+Use the pattern:
+```
+if (cond1) {
+    ...
+} else if (cond2) {
+    ...
+} else if (cond3) {
+    ...
+} else {
+    ...
+}
+```
+Check the smallest range first, then build up.
+:::
+
+::: {.callout-note collapse="true" appearance="minimal"}
+## Solution
+```{r, eval=TRUE}
+bmi <- 27.4
+if (bmi < 18.5) {
+    category <- "underweight"
+} else if (bmi < 25) {
+    category <- "normal"
+} else if (bmi < 30) {
+    category <- "overweight"
+} else {
+    category <- "obese"
+}
+print(category)
+```
+:::
+
+- **QE2.2** Loop over the numbers from 1 to 20 and print, for each number: `"Fizz"` if it is divisible by 3, `"Buzz"` if it is divisible by 5, `"FizzBuzz"` if it is divisible by both, and otherwise the number itself.
+
+::: {.callout-tip collapse="true" appearance="minimal"}
+## Hint
+The modulo operator in R is `%%`. So `i %% 3 == 0` is `TRUE` when `i` is divisible by 3. Check the *both* case (divisible by 15) first, otherwise it will never be reached.
+:::
+
+::: {.callout-note collapse="true" appearance="minimal"}
+## Solution
+```{r, eval=TRUE}
+for (i in 1:20) {
+    if (i %% 15 == 0) {
+        print("FizzBuzz")
+    } else if (i %% 3 == 0) {
+        print("Fizz")
+    } else if (i %% 5 == 0) {
+        print("Buzz")
+    } else {
+        print(i)
+    }
+}
+```
+:::
+
+### Functions (extra)
+
+- **QE3.1** Write a function called `summarise_vec()` that takes a numeric vector `vec` and returns a *list* with three named elements: `mean`, `min`, and `max`. Test it on `c(3, 7, 2, 9, 5)`.
+
+::: {.callout-tip collapse="true" appearance="minimal"}
+## Hint
+You can construct a named list with `list(mean = ..., min = ..., max = ...)`. You may use the built-in `mean()`, `min()`, and `max()` functions here.
+:::
+
+::: {.callout-note collapse="true" appearance="minimal"}
+## Solution
+```{r, eval=TRUE}
+summarise_vec <- function (vec) {
+    return (list(
+        mean = mean(vec),
+        min  = min(vec),
+        max  = max(vec)
+    ))
+}
+summarise_vec(c(3, 7, 2, 9, 5))
+```
+:::
+
+- **QE3.2** Write a function called `power()` that takes two arguments, `x` and `n`, and returns `x` raised to the power of `n`. Give `n` a *default value* of 2 so that calling `power(5)` returns 25, while `power(5, 3)` returns 125.
+
+::: {.callout-tip collapse="true" appearance="minimal"}
+## Hint
+Default arguments are set inside the function definition, like `function (x, n = 2) { ... }`. Inside the body you can use `x^n`.
+:::
+
+::: {.callout-note collapse="true" appearance="minimal"}
+## Solution
+```{r, eval=TRUE}
+power <- function (x, n = 2) {
+    return (x^n)
+}
+print(power(5))
+print(power(5, 3))
+```
+:::
+
+### Bioinformatics flavour (extra)
+
+- **QE4.1** Write a function called `reverse_complement()` that takes a DNA string (made of the characters `A`, `C`, `G`, `T`) and returns its reverse complement. For example, `reverse_complement("ATGC")` should return `"GCAT"`. Test it on `"ATGCCGTA"`.
+
+::: {.callout-tip collapse="true" appearance="minimal"}
+## Hint
+Split the string into individual characters with `strsplit(dna, "")[[1]]`. Loop over the characters and build the complement using `if`/`else if` (A <-> T, C <-> G). Finally, reverse the result with `rev()` and glue it back together with `paste(..., collapse = "")`.
+:::
+
+::: {.callout-tip collapse="true" appearance="minimal"}
+## Hint (more)
+Skeleton:
+```
+reverse_complement <- function (dna) {
+    bases <- strsplit(dna, "")[[1]]
+    comp  <- character(length(bases))
+    for (i in seq_along(bases)) {
+        if (bases[i] == "A") comp[i] <- "T"
+        else if (bases[i] == "T") comp[i] <- "A"
+        ...
+    }
+    return (paste(rev(comp), collapse = ""))
+}
+```
+:::
+
+::: {.callout-note collapse="true" appearance="minimal"}
+## Solution
+```{r, eval=TRUE}
+reverse_complement <- function (dna) {
+    bases <- strsplit(dna, "")[[1]]
+    comp  <- character(length(bases))
+    for (i in seq_along(bases)) {
+        if (bases[i] == "A") {
+            comp[i] <- "T"
+        } else if (bases[i] == "T") {
+            comp[i] <- "A"
+        } else if (bases[i] == "C") {
+            comp[i] <- "G"
+        } else if (bases[i] == "G") {
+            comp[i] <- "C"
+        } else {
+            comp[i] <- "N"
+        }
+    }
+    return (paste(rev(comp), collapse = ""))
+}
+reverse_complement("ATGCCGTA")
+```
+:::

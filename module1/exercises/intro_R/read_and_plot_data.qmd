@@ -362,3 +362,196 @@ ggplot(expr.df, aes(x = Group, y = Expression))+
        geom_bar(stat = "summary", fun = "mean")
 ```
 :::
+
+## Extra exercise material
+
+A second pass at the same material, for extra practice.
+
+### Reading data (extra)
+
+- **QE1.1** You have a tab-separated file called `counts.tsv` that has a header on the first line. Write the `read.table()` call that imports it into a data frame called `counts`.
+
+::: {.callout-tip collapse="true" appearance="minimal"}
+## Hint
+The default separator of `read.table()` is whitespace. To force tab as the separator, use `sep="\t"`. The header argument controls whether the first row is treated as column names.
+:::
+
+::: {.callout-note collapse="true" appearance="minimal"}
+## Solution
+```{r, eval=FALSE}
+counts <- read.table("counts.tsv", header = TRUE, sep = "\t")
+head(counts)
+str(counts)
+```
+:::
+
+- **QE1.2** You receive a CSV file `samples.csv` where the first 5 lines are comments produced by the sequencing facility, and missing values are encoded as `"NA"` or `"-"`. Read it into R so that both encodings are treated as missing values, and skip the comment lines.
+
+::: {.callout-tip collapse="true" appearance="minimal"}
+## Hint
+Look at the arguments `skip`, `na.strings` and `header` in `?read.table` (or `?read.csv`).
+:::
+
+::: {.callout-tip collapse="true" appearance="minimal"}
+## Hint
+`na.strings` accepts a vector of strings, e.g. `na.strings = c("NA", "-")`.
+:::
+
+::: {.callout-note collapse="true" appearance="minimal"}
+## Solution
+```{r, eval=FALSE}
+samples <- read.csv("samples.csv",
+                    skip = 5,
+                    header = TRUE,
+                    na.strings = c("NA", "-"))
+head(samples)
+str(samples)
+```
+:::
+
+- **QE1.3** You have a file `expression.txt` without a header line, where columns are separated by semicolons. Read it in and then set sensible column names afterwards (`gene`, `sample1`, `sample2`, `sample3`).
+
+::: {.callout-tip collapse="true" appearance="minimal"}
+## Hint
+Use `header = FALSE` so R does not interpret the first row as column names. You can then assign names using `colnames()` after the import.
+:::
+
+::: {.callout-note collapse="true" appearance="minimal"}
+## Solution
+```{r, eval=FALSE}
+expr <- read.table("expression.txt", header = FALSE, sep = ";")
+colnames(expr) <- c("gene", "sample1", "sample2", "sample3")
+head(expr)
+```
+:::
+
+### Inspecting a data frame (extra)
+
+- **QE1.4** Load the built-in `mtcars` dataset and inspect it: print the first rows, find out the number of rows and columns, look at the structure of each column, and print a summary of the numerical values.
+
+::: {.callout-tip collapse="true" appearance="minimal"}
+## Hint
+Useful functions: `head()`, `nrow()`, `ncol()`, `dim()`, `str()`, `summary()`. `mtcars` is built into R so you do not need to read anything from disk.
+:::
+
+::: {.callout-note collapse="true" appearance="minimal"}
+## Solution
+```{r, eval=TRUE}
+head(mtcars)
+nrow(mtcars)
+ncol(mtcars)
+str(mtcars)
+summary(mtcars)
+```
+:::
+
+### Base R plotting (extra)
+
+- **QE1.5** Using the built-in `mtcars` dataset, make a scatter plot of car weight (`wt`) on the x-axis and fuel consumption (`mpg`) on the y-axis using base R. Add meaningful axis labels and a title.
+
+::: {.callout-tip collapse="true" appearance="minimal"}
+## Hint
+Use `plot(x, y, xlab=..., ylab=..., main=...)`. You can access columns of `mtcars` with `mtcars$wt` and `mtcars$mpg`.
+:::
+
+::: {.callout-note collapse="true" appearance="minimal"}
+## Solution
+```{r, eval=TRUE}
+plot(mtcars$wt, mtcars$mpg,
+     xlab = "Weight (1000 lbs)",
+     ylab = "Miles per gallon",
+     main = "Fuel consumption vs. car weight")
+```
+:::
+
+- **QE1.6** Still using `mtcars`, draw a histogram of `mpg` and a boxplot of `mpg` split by the number of cylinders (`cyl`).
+
+::: {.callout-tip collapse="true" appearance="minimal"}
+## Hint
+For a histogram, use `hist()`. For a boxplot split by a grouping variable, use the formula interface: `boxplot(mpg ~ cyl, data = mtcars)`.
+:::
+
+::: {.callout-note collapse="true" appearance="minimal"}
+## Solution
+```{r, eval=TRUE}
+hist(mtcars$mpg,
+     xlab = "Miles per gallon",
+     main = "Distribution of mpg")
+
+boxplot(mpg ~ cyl, data = mtcars,
+        xlab = "Number of cylinders",
+        ylab = "Miles per gallon",
+        main = "mpg by cylinder count")
+```
+:::
+
+### ggplot2 (extra)
+
+- **QE1.7** Using the built-in `iris` dataset, make a ggplot scatter plot of `Sepal.Length` (x) vs. `Petal.Length` (y), and colour the points by `Species`.
+
+::: {.callout-tip collapse="true" appearance="minimal"}
+## Hint
+Map the colour aesthetic inside `aes()`: `aes(x = Sepal.Length, y = Petal.Length, colour = Species)`. Then add `geom_point()`.
+:::
+
+::: {.callout-note collapse="true" appearance="minimal"}
+## Solution
+```{r, eval=TRUE}
+library(ggplot2)
+ggplot(iris, aes(x = Sepal.Length, y = Petal.Length, colour = Species)) +
+       geom_point() +
+       labs(title = "Iris: sepal vs. petal length") +
+       theme_bw()
+```
+:::
+
+- **QE1.8** Take the same scatter plot from QE1.7 and split it into one panel per species using faceting.
+
+::: {.callout-tip collapse="true" appearance="minimal"}
+## Hint
+Use `facet_wrap(~ Species)` to create one panel per level of `Species`.
+:::
+
+::: {.callout-note collapse="true" appearance="minimal"}
+## Solution
+```{r, eval=TRUE}
+library(ggplot2)
+ggplot(iris, aes(x = Sepal.Length, y = Petal.Length, colour = Species)) +
+       geom_point() +
+       facet_wrap(~ Species) +
+       theme_bw()
+```
+:::
+
+### Bioinformatics-flavoured plotting (extra)
+
+- **QE1.9** Imagine you have a data frame `gene_expr` with a column `counts` containing raw gene expression counts for thousands of genes. Most genes have low counts and a few have very high counts. Plot a histogram of the counts on a log10 x-axis so that you can see the distribution clearly.
+
+::: {.callout-tip collapse="true" appearance="minimal"}
+## Hint
+A common approach is to add a small pseudo-count (e.g. `+1`) before taking the log so genes with `counts == 0` do not disappear. In ggplot you can use `scale_x_log10()` directly.
+:::
+
+::: {.callout-tip collapse="true" appearance="minimal"}
+## Hint
+With base R: `hist(log10(gene_expr$counts + 1))`. With ggplot: `geom_histogram()` together with `scale_x_log10()`.
+:::
+
+::: {.callout-note collapse="true" appearance="minimal"}
+## Solution
+```{r, eval=FALSE}
+# Base R version
+hist(log10(gene_expr$counts + 1),
+     xlab = "log10(counts + 1)",
+     main = "Distribution of gene expression counts")
+
+# ggplot2 version
+library(ggplot2)
+ggplot(gene_expr, aes(x = counts + 1)) +
+       geom_histogram(bins = 50) +
+       scale_x_log10() +
+       labs(x = "counts (log10 scale)",
+            title = "Distribution of gene expression counts") +
+       theme_bw()
+```
+:::

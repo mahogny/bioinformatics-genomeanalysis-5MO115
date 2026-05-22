@@ -360,3 +360,222 @@ sort(pvals)
 ```
 Glucose, BMI, Age and Pregnancies all separate the two groups strongly — consistent with known risk factors for type 2 diabetes. Variables like `BloodPressure` and `SkinThickness` separate less clearly, partly because zeros in the raw data encode missing values.
 :::
+
+## Extra exercise material
+
+A second pass at the same material, for extra practice. Same conventions as above — try each question first, then peek.
+
+### Distributions (extra)
+
+- **QE1.1**. Assume X ~ N(10, 2) (i.e. μ=10, σ=2). What is P(X < 8)?
+
+::: {.callout-tip collapse="true" appearance="minimal"}
+## Hint
+`pnorm(q, mean, sd)` returns P(X ≤ q) directly. No need to subtract from 1 for a lower-tail question.
+:::
+
+::: {.callout-note collapse="true" appearance="minimal"}
+## Solution
+```{r, eval=TRUE}
+pnorm(8, mean = 10, sd = 2)
+```
+Roughly 0.16 — one σ below the mean.
+:::
+
+- **QE1.2**. Assume X ~ N(100, 15) (a classic IQ-style parameterisation). What fraction of the population has X between 85 and 130?
+
+::: {.callout-tip collapse="true" appearance="minimal"}
+## Hint
+P(a < X < b) = F(b) - F(a).
+:::
+
+::: {.callout-note collapse="true" appearance="minimal"}
+## Solution
+```{r, eval=TRUE}
+pnorm(130, mean = 100, sd = 15) - pnorm(85, mean = 100, sd = 15)
+```
+About 0.82.
+:::
+
+- **QE1.3**. Assume X ~ N(0, 1). Find the value `x` such that P(X > x) = 0.025. (This is the classic critical value used to build a 95% confidence interval.)
+
+::: {.callout-tip collapse="true" appearance="minimal"}
+## Hint
+This is the inverse problem — given a probability, recover the quantile. Use `qnorm`.
+:::
+
+::: {.callout-tip collapse="true" appearance="minimal"}
+## Hint
+`qnorm` returns the lower-tail quantile by default. If you want the upper-tail 2.5%, that is `qnorm(0.975)` or `qnorm(0.025, lower.tail = FALSE)`.
+:::
+
+::: {.callout-note collapse="true" appearance="minimal"}
+## Solution
+```{r, eval=TRUE}
+qnorm(0.975)
+```
+The famous 1.96.
+:::
+
+- **QE1.4**. Assume X ~ N(50, 4). What is the density `dnorm(50, 50, 4)`? Is this a probability? Why or why not?
+
+::: {.callout-tip collapse="true" appearance="minimal"}
+## Hint
+For continuous distributions, `dnorm` returns the value of the probability *density* function — not a probability. The probability of X taking any single exact value is zero.
+:::
+
+::: {.callout-note collapse="true" appearance="minimal"}
+## Solution
+```{r, eval=TRUE}
+dnorm(50, mean = 50, sd = 4)
+```
+This is about 0.0997. It is a density, not a probability — densities can exceed 1 for narrow distributions. Only integrals of `dnorm` (i.e. `pnorm` differences) yield probabilities.
+:::
+
+### Poisson (extra)
+
+- **QE2.1**. Assume X ~ Poisson(λ=3). What is P(X = 2)? What is P(X ≤ 2)?
+
+::: {.callout-tip collapse="true" appearance="minimal"}
+## Hint
+`dpois` for the point mass, `ppois` for the cumulative.
+:::
+
+::: {.callout-note collapse="true" appearance="minimal"}
+## Solution
+```{r, eval=TRUE}
+dpois(2, lambda = 3)
+ppois(2, lambda = 3)
+```
+:::
+
+- **QE2.2**. Assume X ~ Poisson(λ=5). Plot a barplot of P(X=n) for n=0…15. Where is the mode?
+
+::: {.callout-tip collapse="true" appearance="minimal"}
+## Hint
+For a Poisson with integer λ the mode sits at both λ and λ-1. For non-integer λ, it sits at floor(λ).
+:::
+
+::: {.callout-note collapse="true" appearance="minimal"}
+## Solution
+```{r, eval=TRUE}
+n <- 0:15
+barplot(dpois(n, lambda = 5), names.arg = n,
+        xlab = "n", ylab = "P(X = n)")
+```
+Mode at n = 4 and n = 5 (equal heights).
+:::
+
+- **QE2.3**. In a droplet-based single-cell experiment (e.g. 10x Genomics), the number of cells loaded into each droplet is approximately Poisson with mean λ. If you load at λ = 0.1 cells/droplet, what fraction of droplets are empty? What fraction contain exactly one cell? What fraction contain two or more (doublets)?
+
+::: {.callout-tip collapse="true" appearance="minimal"}
+## Hint
+Empty = `dpois(0, λ)`. Singlets = `dpois(1, λ)`. Doublets (≥2) = `1 - ppois(1, λ)`.
+:::
+
+::: {.callout-tip collapse="true" appearance="minimal"}
+## Hint
+This is exactly why droplet protocols deliberately under-load: low λ keeps doublets rare, at the cost of mostly-empty droplets.
+:::
+
+::: {.callout-note collapse="true" appearance="minimal"}
+## Solution
+```{r, eval=TRUE}
+lambda <- 0.1
+empty   <- dpois(0, lambda)
+singlet <- dpois(1, lambda)
+doublet <- 1 - ppois(1, lambda)
+c(empty = empty, singlet = singlet, doublet = doublet)
+```
+About 90.5% empty, 9.05% singlets, and only ~0.47% doublets — the empty droplets are filtered out computationally afterwards.
+:::
+
+### Statistical testing (extra)
+
+- **QE3.1**. Using `diabetes.csv`, perform a t-test asking whether `Glucose` is higher in patients with `Outcome=1` than in those with `Outcome=0`.
+
+::: {.callout-tip collapse="true" appearance="minimal"}
+## Hint
+Same pattern as Q4.1 but on the `Glucose` column. Use `alternative = "greater"` for a one-sided test.
+:::
+
+::: {.callout-note collapse="true" appearance="minimal"}
+## Solution
+```{r, eval=FALSE}
+d <- read.csv("diabetes.csv")
+glu_pos <- d$Glucose[d$Outcome == 1]
+glu_neg <- d$Glucose[d$Outcome == 0]
+t.test(glu_pos, glu_neg, alternative = "greater")
+```
+The p-value is extremely small — glucose is the strongest single separator of diabetic vs. non-diabetic in this dataset, as you might expect.
+:::
+
+- **QE3.2**. Repeat QE3.1 but use `wilcox.test()` instead. The `Glucose` column has some zero values that almost certainly mean "missing". Filter them out first and re-run both tests. How much does it change the p-value?
+
+::: {.callout-tip collapse="true" appearance="minimal"}
+## Hint
+Subset with `d <- d[d$Glucose > 0, ]` before splitting.
+:::
+
+::: {.callout-note collapse="true" appearance="minimal"}
+## Solution
+```{r, eval=FALSE}
+d <- read.csv("diabetes.csv")
+d <- d[d$Glucose > 0, ]
+glu_pos <- d$Glucose[d$Outcome == 1]
+glu_neg <- d$Glucose[d$Outcome == 0]
+t.test(glu_pos, glu_neg, alternative = "greater")
+wilcox.test(glu_pos, glu_neg, alternative = "greater")
+```
+Both still give vanishingly small p-values — the effect is robust. Removing the zeros barely changes things because there are very few of them, but it's the methodologically honest thing to do.
+:::
+
+- **QE3.3**. Test whether `Age` differs between the two outcome groups. Is a one-sided or two-sided test more appropriate here? Justify.
+
+::: {.callout-tip collapse="true" appearance="minimal"}
+## Hint
+A one-sided test is appropriate only when you have a prior directional hypothesis. Type 2 diabetes risk increases with age — so "greater in Outcome=1" is a defensible one-sided hypothesis.
+:::
+
+::: {.callout-note collapse="true" appearance="minimal"}
+## Solution
+```{r, eval=FALSE}
+d <- read.csv("diabetes.csv")
+t.test(Age ~ Outcome, data = d)                       # two-sided
+t.test(Age ~ Outcome, data = d, alternative = "less") # H1: mean(0) < mean(1)
+```
+Either is defensible. A two-sided test is the safer default when in doubt; one-sided is fine if the directional hypothesis was pre-specified.
+:::
+
+### Binomial (extra)
+
+- **QE4.1**. Assume X ~ Binom(n=20, θ=0.3). What is P(X = 6)? What is P(X ≤ 6)?
+
+::: {.callout-tip collapse="true" appearance="minimal"}
+## Hint
+`dbinom` for the point mass, `pbinom` for the cumulative.
+:::
+
+::: {.callout-note collapse="true" appearance="minimal"}
+## Solution
+```{r, eval=TRUE}
+dbinom(6, size = 20, prob = 0.3)
+pbinom(6, size = 20, prob = 0.3)
+```
+The mean is nθ = 6, so P(X = 6) is near the mode and P(X ≤ 6) sits a bit above 0.5.
+:::
+
+- **QE4.2**. You sequence 50 reads at a position in the genome where the true allele frequency of a variant is θ = 0.5 (a heterozygous site). What is the probability of seeing ≤ 15 reads carrying the variant just by chance? Would seeing 15 or fewer be suspicious?
+
+::: {.callout-tip collapse="true" appearance="minimal"}
+## Hint
+This is a one-sided binomial tail probability: `pbinom(15, size = 50, prob = 0.5)`.
+:::
+
+::: {.callout-note collapse="true" appearance="minimal"}
+## Solution
+```{r, eval=TRUE}
+pbinom(15, size = 50, prob = 0.5)
+```
+About 0.0033 — seeing 15 or fewer would be quite unlikely under a true het. In practice this is exactly the kind of test used to flag allelic imbalance or genotyping errors.
+:::

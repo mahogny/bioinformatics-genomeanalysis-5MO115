@@ -414,3 +414,212 @@ A * B      # element-wise — totally different operation!
 # [2,]   20    0
 ```
 :::
+
+## Extra exercise material
+
+A second pass at the same material, for extra practice.
+
+### Matrix multiplication and dimensions (extra)
+
+- **QE1.1** Without using R, compute $AB$ for
+$$A = \begin{bmatrix} 2 & 1 \\ 0 & 3 \\ 1 & 4 \end{bmatrix},\quad B = \begin{bmatrix} 1 & 2 & 0 \\ 3 & 1 & 1 \end{bmatrix}$$
+What are the dimensions of the result? Then check in R with `%*%`.
+
+::: {.callout-tip collapse="true" appearance="minimal"}
+## Hint
+$A$ is $3 \times 2$ and $B$ is $2 \times 3$. The "inner" dimensions match (both 2), so the product is defined and has the "outer" dimensions — $3 \times 3$.
+:::
+
+::: {.callout-note collapse="true" appearance="minimal"}
+## Solution
+```{r, eval=TRUE}
+A <- matrix(c(2, 1,
+              0, 3,
+              1, 4), 3, 2, byrow = TRUE)
+B <- matrix(c(1, 2, 0,
+              3, 1, 1), 2, 3, byrow = TRUE)
+A %*% B
+```
+By hand, row 1 of $A$ times the columns of $B$ gives $(2\cdot 1 + 1\cdot 3,\ 2\cdot 2 + 1\cdot 1,\ 2\cdot 0 + 1\cdot 1) = (5, 5, 1)$, and similarly for the other rows.
+:::
+
+- **QE1.2** What happens if you try `B %*% A` instead, where $A$ and $B$ are as in QE1.1? What are the dimensions of the result? What if you try `A %*% A`?
+
+::: {.callout-tip collapse="true" appearance="minimal"}
+## Hint
+For $X \cdot Y$ to be defined, the number of columns of $X$ must equal the number of rows of $Y$.
+:::
+
+::: {.callout-note collapse="true" appearance="minimal"}
+## Solution
+```{r, eval=TRUE}
+A <- matrix(c(2, 1,
+              0, 3,
+              1, 4), 3, 2, byrow = TRUE)
+B <- matrix(c(1, 2, 0,
+              3, 1, 1), 2, 3, byrow = TRUE)
+# B is 2x3 and A is 3x2 — inner dims match (3) → result is 2x2
+B %*% A
+# A is 3x2, A is 3x2 — inner dims do NOT match (2 vs 3) → error
+try(A %*% A)
+```
+The take-away: matrix multiplication is picky about dimensions. `A %*% A` only makes sense if $A$ is square.
+:::
+
+- **QE1.3** Build the $4 \times 4$ identity matrix in R using `diag()`. Then verify that for any compatibly-sized matrix $M$, $\mathbb{I}\,M = M\,\mathbb{I} = M$. Try it on
+$$M = \begin{bmatrix} 1 & 2 & 3 & 4 \\ 5 & 6 & 7 & 8 \\ 9 & 10 & 11 & 12 \\ 13 & 14 & 15 & 16 \end{bmatrix}$$
+
+::: {.callout-tip collapse="true" appearance="minimal"}
+## Hint
+`diag(4)` returns the $4 \times 4$ identity matrix. `diag(c(1,2,3))` builds a diagonal matrix with the given entries.
+:::
+
+::: {.callout-note collapse="true" appearance="minimal"}
+## Solution
+```{r, eval=TRUE}
+I4 <- diag(4)
+I4
+M  <- matrix(1:16, 4, 4, byrow = TRUE)
+I4 %*% M
+M  %*% I4
+# Both should equal M
+all(I4 %*% M == M)
+all(M  %*% I4 == M)
+```
+:::
+
+### Solving $A\mathbf{x} = \mathbf{b}$ (extra)
+
+- **QE2.1** Solve in R:
+$$\begin{bmatrix} 1 & 2 & 0 \\ 3 & -1 & 1 \\ 0 & 1 & 4 \end{bmatrix} \begin{bmatrix} x \\ y \\ z \end{bmatrix} = \begin{bmatrix} 5 \\ 2 \\ 9 \end{bmatrix}$$
+Verify your solution by computing $A\mathbf{x}$ and comparing to $\mathbf{b}$.
+
+::: {.callout-tip collapse="true" appearance="minimal"}
+## Hint
+Build `A` with `matrix(..., byrow = TRUE)`, then call `solve(A, b)`.
+:::
+
+::: {.callout-note collapse="true" appearance="minimal"}
+## Solution
+```{r, eval=TRUE}
+A <- matrix(c(1,  2, 0,
+              3, -1, 1,
+              0,  1, 4), 3, 3, byrow = TRUE)
+b <- c(5, 2, 9)
+x <- solve(A, b)
+x
+# Verify
+A %*% x
+```
+:::
+
+- **QE2.2** A small mixing problem. Three reagent stocks (S1, S2, S3) contain different concentrations of three components (a, b, c):
+$$\text{stock matrix } S = \begin{bmatrix} 1 & 0 & 2 \\ 2 & 1 & 0 \\ 0 & 3 & 1 \end{bmatrix}$$
+(rows are components a/b/c, columns are stocks S1/S2/S3). You want to prepare a mix containing $(a,b,c) = (4, 5, 7)$. How many volumes of each stock do you need? Solve with R.
+
+::: {.callout-tip collapse="true" appearance="minimal"}
+## Hint
+Let $\mathbf{v} = (v_1, v_2, v_3)$ be the volumes of each stock. Then $S\,\mathbf{v} = (4, 5, 7)$.
+:::
+
+::: {.callout-note collapse="true" appearance="minimal"}
+## Solution
+```{r, eval=TRUE}
+S <- matrix(c(1, 0, 2,
+              2, 1, 0,
+              0, 3, 1), 3, 3, byrow = TRUE)
+b <- c(4, 5, 7)
+v <- solve(S, b)
+v
+# Sanity check
+S %*% v
+```
+The framing is the same as the DNA/protein problem (Q2.9) — just with three components instead of two.
+:::
+
+### Determinants and rank (extra)
+
+- **QE3.1** Compute the determinant of each matrix below (by hand, then verify with R's `det()`). For which of them does $A\mathbf{x} = \mathbf{b}$ have a unique solution for every $\mathbf{b}$?
+$$A_1 = \begin{bmatrix} 2 & 3 \\ 1 & 4 \end{bmatrix},\quad A_2 = \begin{bmatrix} 2 & 4 \\ 3 & 6 \end{bmatrix},\quad A_3 = \begin{bmatrix} 1 & 0 & 2 \\ 0 & 1 & 1 \\ 1 & 1 & 3 \end{bmatrix}$$
+
+::: {.callout-tip collapse="true" appearance="minimal"}
+## Hint
+$A\mathbf{x} = \mathbf{b}$ has a unique solution iff $\det(A) \ne 0$ (equivalently, $A$ is invertible / full rank).
+:::
+
+::: {.callout-tip collapse="true" appearance="minimal"}
+## Hint
+For a $2\times 2$ matrix, $\det = ad - bc$. For $A_3$, expand along the first row, or note that row 3 = row 1 + row 2.
+:::
+
+::: {.callout-note collapse="true" appearance="minimal"}
+## Solution
+```{r, eval=TRUE}
+A1 <- matrix(c(2, 3,
+               1, 4), 2, 2, byrow = TRUE)
+A2 <- matrix(c(2, 4,
+               3, 6), 2, 2, byrow = TRUE)
+A3 <- matrix(c(1, 0, 2,
+               0, 1, 1,
+               1, 1, 3), 3, 3, byrow = TRUE)
+det(A1)  # 2*4 - 3*1 = 5
+det(A2)  # 2*6 - 4*3 = 0  (rows proportional)
+det(A3)  # 0  (row 3 = row 1 + row 2)
+```
+Only $A_1$ has a non-zero determinant, so only $A_1\mathbf{x} = \mathbf{b}$ is guaranteed to have a unique solution for every $\mathbf{b}$. $A_2$ and $A_3$ are singular — they have either no solution or infinitely many, depending on $\mathbf{b}$.
+:::
+
+- **QE3.2** Use `Matrix::rankMatrix()` to confirm your answers in QE3.1. For the singular cases, construct one right-hand side $\mathbf{b}$ that yields no solution and one that yields infinitely many.
+
+::: {.callout-tip collapse="true" appearance="minimal"}
+## Hint
+For $A_2$: row 2 is $1.5\times$ row 1. So $\mathbf{b}$ is consistent only when $b_2 = 1.5\, b_1$. For example $\mathbf{b} = (2, 3)$ is consistent (infinitely many solutions), but $\mathbf{b} = (1, 3)$ is not.
+:::
+
+::: {.callout-note collapse="true" appearance="minimal"}
+## Solution
+```{r, eval=TRUE}
+library(Matrix)
+A2 <- matrix(c(2, 4,
+               3, 6), 2, 2, byrow = TRUE)
+rankMatrix(A2)[1]                        # 1
+rankMatrix(cbind(A2, c(2, 3)))[1]        # 1 → infinitely many solutions
+rankMatrix(cbind(A2, c(1, 3)))[1]        # 2 → no solution
+# solve() will fail on either:
+try(solve(A2, c(2, 3)))
+```
+The rank rule from Section 3 still applies: $\operatorname{rank}(A) = \operatorname{rank}([A|\mathbf{b}]) = n$ → unique; equal but less than $n$ → infinitely many; unequal → none.
+:::
+
+### Bioinformatics-flavoured (extra)
+
+- **QE4.1** Spectrophotometry, three species. Extend the DNA/protein setup of Q2.9 to also include RNA. You measure absorbance at three wavelengths (260, 280, 230 nm). The extinction coefficient matrix is
+$$E = \begin{bmatrix} 2 & 1 & 2 \\ 1 & 2 & 1 \\ 3 & 1 & 2 \end{bmatrix}$$
+(rows = wavelengths, columns = DNA / protein / RNA). You measure $\mathbf{A} = (8, 6, 9)$. Find the concentrations using R. Then check what happens if your last row of $E$ were instead $(3, 3, 3)$ — does the problem still have a unique solution?
+
+::: {.callout-tip collapse="true" appearance="minimal"}
+## Hint
+Same setup as Q2.9, just bigger: solve $E\,\mathbf{c} = \mathbf{A}$. For the "what if" part, check `det(E)` or `rankMatrix(E)`.
+:::
+
+::: {.callout-note collapse="true" appearance="minimal"}
+## Solution
+```{r, eval=TRUE}
+E <- matrix(c(2, 1, 2,
+              1, 2, 1,
+              3, 1, 2), 3, 3, byrow = TRUE)
+A <- c(8, 6, 9)
+solve(E, A)
+det(E)
+
+# Now the alternative — last row replaced by (3, 3, 3)
+E2 <- matrix(c(2, 1, 2,
+               1, 2, 1,
+               3, 3, 3), 3, 3, byrow = TRUE)
+det(E2)
+library(Matrix)
+rankMatrix(E2)[1]
+```
+With the original $E$, the system has a unique solution. Replacing the last row with $(3, 3, 3)$ doesn't *immediately* look problematic, but $\det(E_2) = 0$ — the three rows are linearly dependent (in fact the last row equals row 1 + row 2). The third wavelength gives no new information, and DNA/protein/RNA cannot be separated from these measurements. This is the multi-species analogue of Q3.7b: rank deficiency in the design matrix means the experiment can't answer the biological question.
+:::
+

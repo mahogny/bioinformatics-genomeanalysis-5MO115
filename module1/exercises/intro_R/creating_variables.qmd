@@ -125,3 +125,177 @@ print(full_message_paste_sep)
 ::: 
 
 Inspect the Environment panel to see the listing of all the variables you have saved in memory so far. Try removing all environment variables by clicking on the small broom icon and see what happens.
+
+## Extra exercise material
+
+A second pass at the same material, for extra practice.
+
+### Variables and types (extra)
+
+- **QE1.1** Create three variables: `height_cm` with the value `172.5`, `gene_symbol` with the value `"TP53"`, and `is_expressed` with the value `FALSE`. For each variable, predict what `typeof()` and `class()` will report before running the commands.
+
+::: {.callout-tip collapse="true" appearance="minimal"}
+## Hint
+Numbers with decimals are usually stored as `"double"` in R. Text in quotes becomes `"character"`. `TRUE`/`FALSE` becomes `"logical"`.
+:::
+
+::: {.callout-note collapse="true" appearance="minimal"}
+## Solution
+```{r, eval=TRUE}
+height_cm <- 172.5
+gene_symbol <- "TP53"
+is_expressed <- FALSE
+
+typeof(height_cm)
+class(height_cm)
+typeof(gene_symbol)
+class(gene_symbol)
+typeof(is_expressed)
+class(is_expressed)
+```
+:::
+
+- **QE1.2** In R, a plain number like `5` is stored as a "double" by default, but you can force it to be an "integer" by appending `L` (e.g. `5L`). Create `n_samples <- 10` and `n_replicates <- 10L`. Inspect `typeof()` for both. Then create `treatment <- factor("control")` and compare `typeof(treatment)` to `class(treatment)`.
+
+::: {.callout-tip collapse="true" appearance="minimal"}
+## Hint
+`typeof()` returns the underlying storage mode, while `class()` returns the higher-level R class. For factors these differ.
+:::
+
+::: {.callout-note collapse="true" appearance="minimal"}
+## Solution
+```{r, eval=TRUE}
+n_samples <- 10
+n_replicates <- 10L
+typeof(n_samples)
+typeof(n_replicates)
+
+treatment <- factor("control")
+typeof(treatment)
+class(treatment)
+```
+:::
+
+### Type casting (extra)
+
+- **QE2.1** Start with the character variable `count_string <- "42"`. Convert it to a numeric using `as.numeric()`, then to an integer using `as.integer()`. Verify the types using `typeof()` after each conversion.
+
+::: {.callout-tip collapse="true" appearance="minimal"}
+## Hint
+You can store the result in a new variable each step, e.g. `count_num <- as.numeric(count_string)`.
+:::
+
+::: {.callout-note collapse="true" appearance="minimal"}
+## Solution
+```{r, eval=TRUE}
+count_string <- "42"
+count_num <- as.numeric(count_string)
+count_int <- as.integer(count_string)
+
+typeof(count_num)
+typeof(count_int)
+count_num
+count_int
+```
+:::
+
+- **QE2.2** What happens if you try to cast a non-numeric string like `"abc"` to a number? Try `as.numeric("abc")` and observe both the result and the message R prints.
+
+::: {.callout-tip collapse="true" appearance="minimal"}
+## Hint
+R will not throw an error, but it will produce a special value indicating "not available". Look in the console for a warning.
+:::
+
+::: {.callout-note collapse="true" appearance="minimal"}
+## Solution
+```{r, eval=TRUE}
+bad_cast <- as.numeric("abc")
+bad_cast
+is.na(bad_cast)
+```
+The result is `NA`, and R prints a warning: `NAs introduced by coercion`. This is R's gentle way of telling you the cast failed.
+:::
+
+### String manipulation (extra)
+
+- **QE3.1** Create two variables `first <- "BRCA"` and `second <- "1"`. Use `paste0()` to combine them into a single gene name (no space), and then use `paste()` with `sep = "-"` to combine them as `"BRCA-1"`. Print both results.
+
+::: {.callout-tip collapse="true" appearance="minimal"}
+## Hint
+`paste0()` is equivalent to `paste()` with `sep = ""`.
+:::
+
+::: {.callout-note collapse="true" appearance="minimal"}
+## Solution
+```{r, eval=TRUE}
+first <- "BRCA"
+second <- "1"
+
+gene_name <- paste0(first, second)
+gene_name_dashed <- paste(first, second, sep = "-")
+
+print(gene_name)
+print(gene_name_dashed)
+```
+:::
+
+- **QE3.2** Take the string `dna <- "ACGTACGT"`. Use `nchar()` to find out how many characters it contains, `tolower()` to convert it to lowercase, and `toupper()` to convert it back to uppercase.
+
+::: {.callout-tip collapse="true" appearance="minimal"}
+## Hint
+Each function takes the string as a single argument and returns a new value — it does not modify the original variable.
+:::
+
+::: {.callout-note collapse="true" appearance="minimal"}
+## Solution
+```{r, eval=TRUE}
+dna <- "ACGTACGT"
+nchar(dna)
+tolower(dna)
+toupper(tolower(dna))
+```
+:::
+
+- **QE3.3** Given `seq <- "ATGCGTACGTTAG"`, use `substr()` to extract the first three characters (which would be the start codon). Then extract characters 4 to 6.
+
+::: {.callout-tip collapse="true" appearance="minimal"}
+## Hint
+`substr(x, start, stop)` returns the substring from position `start` to position `stop`, inclusive. R uses 1-based indexing.
+:::
+
+::: {.callout-note collapse="true" appearance="minimal"}
+## Solution
+```{r, eval=TRUE}
+seq <- "ATGCGTACGTTAG"
+start_codon <- substr(seq, 1, 3)
+next_codon <- substr(seq, 4, 6)
+
+print(start_codon)
+print(next_codon)
+```
+:::
+
+### Bioinformatics-flavoured cast (extra)
+
+- **QE4.1** In many bioinformatics datasets, binary outcomes (e.g. whether a sample is a case or control) are stored as `"1"` or `"0"` strings. Create the vector `outcome <- c("1", "0", "1", "1", "0")` and convert it to a logical vector where `"1"` becomes `TRUE` and `"0"` becomes `FALSE`. Verify the result with `typeof()`.
+
+::: {.callout-tip collapse="true" appearance="minimal"}
+## Hint
+You can first cast the character vector to numeric using `as.numeric()`, and then cast that to logical using `as.logical()`. In R, `1` is treated as `TRUE` and `0` as `FALSE`.
+:::
+
+::: {.callout-tip collapse="true" appearance="minimal"}
+## Hint
+Try chaining the two casts: `as.logical(as.numeric(outcome))`.
+:::
+
+::: {.callout-note collapse="true" appearance="minimal"}
+## Solution
+```{r, eval=TRUE}
+outcome <- c("1", "0", "1", "1", "0")
+outcome_logical <- as.logical(as.numeric(outcome))
+
+print(outcome_logical)
+typeof(outcome_logical)
+```
+:::

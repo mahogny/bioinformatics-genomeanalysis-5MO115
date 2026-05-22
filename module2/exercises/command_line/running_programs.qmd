@@ -193,3 +193,135 @@ grep -v '##' clinvar_chr_info.vcf > clinvar_chr_info_meta.vcf
 </details>
 
 Inspect the file and make sure everything looks as it should. Now, the file is prepared for being imported into R where we will continue our analysis. Feel free to remove any unnecessary files no longer needed with the `rm` commands. Just be sure not to remove any of the files you might need.
+
+## Extra exercise material
+
+A second pass at the same material, for extra practice.
+
+### Finding help (extra)
+
+- **QE1.1** You want to find out which flag of `bcftools view` lets you restrict to specific samples. How would you read the manual page for `bcftools`, and how would you get a short usage summary directly in the terminal?
+
+::: {.callout-tip collapse="true" appearance="minimal"}
+## Hint
+Two common ways: the `man` system, and asking the program itself with `--help` (or just running it with no arguments).
+:::
+
+::: {.callout-note collapse="true" appearance="minimal"}
+## Solution
+```bash
+man bcftools
+bcftools view --help
+```
+:::
+
+- **QE1.2** Use `man wc` to find out which flag prints only the number of lines. Then use that flag to count the number of lines in `clinvar_chr.vcf`.
+
+::: {.callout-tip collapse="true" appearance="minimal"}
+## Hint
+Inside `man`, press `/` to search, then type the word you are looking for (e.g. `/lines`). Press `q` to quit.
+:::
+
+::: {.callout-note collapse="true" appearance="minimal"}
+## Solution
+```bash
+man wc
+wc -l clinvar_chr.vcf
+```
+:::
+
+### Redirection (extra)
+
+- **QE2.1** Save the list of unique chromosomes in `clinvar.vcf.gz` to a file called `chromosomes.txt` (overwriting any existing file).
+
+::: {.callout-tip collapse="true" appearance="minimal"}
+## Hint
+Use `>` to redirect standard output into a file. A single `>` overwrites, while `>>` appends.
+:::
+
+::: {.callout-note collapse="true" appearance="minimal"}
+## Solution
+```bash
+zgrep -v '#' clinvar.vcf.gz | cut -f1 | uniq > chromosomes.txt
+```
+:::
+
+- **QE2.2** Append the current date to the end of `chromosomes.txt` so you can remember when you produced the list.
+
+::: {.callout-tip collapse="true" appearance="minimal"}
+## Hint
+Use `>>` instead of `>` to append rather than overwrite. The command `date` prints the current date and time.
+:::
+
+::: {.callout-note collapse="true" appearance="minimal"}
+## Solution
+```bash
+date >> chromosomes.txt
+```
+:::
+
+- **QE2.3** Run `ls` on a folder that does not exist, and redirect the error message to a file called `errors.log` while keeping your terminal clean.
+
+::: {.callout-tip collapse="true" appearance="minimal"}
+## Hint
+Standard error is stream 2. You can redirect it on its own with `2>`.
+:::
+
+::: {.callout-note collapse="true" appearance="minimal"}
+## Solution
+```bash
+ls /no/such/folder 2> errors.log
+```
+:::
+
+### Pipes and chaining (extra)
+
+- **QE3.1** Without writing any intermediate file, count how many variants in `clinvar.vcf.gz` are on chromosome 1. A variant line starts with the chromosome name in the first column, and metadata lines start with `#`.
+
+::: {.callout-tip collapse="true" appearance="minimal"}
+## Hint
+Chain `zgrep`, `cut`, `grep`, and `wc -l` with `|`. Be careful: the chromosome "1" can also match positions like "10", "11", etc., so match column 1 exactly.
+:::
+
+::: {.callout-note collapse="true" appearance="minimal"}
+## Solution
+```bash
+zgrep -v '^#' clinvar.vcf.gz | cut -f1 | grep -c '^1$'
+```
+:::
+
+- **QE3.2** Show the 5 most common chromosomes in `clinvar.vcf.gz`, sorted by how many variants they have.
+
+::: {.callout-tip collapse="true" appearance="minimal"}
+## Hint
+`sort` then `uniq -c` counts duplicates. To sort numerically and from biggest to smallest, use `sort -nr`. Then take the top 5 with `head -n 5`.
+:::
+
+::: {.callout-note collapse="true" appearance="minimal"}
+## Solution
+```bash
+zgrep -v '^#' clinvar.vcf.gz | cut -f1 | sort | uniq -c | sort -nr | head -n 5
+```
+:::
+
+### A small bioinformatics pipeline (extra)
+
+- **QE4.1** Using only one chained pipeline (no intermediate files), find how many variants in `clinvar.vcf.gz` are annotated as `missense_variant` in the INFO field. Save the count to a file called `n_missense.txt`.
+
+::: {.callout-tip collapse="true" appearance="minimal"}
+## Hint
+You can `zgrep` directly for the text `missense_variant`, then pipe to `wc -l`, then redirect to a file with `>`.
+:::
+
+::: {.callout-tip collapse="true" appearance="minimal"}
+## Hint
+To avoid counting metadata header lines (`##`), add a second `grep -v '^#'` in the chain.
+:::
+
+::: {.callout-note collapse="true" appearance="minimal"}
+## Solution
+```bash
+zgrep 'missense_variant' clinvar.vcf.gz | grep -v '^#' | wc -l > n_missense.txt
+```
+:::
+

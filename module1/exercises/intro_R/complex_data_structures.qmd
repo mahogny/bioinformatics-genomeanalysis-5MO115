@@ -395,3 +395,197 @@ df
 ```
 :::
 
+## Extra exercise material
+
+A second pass at the same material, for extra practice.
+
+### Vectors (extra)
+
+- **QE1.1** Create a numeric vector `a` containing the values 2, 4, 6, 8, 10, and a second vector `b` containing the values 1, 2, 3. Predict what `a + b` will return, then run it. Why does R not complain?
+
+::: {.callout-tip collapse="true" appearance="minimal"}
+## Hint
+R applies *recycling* when vectors have unequal length: the shorter vector is repeated to match the longer one.
+:::
+
+::: {.callout-note collapse="true" appearance="minimal"}
+## Solution
+```{r, eval=TRUE}
+a <- c(2, 4, 6, 8, 10)
+b <- c(1, 2, 3)
+a + b
+```
+The shorter vector `b` is recycled to give `c(1, 2, 3, 1, 2)`. R prints a warning only when the longer length is not a multiple of the shorter length.
+:::
+
+- **QE1.2** Create a vector `s` of the odd numbers from 1 to 19 using `seq()`. Then build a named vector `gene_lengths` with names `geneA`, `geneB`, `geneC` and values `1200`, `850`, `2100`. Extract the length of `geneB` by name.
+
+::: {.callout-tip collapse="true" appearance="minimal"}
+## Hint
+`seq(from, to, by = ...)` gives full control of step size. Names can be set with `names(x) <- ...` or directly inside `c()`.
+:::
+
+::: {.callout-note collapse="true" appearance="minimal"}
+## Solution
+```{r, eval=TRUE}
+s <- seq(1, 19, by = 2)
+s
+
+gene_lengths <- c(geneA = 1200, geneB = 850, geneC = 2100)
+gene_lengths["geneB"]
+```
+:::
+
+- **QE1.3** Using `rep()`, create a vector that contains the pattern `"A" "B" "A" "B" "A" "B"`. Then create a second vector that contains `"A" "A" "A" "B" "B" "B"`.
+
+::: {.callout-tip collapse="true" appearance="minimal"}
+## Hint
+`rep(x, times = n)` repeats the whole vector `n` times. `rep(x, each = n)` repeats each element `n` times before moving on.
+:::
+
+::: {.callout-note collapse="true" appearance="minimal"}
+## Solution
+```{r, eval=TRUE}
+rep(c("A", "B"), times = 3)
+rep(c("A", "B"), each = 3)
+```
+:::
+
+### Matrices (extra)
+
+- **QE2.1** Create a 3 by 3 matrix `M` containing the numbers 1 to 9 filled by row. Compute its transpose. Are the two matrices the same?
+
+::: {.callout-tip collapse="true" appearance="minimal"}
+## Hint
+Use `byrow = TRUE` in `matrix()`. The transpose is given by `t()`.
+:::
+
+::: {.callout-note collapse="true" appearance="minimal"}
+## Solution
+```{r, eval=TRUE}
+M <- matrix(1:9, nrow = 3, ncol = 3, byrow = TRUE)
+M
+t(M)
+all(M == t(M))
+```
+The transpose swaps rows and columns, so the two matrices differ.
+:::
+
+- **QE2.2** Create two 2 by 2 matrices `P` (values 1 to 4, column-wise) and `Q` (values 2, 0, 1, 2, column-wise). Compute both `P * Q` and `P %*% Q`. Explain in one sentence what the difference is.
+
+::: {.callout-tip collapse="true" appearance="minimal"}
+## Hint
+`*` does element-wise multiplication. `%*%` does proper matrix multiplication (rows of `P` dotted with columns of `Q`).
+:::
+
+::: {.callout-note collapse="true" appearance="minimal"}
+## Solution
+```{r, eval=TRUE}
+P <- matrix(1:4, nrow = 2, ncol = 2)
+Q <- matrix(c(2, 0, 1, 2), nrow = 2, ncol = 2)
+P
+Q
+
+P * Q     # element-wise
+P %*% Q   # matrix product
+```
+:::
+
+- **QE2.3** For the matrix `M` from QE2.1, compute the sum of each row and the mean of each column.
+
+::: {.callout-tip collapse="true" appearance="minimal"}
+## Hint
+`rowSums()` and `colMeans()` are dedicated functions, but `apply(M, 1, sum)` and `apply(M, 2, mean)` work too.
+:::
+
+::: {.callout-note collapse="true" appearance="minimal"}
+## Solution
+```{r, eval=TRUE}
+M <- matrix(1:9, nrow = 3, ncol = 3, byrow = TRUE)
+rowSums(M)
+colMeans(M)
+```
+:::
+
+### Data frames (extra)
+
+- **QE3.1** Build a data frame `samples` with three columns: `id` (`"s1"` to `"s5"`), `condition` (alternating `"ctrl"`, `"treat"`, `"ctrl"`, `"treat"`, `"ctrl"`), and `expr` (the numeric values 3.1, 7.2, 2.8, 8.5, 3.4). Extract the `expr` column three different ways: with `$`, with `[[ ]]`, and with `[ , ]` using the column name.
+
+::: {.callout-tip collapse="true" appearance="minimal"}
+## Hint
+`samples$expr`, `samples[["expr"]]`, and `samples[, "expr"]` all return the column as a vector.
+:::
+
+::: {.callout-note collapse="true" appearance="minimal"}
+## Solution
+```{r, eval=TRUE}
+samples <- data.frame(
+  id = c("s1", "s2", "s3", "s4", "s5"),
+  condition = c("ctrl", "treat", "ctrl", "treat", "ctrl"),
+  expr = c(3.1, 7.2, 2.8, 8.5, 3.4)
+)
+samples
+
+samples$expr
+samples[["expr"]]
+samples[, "expr"]
+```
+:::
+
+- **QE3.2** Using the `samples` data frame from QE3.1, build a logical vector that is `TRUE` for treated samples whose expression is above 5, and use it to select those rows.
+
+::: {.callout-tip collapse="true" appearance="minimal"}
+## Hint
+Combine two conditions with `&`. Then place the logical vector before the comma in `samples[ , ]`.
+:::
+
+::: {.callout-note collapse="true" appearance="minimal"}
+## Solution
+```{r, eval=TRUE}
+samples <- data.frame(
+  id = c("s1", "s2", "s3", "s4", "s5"),
+  condition = c("ctrl", "treat", "ctrl", "treat", "ctrl"),
+  expr = c(3.1, 7.2, 2.8, 8.5, 3.4)
+)
+
+keep <- samples$condition == "treat" & samples$expr > 5
+keep
+samples[keep, ]
+```
+:::
+
+### Bioinformatics flavour (extra)
+
+- **QE4.1** Imagine you have read counts for three genes across two samples. Build a count matrix where rows are genes (`geneA`, `geneB`, `geneC`) and columns are samples (`sample1`, `sample2`), starting from these two named vectors:
+
+```
+sample1: geneA = 12, geneB = 0,  geneC = 34
+sample2: geneA = 18, geneB = 5,  geneC = 27
+```
+
+Then compute the total number of reads per sample and the total number of reads per gene.
+
+::: {.callout-tip collapse="true" appearance="minimal"}
+## Hint
+`cbind()` glues vectors together as columns. Make sure both vectors use the same gene order — then `rownames` are inherited automatically.
+:::
+
+::: {.callout-tip collapse="true" appearance="minimal"}
+## Hint 2
+Reads per sample is a column sum (`colSums`), reads per gene is a row sum (`rowSums`).
+:::
+
+::: {.callout-note collapse="true" appearance="minimal"}
+## Solution
+```{r, eval=TRUE}
+sample1 <- c(geneA = 12, geneB = 0,  geneC = 34)
+sample2 <- c(geneA = 18, geneB = 5,  geneC = 27)
+
+counts <- cbind(sample1 = sample1, sample2 = sample2)
+counts
+
+colSums(counts)   # total reads per sample
+rowSums(counts)   # total reads per gene
+```
+:::
+

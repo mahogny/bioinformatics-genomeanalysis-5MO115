@@ -575,3 +575,239 @@ head(res_treat[order(res_treat$padj), ])
 ```
 Drug-response genes (e.g. stress-response, apoptosis or cell-cycle genes depending on the drug's mechanism) tend to dominate the top of the list.
 :::
+
+## Extra exercise material
+
+A second pass at the same material, for extra practice. Same conventions as above — try each question first, then peek.
+
+### Alignment and quantification (extra)
+
+- **QE1.1** What does the `--validateMappings` flag do in `salmon quant`, and why would you usually want it on?
+
+::: {.callout-tip collapse="true" appearance="minimal"}
+## Hint
+Pseudoalignment by itself only checks which transcripts a read's k-mers are *compatible* with. `--validateMappings` adds an extra step on top of that.
+:::
+
+::: {.callout-note collapse="true" appearance="minimal"}
+## Solution
+`--validateMappings` enables **selective alignment**: after the fast k-mer-based mapping step, salmon does a lightweight scoring of each candidate mapping against the transcript sequence (similar in spirit to a Smith–Waterman score). This filters out spurious mappings that happen to share k-mers but do not actually align well, giving more accurate quantification at a small extra CPU cost. It is on by default in newer salmon versions and is the recommended setting.
+:::
+
+- **QE1.2** Why use a pseudoaligner like salmon instead of a full splice-aware aligner like STAR or BWA when all you want is a gene-level count matrix?
+
+::: {.callout-tip collapse="true" appearance="minimal"}
+## Hint
+Think about what information you actually use downstream (just `NumReads` per transcript), and what STAR/BWA spend most of their time computing.
+:::
+
+::: {.callout-note collapse="true" appearance="minimal"}
+## Solution
+Full aligners produce a base-resolution BAM with the exact genomic coordinate of every read — useful for variant calling, splice-junction discovery, coverage tracks, etc. For a count matrix you only need to know *which transcript* a read came from, not where on it. Pseudoalignment skips the per-base alignment and is typically 10–100× faster with comparable quantification accuracy. Trade-off: you cannot reuse the output for SNP calling or coverage plots.
+:::
+
+- **QE1.3** Open one of the `quant.sf` files salmon produced. What are the columns, and which one did we actually use when we built `cnt`?
+
+::: {.callout-tip collapse="true" appearance="minimal"}
+## Hint
+`head quants/IC50_1_quant/quant.sf` in bash, or `read.csv(..., sep = "\t")` in R.
+:::
+
+::: {.callout-note collapse="true" appearance="minimal"}
+## Solution
+```{r, eval=FALSE}
+head(read.csv("quants/IC50_1_quant/quant.sf", sep = "\t"))
+```
+Columns are `Name` (transcript ID), `Length`, `EffectiveLength` (length corrected for fragment-size distribution), `TPM` (transcripts per million — length-normalised), and `NumReads` (estimated read count, possibly fractional from EM). We used `NumReads` because DESeq2 wants raw counts, not TPM. TPM is for visualisation / within-sample comparison, not for DE testing.
+:::
+
+### DESeq2 differential expression (extra)
+
+- **QE2.1** DESeq2 internally normalises libraries with **size factors** rather than scaling to TPM. Inspect them and explain what they correct for.
+
+::: {.callout-tip collapse="true" appearance="minimal"}
+## Hint
+`sizeFactors(dds)` after `DESeq(dds)`. Compare them to `colSums(counts(dds))`.
+:::
+
+::: {.callout-note collapse="true" appearance="minimal"}
+## Solution
+```{r, eval=FALSE}
+sizeFactors(dds)
+colSums(counts(dds))
+```
+Size factors correct for differences in **sequencing depth** between libraries, and (because they use the median-of-ratios method, not total counts) they are robust to a handful of very highly expressed genes dominating one library. Each raw count is internally divided by its sample's size factor before fitting.
+:::
+
+- **QE2.2** Inspect the per-gene dispersion estimates with `plotDispEsts(dds)`. What should the plot look like if the model is behaving well?
+
+::: {.callout-tip collapse="true" appearance="minimal"}
+## Hint
+There are three things on the plot: per-gene estimates (black), a fitted trend (red), and shrunken final values (blue).
+:::
+
+::: {.callout-note collapse="true" appearance="minimal"}
+## Solution
+```{r, eval=FALSE}
+plotDispEsts(dds)
+```
+You want to see dispersion **decreasing with mean expression** (highly expressed genes are more reproducible), the red trend line passing through the cloud of black dots, and the blue shrunken estimates pulled toward the red curve — strongest shrinkage for low-count genes where the per-gene estimate is unreliable. Bad signs: trend line clearly off the cloud, or dispersions not decreasing with the mean (suggests outliers or a missing covariate).
+:::
+
+- **QE2.3** Make an MA plot with `plotMA(res)` and explain the axes. What does a "good" MA plot look like for a treatment-vs-control comparison?
+
+::: {.callout-tip collapse="true" appearance="minimal"}
+## Hint
+M and A come from microarray days: M = log-ratio, A = average log-intensity.
+:::
+
+::: {.callout-note collapse="true" appearance="minimal"}
+## Solution
+```{r, eval=FALSE}
+plotMA(res, ylim = c(-5, 5))
+```
+x-axis (`A`) is the mean of normalised counts across all samples (log scale). y-axis (`M`) is the `log2FoldChange`. Significant genes (`padj < 0.05`) are coloured. Expectations: the cloud should be **centred on M = 0** (most genes do not change), it should funnel — wider at low mean expression where estimates are noisier, narrower at high mean — and significant points should be the ones farthest from y = 0. A cloud that is shifted off zero suggests a normalisation problem.
+:::
+
+- **QE2.4** Run `summary(res)` and interpret the output. How many genes go up, how many go down, at the default thresholds?
+
+::: {.callout-tip collapse="true" appearance="minimal"}
+## Hint
+`summary` prints LFC > 0 (up), LFC < 0 (down), outliers, and low-count genes filtered by independent filtering.
+:::
+
+::: {.callout-note collapse="true" appearance="minimal"}
+## Solution
+```{r, eval=FALSE}
+summary(res)
+```
+The output lists: total genes tested, the default `alpha` (FDR threshold, 0.1 unless you set otherwise), number of genes with `LFC > 0` (up in numerator vs. denominator) and `LFC < 0` (down), how many were flagged as outliers (Cook's distance) and how many were filtered out by **independent filtering** of low-count genes (which increases statistical power on the genes that remain). You can tighten this with `summary(res, alpha = 0.05)`.
+:::
+
+- **QE2.5** Pick a stricter cutoff than just `padj`: keep genes with `padj < 0.05` **and** `abs(log2FoldChange) > 1`. How many are left?
+
+::: {.callout-tip collapse="true" appearance="minimal"}
+## Hint
+`log2FoldChange > 1` means at least a 2-fold change. Watch out for `NA` values in `padj` from independent filtering.
+:::
+
+::: {.callout-note collapse="true" appearance="minimal"}
+## Solution
+```{r, eval=FALSE}
+res_df <- as.data.frame(res)
+sig <- subset(res_df, !is.na(padj) & padj < 0.05 & abs(log2FoldChange) > 1)
+nrow(sig)
+head(sig[order(sig$padj), ])
+```
+`abs(log2FoldChange) > 1` corresponds to at least a 2-fold up- or down-regulation. Combining it with `padj` removes genes that are *statistically* significant but biologically tiny (common with very deep sequencing — tiny shifts get tiny p-values).
+:::
+
+### Model matrices and contrasts (extra)
+
+- **QE2.6** Suppose you want `IC50` to be the reference level instead of the default alphabetical pick (`DMSO`). Use `relevel` to do this and re-fit. Does the model matrix or the contrast change?
+
+::: {.callout-tip collapse="true" appearance="minimal"}
+## Hint
+`cond$treatment <- relevel(factor(cond$treatment), ref = "IC50")` before constructing `dds`.
+:::
+
+::: {.callout-note collapse="true" appearance="minimal"}
+## Solution
+```{r, eval=FALSE}
+cond$treatment <- relevel(factor(cond$treatment), ref = "IC50")
+dds <- DESeqDataSetFromMatrix(round(cnt), cond, ~ treatment)
+dds <- DESeq(dds)
+resultsNames(dds)  # now "treatment_DMSO_vs_IC50"
+```
+The model matrix still has two columns (intercept + one indicator), but the indicator column is now 1 for DMSO samples instead of for IC50 samples. The fitted log-fold change has the **opposite sign** of before — same biology, different reference. Always check `resultsNames(dds)` (or the `contrast =` argument to `results()`) to know which direction you are looking at.
+:::
+
+- **QE2.7** What does `model.matrix(~ 0 + treatment, data = cond)` look like (the no-intercept form), and how would you extract the IC50-vs-DMSO contrast from a `dds` fitted with `design = ~ 0 + treatment`?
+
+::: {.callout-tip collapse="true" appearance="minimal"}
+## Hint
+With `~ 0 + treatment` there is no intercept column; instead you get one column per level, each acting as a per-group mean.
+:::
+
+::: {.callout-note collapse="true" appearance="minimal"}
+## Solution
+```{r, eval=FALSE}
+model.matrix(~ 0 + treatment, data = cond)
+```
+You get a matrix with two columns, `treatmentDMSO` and `treatmentIC50`, each with 1s for samples in that group and 0s otherwise (it is the second formulation from the lecture — $\begin{bmatrix} 1 & 0 \\ 0 & 1 \end{bmatrix}$). There is no overall intercept; each column directly estimates the log expression of that group. To get the IC50-vs-DMSO contrast you have to subtract the two coefficients explicitly:
+
+```{r, eval=FALSE}
+dds <- DESeqDataSetFromMatrix(round(cnt), cond, ~ 0 + treatment)
+dds <- DESeq(dds)
+res <- results(dds, contrast = c("treatment", "IC50", "DMSO"))
+# or equivalently with a numeric contrast vector:
+res <- results(dds, contrast = c(-1, 1))   # matches order of resultsNames
+```
+Same answer as the with-intercept version — just a different parametrisation.
+:::
+
+- **QE2.8** A reviewer asks: "your design has 4 samples and 1 factor with 2 levels — how many parameters does your model actually estimate per gene?" Answer using the model matrix.
+
+::: {.callout-tip collapse="true" appearance="minimal"}
+## Hint
+Number of parameters = number of columns of the model matrix. Residual degrees of freedom = $n_\text{samples} - n_\text{params}$.
+:::
+
+::: {.callout-note collapse="true" appearance="minimal"}
+## Solution
+With `~ treatment` and two levels, the model matrix has **2 columns** (intercept + treatment indicator), so 2 parameters per gene. With 4 samples that leaves 2 residual degrees of freedom — exactly enough to estimate within-group variance from the 2 replicates per group. If you had only 1 replicate per group you would have 0 residual d.f. and DESeq2 would refuse to estimate dispersion.
+:::
+
+### Multivariate designs (extra)
+
+- **QE3.1** Re-fit the E-MTAB-14822 dataset with an **interaction** term: `design = ~ cell_type * treatment_duration`. What extra coefficients show up in `resultsNames(dds)` compared to the additive `~ cell_type + treatment_duration` model?
+
+::: {.callout-tip collapse="true" appearance="minimal"}
+## Hint
+`a * b` is shorthand for `a + b + a:b`. The `a:b` term is the interaction.
+:::
+
+::: {.callout-note collapse="true" appearance="minimal"}
+## Solution
+```{r, eval=FALSE}
+dds <- DESeqDataSetFromMatrix(round(cnt), cond, ~ cell_type * treatment_duration)
+dds <- DESeq(dds)
+resultsNames(dds)
+```
+You get the same coefficients as the additive model **plus** one interaction coefficient per non-reference combination of the two factors (i.e. $(k_1-1)\times(k_2-1)$ extra columns in the model matrix, where $k_i$ are the number of levels). Each interaction coefficient measures *how much the treatment effect differs between cell lines* — a non-zero value means the drug works differently in the two cell types.
+:::
+
+- **QE3.2** Using `resultsNames(dds)` from the interaction model, pull out (a) the main effect of treatment in the reference cell line, and (b) the interaction term itself. What is the biological interpretation of each?
+
+::: {.callout-tip collapse="true" appearance="minimal"}
+## Hint
+With an interaction, the `treatment_duration_*` coefficient is *no longer* the average treatment effect across cell lines — it is the treatment effect *in the reference cell line only*.
+:::
+
+::: {.callout-note collapse="true" appearance="minimal"}
+## Solution
+```{r, eval=FALSE}
+resultsNames(dds)
+# (a) treatment effect in the reference cell line:
+res_main <- results(dds, name = "treatment_duration_treated_vs_untreated")
+# (b) interaction: how much bigger/smaller is the treatment effect in the other cell line
+res_int  <- results(dds, name = "cell_typeX.treatment_durationtreated") # exact name from resultsNames
+```
+(a) tells you which genes respond to the drug **in the reference cell line**. (b) tells you which genes respond **differently** in the second cell line vs. the reference — significant hits here are genes where the drug's effect is cell-type-specific. Often what you actually want to report.
+:::
+
+- **QE3.3** What is the practical difference between testing a **main effect** of `treatment_duration` and testing the **interaction** `cell_type:treatment_duration`? When would you prefer one over the other?
+
+::: {.callout-tip collapse="true" appearance="minimal"}
+## Hint
+Think about the null hypothesis being tested in each case.
+:::
+
+::: {.callout-note collapse="true" appearance="minimal"}
+## Solution
+- **Main effect** of treatment: $H_0$ is "the drug has no effect" (in the reference cell line, when the model includes an interaction; or averaged across cell lines, in a purely additive model). Use this when you want a list of generally drug-responsive genes.
+- **Interaction**: $H_0$ is "the drug effect is the *same* in both cell lines". Significant interaction hits are genes whose response is **cell-type-specific** — e.g. potential resistance markers or selectivity markers.
+
+You'd typically run both: main effect to find the drug's general signature, interaction to find genes that explain differential sensitivity. A likelihood-ratio test (`DESeq(dds, test = "LRT", reduced = ~ cell_type + treatment_duration)`) lets you test the whole interaction block at once.
+:::
+
