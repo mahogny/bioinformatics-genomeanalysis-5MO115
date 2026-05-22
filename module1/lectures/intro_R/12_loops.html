@@ -442,7 +442,7 @@
   <meta name="generator" content="quarto-1.7.30">
 
   <meta name="author" content="Nina Norgren">
-  <title>Intro to Bioinformatics (5MO115) – Loops in R</title>
+  <title>Loops in R</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
@@ -1069,8 +1069,8 @@ Nina Norgren
 <h2>What are loops and why do we need them?</h2>
 <p><br></p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a></a>namelist <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;Steve&quot;</span>, <span class="st">&quot;Carol&quot;</span>, </span>
-<span id="cb1-2"><a></a>              <span class="st">&quot;Jonas&quot;</span>, <span class="st">&quot;Sarah&quot;</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href></a>namelist <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;Steve&quot;</span>, <span class="st">&quot;Carol&quot;</span>, </span>
+<span id="cb1-2"><a href></a>              <span class="st">&quot;Jonas&quot;</span>, <span class="st">&quot;Sarah&quot;</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="what-are-loops-and-why-do-we-need-them-1" class="slide level2">
@@ -1078,10 +1078,10 @@ Nina Norgren
 <p><br></p>
 <p>Print the names in the list one by one:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a></a><span class="fu">print</span>(namelist[<span class="dv">1</span>])</span>
-<span id="cb2-2"><a></a><span class="fu">print</span>(namelist[<span class="dv">2</span>])</span>
-<span id="cb2-3"><a></a><span class="fu">print</span>(namelist[<span class="dv">3</span>])</span>
-<span id="cb2-4"><a></a><span class="fu">print</span>(namelist[<span class="dv">4</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href></a><span class="fu">print</span>(namelist[<span class="dv">1</span>])</span>
+<span id="cb2-2"><a href></a><span class="fu">print</span>(namelist[<span class="dv">2</span>])</span>
+<span id="cb2-3"><a href></a><span class="fu">print</span>(namelist[<span class="dv">3</span>])</span>
+<span id="cb2-4"><a href></a><span class="fu">print</span>(namelist[<span class="dv">4</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] &quot;Steve&quot;
 [1] &quot;Carol&quot;
@@ -1095,10 +1095,10 @@ Nina Norgren
 <p><br></p>
 <p>Print the names in the list one by one:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a></a><span class="fu">print</span>(namelist[<span class="dv">1</span>])</span>
-<span id="cb4-2"><a></a><span class="fu">print</span>(namelist[<span class="dv">2</span>])</span>
-<span id="cb4-3"><a></a><span class="fu">print</span>(namelist[<span class="dv">3</span>])</span>
-<span id="cb4-4"><a></a><span class="fu">print</span>(namelist[<span class="dv">4</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href></a><span class="fu">print</span>(namelist[<span class="dv">1</span>])</span>
+<span id="cb4-2"><a href></a><span class="fu">print</span>(namelist[<span class="dv">2</span>])</span>
+<span id="cb4-3"><a href></a><span class="fu">print</span>(namelist[<span class="dv">3</span>])</span>
+<span id="cb4-4"><a href></a><span class="fu">print</span>(namelist[<span class="dv">4</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] &quot;Steve&quot;
 [1] &quot;Carol&quot;
@@ -1123,12 +1123,12 @@ Nina Norgren
 <h2>Syntax of a for loop</h2>
 <p><br></p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a></a>namelist <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;Steve&quot;</span>, <span class="st">&quot;Carol&quot;</span>, </span>
-<span id="cb7-2"><a></a>              <span class="st">&quot;Jonas&quot;</span>, <span class="st">&quot;Sarah&quot;</span>)</span>
-<span id="cb7-3"><a></a></span>
-<span id="cb7-4"><a></a><span class="cf">for</span> (name <span class="cf">in</span> namelist) {</span>
-<span id="cb7-5"><a></a>    <span class="fu">print</span>(name)</span>
-<span id="cb7-6"><a></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href></a>namelist <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;Steve&quot;</span>, <span class="st">&quot;Carol&quot;</span>, </span>
+<span id="cb7-2"><a href></a>              <span class="st">&quot;Jonas&quot;</span>, <span class="st">&quot;Sarah&quot;</span>)</span>
+<span id="cb7-3"><a href></a></span>
+<span id="cb7-4"><a href></a><span class="cf">for</span> (name <span class="cf">in</span> namelist) {</span>
+<span id="cb7-5"><a href></a>    <span class="fu">print</span>(name)</span>
+<span id="cb7-6"><a href></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] &quot;Steve&quot;
 [1] &quot;Carol&quot;
@@ -1141,12 +1141,12 @@ Nina Norgren
 <h2>Syntax of a for loop</h2>
 <p><br></p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a></a>namelist <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;Steve&quot;</span>, <span class="st">&quot;Carol&quot;</span>, </span>
-<span id="cb9-2"><a></a>              <span class="st">&quot;Jonas&quot;</span>, <span class="st">&quot;Sarah&quot;</span>, <span class="st">&quot;José&quot;</span>)</span>
-<span id="cb9-3"><a></a></span>
-<span id="cb9-4"><a></a><span class="cf">for</span> (name <span class="cf">in</span> namelist) {</span>
-<span id="cb9-5"><a></a>    <span class="fu">print</span>(name)</span>
-<span id="cb9-6"><a></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href></a>namelist <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;Steve&quot;</span>, <span class="st">&quot;Carol&quot;</span>, </span>
+<span id="cb9-2"><a href></a>              <span class="st">&quot;Jonas&quot;</span>, <span class="st">&quot;Sarah&quot;</span>, <span class="st">&quot;José&quot;</span>)</span>
+<span id="cb9-3"><a href></a></span>
+<span id="cb9-4"><a href></a><span class="cf">for</span> (name <span class="cf">in</span> namelist) {</span>
+<span id="cb9-5"><a href></a>    <span class="fu">print</span>(name)</span>
+<span id="cb9-6"><a href></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] &quot;Steve&quot;
 [1] &quot;Carol&quot;
@@ -1176,13 +1176,13 @@ Nina Norgren
 <h2>Examples - counters</h2>
 <p><br></p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a></a>counter <span class="ot">&lt;-</span> <span class="dv">0</span></span>
-<span id="cb11-2"><a></a><span class="cf">for</span> (name <span class="cf">in</span> namelist) {</span>
-<span id="cb11-3"><a></a>    <span class="fu">print</span>(<span class="fu">paste</span>(<span class="st">&#39;Hello&#39;</span>, name))</span>
-<span id="cb11-4"><a></a>    counter <span class="ot">&lt;-</span> counter <span class="sc">+</span> <span class="dv">1</span></span>
-<span id="cb11-5"><a></a>}</span>
-<span id="cb11-6"><a></a><span class="fu">print</span>(<span class="fu">paste</span>(<span class="st">&#39;There are&#39;</span>, counter, </span>
-<span id="cb11-7"><a></a>            <span class="st">&#39;names in the list&#39;</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href></a>counter <span class="ot">&lt;-</span> <span class="dv">0</span></span>
+<span id="cb11-2"><a href></a><span class="cf">for</span> (name <span class="cf">in</span> namelist) {</span>
+<span id="cb11-3"><a href></a>    <span class="fu">print</span>(<span class="fu">paste</span>(<span class="st">&#39;Hello&#39;</span>, name))</span>
+<span id="cb11-4"><a href></a>    counter <span class="ot">&lt;-</span> counter <span class="sc">+</span> <span class="dv">1</span></span>
+<span id="cb11-5"><a href></a>}</span>
+<span id="cb11-6"><a href></a><span class="fu">print</span>(<span class="fu">paste</span>(<span class="st">&#39;There are&#39;</span>, counter, </span>
+<span id="cb11-7"><a href></a>            <span class="st">&#39;names in the list&#39;</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] &quot;Hello Steve&quot;
 [1] &quot;Hello Carol&quot;
@@ -1196,10 +1196,10 @@ Nina Norgren
 <section id="examples---index-positions" class="slide level2">
 <h2>Examples - index positions</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">length</span>(namelist)) {</span>
-<span id="cb13-2"><a></a>    <span class="fu">print</span>(<span class="fu">paste</span>(namelist[i], </span>
-<span id="cb13-3"><a></a>                <span class="st">&quot;has position&quot;</span>, i))</span>
-<span id="cb13-4"><a></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">length</span>(namelist)) {</span>
+<span id="cb13-2"><a href></a>    <span class="fu">print</span>(<span class="fu">paste</span>(namelist[i], </span>
+<span id="cb13-3"><a href></a>                <span class="st">&quot;has position&quot;</span>, i))</span>
+<span id="cb13-4"><a href></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] &quot;Steve has position 1&quot;
 [1] &quot;Carol has position 2&quot;
@@ -1221,9 +1221,9 @@ Nina Norgren
 </div>
 <p><br> Loop over columns (default):</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a></a><span class="cf">for</span> (column <span class="cf">in</span> df) {</span>
-<span id="cb16-2"><a></a>    <span class="fu">print</span>(column)</span>
-<span id="cb16-3"><a></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href></a><span class="cf">for</span> (column <span class="cf">in</span> df) {</span>
+<span id="cb16-2"><a href></a>    <span class="fu">print</span>(column)</span>
+<span id="cb16-3"><a href></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 1 2 3
 [1] &quot;a&quot; &quot;b&quot; &quot;c&quot;
@@ -1243,9 +1243,9 @@ Nina Norgren
 </div>
 <p><br> Loop over rows:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">nrow</span>(df)) {</span>
-<span id="cb19-2"><a></a>    <span class="fu">print</span>(df[i,])</span>
-<span id="cb19-3"><a></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">nrow</span>(df)) {</span>
+<span id="cb19-2"><a href></a>    <span class="fu">print</span>(df[i,])</span>
+<span id="cb19-3"><a href></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>  NO. char isBlue
 1   1    a   TRUE
@@ -1271,11 +1271,11 @@ Nina Norgren
 <h2>Syntax of a while loop</h2>
 <p><br></p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a></a>x <span class="ot">&lt;-</span> <span class="dv">0</span></span>
-<span id="cb22-2"><a></a><span class="cf">while</span> (x <span class="sc">&lt;</span> <span class="dv">5</span>) {</span>
-<span id="cb22-3"><a></a>   <span class="fu">print</span>(x)</span>
-<span id="cb22-4"><a></a>   x <span class="ot">&lt;-</span> x <span class="sc">+</span> <span class="dv">1</span></span>
-<span id="cb22-5"><a></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href></a>x <span class="ot">&lt;-</span> <span class="dv">0</span></span>
+<span id="cb22-2"><a href></a><span class="cf">while</span> (x <span class="sc">&lt;</span> <span class="dv">5</span>) {</span>
+<span id="cb22-3"><a href></a>   <span class="fu">print</span>(x)</span>
+<span id="cb22-4"><a href></a>   x <span class="ot">&lt;-</span> x <span class="sc">+</span> <span class="dv">1</span></span>
+<span id="cb22-5"><a href></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 0
 [1] 1
@@ -1290,10 +1290,10 @@ Nina Norgren
 <p><br></p>
 <p>Beware of infinite loops!</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a></a>x <span class="ot">&lt;-</span> <span class="dv">0</span></span>
-<span id="cb24-2"><a></a><span class="cf">while</span> (x <span class="sc">&lt;</span> <span class="dv">5</span>) {</span>
-<span id="cb24-3"><a></a>   <span class="fu">print</span>(x)</span>
-<span id="cb24-4"><a></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href></a>x <span class="ot">&lt;-</span> <span class="dv">0</span></span>
+<span id="cb24-2"><a href></a><span class="cf">while</span> (x <span class="sc">&lt;</span> <span class="dv">5</span>) {</span>
+<span id="cb24-3"><a href></a>   <span class="fu">print</span>(x)</span>
+<span id="cb24-4"><a href></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="when-to-use-what" class="slide level2">
@@ -1312,7 +1312,7 @@ Nina Norgren
 <li><code>lapply</code> applies a function over a list and returns the result</li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a></a><span class="fu">lapply</span>(namelist, print)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href></a><span class="fu">lapply</span>(namelist, print)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] &quot;Steve&quot;
 [1] &quot;Carol&quot;
@@ -1343,7 +1343,6 @@ Nina Norgren
 <li>For loops are used to iterate over a fixed number of steps in a sequence</li>
 <li>While loops will continue to iterate while a condition holds true</li>
 </ul>
-
 
 </section>
     </div>

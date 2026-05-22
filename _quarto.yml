@@ -1,95 +1,10 @@
 project:
-  type: website
-  output-dir: .
-  render:
-    - "index.qmd"
-    - "module*/**/*.qmd"
-    - "!**/old/**"
-
-website:
-  title: "Intro to Bioinformatics (5MO115)"
-  navbar:
-    left:
-      - href: index.qmd
-        text: Home
-      - text: "Modules"
-        menu:
-          - text: Module 1
-            href: module1/lectures/intro_R/0_R_syllabus.qmd
-          - text: Module 2
-            href: module2/lectures/introduction.qmd
-          - text: Module 4
-            href: module4/intro.qmd
-  sidebar:
-    style: docked
-    search: true
-    collapse-level: 2
-    contents:
-      - text: Home
-        href: index.qmd
-      - section: "Module 1 — R and basics"
-        contents:
-          - section: "Lectures — intro to R"
-            contents:
-              - module1/lectures/intro_R/0_R_syllabus.qmd
-              - module1/lectures/intro_R/1_intro.qmd
-              - module1/lectures/intro_R/2_running_R.qmd
-              - module1/lectures/intro_R/3_variables.qmd
-              - module1/lectures/intro_R/4_types.qmd
-              - module1/lectures/intro_R/5_vectors.qmd
-              - module1/lectures/intro_R/6_matrices.qmd
-              - module1/lectures/intro_R/7_dataframes.qmd
-              - module1/lectures/intro_R/8_reading_data.qmd
-              - module1/lectures/intro_R/9_baseplot.qmd
-              - module1/lectures/intro_R/10_ggplot2.qmd
-              - module1/lectures/intro_R/11_ggplot2.qmd
-              - module1/lectures/intro_R/12_loops.qmd
-              - module1/lectures/intro_R/13_ifelse_functions.qmd
-          - section: "Exercises"
-            contents:
-              - module1/exercises/linalg/linalg.qmd
-              - module1/exercises/basicprob/basicprob.qmd
-              - module1/exercises/intro_R/creating_variables.qmd
-              - module1/exercises/intro_R/complex_data_structures.qmd
-              - module1/exercises/intro_R/read_and_plot_data.qmd
-              - module1/exercises/intro_R/loops_ifelse_functions.qmd
-      - section: "Module 2 — Command line"
-        contents:
-          - section: "Setup"
-            contents:
-              - module2/instructions/set_up_wsl.qmd
-              - module2/instructions/install_R_Rstudio.qmd
-              - module2/instructions/using_hpc2n.qmd
-          - section: "Lectures"
-            contents:
-              - module2/lectures/introduction.qmd
-              - section: "Command line"
-                contents:
-                  - module2/lectures/command_line/0_linux_syllabus.qmd
-                  - module2/lectures/command_line/1_navigating.qmd
-                  - module2/lectures/command_line/2_interacting.qmd
-                  - module2/lectures/command_line/3_inspecting.qmd
-                  - module2/lectures/command_line/4_mastering.qmd
-                  - module2/lectures/command_line/5_good_practices.qmd
-                  - module2/lectures/command_line/6_retrieval.qmd
-                  - module2/lectures/command_line/7_running_programs.qmd
-          - section: "Exercises"
-            contents:
-              - module2/exercises/command_line/exploring_the_commandline.qmd
-              - module2/exercises/command_line/gtf.qmd
-              - module2/exercises/command_line/running_programs.qmd
-              - module2/exercises/command_line/storing_accessing_cmd.qmd
-      - section: "Module 4 — Statistics and RNA-seq"
-        contents:
-          - module4/intro.qmd
-          - module4/4_1_basic_stats.qmd
-          - module4/4_2_sim_bootstrap.qmd
-          - module4/4_3_linmod.qmd
-          - module4/4_4_rnaseq.qmd
+  title: "bioinfo-intro"
 
 format:
   html:
     theme: yeti
+    embed-resources: true
     toc: true
     code-copy: true
     code-overflow: wrap

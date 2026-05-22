@@ -17,8 +17,7 @@ preview:
 add:
 	-git rm -f --ignore-unmatch index.md
 	git add Makefile _quarto.yml .nojekyll .gitignore
-	git add index.qmd index.html search.json
-	git add -A site_libs
+	git add index.qmd index.html
 	git add -A module1 module2 module4
 
 %.html: %.qmd _quarto.yml

@@ -442,7 +442,7 @@
   <meta name="generator" content="quarto-1.7.30">
 
   <meta name="author" content="Nina Norgren">
-  <title>Intro to Bioinformatics (5MO115) – if/else statements and functions</title>
+  <title>if/else statements and functions</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
@@ -1086,13 +1086,13 @@ Nina Norgren
 <h2>Example</h2>
 <p><br></p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a></a>numbers <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">3</span>,<span class="dv">5</span>,<span class="dv">7</span>)</span>
-<span id="cb2-2"><a></a></span>
-<span id="cb2-3"><a></a><span class="cf">if</span> (<span class="fu">sum</span>(numbers) <span class="sc">&gt;</span> <span class="dv">5</span>) {</span>
-<span id="cb2-4"><a></a>    <span class="fu">print</span>(<span class="st">&quot;the sum is higher than 5&quot;</span>)</span>
-<span id="cb2-5"><a></a>} <span class="cf">else</span> {</span>
-<span id="cb2-6"><a></a>    <span class="fu">print</span>(<span class="st">&quot;the sum is lower than 5&quot;</span>)</span>
-<span id="cb2-7"><a></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href></a>numbers <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">3</span>,<span class="dv">5</span>,<span class="dv">7</span>)</span>
+<span id="cb2-2"><a href></a></span>
+<span id="cb2-3"><a href></a><span class="cf">if</span> (<span class="fu">sum</span>(numbers) <span class="sc">&gt;</span> <span class="dv">5</span>) {</span>
+<span id="cb2-4"><a href></a>    <span class="fu">print</span>(<span class="st">&quot;the sum is higher than 5&quot;</span>)</span>
+<span id="cb2-5"><a href></a>} <span class="cf">else</span> {</span>
+<span id="cb2-6"><a href></a>    <span class="fu">print</span>(<span class="st">&quot;the sum is lower than 5&quot;</span>)</span>
+<span id="cb2-7"><a href></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] &quot;the sum is higher than 5&quot;</code></pre>
 </div>
@@ -1102,13 +1102,13 @@ Nina Norgren
 <h2>Example</h2>
 <p><br></p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a></a>numbers <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">3</span>,<span class="dv">5</span>,<span class="dv">7</span>)</span>
-<span id="cb4-2"><a></a></span>
-<span id="cb4-3"><a></a><span class="cf">if</span> (<span class="fu">sum</span>(numbers) <span class="sc">&gt;</span> <span class="dv">25</span>) {</span>
-<span id="cb4-4"><a></a>    <span class="fu">print</span>(<span class="st">&quot;the sum is higher than 5&quot;</span>)</span>
-<span id="cb4-5"><a></a>} <span class="cf">else</span> {</span>
-<span id="cb4-6"><a></a>    <span class="fu">print</span>(<span class="st">&quot;the sum is lower than 5&quot;</span>)</span>
-<span id="cb4-7"><a></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href></a>numbers <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">3</span>,<span class="dv">5</span>,<span class="dv">7</span>)</span>
+<span id="cb4-2"><a href></a></span>
+<span id="cb4-3"><a href></a><span class="cf">if</span> (<span class="fu">sum</span>(numbers) <span class="sc">&gt;</span> <span class="dv">25</span>) {</span>
+<span id="cb4-4"><a href></a>    <span class="fu">print</span>(<span class="st">&quot;the sum is higher than 5&quot;</span>)</span>
+<span id="cb4-5"><a href></a>} <span class="cf">else</span> {</span>
+<span id="cb4-6"><a href></a>    <span class="fu">print</span>(<span class="st">&quot;the sum is lower than 5&quot;</span>)</span>
+<span id="cb4-7"><a href></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] &quot;the sum is lower than 5&quot;</code></pre>
 </div>
@@ -1140,11 +1140,11 @@ Nina Norgren
 </div>
 <p>In what rows is the sum bigger than 15?</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a></a><span class="cf">for</span> (row <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">nrow</span>(numbers)) {</span>
-<span id="cb8-2"><a></a>    <span class="cf">if</span> (<span class="fu">sum</span>(numbers[row,]) <span class="sc">&gt;</span> <span class="dv">15</span>) {</span>
-<span id="cb8-3"><a></a>        <span class="fu">print</span>(numbers[row,])</span>
-<span id="cb8-4"><a></a>    }</span>
-<span id="cb8-5"><a></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href></a><span class="cf">for</span> (row <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">nrow</span>(numbers)) {</span>
+<span id="cb8-2"><a href></a>    <span class="cf">if</span> (<span class="fu">sum</span>(numbers[row,]) <span class="sc">&gt;</span> <span class="dv">15</span>) {</span>
+<span id="cb8-3"><a href></a>        <span class="fu">print</span>(numbers[row,])</span>
+<span id="cb8-4"><a href></a>    }</span>
+<span id="cb8-5"><a href></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 7 8 9</code></pre>
 </div>
@@ -1161,7 +1161,7 @@ Nina Norgren
 <p>Reusable blocks of code that performs a <strong>specific task</strong> and can be called upon whenever needed within a program</p>
 <p><br></p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a></a><span class="fu">sd</span>(<span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">4</span>,<span class="dv">5</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href></a><span class="fu">sd</span>(<span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">4</span>,<span class="dv">5</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 1.581139</code></pre>
 </div>
@@ -1190,13 +1190,13 @@ Nina Norgren
 <h2>Examples</h2>
 <p><br></p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a></a>second_item <span class="ot">&lt;-</span> <span class="cf">function</span>(my_list) {</span>
-<span id="cb14-2"><a></a>    second <span class="ot">&lt;-</span> my_list[<span class="dv">2</span>]</span>
-<span id="cb14-3"><a></a>    <span class="fu">return</span> (second)</span>
-<span id="cb14-4"><a></a>}</span>
-<span id="cb14-5"><a></a></span>
-<span id="cb14-6"><a></a>result <span class="ot">&lt;-</span> <span class="fu">second_item</span>(<span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">5</span>,<span class="dv">3</span>,<span class="dv">6</span>))</span>
-<span id="cb14-7"><a></a><span class="fu">print</span>(result)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href></a>second_item <span class="ot">&lt;-</span> <span class="cf">function</span>(my_list) {</span>
+<span id="cb14-2"><a href></a>    second <span class="ot">&lt;-</span> my_list[<span class="dv">2</span>]</span>
+<span id="cb14-3"><a href></a>    <span class="fu">return</span> (second)</span>
+<span id="cb14-4"><a href></a>}</span>
+<span id="cb14-5"><a href></a></span>
+<span id="cb14-6"><a href></a>result <span class="ot">&lt;-</span> <span class="fu">second_item</span>(<span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">5</span>,<span class="dv">3</span>,<span class="dv">6</span>))</span>
+<span id="cb14-7"><a href></a><span class="fu">print</span>(result)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 5</code></pre>
 </div>
@@ -1206,17 +1206,17 @@ Nina Norgren
 <h2>Examples</h2>
 <p><br></p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a></a>find_ten <span class="ot">&lt;-</span> <span class="cf">function</span>(my_list) {</span>
-<span id="cb16-2"><a></a>    count <span class="ot">&lt;-</span> <span class="dv">0</span></span>
-<span id="cb16-3"><a></a>    <span class="cf">for</span> (x <span class="cf">in</span> my_list) {</span>
-<span id="cb16-4"><a></a>        <span class="cf">if</span> (x <span class="sc">==</span> <span class="dv">10</span>) {</span>
-<span id="cb16-5"><a></a>            count <span class="ot">&lt;-</span> count <span class="sc">+</span> <span class="dv">1</span></span>
-<span id="cb16-6"><a></a>        }</span>
-<span id="cb16-7"><a></a>    }</span>
-<span id="cb16-8"><a></a>    <span class="fu">return</span> (count)</span>
-<span id="cb16-9"><a></a>}</span>
-<span id="cb16-10"><a></a>result <span class="ot">&lt;-</span> <span class="fu">find_ten</span>(<span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">4</span>,<span class="dv">10</span>,<span class="dv">5</span>,<span class="dv">10</span>))</span>
-<span id="cb16-11"><a></a><span class="fu">print</span>(result)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href></a>find_ten <span class="ot">&lt;-</span> <span class="cf">function</span>(my_list) {</span>
+<span id="cb16-2"><a href></a>    count <span class="ot">&lt;-</span> <span class="dv">0</span></span>
+<span id="cb16-3"><a href></a>    <span class="cf">for</span> (x <span class="cf">in</span> my_list) {</span>
+<span id="cb16-4"><a href></a>        <span class="cf">if</span> (x <span class="sc">==</span> <span class="dv">10</span>) {</span>
+<span id="cb16-5"><a href></a>            count <span class="ot">&lt;-</span> count <span class="sc">+</span> <span class="dv">1</span></span>
+<span id="cb16-6"><a href></a>        }</span>
+<span id="cb16-7"><a href></a>    }</span>
+<span id="cb16-8"><a href></a>    <span class="fu">return</span> (count)</span>
+<span id="cb16-9"><a href></a>}</span>
+<span id="cb16-10"><a href></a>result <span class="ot">&lt;-</span> <span class="fu">find_ten</span>(<span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">4</span>,<span class="dv">10</span>,<span class="dv">5</span>,<span class="dv">10</span>))</span>
+<span id="cb16-11"><a href></a><span class="fu">print</span>(result)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 2</code></pre>
 </div>
@@ -1239,7 +1239,6 @@ Nina Norgren
 <li>if/else statements allows us to execute different code based on a condition</li>
 <li>a function is a block of code that does one specific task, and can be re-used throughout the code</li>
 </ul>
-
 
 </section>
     </div>
