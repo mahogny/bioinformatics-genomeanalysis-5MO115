@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Introduction to Bioinformatics (5MO115) — vt26</title>
+<title>3.3 Genome annotation (part II)</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -2143,10 +2143,10 @@ vertical-align: -.125em;
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#module-1-r-and-basics" id="toc-module-1-r-and-basics" class="nav-link active" data-scroll-target="#module-1-r-and-basics">Module 1 — R and basics</a></li>
-  <li><a href="#module-2-command-line" id="toc-module-2-command-line" class="nav-link" data-scroll-target="#module-2-command-line">Module 2 — Command line</a></li>
-  <li><a href="#module-3-genome-data-analysis" id="toc-module-3-genome-data-analysis" class="nav-link" data-scroll-target="#module-3-genome-data-analysis">Module 3 — Genome data analysis</a></li>
-  <li><a href="#module-4-statistics-and-rna-seq" id="toc-module-4-statistics-and-rna-seq" class="nav-link" data-scroll-target="#module-4-statistics-and-rna-seq">Module 4 — Statistics and RNA-seq</a></li>
+  <li><a href="#lectures-3-total" id="toc-lectures-3-total" class="nav-link active" data-scroll-target="#lectures-3-total"><strong>Lectures (3 total)</strong></a></li>
+  <li><a href="#practical-readings-2-total" id="toc-practical-readings-2-total" class="nav-link" data-scroll-target="#practical-readings-2-total"><strong>Practical readings (2 total)</strong></a></li>
+  <li><a href="#supplemental-readings-optional-only-if-you-want-more-theory-1-total" id="toc-supplemental-readings-optional-only-if-you-want-more-theory-1-total" class="nav-link" data-scroll-target="#supplemental-readings-optional-only-if-you-want-more-theory-1-total"><strong>Supplemental readings (optional, only if you want more theory; 1 total)</strong></a></li>
+  <li><a href="#hands-on-exercises-1-total" id="toc-hands-on-exercises-1-total" class="nav-link" data-scroll-target="#hands-on-exercises-1-total"><strong>Hands-on exercises (1 total)</strong></a></li>
   </ul>
 </nav>
 </div>
@@ -2154,7 +2154,7 @@ vertical-align: -.125em;
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Introduction to Bioinformatics (5MO115) — vt26</h1>
+<h1 class="title">3.3 Genome annotation (part II)</h1>
 </div>
 
 
@@ -2171,43 +2171,44 @@ vertical-align: -.125em;
 </header>
 
 
-<p>Course materials for the spring 2026 instance of <em>Introduction to Bioinformatics and Genome Analysis</em> (course code <strong>5MO115</strong>) at Umeå University.</p>
-<p>Every exercise page has collapsible <strong>Hint</strong> and <strong>Solution</strong> callouts, plus an <em>Extra exercise material</em> section at the bottom for additional practice.</p>
-<section id="module-1-r-and-basics" class="level2">
-<h2 class="anchored" data-anchor-id="module-1-r-and-basics">Module 1 — R and basics</h2>
-<p>R is the workhorse of statistical bioinformatics. Module 1 covers the language from scratch (variables, types, vectors, matrices, data frames, control flow, reading data, plotting) and revisits the linear algebra and probability foundations needed for the rest of the course.</p>
+<p> </p>
+<p> </p>
+<p><span><strong><em>IMPORTANT NOTE:</em></strong></span><strong> </strong>In Module 3.3, we’re going to continue with some more theory, and finally wrap up genome annotation with a practical lecture. Specifically, in Lectures 1 and 2, we’ll learn about<strong><span> </span>hidden Markov models (HMMs)</strong>, which are core components of many genome annotation pipelines. In Lecture 3, we’ll then return to our WGS data analysis pipeline and tie everything together (pairwise sequence alignment algorithms, HMMs, and genome annotation). <strong>Some of the videos below say “Module 1”, but don’t worry, you’re in the right place!</strong><span> </span>(based on student feedback, we’ve rearranged the course a bit, so these lectures, which were previously part of Module 1 are now part of Module 3)</p>
+<p> </p>
+<section id="lectures-3-total" class="level2">
+<h2 class="anchored" data-anchor-id="lectures-3-total"><strong>Lectures (3 total)</strong></h2>
 <ul>
-<li><a href="module1/lectures/intro_R/0_R_syllabus.html">Lecture series — intro to R</a> (14 short decks)</li>
-<li>Exercises: <a href="module1/exercises/linalg/linalg.html">linear algebra</a> · <a href="module1/exercises/basicprob/basicprob.html">probability &amp; Markov chains</a> · <a href="module1/exercises/intro_R/creating_variables.html">variables</a> · <a href="module1/exercises/intro_R/complex_data_structures.html">data structures</a> · <a href="module1/exercises/intro_R/read_and_plot_data.html">reading &amp; plotting</a> · <a href="module1/exercises/intro_R/loops_ifelse_functions.html">control flow</a></li>
+<li><strong>Lecture 1:</strong> Hidden Markov models Part I: Introduction</li>
+</ul>
+<!-- end list -->
+<ul>
+<li><span><strong>Lecture 2:</strong> <span>Hidden Markov models Part II: Profile HMMs</span></span></li>
+</ul>
+<p><span><span></span></span></p>
+<ul>
+<li><strong>Lecture 3:</strong> Genome annotation</li>
 </ul>
 </section>
-<section id="module-2-command-line" class="level2">
-<h2 class="anchored" data-anchor-id="module-2-command-line">Module 2 — Command line</h2>
-<p>Most bioinformatics tools live on the command line. Module 2 covers Linux navigation, pipes, redirection, manipulating GTFs with <code>grep</code>/<code>awk</code>/<code>cut</code>, and running programs on a cluster.</p>
+<section id="practical-readings-2-total" class="level2">
+<h2 class="anchored" data-anchor-id="practical-readings-2-total"><strong>Practical readings (2 total)</strong></h2>
 <ul>
-<li><a href="module2/instructions/set_up_wsl.html">Setup</a> (Windows users: WSL; everyone else: R/RStudio + optional HPC2N access)</li>
-<li><a href="module2/lectures/command_line/0_linux_syllabus.html">Lecture series — command line</a></li>
-<li>Exercises: <a href="module2/exercises/command_line/exploring_the_commandline.html">exploring the command line</a> · <a href="module2/exercises/command_line/gtf.html">GTF files</a> · <a href="module2/exercises/command_line/running_programs.html">running programs</a> · <a href="module2/exercises/command_line/storing_accessing_cmd.html">storing &amp; accessing data</a></li>
+<li>Eddy. 2004. What is a hidden Markov model? URL: <a href="https://www.nature.com/articles/nbt1004-1315" class="uri">https://www.nature.com/articles/nbt1004-1315</a> </li>
+<li>NCBI PGAP pipeline (don’t worry if you don’t understand the specific tools; it’s just to give you an overview of what genome annotation pipelines are doing!):<span> </span><a href="https://www.ncbi.nlm.nih.gov/genome/annotation_prok/process"><span>https://www.ncbi.nlm.nih.gov/genome/annotation_prok/process</span></a></li>
 </ul>
+<p> </p>
 </section>
-<section id="module-3-genome-data-analysis" class="level2">
-<h2 class="anchored" data-anchor-id="module-3-genome-data-analysis">Module 3 — Genome data analysis</h2>
-<p>A pathogen-genome walkthrough from raw Illumina reads to a phylogenetic tree: quality control, de novo assembly, annotation, read mapping with variant calling, and tree building. Most exercises run on the HPC2N cluster.</p>
+<section id="supplemental-readings-optional-only-if-you-want-more-theory-1-total" class="level2">
+<h2 class="anchored" data-anchor-id="supplemental-readings-optional-only-if-you-want-more-theory-1-total"><strong>Supplemental readings (optional, only if you want more theory; 1 total)</strong></h2>
 <ul>
-<li>Lectures: <a href="module3/lectures/intro.html">Intro</a> · <a href="module3/lectures/3_1a_quality_control.html">3.1a Quality control</a> · <a href="module3/lectures/3_1b_de_novo_assembly.html">3.1b De novo assembly</a> · <a href="module3/lectures/3_2_annotation_part1.html">3.2 Annotation I</a> · <a href="module3/lectures/3_3_annotation_part2.html">3.3 Annotation II</a> · <a href="module3/lectures/3_4_read_mapping.html">3.4 Read mapping &amp; variants</a> · <a href="module3/lectures/3_5_phylogeny.html">3.5 Phylogeny</a></li>
-<li>Exercises: <a href="module3/exercises/3_1_qc_fastp.html">3.1 Quality control with fastp</a> · <a href="module3/exercises/3_1b_de_novo_assembly.html">3.1b De novo assembly</a> · <a href="module3/exercises/3_3_annotation.html">3.3 Annotation</a> · <a href="module3/exercises/3_4_snp_calling.html">3.4 SNP calling</a> · <a href="module3/exercises/3_5_phylogeny.html">3.5 Phylogeny</a></li>
+<li>Zerbino, et al. 2020. Progress, Challenges, and Surprises in Annotating the Human Genome.<span> </span><em>Annual Review of Genomics and Human Genetics.<span> </span></em>URL:<span> </span><a href="https://www.annualreviews.org/doi/10.1146/annurev-genom-121119-083418"><span>https://www.annualreviews.org/doi/10.1146/annurev-genom-121119-083418</span><span class="external_link_icon" role="presentation"><span class="screenreader-only">Links to an external site.</span></span></a></li>
 </ul>
+<p> </p>
 </section>
-<section id="module-4-statistics-and-rna-seq" class="level2">
-<h2 class="anchored" data-anchor-id="module-4-statistics-and-rna-seq">Module 4 — Statistics and RNA-seq</h2>
-<p>Where everything comes together: classical statistical distributions, simulation and bootstrap, linear models (<code>lm</code> and Stan), and a hands-on RNA-seq differential expression analysis from FASTQ to volcano plot.</p>
-<ul>
-<li><a href="module4/intro.html">Module 4 introduction</a></li>
-<li><a href="module4/4_1_basic_stats.html">4.1 — Basic statistics</a></li>
-<li><a href="module4/4_2_sim_bootstrap.html">4.2 — Simulations and bootstrapping</a></li>
-<li><a href="module4/4_3_linmod.html">4.3 — Linear models for statistics</a></li>
-<li><a href="module4/4_4_rnaseq.html">4.4 — RNA-seq analysis</a></li>
-</ul>
+<section id="hands-on-exercises-1-total" class="level2">
+<h2 class="anchored" data-anchor-id="hands-on-exercises-1-total"><strong>Hands-on exercises (1 total)</strong></h2>
+<p><strong>Hands-on exercise 3.3:<span> </span></strong>annotation station 🔎</p>
+<p>To complete the activity, go to the following URL (you can also download the HTML file and open it in your favorite browser): <a href="https://www.canvas.umu.se/courses/21745/files/5400495?wrap=1" title="3_3_annotation_v2_hpc2n.html">3_3_annotation_v2_hpc2n.html</a></p>
+<p><span>If, for some reason, the HTML doesn’t work in your browser, a print-out of the activity can be found here: <a href="https://www.canvas.umu.se/courses/21745/files/5400558?wrap=1" title="3_3_annotation_v2_hpc2n.pdf">3_3_annotation_v2_hpc2n.pdf</a></span></p>
 </section>
 
 </main>

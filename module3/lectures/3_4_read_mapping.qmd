@@ -1,0 +1,41 @@
+---
+title: "3.4 Read mapping and variant calling"
+format:
+  html:
+    theme: yeti
+---
+
+## **Lectures (2 total)**
+
+  - **Lecture 1:<span> </span>**Short read mapping
+
+<!-- end list -->
+
+  - **Lecture 2:<span> </span>**Variant calling
+
+## **Practical readings (5 total)**
+
+
+
+
+  - SAM and BAM format...explained (and much prettier than the official SAM manual)\! <https://learn.gencore.bio.nyu.edu/ngs-file-formats/sambam-format/> 
+  - More on SAM format (and again, much prettier than the official SAM manual\!): <https://www.samformat.info/about> 
+  - EMBL-EBI mini-course on human genetic variation (you only need to read the sections within "Variant Identification and Analysis"...however, feel free to read the whole thing, if you like\! There's also a mini-quiz at the end to test your understanding, if you like): <https://www.ebi.ac.uk/training/online/courses/human-genetic-variation-introduction/variant-identification-and-analysis>  
+  - GATK's page on Variant Call Format (a great explanation of VCF files, and much easier to understand than the official documents\!): <https://gatk.broadinstitute.org/hc/en-us/articles/360035531692-VCF-Variant-Call-Format> 
+
+
+
+
+  - Olson, et al. 2015. Best practices for evaluating single nucleotide variant calling methods for microbial genomics. URL: <https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4493402>
+
+## **Supplemental readings (optional, if you want more theory; 1 total)**
+
+  - Canzar<span> and </span>Salzberg. 2015. Short Read Mapping: An Algorithmic Tour. URL: <https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5425171> 
+
+## **Hands-on exercises (1 total)**
+
+**Hands-on exercise 3.4:** Mapping it out 🗺️
+
+To complete the activity, go to the following URL (you can also download the HTML file and open it in your favorite browser): [3\_4\_snp\_calling\_final\_v3\_hpc2n.html](https://www.canvas.umu.se/courses/21745/files/5400449?wrap=1 "3_4_snp_calling_final_v3_hpc2n.html")
+
+<span>If, for some reason, the HTML doesn't work in your browser, a print-out of the activity can be found here: [3\_4\_snp\_calling\_final\_v3\_hpc2n.pdf](https://www.canvas.umu.se/courses/21745/files/5400448?wrap=1 "3_4_snp_calling_final_v3_hpc2n.pdf")</span>

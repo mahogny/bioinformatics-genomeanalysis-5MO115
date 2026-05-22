@@ -1,0 +1,24 @@
+---
+title: "3.5 Phylogeny construction"
+format:
+  html:
+    theme: yeti
+---
+
+**Note that there are no lectures for Module 3.5**, so you can focus on the readings/activities below (you're off the hook\! 😉)
+
+## **Practical readings (5 total)**
+
+  - The Tree Room (read all sections up until "Trees matter"...and feel free to read "Trees matter", if you want to know more about phylogenetic applications\!):<span> </span>[<span>https://evolution.berkeley.edu/the-tree-room/</span><span class="external_link_icon" role="presentation"><span class="screenreader-only">Links to an external site.</span></span>](https://evolution.berkeley.edu/the-tree-room/) 
+  - EMBL-EBI mini-course on phylogenetics (fun and teaches you all the basics; do the whole thing):<span> </span>[<span>https://www.ebi.ac.uk/training/online/courses/introduction-to-phylogenetics/what-is-phylogenetics</span><span class="external_link_icon" role="presentation"><span class="screenreader-only">Links to an external site.</span></span>](https://www.ebi.ac.uk/training/online/courses/introduction-to-phylogenetics/what-is-phylogenetics) 
+  - Methods for Rooting Trees:<span> </span>[<span>https://www.ncbi.nlm.nih.gov/pmc/articles/PMC7149615</span><span class="external_link_icon" role="presentation"><span class="screenreader-only">Links to an external site.</span></span>](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC7149615) 
+  - Molecular phylogenetics: principles and practice:<span> </span>[<span>https://www.nature.com/articles/nrg3186</span><span class="external_link_icon" role="presentation"><span class="screenreader-only">Links to an external site.</span></span>](https://www.nature.com/articles/nrg3186) 
+  - <span>Kapli, et al. 2020. Phylogenetic tree building in the genomic age. </span>*Nature Reviews Genetics*<span>. URL: </span>[<span>https://www.nature.com/articles/s41576-020-0233-0</span>](https://www.nature.com/articles/s41576-020-0233-0)
+
+## **Hands-on exercises (1 total)**
+
+**Hands-on exercise 3.5:<span> </span>**One two tree 🌲
+
+To complete the activity, go to the following URL (you can also download the HTML file and open it in your favorite browser): [3\_5\_phylogeny\_construction\_hpc2n.html](https://www.canvas.umu.se/courses/21745/files/5400450?wrap=1 "3_5_phylogeny_construction_hpc2n.html")
+
+<span>If, for some reason, the HTML doesn't work in your browser, a print-out of the activity can be found here: [3\_5\_phylogeny\_construction\_hpc2n.pdf](https://www.canvas.umu.se/courses/21745/files/5400451?wrap=1 "3_5_phylogeny_construction_hpc2n.pdf")</span>

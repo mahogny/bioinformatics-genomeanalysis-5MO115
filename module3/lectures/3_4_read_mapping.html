@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Introduction to Bioinformatics (5MO115) — vt26</title>
+<title>3.4 Read mapping and variant calling</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -2143,10 +2143,10 @@ vertical-align: -.125em;
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#module-1-r-and-basics" id="toc-module-1-r-and-basics" class="nav-link active" data-scroll-target="#module-1-r-and-basics">Module 1 — R and basics</a></li>
-  <li><a href="#module-2-command-line" id="toc-module-2-command-line" class="nav-link" data-scroll-target="#module-2-command-line">Module 2 — Command line</a></li>
-  <li><a href="#module-3-genome-data-analysis" id="toc-module-3-genome-data-analysis" class="nav-link" data-scroll-target="#module-3-genome-data-analysis">Module 3 — Genome data analysis</a></li>
-  <li><a href="#module-4-statistics-and-rna-seq" id="toc-module-4-statistics-and-rna-seq" class="nav-link" data-scroll-target="#module-4-statistics-and-rna-seq">Module 4 — Statistics and RNA-seq</a></li>
+  <li><a href="#lectures-2-total" id="toc-lectures-2-total" class="nav-link active" data-scroll-target="#lectures-2-total"><strong>Lectures (2 total)</strong></a></li>
+  <li><a href="#practical-readings-5-total" id="toc-practical-readings-5-total" class="nav-link" data-scroll-target="#practical-readings-5-total"><strong>Practical readings (5 total)</strong></a></li>
+  <li><a href="#supplemental-readings-optional-if-you-want-more-theory-1-total" id="toc-supplemental-readings-optional-if-you-want-more-theory-1-total" class="nav-link" data-scroll-target="#supplemental-readings-optional-if-you-want-more-theory-1-total"><strong>Supplemental readings (optional, if you want more theory; 1 total)</strong></a></li>
+  <li><a href="#hands-on-exercises-1-total" id="toc-hands-on-exercises-1-total" class="nav-link" data-scroll-target="#hands-on-exercises-1-total"><strong>Hands-on exercises (1 total)</strong></a></li>
   </ul>
 </nav>
 </div>
@@ -2154,7 +2154,7 @@ vertical-align: -.125em;
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Introduction to Bioinformatics (5MO115) — vt26</h1>
+<h1 class="title">3.4 Read mapping and variant calling</h1>
 </div>
 
 
@@ -2171,43 +2171,37 @@ vertical-align: -.125em;
 </header>
 
 
-<p>Course materials for the spring 2026 instance of <em>Introduction to Bioinformatics and Genome Analysis</em> (course code <strong>5MO115</strong>) at Umeå University.</p>
-<p>Every exercise page has collapsible <strong>Hint</strong> and <strong>Solution</strong> callouts, plus an <em>Extra exercise material</em> section at the bottom for additional practice.</p>
-<section id="module-1-r-and-basics" class="level2">
-<h2 class="anchored" data-anchor-id="module-1-r-and-basics">Module 1 — R and basics</h2>
-<p>R is the workhorse of statistical bioinformatics. Module 1 covers the language from scratch (variables, types, vectors, matrices, data frames, control flow, reading data, plotting) and revisits the linear algebra and probability foundations needed for the rest of the course.</p>
+<section id="lectures-2-total" class="level2">
+<h2 class="anchored" data-anchor-id="lectures-2-total"><strong>Lectures (2 total)</strong></h2>
 <ul>
-<li><a href="module1/lectures/intro_R/0_R_syllabus.html">Lecture series — intro to R</a> (14 short decks)</li>
-<li>Exercises: <a href="module1/exercises/linalg/linalg.html">linear algebra</a> · <a href="module1/exercises/basicprob/basicprob.html">probability &amp; Markov chains</a> · <a href="module1/exercises/intro_R/creating_variables.html">variables</a> · <a href="module1/exercises/intro_R/complex_data_structures.html">data structures</a> · <a href="module1/exercises/intro_R/read_and_plot_data.html">reading &amp; plotting</a> · <a href="module1/exercises/intro_R/loops_ifelse_functions.html">control flow</a></li>
+<li><strong>Lecture 1:<span> </span></strong>Short read mapping</li>
+</ul>
+<!-- end list -->
+<ul>
+<li><strong>Lecture 2:<span> </span></strong>Variant calling</li>
 </ul>
 </section>
-<section id="module-2-command-line" class="level2">
-<h2 class="anchored" data-anchor-id="module-2-command-line">Module 2 — Command line</h2>
-<p>Most bioinformatics tools live on the command line. Module 2 covers Linux navigation, pipes, redirection, manipulating GTFs with <code>grep</code>/<code>awk</code>/<code>cut</code>, and running programs on a cluster.</p>
+<section id="practical-readings-5-total" class="level2">
+<h2 class="anchored" data-anchor-id="practical-readings-5-total"><strong>Practical readings (5 total)</strong></h2>
 <ul>
-<li><a href="module2/instructions/set_up_wsl.html">Setup</a> (Windows users: WSL; everyone else: R/RStudio + optional HPC2N access)</li>
-<li><a href="module2/lectures/command_line/0_linux_syllabus.html">Lecture series — command line</a></li>
-<li>Exercises: <a href="module2/exercises/command_line/exploring_the_commandline.html">exploring the command line</a> · <a href="module2/exercises/command_line/gtf.html">GTF files</a> · <a href="module2/exercises/command_line/running_programs.html">running programs</a> · <a href="module2/exercises/command_line/storing_accessing_cmd.html">storing &amp; accessing data</a></li>
+<li><p>SAM and BAM format…explained (and much prettier than the official SAM manual)! <a href="https://learn.gencore.bio.nyu.edu/ngs-file-formats/sambam-format/" class="uri">https://learn.gencore.bio.nyu.edu/ngs-file-formats/sambam-format/</a> </p></li>
+<li><p>More on SAM format (and again, much prettier than the official SAM manual!): <a href="https://www.samformat.info/about" class="uri">https://www.samformat.info/about</a> </p></li>
+<li><p>EMBL-EBI mini-course on human genetic variation (you only need to read the sections within “Variant Identification and Analysis”…however, feel free to read the whole thing, if you like! There’s also a mini-quiz at the end to test your understanding, if you like): <a href="https://www.ebi.ac.uk/training/online/courses/human-genetic-variation-introduction/variant-identification-and-analysis" class="uri">https://www.ebi.ac.uk/training/online/courses/human-genetic-variation-introduction/variant-identification-and-analysis</a>  </p></li>
+<li><p>GATK’s page on Variant Call Format (a great explanation of VCF files, and much easier to understand than the official documents!): <a href="https://gatk.broadinstitute.org/hc/en-us/articles/360035531692-VCF-Variant-Call-Format" class="uri">https://gatk.broadinstitute.org/hc/en-us/articles/360035531692-VCF-Variant-Call-Format</a> </p></li>
+<li><p>Olson, et al. 2015. Best practices for evaluating single nucleotide variant calling methods for microbial genomics. URL: <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4493402" class="uri">https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4493402</a></p></li>
 </ul>
 </section>
-<section id="module-3-genome-data-analysis" class="level2">
-<h2 class="anchored" data-anchor-id="module-3-genome-data-analysis">Module 3 — Genome data analysis</h2>
-<p>A pathogen-genome walkthrough from raw Illumina reads to a phylogenetic tree: quality control, de novo assembly, annotation, read mapping with variant calling, and tree building. Most exercises run on the HPC2N cluster.</p>
+<section id="supplemental-readings-optional-if-you-want-more-theory-1-total" class="level2">
+<h2 class="anchored" data-anchor-id="supplemental-readings-optional-if-you-want-more-theory-1-total"><strong>Supplemental readings (optional, if you want more theory; 1 total)</strong></h2>
 <ul>
-<li>Lectures: <a href="module3/lectures/intro.html">Intro</a> · <a href="module3/lectures/3_1a_quality_control.html">3.1a Quality control</a> · <a href="module3/lectures/3_1b_de_novo_assembly.html">3.1b De novo assembly</a> · <a href="module3/lectures/3_2_annotation_part1.html">3.2 Annotation I</a> · <a href="module3/lectures/3_3_annotation_part2.html">3.3 Annotation II</a> · <a href="module3/lectures/3_4_read_mapping.html">3.4 Read mapping &amp; variants</a> · <a href="module3/lectures/3_5_phylogeny.html">3.5 Phylogeny</a></li>
-<li>Exercises: <a href="module3/exercises/3_1_qc_fastp.html">3.1 Quality control with fastp</a> · <a href="module3/exercises/3_1b_de_novo_assembly.html">3.1b De novo assembly</a> · <a href="module3/exercises/3_3_annotation.html">3.3 Annotation</a> · <a href="module3/exercises/3_4_snp_calling.html">3.4 SNP calling</a> · <a href="module3/exercises/3_5_phylogeny.html">3.5 Phylogeny</a></li>
+<li>Canzar<span> and </span>Salzberg. 2015. Short Read Mapping: An Algorithmic Tour. URL: <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5425171" class="uri">https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5425171</a> </li>
 </ul>
 </section>
-<section id="module-4-statistics-and-rna-seq" class="level2">
-<h2 class="anchored" data-anchor-id="module-4-statistics-and-rna-seq">Module 4 — Statistics and RNA-seq</h2>
-<p>Where everything comes together: classical statistical distributions, simulation and bootstrap, linear models (<code>lm</code> and Stan), and a hands-on RNA-seq differential expression analysis from FASTQ to volcano plot.</p>
-<ul>
-<li><a href="module4/intro.html">Module 4 introduction</a></li>
-<li><a href="module4/4_1_basic_stats.html">4.1 — Basic statistics</a></li>
-<li><a href="module4/4_2_sim_bootstrap.html">4.2 — Simulations and bootstrapping</a></li>
-<li><a href="module4/4_3_linmod.html">4.3 — Linear models for statistics</a></li>
-<li><a href="module4/4_4_rnaseq.html">4.4 — RNA-seq analysis</a></li>
-</ul>
+<section id="hands-on-exercises-1-total" class="level2">
+<h2 class="anchored" data-anchor-id="hands-on-exercises-1-total"><strong>Hands-on exercises (1 total)</strong></h2>
+<p><strong>Hands-on exercise 3.4:</strong> Mapping it out 🗺️</p>
+<p>To complete the activity, go to the following URL (you can also download the HTML file and open it in your favorite browser): <a href="https://www.canvas.umu.se/courses/21745/files/5400449?wrap=1" title="3_4_snp_calling_final_v3_hpc2n.html">3_4_snp_calling_final_v3_hpc2n.html</a></p>
+<p><span>If, for some reason, the HTML doesn’t work in your browser, a print-out of the activity can be found here: <a href="https://www.canvas.umu.se/courses/21745/files/5400448?wrap=1" title="3_4_snp_calling_final_v3_hpc2n.pdf">3_4_snp_calling_final_v3_hpc2n.pdf</a></span></p>
 </section>
 
 </main>

@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Introduction to Bioinformatics (5MO115) — vt26</title>
+<title>3.2 Genome annotation (part I)</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -2143,10 +2143,14 @@ vertical-align: -.125em;
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#module-1-r-and-basics" id="toc-module-1-r-and-basics" class="nav-link active" data-scroll-target="#module-1-r-and-basics">Module 1 — R and basics</a></li>
-  <li><a href="#module-2-command-line" id="toc-module-2-command-line" class="nav-link" data-scroll-target="#module-2-command-line">Module 2 — Command line</a></li>
-  <li><a href="#module-3-genome-data-analysis" id="toc-module-3-genome-data-analysis" class="nav-link" data-scroll-target="#module-3-genome-data-analysis">Module 3 — Genome data analysis</a></li>
-  <li><a href="#module-4-statistics-and-rna-seq" id="toc-module-4-statistics-and-rna-seq" class="nav-link" data-scroll-target="#module-4-statistics-and-rna-seq">Module 4 — Statistics and RNA-seq</a></li>
+  <li><a href="#lectures-4-total" id="toc-lectures-4-total" class="nav-link active" data-scroll-target="#lectures-4-total"><strong>Lectures (4 total)</strong></a></li>
+  <li><a href="#supplemental-readings-optional-3-total" id="toc-supplemental-readings-optional-3-total" class="nav-link" data-scroll-target="#supplemental-readings-optional-3-total"><strong>Supplemental readings (optional; 3 total)</strong></a></li>
+  <li><a href="#hands-on-exercises-3-total" id="toc-hands-on-exercises-3-total" class="nav-link" data-scroll-target="#hands-on-exercises-3-total"><strong>Hands-on exercises (3 total)</strong></a>
+  <ul class="collapse">
+  <li><a href="#i.-hands-on-exercise-3.2-part-i-needleman-wunsch-algorithm" id="toc-i.-hands-on-exercise-3.2-part-i-needleman-wunsch-algorithm" class="nav-link" data-scroll-target="#i.-hands-on-exercise-3.2-part-i-needleman-wunsch-algorithm"><strong>I. Hands-on exercise 3.2, Part I:</strong> Needleman-Wunsch algorithm</a></li>
+  <li><a href="#ii.-hands-on-exercise-3.2-part-ii-smith-waterman-algorithm" id="toc-ii.-hands-on-exercise-3.2-part-ii-smith-waterman-algorithm" class="nav-link" data-scroll-target="#ii.-hands-on-exercise-3.2-part-ii-smith-waterman-algorithm"><strong>II. Hands-on exercise 3.2, Part II:</strong> Smith-Waterman algorithm</a></li>
+  <li><a href="#iii.-hands-on-exercise-3.2-part-iii-blast" id="toc-iii.-hands-on-exercise-3.2-part-iii-blast" class="nav-link" data-scroll-target="#iii.-hands-on-exercise-3.2-part-iii-blast"><strong>III. Hands-on exercise 3.2, Part III:</strong> BLAST</a></li>
+  </ul></li>
   </ul>
 </nav>
 </div>
@@ -2154,7 +2158,7 @@ vertical-align: -.125em;
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Introduction to Bioinformatics (5MO115) — vt26</h1>
+<h1 class="title">3.2 Genome annotation (part I)</h1>
 </div>
 
 
@@ -2171,43 +2175,184 @@ vertical-align: -.125em;
 </header>
 
 
-<p>Course materials for the spring 2026 instance of <em>Introduction to Bioinformatics and Genome Analysis</em> (course code <strong>5MO115</strong>) at Umeå University.</p>
-<p>Every exercise page has collapsible <strong>Hint</strong> and <strong>Solution</strong> callouts, plus an <em>Extra exercise material</em> section at the bottom for additional practice.</p>
-<section id="module-1-r-and-basics" class="level2">
-<h2 class="anchored" data-anchor-id="module-1-r-and-basics">Module 1 — R and basics</h2>
-<p>R is the workhorse of statistical bioinformatics. Module 1 covers the language from scratch (variables, types, vectors, matrices, data frames, control flow, reading data, plotting) and revisits the linear algebra and probability foundations needed for the rest of the course.</p>
+<p> </p>
+<p><span style="text-decoration: underline;"><strong><em>IMPORTANT NOTE:</em></strong></span><strong> </strong>In Module 3.2, we’re going to take a step back from our WGS analysis pipeline and learn some theory. Specifically, we’ll learn about <strong>pairwise sequence alignment algorithms</strong>, which form the backbone of many genome annotation pipelines (we’ll come back to this in Module 3.2)! <strong>The videos below say “Module 1”, but don’t worry, you’re in the right place!</strong> (based on student feedback, we’ve rearranged the course a bit, so these lectures, which were previously part of Module 1, are now part of Module 3)</p>
+<p> </p>
+<section id="lectures-4-total" class="level2">
+<h2 class="anchored" data-anchor-id="lectures-4-total"><strong>Lectures (4 total)</strong></h2>
 <ul>
-<li><a href="module1/lectures/intro_R/0_R_syllabus.html">Lecture series — intro to R</a> (14 short decks)</li>
-<li>Exercises: <a href="module1/exercises/linalg/linalg.html">linear algebra</a> · <a href="module1/exercises/basicprob/basicprob.html">probability &amp; Markov chains</a> · <a href="module1/exercises/intro_R/creating_variables.html">variables</a> · <a href="module1/exercises/intro_R/complex_data_structures.html">data structures</a> · <a href="module1/exercises/intro_R/read_and_plot_data.html">reading &amp; plotting</a> · <a href="module1/exercises/intro_R/loops_ifelse_functions.html">control flow</a></li>
+<li><strong>Lecture 1:</strong> Pairwise sequence alignment Part I: Dot-matrix method</li>
 </ul>
+<!-- end list -->
+<ul>
+<li><span><strong>Lecture 2:</strong> </span>Pairwise sequence alignment Part II: <span>Global alignment with dynamic programming</span></li>
+</ul>
+<!-- end list -->
+<ul>
+<li><strong>Lecture 3:</strong> Pairwise sequence alignment <span>Part III: Local alignment with dynamic programming</span></li>
+</ul>
+<!-- end list -->
+<ul>
+<li><strong>Lecture 4:</strong> Pairwise sequence alignment Part <span>IV: </span><span>Word/</span><em><span>k</span></em><span>-tuple methods</span></li>
+</ul>
+<p><span></span></p>
 </section>
-<section id="module-2-command-line" class="level2">
-<h2 class="anchored" data-anchor-id="module-2-command-line">Module 2 — Command line</h2>
-<p>Most bioinformatics tools live on the command line. Module 2 covers Linux navigation, pipes, redirection, manipulating GTFs with <code>grep</code>/<code>awk</code>/<code>cut</code>, and running programs on a cluster.</p>
+<section id="supplemental-readings-optional-3-total" class="level2">
+<h2 class="anchored" data-anchor-id="supplemental-readings-optional-3-total"><strong>Supplemental readings (optional; 3 total)</strong></h2>
 <ul>
-<li><a href="module2/instructions/set_up_wsl.html">Setup</a> (Windows users: WSL; everyone else: R/RStudio + optional HPC2N access)</li>
-<li><a href="module2/lectures/command_line/0_linux_syllabus.html">Lecture series — command line</a></li>
-<li>Exercises: <a href="module2/exercises/command_line/exploring_the_commandline.html">exploring the command line</a> · <a href="module2/exercises/command_line/gtf.html">GTF files</a> · <a href="module2/exercises/command_line/running_programs.html">running programs</a> · <a href="module2/exercises/command_line/storing_accessing_cmd.html">storing &amp; accessing data</a></li>
+<li>BLAST for beginners (if you want an introduction to BLAST, but from a different perspective). URL: <a href="https://www.nature.com/scitable/topicpage/basic-local-alignment-search-tool-blast-29096" class="uri">https://www.nature.com/scitable/topicpage/basic-local-alignment-search-tool-blast-29096</a> </li>
+<li><span style="font-size: 12pt;">Exploring Evolutionary Relationships Using BLAST (online workshop, if you want to learn even more about BLAST!). URL: <a href="https://www.nlm.nih.gov/ncbi/workshops/2023-08_BLAST_evol/workshop_details.html" class="uri">https://www.nlm.nih.gov/ncbi/workshops/2023-08_BLAST_evol/workshop_details.html</a></span></li>
+<li><span style="font-size: 12pt;"><a href="https://www.nlm.nih.gov/ncbi/workshops/2023-08_BLAST_evol/workshop_details.html"></a>The Statistics of Sequence Similarity Scores (if you want to learn more about the math behind BLAST scores). URL: <a href="https://www.ncbi.nlm.nih.gov/BLAST/tutorial/Altschul-1.html" class="uri">https://www.ncbi.nlm.nih.gov/BLAST/tutorial/Altschul-1.html</a>  </span></li>
 </ul>
+<p> </p>
 </section>
-<section id="module-3-genome-data-analysis" class="level2">
-<h2 class="anchored" data-anchor-id="module-3-genome-data-analysis">Module 3 — Genome data analysis</h2>
-<p>A pathogen-genome walkthrough from raw Illumina reads to a phylogenetic tree: quality control, de novo assembly, annotation, read mapping with variant calling, and tree building. Most exercises run on the HPC2N cluster.</p>
+<section id="hands-on-exercises-3-total" class="level2">
+<h2 class="anchored" data-anchor-id="hands-on-exercises-3-total"><strong>Hands-on exercises (3 total)</strong></h2>
+<p><strong>Hands-on exercise 3.2:</strong> Algorithm explorer! 🔎<span> </span><a href="https://emojis.wiki/magnifying-glass-tilted-right/"></a></p>
+<p>In Module 3.2, we learned about <strong>three different pairwise sequence alignment algorithms/methods</strong>: Needleman-Wunsch, Smith-Waterman, and BLAST. In this exercise, we’ll use these algorithms to align real sequences, and we’ll play around with their parameters to better understand how they work! This activity is divided into three parts (one for each of Lecture 2, 3, and 4). Feel free to do each part after each lecture, or do them all at once after Lecture 4!</p>
+<p> </p>
+<section id="i.-hands-on-exercise-3.2-part-i-needleman-wunsch-algorithm" class="level3">
+<h3 class="anchored" data-anchor-id="i.-hands-on-exercise-3.2-part-i-needleman-wunsch-algorithm"><strong>I. Hands-on exercise 3.2, Part I:</strong> Needleman-Wunsch algorithm</h3>
+<p><strong>Associated lecture: </strong>Lecture 2 (Pairwise sequence alignment Part II: <span>Global alignment with dynamic programming)</span></p>
 <ul>
-<li>Lectures: <a href="module3/lectures/intro.html">Intro</a> · <a href="module3/lectures/3_1a_quality_control.html">3.1a Quality control</a> · <a href="module3/lectures/3_1b_de_novo_assembly.html">3.1b De novo assembly</a> · <a href="module3/lectures/3_2_annotation_part1.html">3.2 Annotation I</a> · <a href="module3/lectures/3_3_annotation_part2.html">3.3 Annotation II</a> · <a href="module3/lectures/3_4_read_mapping.html">3.4 Read mapping &amp; variants</a> · <a href="module3/lectures/3_5_phylogeny.html">3.5 Phylogeny</a></li>
-<li>Exercises: <a href="module3/exercises/3_1_qc_fastp.html">3.1 Quality control with fastp</a> · <a href="module3/exercises/3_1b_de_novo_assembly.html">3.1b De novo assembly</a> · <a href="module3/exercises/3_3_annotation.html">3.3 Annotation</a> · <a href="module3/exercises/3_4_snp_calling.html">3.4 SNP calling</a> · <a href="module3/exercises/3_5_phylogeny.html">3.5 Phylogeny</a></li>
+<li><strong>The Needleman-Wunsch algorithm…under the hood!</strong></li>
 </ul>
+<p><strong>Let’s play around with the Needleman-Wunsch algorithm and see how different parameters influence pairwise global alignment!</strong></p>
+<ol type="i">
+<li><p>Click the following link to go to Uni <span>Freiburg’s interactive Needleman-Wunsch implementation</span>: <a href="https://rna.informatik.uni-freiburg.de/Teaching/index.jsp?toolName=Needleman-Wunsch" class="uri">https://rna.informatik.uni-freiburg.de/Teaching/index.jsp?toolName=Needleman-Wunsch</a> </p></li>
+<li><p>Go to the section labeled “Input”; in the “<span>Sequence a” text box, </span>paste the following: <span>GGTTGACTA</span></p></li>
+</ol>
+<p><span>(iii) In the “<span>Sequence b” text box, </span>paste the following: TGTTACGG</span></p>
+<p><span>(iv) In the “Match” box, put a score of 5</span></p>
+<p><span>(v) In the “Mismatch” box, put a score of -4 </span></p>
+<p><span>(vi) In the “Gap” box, put a score of -10</span></p>
+<p><span>(vii) Hit “Enter” on your keyboard; under the “Output” section, select an alignment under “Results” to view its scoring matrix (there should only be one alignment).</span></p>
+<p><span>Looks familiar? This is the exact global alignment that we constructed by hand in Lecture 2!</span></p>
+<p><span>(viii) Feel free to play around with parameters and explore; what happens when we use a less stringent gap penalty (e.g., -1)? What happens when we use an extremely stringent mismatch penalty (e.g., -10) with a more relaxed gap penalty (e.g., -5)? What if we penalize matches (e.g., -10) and incentivize mismatches and gaps (e.g., +10 each)?</span></p>
+<p><span>(ix) Feel free to input your own sequences! What happens when we input two identical sequences (e.g., ACTGGA as both Sequence a and b)? What if we input a forward sequence and then its reverse (e.g., ACTGGA and AGGTCA)? What if we put repeated sequences of different lengths (e.g., GGGGG and GGGGGGGGG)?</span></p>
+<p> </p>
+<ul>
+<li><strong>The Needleman-Wunsch algorithm…in practice!</strong></li>
+</ul>
+<p><strong>Let’s use the EMBL-EBI’s implementation of the Needleman-Wunsch algorithm to find the optimal global alignment of two antimicrobial resistance genes!</strong></p>
+<ol type="i">
+<li><p>Go to EMBOSS Needle, EMBL-EBI’s Needleman-Wunsch implementation: <a href="https://www.ebi.ac.uk/jdispatcher/psa/emboss_needle" class="uri">https://www.ebi.ac.uk/jdispatcher/psa/emboss_needle</a> </p></li>
+<li><p>Under “Sequence Type”, select “DNA”. </p></li>
+<li><p>Paste the DNA sequence of CMY-2 (below), in FASTA format, into the first sequence text box.</p></li>
+</ol>
+<p>CMY-2 (FASTA):</p>
+<pre><code>&gt;blaCMY-2 446899258|WP_000976514.1|NG_048814|1|1|blaCMY-2|blaCMY|class_C_beta-lactamase_CMY-2 NG_048814:101-1246
+atgatgaaaaaatcgttatgctgcgctctgctgctgacagcctctttctccacatttgctgccgcaaaaacagaacaaca
+gattgccgatatcgttaatcgcaccatcaccccgttgatgcaggagcaggctattccgggtatggccgttgccgttatct
+accagggaaaaccctattatttcacctggggtaaagccgatatcgccaataaccacccagtcacgcagcaaacgctgttt
+gagctaggatcggttagtaagacgtttaacggcgtgttgggcggcgatgctatcgcccgcggcgaaattaagctcagcga
+tccggtcacgaaatactggccagaactgacaggcaaacagtggcagggtatccgcctgctgcacttagccacctatacgg
+caggcggcctaccgctgcagatccccgatgacgttagggataaagccgcattactgcatttttatcaaaactggcagccg
+caatggactccgggcgctaagcgactttacgctaactccagcattggtctgtttggcgcgctggcggtgaaaccctcagg
+aatgagttacgaagaggcaatgaccagacgcgtcctgcaaccattaaaactggcgcatacctggattacggttccgcaga
+acgaacaaaaagattatgcctggggctatcgcgaagggaagcccgtacacgtttctccgggacaacttgacgccgaagcc
+tatggcgtgaaatccagcgttattgatatggcccgctgggttcaggccaacatggatgccagccacgttcaggagaaaac
+gctccagcagggcattgcgcttgcgcagtctcgctactggcgtattggcgatatgtaccagggattaggctgggagatgc
+tgaactggccgctgaaagctgattcgatcatcaacggcagcgacagcaaagtggcattggcagcgcttcccgccgttgag
+gtaaacccgcccgcccccgcagtgaaagcctcatgggtgcataaaacgggctccactggtggatttggcagctacgtagc
+cttcgttccagaaaaaaaccttggcatcgtgatgctggcaaacaaaagctatcctaaccctgtccgtgtcgaggcggcct
+ggcgcattcttgaaaagctgcaataa</code></pre>
+<p>(iv) Paste the DNA sequence of CMY-33 (below), in FASTA format, into the second sequence text box.</p>
+<p>CMY-33 (FASTA):</p>
+<pre><code>&gt;blaCMY-33 1028104514|WP_063859835.1|NG_048828|1|1|blaCMY-33|blaCMY|class_C_beta-lactamase_CMY-33 NG_048828:1-1140
+atgatgaaaaaatcgttatgctgcgctctgctgctgacagcctctttctccacatttgctgccgcaaaaacagaacaaca
+gattgccgatatcgttaatcgcaccatcaccccgttgatgcaggagcaggctattccgggtatggccgttgccgttatct
+accagggaaaaccctattatttcacctggggtaaagccgatatcgccaataaccacccagtcacgcagcaaacgctgttt
+gagctaggatcggttagtaagacgtttaacggcgtgttgggcggcgatgctatcgcccgcggcgaaattaagctcagcga
+tccggtcacgaaatactggccagaactgacaggcaaacagtggcagggtatccgcctgctgcacttagccacctatacgg
+caggcggcctaccgctgcagatccccgatgacgttagggataaagccgcattactgcatttttatcaaaactggcagccg
+caatggactccgggcgctaagcgactttacgctaactccagcattggtctgtttggcgcgctggcggtgaaaccctcagg
+aatgagttacgaagaggcaatgaccagacgcgtcctgcaaccattaaaactggcgcatacctggattacggttccgcaga
+acgaacaaaaagattatgcctggggctatcgcgaagggaagcccgtacacgtttctccgggacaacttgacgccgaagcc
+tatggcgtgaaatccagcgttattgatatggcccgctgggttcaggccaacatggatgccagccacgttcaggagaaaac
+gctccagcagggcattgcgcttgcgcagtctcgctactggcgtattggcgatatgtaccagggattaggctgggagatgc
+tgaactggccgctgaaagctgattcgatcatcaacggcagcgacagcaaagtggcagcgcttcccgccgttgaggtaaac
+ccgcccgcccccgcagtgaaagcctcatgggtgcataaaacgggctccactggtggatttggcagctacgtagccttcgt
+tccagaaaaaaaccttggcatcgtgatgctggcaaacaaaagctatcctaaccctgtccgtgtcgaggcggcctggcgca
+ttcttgaaaagctgcaataa</code></pre>
+<ol start="22" type="a">
+<li>Under “Output Format”, select “Pair”</li>
+</ol>
+<ol start="6" type="i">
+<li><p>Click the “More options” link to see the substitution matrix and gap penalty scheme. Click “Less options” to close the section.</p></li>
+<li><p>Click the “Submit” button, and wait! 😊☕🍿</p></li>
+<li><p>Take a look at your optimal global alignment! Notice anything interesting? (Hint: check out this paper! <a href="https://journals.asm.org/doi/10.1128/aac.01804-15" class="uri">https://journals.asm.org/doi/10.1128/aac.01804-15</a>) </p></li>
+</ol>
+<p> </p>
 </section>
-<section id="module-4-statistics-and-rna-seq" class="level2">
-<h2 class="anchored" data-anchor-id="module-4-statistics-and-rna-seq">Module 4 — Statistics and RNA-seq</h2>
-<p>Where everything comes together: classical statistical distributions, simulation and bootstrap, linear models (<code>lm</code> and Stan), and a hands-on RNA-seq differential expression analysis from FASTQ to volcano plot.</p>
+<section id="ii.-hands-on-exercise-3.2-part-ii-smith-waterman-algorithm" class="level3">
+<h3 class="anchored" data-anchor-id="ii.-hands-on-exercise-3.2-part-ii-smith-waterman-algorithm"><strong>II. Hands-on exercise 3.2, Part II:</strong> Smith-Waterman algorithm</h3>
+<p><strong>Associated lecture: </strong>Lecture 3 (Pairwise sequence alignment <span>Part III: Local alignment with dynamic programming)</span></p>
 <ul>
-<li><a href="module4/intro.html">Module 4 introduction</a></li>
-<li><a href="module4/4_1_basic_stats.html">4.1 — Basic statistics</a></li>
-<li><a href="module4/4_2_sim_bootstrap.html">4.2 — Simulations and bootstrapping</a></li>
-<li><a href="module4/4_3_linmod.html">4.3 — Linear models for statistics</a></li>
-<li><a href="module4/4_4_rnaseq.html">4.4 — RNA-seq analysis</a></li>
+<li><strong>The Smith-Waterman algorithm…under the hood!</strong></li>
 </ul>
+<p><strong>Let’s play around with the Smith-Waterman algorithm and see how different parameters influence pairwise local alignment!</strong></p>
+<ol type="i">
+<li><p>Click the following link to go to Uni <span>Freiburg’s interactive Smith-Waterman implementation</span>: <a href="https://rna.informatik.uni-freiburg.de/Teaching/index.jsp?toolName=Smith-Waterman" class="uri">https://rna.informatik.uni-freiburg.de/Teaching/index.jsp?toolName=Smith-Waterman</a> </p></li>
+<li><p>Go to the section labeled “Input”; in the “<span>Sequence a” text box, </span>paste the following: <span>GGTTGACTA</span></p></li>
+</ol>
+<p><span>(iii) In the “Sequence b” text box, paste the following: TGTTACGG</span></p>
+<p><span>(iv) In the “Match” box, put a score of 5</span></p>
+<p><span>(v) In the “Mismatch” box, put a score of -4 </span></p>
+<p><span>(vi) In the “Gap” box, put a score of -10</span></p>
+<p><span>(vii) Hit “Enter” on your keyboard; under the “Output” section, select an alignment under “Results” to view its scoring matrix (there should be two optimal alignments).</span></p>
+<p><span>Looks familiar? These are the exact local alignments that we constructed by hand in Lecture 3!</span></p>
+<p><span>(viii) Feel free to play around with parameters and explore; what happens when we use a less stringent gap penalty (e.g., -1)? What happens when we use an extremely stringent mismatch penalty (e.g., -10) with a more relaxed gap penalty (e.g., -5)? What if we lower our match score (e.g., to +1)? What if we penalize matches (e.g., -10) and incentivize mismatches and gaps (e.g., +10 each)?</span></p>
+<p><span>(ix) Feel free to input your own sequences! What happens when we input two identical sequences (e.g., ACTGGA as both Sequence a and b)? What if we input a forward sequence and then its reverse (e.g., ACTGGA and AGGTCA)? What if we put repeated sequences of different lengths (e.g., GGGGG and GGGGGGGGG)?</span></p>
+<p> </p>
+<ul>
+<li><strong>The Smith-Waterman algorithm…in practice!</strong></li>
+</ul>
+<p><strong>Let’s use the EMBL-EBI’s implementation of the Smith-Waterman algorithm to find the optimal local alignment of two antimicrobial resistance genes!</strong></p>
+<ol type="i">
+<li><p>Go to EMBOSS Water, EMBL-EBI’s Smith-Waterman implementation: <a href="https://www.ebi.ac.uk/jdispatcher/psa/emboss_water" class="uri">https://www.ebi.ac.uk/jdispatcher/psa/emboss_water</a> </p></li>
+<li><p>Under “Sequence Type”, select “DNA”. </p></li>
+<li><p>Paste the DNA sequence of CMY-2 (above), in FASTA format, into the first sequence text box.</p></li>
+<li><p>Paste the DNA sequence of CMY-33 (above), in FASTA format, into the second sequence text box.</p></li>
+<li><p>Under “Output Format”, select “Pair”</p></li>
+<li><p>Click the “More options” link to see the substitution matrix and gap penalty scheme. Click “Less options” to close the section.</p></li>
+<li><p>Click the “Submit” button, and wait! 😊☕🍿</p></li>
+<li><p>Take a look at your optimal local alignment! How does it compare to the optimal global alignment constructed using Needleman-Wunsch?</p></li>
+</ol>
+<p> </p>
+</section>
+<section id="iii.-hands-on-exercise-3.2-part-iii-blast" class="level3">
+<h3 class="anchored" data-anchor-id="iii.-hands-on-exercise-3.2-part-iii-blast"><strong>III. Hands-on exercise 3.2, Part III:</strong> BLAST</h3>
+<p><strong>Associated lecture: </strong>Lecture 4 (Pairwise sequence alignment Part <span>IV: </span><span>Word/</span><em><span>k</span></em><span>-tuple methods)</span></p>
+<ul>
+<li><strong>BLAST…in practice!</strong></li>
+</ul>
+<p><strong>Let’s use NCBI BLAST to identify a mystery gene!</strong></p>
+<p>Our mystery gene:</p>
+<pre><code>&gt;mystery_gene
+atggtgacaaagagagtgcaacggatgatgttygcggcggcggcgtgcattccgctgctgctgggcagcgcgccgcttta
+tgcgcagacgagtgcggtgcagcaaaagctggcggcgctggagaaaagcagcggagggcggctgggcgtcgcgctcatcg
+ataccgcagataatacgcaggtgctttatcgcggtgatgaacgctttccaatgtgcagtaccagtaaagttatggcggcc
+gcggcggtgcttaagcagagtgaaacgcaaaagcagctgcttaatcagcctgtcgagatcaagcctgccgatctggttaa
+ctacaatccgattgccgaaaaacacgtcaacggcacaatgacgctggcagaactgagcgcggccgcgttgcagtacagcg
+acaataccgccatgaacaaattgattgcccagctcggtggcccggaaggcgtgacggcttttgcccgcgcgatcggcgat
+gagacgtttcgtctggatcgcactgaacctacgctgaataccgccattcccggcgacccgagagacaccaccacgccgcg
+ggcgatggcgcagacgttgcgtcagcttacgctgggtcatgcgctgggcgaaacccagcgggcgcagttggtgacgtggc
+tcaaaggcaatacgaccggcgcagccagcattcgggccggcttaccgacgtcgtggactgtgggtgataagaccggcagc
+ggcgactacggcaccaccaatgatattgcggtgatctggccgcagggtcgtgcgccgctggttctggtgacctattttac
+ccagccgcaacagaacgcagagagccgccgcgatgtgctggcttcagcggcgagaatcatcgccgaagggctgtaa</code></pre>
+<ol type="i">
+<li><p>Go to the NCBI BLAST home page: <a href="https://blast.ncbi.nlm.nih.gov/Blast.cgi" class="uri">https://blast.ncbi.nlm.nih.gov/Blast.cgi</a> </p></li>
+<li><p>Let’s decide which BLAST algorithm we want; because we only have the nucleotide (DNA) sequence for our mystery gene, we can either use nucleotide BLAST (BLASTN) to compare our mystery gene to one of NCBI’s nucleotide databases. Alternatively, we can use BLASTX, which translates our nucleotide sequence into an amino acid sequence and then compares that to one of NCBI’s protein sequence databases. Because we don’t know what our gene is, and we may want to detect more remote hits, let’s use BLASTX, because protein/amino acid-based methods tend to detect more remote hits! Click BLASTX.</p></li>
+<li><p>Under “Enter query sequence”, copy and paste your mystery gene’s FASTA (above) into the text box</p></li>
+<li><p>Under “Database”, make sure “Non-redundant protein sequences (nr)” is selected</p></li>
+<li><p>Click “Algorithm parameters” to expand the menu. Recognize any of these? </p></li>
+<li><p>Click the blue “Blast” button and wait! 😊☕🍿</p></li>
+<li><p>Which hit is the top hit? How can you tell? (I.e., what should we consider when we have multiple hits with an E-value of 0?)</p></li>
+<li><p>Spoiler alert: our mystery gene is CTX-M-161. Was this your top hit? Why or why not? Click on the “Accession” number for your top hit; you’ll go to NCBI’s Protein database, where you can learn more about the corresponding sequence!</p></li>
+<li><p>Re-do steps (i) to (v), but this time, feel free to try out some different parameters! What happens when you raise the word size to 6? What if we raise our gap opening penalty (e.g., to 13)? Does it change your top result? Does it change other results?</p></li>
+</ol>
+</section>
 </section>
 
 </main>

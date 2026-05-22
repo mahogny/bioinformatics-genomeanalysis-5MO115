@@ -1,0 +1,47 @@
+---
+title: "3.1b De novo assembly"
+format:
+  html:
+    theme: yeti
+---
+
+## **Lectures (2 total)**
+
+  - <span style="font-size: 12pt;">**Lecture 1:** *De novo* <span>assembly of Illumina reads</span></span>
+
+<!-- end list -->
+
+  - **Lecture 2:** Quality control of assembled genomes
+
+ 
+
+## **Practical readings (3 total)**
+
+
+
+
+  - Introduction to genome assembly: <https://bioinformaticsworkbook.org/dataAnalysis/GenomeAssembly/Intro_GenomeAssembly.html#gsc.tab=0> 
+  - <span style="font-size: 12pt;">Li, et al. 2012. Comparison of the two major classes of assembly algorithms: overlap–layout–consensus and de-bruijn-graph. *Briefings in Functional Genomics*. URL: <https://academic.oup.com/bfg/article/11/1/25/191455> </span>
+  - <span style="font-size: 12pt;">QUAST paper (it's short, I promise\! Don't worry if you don't understand the technical details, it's just to give you an idea of the types of quality metrics QUAST outputs):<span> </span>[<span>https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3624806</span>](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3624806)</span>
+
+
+
+
+ 
+
+## **Supplemental readings (optional, only if you want more theory; 2 total)**
+
+  - <span style="font-size: 12pt;"><span style="font-size: 12pt;">Compeau, et al. 2011. </span></span>Why are de Bruijn graphs useful for genome assembly? *Nature Biotechnology*. URL: <https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5531759> 
+  - <span style="font-size: 12pt;">Sohn and Nam. 2016. The present and future of<span style="font-family: inherit; color: var(--ic-brand-font-color-dark);"> </span>*de novo*<span style="font-family: inherit; color: var(--ic-brand-font-color-dark);"> </span><span style="font-family: inherit; color: var(--ic-brand-font-color-dark);">whole-genome assembly. *Briefings in Bioinformatics.* URL: </span></span><https://academic.oup.com/bib/article/19/1/23/2339783> 
+
+ 
+
+## **Hands-on exercises (1 total)**
+
+**Hands-on exercise 3.1b:** Started from the bottom (raw reads) now we're here (contigs)\! 🧩
+
+***IMPORTANT NOTE:*** Genome assembly is computationally intensive\! **For this exercise, please request 4 CPUs.**
+
+To complete the activity, go to the following URL (you can also download the HTML file and open it in your favorite browser): [3\_1b\_activity\_de\_novo\_assembly\_v2\_hpc2n.html](https://www.canvas.umu.se/courses/21745/files/5400560?wrap=1 "3_1b_activity_de_novo_assembly_v2_hpc2n.html")
+
+<span>If, for some reason, the HTML doesn't work in your browser, a print-out of the activity can be found here: [3\_1b\_activity\_de\_novo\_assembly\_v2\_hpc2n.pdf](https://www.canvas.umu.se/courses/21745/files/5400499?wrap=1 "3_1b_activity_de_novo_assembly_v2_hpc2n.pdf")</span>

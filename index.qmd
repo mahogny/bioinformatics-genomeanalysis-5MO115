@@ -22,6 +22,13 @@ Most bioinformatics tools live on the command line. Module 2 covers Linux naviga
 - [Lecture series — command line](module2/lectures/command_line/0_linux_syllabus.html)
 - Exercises: [exploring the command line](module2/exercises/command_line/exploring_the_commandline.html) · [GTF files](module2/exercises/command_line/gtf.html) · [running programs](module2/exercises/command_line/running_programs.html) · [storing & accessing data](module2/exercises/command_line/storing_accessing_cmd.html)
 
+## Module 3 — Genome data analysis
+
+A pathogen-genome walkthrough from raw Illumina reads to a phylogenetic tree: quality control, de novo assembly, annotation, read mapping with variant calling, and tree building. Most exercises run on the HPC2N cluster.
+
+- Lectures: [Intro](module3/lectures/intro.html) · [3.1a Quality control](module3/lectures/3_1a_quality_control.html) · [3.1b De novo assembly](module3/lectures/3_1b_de_novo_assembly.html) · [3.2 Annotation I](module3/lectures/3_2_annotation_part1.html) · [3.3 Annotation II](module3/lectures/3_3_annotation_part2.html) · [3.4 Read mapping & variants](module3/lectures/3_4_read_mapping.html) · [3.5 Phylogeny](module3/lectures/3_5_phylogeny.html)
+- Exercises: [3.1 Quality control with fastp](module3/exercises/3_1_qc_fastp.html) · [3.1b De novo assembly](module3/exercises/3_1b_de_novo_assembly.html) · [3.3 Annotation](module3/exercises/3_3_annotation.html) · [3.4 SNP calling](module3/exercises/3_4_snp_calling.html) · [3.5 Phylogeny](module3/exercises/3_5_phylogeny.html)
+
 ## Module 4 — Statistics and RNA-seq
 
 Where everything comes together: classical statistical distributions, simulation and bootstrap, linear models (`lm` and Stan), and a hands-on RNA-seq differential expression analysis from FASTQ to volcano plot.

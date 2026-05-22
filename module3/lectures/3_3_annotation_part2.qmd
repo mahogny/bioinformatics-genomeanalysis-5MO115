@@ -1,0 +1,69 @@
+---
+title: "3.3 Genome annotation (part II)"
+format:
+  html:
+    theme: yeti
+---
+
+ 
+
+ 
+
+<span>***IMPORTANT NOTE:***</span>** **In Module 3.3, we're going to continue with some more theory, and finally wrap up genome annotation with a practical lecture. Specifically, in Lectures 1 and 2, we'll learn about**<span> </span>hidden Markov models (HMMs)**, which are core components of many genome annotation pipelines. In Lecture 3, we'll then return to our WGS data analysis pipeline and tie everything together (pairwise sequence alignment algorithms, HMMs, and genome annotation). **Some of the videos below say "Module 1", but don't worry, you're in the right place\!**<span> </span>(based on student feedback, we've rearranged the course a bit, so these lectures, which were previously part of Module 1 are now part of Module 3)
+
+ 
+
+## **Lectures (3 total)**
+
+  - **Lecture 1:** Hidden Markov models Part I: Introduction
+
+<!-- end list -->
+
+  - <span>**Lecture 2:** <span>Hidden Markov models Part II: Profile HMMs</span></span>
+
+<span><span></span></span>
+
+  - **Lecture 3:** Genome annotation
+
+## **Practical readings (2 total)**
+
+  - Eddy. 2004. What is a hidden Markov model? URL: <https://www.nature.com/articles/nbt1004-1315> 
+  - NCBI PGAP pipeline (don't worry if you don't understand the specific tools; it's just to give you an overview of what genome annotation pipelines are doing\!):<span> </span>[<span>https://www.ncbi.nlm.nih.gov/genome/annotation\_prok/process</span>](https://www.ncbi.nlm.nih.gov/genome/annotation_prok/process)
+
+ 
+
+## **Supplemental readings (optional, only if you want more theory; 1 total)**
+
+  - Zerbino, et al. 2020. Progress, Challenges, and Surprises in Annotating the Human Genome.<span> </span>*Annual Review of Genomics and Human Genetics.<span> </span>*URL:<span> </span>[<span>https://www.annualreviews.org/doi/10.1146/annurev-genom-121119-083418</span><span class="external_link_icon" role="presentation"><span class="screenreader-only">Links to an external site.</span></span>](https://www.annualreviews.org/doi/10.1146/annurev-genom-121119-083418)
+
+ 
+
+## **Hands-on exercises (1 total)**
+
+**Hands-on exercise 3.3:<span> </span>**annotation station 🔎
+
+To complete the activity, go to the following URL (you can also download the HTML file and open it in your favorite browser): [3\_3\_annotation\_v2\_hpc2n.html](https://www.canvas.umu.se/courses/21745/files/5400495?wrap=1 "3_3_annotation_v2_hpc2n.html")
+
+<span>If, for some reason, the HTML doesn't work in your browser, a print-out of the activity can be found here: [3\_3\_annotation\_v2\_hpc2n.pdf](https://www.canvas.umu.se/courses/21745/files/5400558?wrap=1 "3_3_annotation_v2_hpc2n.pdf")</span>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

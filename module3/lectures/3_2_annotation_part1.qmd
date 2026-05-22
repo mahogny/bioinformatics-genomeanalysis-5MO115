@@ -1,0 +1,235 @@
+---
+title: "3.2 Genome annotation (part I)"
+format:
+  html:
+    theme: yeti
+---
+
+ 
+
+<span style="text-decoration: underline;">***IMPORTANT NOTE:***</span>** **In Module 3.2, we're going to take a step back from our WGS analysis pipeline and learn some theory. Specifically, we'll learn about **pairwise sequence alignment algorithms**, which form the backbone of many genome annotation pipelines (we'll come back to this in Module 3.2)\! **The videos below say "Module 1", but don't worry, you're in the right place\!** (based on student feedback, we've rearranged the course a bit, so these lectures, which were previously part of Module 1, are now part of Module 3)
+
+ 
+
+## **Lectures (4 total)**
+
+  - **Lecture 1:** Pairwise sequence alignment Part I: Dot-matrix method
+
+<!-- end list -->
+
+  - <span>**Lecture 2:** </span>Pairwise sequence alignment Part II: <span>Global alignment with dynamic programming</span>
+
+<!-- end list -->
+
+  - **Lecture 3:** Pairwise sequence alignment <span>Part III: Local alignment with dynamic programming</span>
+
+<!-- end list -->
+
+  - **Lecture 4:** Pairwise sequence alignment Part <span>IV: </span><span>Word/</span>*<span>k</span>*<span>-tuple methods</span>
+
+<span></span>
+
+## **Supplemental readings (optional; 3 total)**
+
+
+
+
+  - BLAST for beginners (if you want an introduction to BLAST, but from a different perspective). URL: <https://www.nature.com/scitable/topicpage/basic-local-alignment-search-tool-blast-29096> 
+  - <span style="font-size: 12pt;">Exploring Evolutionary Relationships Using BLAST (online workshop, if you want to learn even more about BLAST\!). URL: <https://www.nlm.nih.gov/ncbi/workshops/2023-08_BLAST_evol/workshop_details.html></span>
+  - <span style="font-size: 12pt;">[](https://www.nlm.nih.gov/ncbi/workshops/2023-08_BLAST_evol/workshop_details.html)The Statistics of Sequence Similarity Scores (if you want to learn more about the math behind BLAST scores). URL: <https://www.ncbi.nlm.nih.gov/BLAST/tutorial/Altschul-1.html>  </span>
+
+
+
+
+ 
+
+## **Hands-on exercises (3 total)**
+
+**Hands-on exercise 3.2:** Algorithm explorer\! 🔎<span> </span>[](https://emojis.wiki/magnifying-glass-tilted-right/)
+
+In Module 3.2, we learned about **three different pairwise sequence alignment algorithms/methods**: Needleman-Wunsch, Smith-Waterman, and BLAST. In this exercise, we'll use these algorithms to align real sequences, and we'll play around with their parameters to better understand how they work\! This activity is divided into three parts (one for each of Lecture 2, 3, and 4). Feel free to do each part after each lecture, or do them all at once after Lecture 4\!
+
+ 
+
+### **I. Hands-on exercise 3.2, Part I:** Needleman-Wunsch algorithm
+
+**Associated lecture: **Lecture 2 (Pairwise sequence alignment Part II: <span>Global alignment with dynamic programming)</span>
+
+  - **The Needleman-Wunsch algorithm...under the hood\!**
+
+**Let's play around with the Needleman-Wunsch algorithm and see how different parameters influence pairwise global alignment\!**
+
+(i) Click the following link to go to Uni <span>Freiburg's interactive Needleman-Wunsch implementation</span>: <https://rna.informatik.uni-freiburg.de/Teaching/index.jsp?toolName=Needleman-Wunsch> 
+
+(ii) Go to the section labeled "Input"; in the "<span>Sequence a" text box, </span>paste the following: <span>GGTTGACTA</span>
+
+<span>(iii) In the "<span>Sequence b" text box, </span>paste the following: TGTTACGG</span>
+
+<span>(iv) In the "Match" box, put a score of 5</span>
+
+<span>(v) In the "Mismatch" box, put a score of -4 </span>
+
+<span>(vi) In the "Gap" box, put a score of -10</span>
+
+<span>(vii) Hit "Enter" on your keyboard; under the "Output" section, select an alignment under "Results" to view its scoring matrix (there should only be one alignment).</span>
+
+<span>Looks familiar? This is the exact global alignment that we constructed by hand in Lecture 2\!</span>
+
+<span>(viii) Feel free to play around with parameters and explore; what happens when we use a less stringent gap penalty (e.g., -1)? What happens when we use an extremely stringent mismatch penalty (e.g., -10) with a more relaxed gap penalty (e.g., -5)? What if we penalize matches (e.g., -10) and incentivize mismatches and gaps (e.g., +10 each)?</span>
+
+<span>(ix) Feel free to input your own sequences\! What happens when we input two identical sequences (e.g., ACTGGA as both Sequence a and b)? What if we input a forward sequence and then its reverse (e.g., ACTGGA and AGGTCA)? What if we put repeated sequences of different lengths (e.g., GGGGG and GGGGGGGGG)?</span>
+
+ 
+
+  - **The Needleman-Wunsch algorithm...in practice\!**
+
+**Let's use the EMBL-EBI's implementation of the Needleman-Wunsch algorithm to find the optimal global alignment of two antimicrobial resistance genes\!**
+
+(i) Go to EMBOSS Needle, EMBL-EBI's Needleman-Wunsch implementation: <https://www.ebi.ac.uk/jdispatcher/psa/emboss_needle> 
+
+(ii) Under "Sequence Type", select "DNA". 
+
+(iii) Paste the DNA sequence of CMY-2 (below), in FASTA format, into the first sequence text box.
+
+CMY-2 (FASTA):
+
+    >blaCMY-2 446899258|WP_000976514.1|NG_048814|1|1|blaCMY-2|blaCMY|class_C_beta-lactamase_CMY-2 NG_048814:101-1246
+    atgatgaaaaaatcgttatgctgcgctctgctgctgacagcctctttctccacatttgctgccgcaaaaacagaacaaca
+    gattgccgatatcgttaatcgcaccatcaccccgttgatgcaggagcaggctattccgggtatggccgttgccgttatct
+    accagggaaaaccctattatttcacctggggtaaagccgatatcgccaataaccacccagtcacgcagcaaacgctgttt
+    gagctaggatcggttagtaagacgtttaacggcgtgttgggcggcgatgctatcgcccgcggcgaaattaagctcagcga
+    tccggtcacgaaatactggccagaactgacaggcaaacagtggcagggtatccgcctgctgcacttagccacctatacgg
+    caggcggcctaccgctgcagatccccgatgacgttagggataaagccgcattactgcatttttatcaaaactggcagccg
+    caatggactccgggcgctaagcgactttacgctaactccagcattggtctgtttggcgcgctggcggtgaaaccctcagg
+    aatgagttacgaagaggcaatgaccagacgcgtcctgcaaccattaaaactggcgcatacctggattacggttccgcaga
+    acgaacaaaaagattatgcctggggctatcgcgaagggaagcccgtacacgtttctccgggacaacttgacgccgaagcc
+    tatggcgtgaaatccagcgttattgatatggcccgctgggttcaggccaacatggatgccagccacgttcaggagaaaac
+    gctccagcagggcattgcgcttgcgcagtctcgctactggcgtattggcgatatgtaccagggattaggctgggagatgc
+    tgaactggccgctgaaagctgattcgatcatcaacggcagcgacagcaaagtggcattggcagcgcttcccgccgttgag
+    gtaaacccgcccgcccccgcagtgaaagcctcatgggtgcataaaacgggctccactggtggatttggcagctacgtagc
+    cttcgttccagaaaaaaaccttggcatcgtgatgctggcaaacaaaagctatcctaaccctgtccgtgtcgaggcggcct
+    ggcgcattcttgaaaagctgcaataa
+
+(iv) Paste the DNA sequence of CMY-33 (below), in FASTA format, into the second sequence text box.
+
+CMY-33 (FASTA):
+
+    >blaCMY-33 1028104514|WP_063859835.1|NG_048828|1|1|blaCMY-33|blaCMY|class_C_beta-lactamase_CMY-33 NG_048828:1-1140
+    atgatgaaaaaatcgttatgctgcgctctgctgctgacagcctctttctccacatttgctgccgcaaaaacagaacaaca
+    gattgccgatatcgttaatcgcaccatcaccccgttgatgcaggagcaggctattccgggtatggccgttgccgttatct
+    accagggaaaaccctattatttcacctggggtaaagccgatatcgccaataaccacccagtcacgcagcaaacgctgttt
+    gagctaggatcggttagtaagacgtttaacggcgtgttgggcggcgatgctatcgcccgcggcgaaattaagctcagcga
+    tccggtcacgaaatactggccagaactgacaggcaaacagtggcagggtatccgcctgctgcacttagccacctatacgg
+    caggcggcctaccgctgcagatccccgatgacgttagggataaagccgcattactgcatttttatcaaaactggcagccg
+    caatggactccgggcgctaagcgactttacgctaactccagcattggtctgtttggcgcgctggcggtgaaaccctcagg
+    aatgagttacgaagaggcaatgaccagacgcgtcctgcaaccattaaaactggcgcatacctggattacggttccgcaga
+    acgaacaaaaagattatgcctggggctatcgcgaagggaagcccgtacacgtttctccgggacaacttgacgccgaagcc
+    tatggcgtgaaatccagcgttattgatatggcccgctgggttcaggccaacatggatgccagccacgttcaggagaaaac
+    gctccagcagggcattgcgcttgcgcagtctcgctactggcgtattggcgatatgtaccagggattaggctgggagatgc
+    tgaactggccgctgaaagctgattcgatcatcaacggcagcgacagcaaagtggcagcgcttcccgccgttgaggtaaac
+    ccgcccgcccccgcagtgaaagcctcatgggtgcataaaacgggctccactggtggatttggcagctacgtagccttcgt
+    tccagaaaaaaaccttggcatcgtgatgctggcaaacaaaagctatcctaaccctgtccgtgtcgaggcggcctggcgca
+    ttcttgaaaagctgcaataa
+
+(v) Under "Output Format", select "Pair"
+
+(vi) Click the "More options" link to see the substitution matrix and gap penalty scheme. Click "Less options" to close the section.
+
+(vii) Click the "Submit" button, and wait\! 😊☕🍿
+
+(viii) Take a look at your optimal global alignment\! Notice anything interesting? (Hint: check out this paper\! <https://journals.asm.org/doi/10.1128/aac.01804-15>) 
+
+ 
+
+### **II. Hands-on exercise 3.2, Part II:** Smith-Waterman algorithm
+
+**Associated lecture: **Lecture 3 (Pairwise sequence alignment <span>Part III: Local alignment with dynamic programming)</span>
+
+  - **The Smith-Waterman algorithm...under the hood\!**
+
+**Let's play around with the Smith-Waterman algorithm and see how different parameters influence pairwise local alignment\!**
+
+(i) Click the following link to go to Uni <span>Freiburg's interactive Smith-Waterman implementation</span>: <https://rna.informatik.uni-freiburg.de/Teaching/index.jsp?toolName=Smith-Waterman> 
+
+(ii) Go to the section labeled "Input"; in the "<span>Sequence a" text box, </span>paste the following: <span>GGTTGACTA</span>
+
+<span>(iii) In the "Sequence b" text box, paste the following: TGTTACGG</span>
+
+<span>(iv) In the "Match" box, put a score of 5</span>
+
+<span>(v) In the "Mismatch" box, put a score of -4 </span>
+
+<span>(vi) In the "Gap" box, put a score of -10</span>
+
+<span>(vii) Hit "Enter" on your keyboard; under the "Output" section, select an alignment under "Results" to view its scoring matrix (there should be two optimal alignments).</span>
+
+<span>Looks familiar? These are the exact local alignments that we constructed by hand in Lecture 3\!</span>
+
+<span>(viii) Feel free to play around with parameters and explore; what happens when we use a less stringent gap penalty (e.g., -1)? What happens when we use an extremely stringent mismatch penalty (e.g., -10) with a more relaxed gap penalty (e.g., -5)? What if we lower our match score (e.g., to +1)? What if we penalize matches (e.g., -10) and incentivize mismatches and gaps (e.g., +10 each)?</span>
+
+<span>(ix) Feel free to input your own sequences\! What happens when we input two identical sequences (e.g., ACTGGA as both Sequence a and b)? What if we input a forward sequence and then its reverse (e.g., ACTGGA and AGGTCA)? What if we put repeated sequences of different lengths (e.g., GGGGG and GGGGGGGGG)?</span>
+
+ 
+
+  - **The Smith-Waterman algorithm...in practice\!**
+
+**Let's use the EMBL-EBI's implementation of the Smith-Waterman algorithm to find the optimal local alignment of two antimicrobial resistance genes\!**
+
+(i) Go to EMBOSS Water, EMBL-EBI's Smith-Waterman implementation: <https://www.ebi.ac.uk/jdispatcher/psa/emboss_water> 
+
+(ii) Under "Sequence Type", select "DNA". 
+
+(iii) Paste the DNA sequence of CMY-2 (above), in FASTA format, into the first sequence text box.
+
+(iv) Paste the DNA sequence of CMY-33 (above), in FASTA format, into the second sequence text box.
+
+(v) Under "Output Format", select "Pair"
+
+(vi) Click the "More options" link to see the substitution matrix and gap penalty scheme. Click "Less options" to close the section.
+
+(vii) Click the "Submit" button, and wait\! 😊☕🍿
+
+(viii) Take a look at your optimal local alignment\! How does it compare to the optimal global alignment constructed using Needleman-Wunsch?
+
+ 
+
+### **III. Hands-on exercise 3.2, Part III:** BLAST
+
+**Associated lecture: **Lecture 4 (Pairwise sequence alignment Part <span>IV: </span><span>Word/</span>*<span>k</span>*<span>-tuple methods)</span>
+
+  - **BLAST...in practice\!**
+
+**Let's use NCBI BLAST to identify a mystery gene\!**
+
+Our mystery gene:
+
+    >mystery_gene
+    atggtgacaaagagagtgcaacggatgatgttygcggcggcggcgtgcattccgctgctgctgggcagcgcgccgcttta
+    tgcgcagacgagtgcggtgcagcaaaagctggcggcgctggagaaaagcagcggagggcggctgggcgtcgcgctcatcg
+    ataccgcagataatacgcaggtgctttatcgcggtgatgaacgctttccaatgtgcagtaccagtaaagttatggcggcc
+    gcggcggtgcttaagcagagtgaaacgcaaaagcagctgcttaatcagcctgtcgagatcaagcctgccgatctggttaa
+    ctacaatccgattgccgaaaaacacgtcaacggcacaatgacgctggcagaactgagcgcggccgcgttgcagtacagcg
+    acaataccgccatgaacaaattgattgcccagctcggtggcccggaaggcgtgacggcttttgcccgcgcgatcggcgat
+    gagacgtttcgtctggatcgcactgaacctacgctgaataccgccattcccggcgacccgagagacaccaccacgccgcg
+    ggcgatggcgcagacgttgcgtcagcttacgctgggtcatgcgctgggcgaaacccagcgggcgcagttggtgacgtggc
+    tcaaaggcaatacgaccggcgcagccagcattcgggccggcttaccgacgtcgtggactgtgggtgataagaccggcagc
+    ggcgactacggcaccaccaatgatattgcggtgatctggccgcagggtcgtgcgccgctggttctggtgacctattttac
+    ccagccgcaacagaacgcagagagccgccgcgatgtgctggcttcagcggcgagaatcatcgccgaagggctgtaa
+
+(i) Go to the NCBI BLAST home page: <https://blast.ncbi.nlm.nih.gov/Blast.cgi> 
+
+(ii) Let's decide which BLAST algorithm we want; because we only have the nucleotide (DNA) sequence for our mystery gene, we can either use nucleotide BLAST (BLASTN) to compare our mystery gene to one of NCBI's nucleotide databases. Alternatively, we can use BLASTX, which translates our nucleotide sequence into an amino acid sequence and then compares that to one of NCBI's protein sequence databases. Because we don't know what our gene is, and we may want to detect more remote hits, let's use BLASTX, because protein/amino acid-based methods tend to detect more remote hits\! Click BLASTX.
+
+(iii) Under "Enter query sequence", copy and paste your mystery gene's FASTA (above) into the text box
+
+(iv) Under "Database", make sure "Non-redundant protein sequences (nr)" is selected
+
+(v) Click "Algorithm parameters" to expand the menu. Recognize any of these? 
+
+(vi) Click the blue "Blast" button and wait\! 😊☕🍿
+
+(vii) Which hit is the top hit? How can you tell? (I.e., what should we consider when we have multiple hits with an E-value of 0?)
+
+(viii) Spoiler alert: our mystery gene is CTX-M-161. Was this your top hit? Why or why not? Click on the "Accession" number for your top hit; you'll go to NCBI's Protein database, where you can learn more about the corresponding sequence\!
+
+(ix) Re-do steps (i) to (v), but this time, feel free to try out some different parameters\! What happens when you raise the word size to 6? What if we raise our gap opening penalty (e.g., to 13)? Does it change your top result? Does it change other results?

@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Introduction to Bioinformatics (5MO115) — vt26</title>
+<title>Module 3 — Genome data analysis</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -2138,23 +2138,14 @@ vertical-align: -.125em;
 <body class="quarto-light">
 
 <div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
-<div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-  <nav id="TOC" role="doc-toc" class="toc-active">
-    <h2 id="toc-title">Table of contents</h2>
-   
-  <ul>
-  <li><a href="#module-1-r-and-basics" id="toc-module-1-r-and-basics" class="nav-link active" data-scroll-target="#module-1-r-and-basics">Module 1 — R and basics</a></li>
-  <li><a href="#module-2-command-line" id="toc-module-2-command-line" class="nav-link" data-scroll-target="#module-2-command-line">Module 2 — Command line</a></li>
-  <li><a href="#module-3-genome-data-analysis" id="toc-module-3-genome-data-analysis" class="nav-link" data-scroll-target="#module-3-genome-data-analysis">Module 3 — Genome data analysis</a></li>
-  <li><a href="#module-4-statistics-and-rna-seq" id="toc-module-4-statistics-and-rna-seq" class="nav-link" data-scroll-target="#module-4-statistics-and-rna-seq">Module 4 — Statistics and RNA-seq</a></li>
-  </ul>
-</nav>
+<div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
+  
 </div>
 <main class="content" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Introduction to Bioinformatics (5MO115) — vt26</h1>
+<h1 class="title">Module 3 — Genome data analysis</h1>
 </div>
 
 
@@ -2171,44 +2162,31 @@ vertical-align: -.125em;
 </header>
 
 
-<p>Course materials for the spring 2026 instance of <em>Introduction to Bioinformatics and Genome Analysis</em> (course code <strong>5MO115</strong>) at Umeå University.</p>
-<p>Every exercise page has collapsible <strong>Hint</strong> and <strong>Solution</strong> callouts, plus an <em>Extra exercise material</em> section at the bottom for additional practice.</p>
-<section id="module-1-r-and-basics" class="level2">
-<h2 class="anchored" data-anchor-id="module-1-r-and-basics">Module 1 — R and basics</h2>
-<p>R is the workhorse of statistical bioinformatics. Module 1 covers the language from scratch (variables, types, vectors, matrices, data frames, control flow, reading data, plotting) and revisits the linear algebra and probability foundations needed for the rest of the course.</p>
+<p>Welcome to Module 3!</p>
+<p> </p>
+<p>In this module, you will be learning how to <strong>analyze whole-genome sequencing (WGS) data…from start to finish!</strong> Specifically, you will:</p>
 <ul>
-<li><a href="module1/lectures/intro_R/0_R_syllabus.html">Lecture series — intro to R</a> (14 short decks)</li>
-<li>Exercises: <a href="module1/exercises/linalg/linalg.html">linear algebra</a> · <a href="module1/exercises/basicprob/basicprob.html">probability &amp; Markov chains</a> · <a href="module1/exercises/intro_R/creating_variables.html">variables</a> · <a href="module1/exercises/intro_R/complex_data_structures.html">data structures</a> · <a href="module1/exercises/intro_R/read_and_plot_data.html">reading &amp; plotting</a> · <a href="module1/exercises/intro_R/loops_ifelse_functions.html">control flow</a></li>
+<li><span>Learn how to derive meaningful</span> <strong>biological conclusions</strong> <span>from raw, paired-end </span><strong>Illumina WGS data</strong></li>
+<li><span>Understand important steps in </span><strong>bioinformatic pipelines for WGS data analysis</strong></li>
+<li><span>Obtain a high-level understanding of <strong>important algorithms</strong> used in WGS data analysis </span></li>
 </ul>
-</section>
-<section id="module-2-command-line" class="level2">
-<h2 class="anchored" data-anchor-id="module-2-command-line">Module 2 — Command line</h2>
-<p>Most bioinformatics tools live on the command line. Module 2 covers Linux navigation, pipes, redirection, manipulating GTFs with <code>grep</code>/<code>awk</code>/<code>cut</code>, and running programs on a cluster.</p>
+<p> </p>
+<p><span>Because this course is entirely online, at 100% speed, students will be going at slightly different paces. However, if you want to follow along at the suggested pace, <strong>Module 3 is organized into five “days” of material</strong>:</span></p>
 <ul>
-<li><a href="module2/instructions/set_up_wsl.html">Setup</a> (Windows users: WSL; everyone else: R/RStudio + optional HPC2N access)</li>
-<li><a href="module2/lectures/command_line/0_linux_syllabus.html">Lecture series — command line</a></li>
-<li>Exercises: <a href="module2/exercises/command_line/exploring_the_commandline.html">exploring the command line</a> · <a href="module2/exercises/command_line/gtf.html">GTF files</a> · <a href="module2/exercises/command_line/running_programs.html">running programs</a> · <a href="module2/exercises/command_line/storing_accessing_cmd.html">storing &amp; accessing data</a></li>
+<li><a href="https://www.canvas.umu.se/courses/21745/pages/module-3-dot-1a-quality-control-and-pre-processing-of-wgs-data" title="Module 3.1 - Quality control and pre-processing of WGS data"><strong>Day 1a: Quality control and pre-processing of WGS data</strong></a></li>
+<li><a href="https://www.canvas.umu.se/courses/21745/pages/module-3-dot-1b-de-novo-assembly" title="Module 3.2 - De novo assembly"><strong>Day 1b: <em>De novo </em>assembly</strong></a></li>
+<li><a href="https://www.canvas.umu.se/courses/21745/pages/module-3-dot-2-genome-annotation-part-i" title="Module 3.2 - Genome annotation (part I)"><strong>Day 2: Genome annotation (part I)</strong></a></li>
+<li><a href="https://www.canvas.umu.se/courses/21745/pages/module-3-dot-3-genome-annotation-part-ii" title="Module 3.3 - Genome annotation (part II)"><strong>Day 3:</strong> <strong>Genome annotation (part II)</strong></a></li>
+<li><a href="https://www.canvas.umu.se/courses/21745/pages/module-3-dot-4-read-mapping-and-variant-calling" title="Module 3.4 - Read mapping and variant calling"><strong>Day 4:</strong> <strong>Read mapping and variant calling</strong></a></li>
+<li><a href="https://www.canvas.umu.se/courses/21745/pages/module-3-dot-5-phylogeny-construction" title="Module 3.5 - Phylogeny construction"><strong>Day 5: Phylogeny construction</strong></a></li>
 </ul>
-</section>
-<section id="module-3-genome-data-analysis" class="level2">
-<h2 class="anchored" data-anchor-id="module-3-genome-data-analysis">Module 3 — Genome data analysis</h2>
-<p>A pathogen-genome walkthrough from raw Illumina reads to a phylogenetic tree: quality control, de novo assembly, annotation, read mapping with variant calling, and tree building. Most exercises run on the HPC2N cluster.</p>
+<p> </p>
+<p>Module 3 will consist of the following <strong><em>optional</em></strong> graded assignments (points will be added to the final exam score):</p>
 <ul>
-<li>Lectures: <a href="module3/lectures/intro.html">Intro</a> · <a href="module3/lectures/3_1a_quality_control.html">3.1a Quality control</a> · <a href="module3/lectures/3_1b_de_novo_assembly.html">3.1b De novo assembly</a> · <a href="module3/lectures/3_2_annotation_part1.html">3.2 Annotation I</a> · <a href="module3/lectures/3_3_annotation_part2.html">3.3 Annotation II</a> · <a href="module3/lectures/3_4_read_mapping.html">3.4 Read mapping &amp; variants</a> · <a href="module3/lectures/3_5_phylogeny.html">3.5 Phylogeny</a></li>
-<li>Exercises: <a href="module3/exercises/3_1_qc_fastp.html">3.1 Quality control with fastp</a> · <a href="module3/exercises/3_1b_de_novo_assembly.html">3.1b De novo assembly</a> · <a href="module3/exercises/3_3_annotation.html">3.3 Annotation</a> · <a href="module3/exercises/3_4_snp_calling.html">3.4 SNP calling</a> · <a href="module3/exercises/3_5_phylogeny.html">3.5 Phylogeny</a></li>
+<li><strong>Quiz 3.1 (0.5 points):<span> </span></strong>covers topics from Module 3, Days 1 (optional)</li>
+<li><strong>Quiz 3.2 (0.5 points):<span> </span></strong>covers topics from Module 3, Days 2-3 (optional)</li>
+<li><strong>Module 3 hand-in assignment (3 points):</strong><span> covers topics from Days 1-5 (optional)</span></li>
 </ul>
-</section>
-<section id="module-4-statistics-and-rna-seq" class="level2">
-<h2 class="anchored" data-anchor-id="module-4-statistics-and-rna-seq">Module 4 — Statistics and RNA-seq</h2>
-<p>Where everything comes together: classical statistical distributions, simulation and bootstrap, linear models (<code>lm</code> and Stan), and a hands-on RNA-seq differential expression analysis from FASTQ to volcano plot.</p>
-<ul>
-<li><a href="module4/intro.html">Module 4 introduction</a></li>
-<li><a href="module4/4_1_basic_stats.html">4.1 — Basic statistics</a></li>
-<li><a href="module4/4_2_sim_bootstrap.html">4.2 — Simulations and bootstrapping</a></li>
-<li><a href="module4/4_3_linmod.html">4.3 — Linear models for statistics</a></li>
-<li><a href="module4/4_4_rnaseq.html">4.4 — RNA-seq analysis</a></li>
-</ul>
-</section>
 
 </main>
 <!-- /main column -->

@@ -1,0 +1,35 @@
+---
+title: "Module 3 — Genome data analysis"
+format:
+  html:
+    theme: yeti
+---
+
+Welcome to Module 3\!
+
+ 
+
+In this module, you will be learning how to **analyze whole-genome sequencing (WGS) data...from start to finish\!** Specifically, you will:
+
+  - <span>Learn how to derive meaningful</span> **biological conclusions** <span>from raw, paired-end </span>**Illumina WGS data**
+  - <span>Understand important steps in </span>**bioinformatic pipelines for WGS data analysis**
+  - <span>Obtain a high-level understanding of **important algorithms** used in WGS data analysis </span>
+
+ 
+
+<span>Because this course is entirely online, at 100% speed, students will be going at slightly different paces. However, if you want to follow along at the suggested pace, **Module 3 is organized into five "days" of material**:</span>
+
+  - [**Day 1a: Quality control and pre-processing of WGS data**](https://www.canvas.umu.se/courses/21745/pages/module-3-dot-1a-quality-control-and-pre-processing-of-wgs-data "Module 3.1 - Quality control and pre-processing of WGS data")
+  - [**Day 1b: *De novo *assembly**](https://www.canvas.umu.se/courses/21745/pages/module-3-dot-1b-de-novo-assembly "Module 3.2 - De novo assembly")
+  - [**Day 2: Genome annotation (part I)**](https://www.canvas.umu.se/courses/21745/pages/module-3-dot-2-genome-annotation-part-i "Module 3.2 - Genome annotation (part I)")
+  - [**Day 3:** **Genome annotation (part II)**](https://www.canvas.umu.se/courses/21745/pages/module-3-dot-3-genome-annotation-part-ii "Module 3.3 - Genome annotation (part II)")
+  - [**Day 4:** **Read mapping and variant calling**](https://www.canvas.umu.se/courses/21745/pages/module-3-dot-4-read-mapping-and-variant-calling "Module 3.4 - Read mapping and variant calling")
+  - [**Day 5: Phylogeny construction**](https://www.canvas.umu.se/courses/21745/pages/module-3-dot-5-phylogeny-construction "Module 3.5 - Phylogeny construction")
+
+ 
+
+Module 3 will consist of the following ***optional*** graded assignments (points will be added to the final exam score):
+
+  - **Quiz 3.1 (0.5 points):<span> </span>**covers topics from Module 3, Days 1 (optional)
+  - **Quiz 3.2 (0.5 points):<span> </span>**covers topics from Module 3, Days 2-3 (optional)
+  - **Module 3 hand-in assignment (3 points):**<span> covers topics from Days 1-5 (optional)</span>
