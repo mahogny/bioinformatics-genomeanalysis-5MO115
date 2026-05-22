@@ -656,6 +656,10 @@ You want to see dispersion **decreasing with mean expression** (highly expressed
 
 - **QE2.3** Make an MA plot with `plotMA(res)` and explain the axes. What does a "good" MA plot look like for a treatment-vs-control comparison?
 
+::: {.callout-warning appearance="simple"}
+`plotMA` is **not** covered in the course and **will not be examined**. It is a standard DESeq2 diagnostic worth knowing about; read the [DESeq2 vignette](https://bioconductor.org/packages/release/bioc/vignettes/DESeq2/inst/doc/DESeq2.html) section on MA plots if you want to learn it.
+:::
+
 ::: {.callout-tip collapse="true" appearance="minimal"}
 ## Hint
 M and A come from microarray days: M = log-ratio, A = average log-intensity.
