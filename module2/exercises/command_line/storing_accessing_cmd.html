@@ -2697,9 +2697,9 @@ See solution:
 </summary>
 <pre class="{bash}"><code>wget http://beagle.henlab.org/public/course_bioinformatics_genomeanalysis/emboss_data_extended_v1.zip
 unzip emboss_data_extended_v1.zip
-ls data/</code></pre>
+ls emboss_data_extended/</code></pre>
 </details>
-<p>The <code>data/</code> folder contains (at least) <code>extra_sequences1.fasta</code>, <code>extra_sequences2.fasta</code>, and <code>large_sequences.fasta.gz</code>.</p>
+<p>The <code>emboss_data_extended/</code> folder contains (at least) <code>extra_sequences1.fasta</code>, <code>extra_sequences2.fasta</code>, and <code>large_sequences.fasta.gz</code>.</p>
 <section id="q4.1-per-sequence-info-for-extra_sequences1.fasta" class="level4">
 <h4 class="anchored" data-anchor-id="q4.1-per-sequence-info-for-extra_sequences1.fasta"><strong>Q4.1 — Per-sequence info for <code>extra_sequences1.fasta</code></strong></h4>
 <p>Use <code>infoseq</code> to write name, length and %GC for every sequence in <code>extra_sequences1.fasta</code> to <code>seq_info.txt</code>.</p>
@@ -2707,7 +2707,7 @@ ls data/</code></pre>
 <summary>
 See solution:
 </summary>
-<pre class="{bash}"><code>infoseq data/extra_sequences1.fasta -only -name -length -pgc &gt; seq_info.txt
+<pre class="{bash}"><code>infoseq emboss_data_extended/extra_sequences1.fasta -only -name -length -pgc &gt; seq_info.txt
 head seq_info.txt</code></pre>
 </details>
 </section>
@@ -2747,7 +2747,7 @@ The first <code>awk</code> keeps the header (<code>NR==1</code>) and any data ro
 </section>
 <section id="q4.3-search-a-gzipped-fasta-without-unzipping" class="level4">
 <h4 class="anchored" data-anchor-id="q4.3-search-a-gzipped-fasta-without-unzipping"><strong>Q4.3 — Search a gzipped FASTA without unzipping</strong></h4>
-<p><code>data/large_sequences.fasta.gz</code> is compressed. <strong>Without unzipping it</strong>, count how many sequences contain the motif <code>ATGCGT</code> somewhere in their sequence line.</p>
+<p><code>emboss_data_extended/large_sequences.fasta.gz</code> is compressed. <strong>Without unzipping it</strong>, count how many sequences contain the motif <code>ATGCGT</code> somewhere in their sequence line.</p>
 <div class="callout callout-style-default callout-tip callout-titled">
 <div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-15-contents" aria-controls="callout-15" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
@@ -2772,7 +2772,7 @@ Hints
 <summary>
 See solution:
 </summary>
-<pre class="{bash}"><code>zcat data/large_sequences.fasta.gz | grep -c &quot;ATGCGT&quot;</code></pre>
+<pre class="{bash}"><code>zcat emboss_data_extended/large_sequences.fasta.gz | grep -c &quot;ATGCGT&quot;</code></pre>
 </details>
 </section>
 <section id="q4.4-extract-the-headers-of-matching-sequences" class="level4">
@@ -2802,7 +2802,7 @@ Hints
 <summary>
 See solution:
 </summary>
-<pre class="{bash}"><code>zcat data/large_sequences.fasta.gz \
+<pre class="{bash}"><code>zcat emboss_data_extended/large_sequences.fasta.gz \
   | grep -B 1 &quot;ATGCGT&quot; \
   | grep &quot;^&gt;&quot; \
   | gzip &gt; atgcgt_headers.txt.gz
@@ -2812,7 +2812,7 @@ zcat atgcgt_headers.txt.gz | head   # check</code></pre>
 </section>
 <section id="q4.5-make-and-inspect-a-tar-archive" class="level4">
 <h4 class="anchored" data-anchor-id="q4.5-make-and-inspect-a-tar-archive"><strong>Q4.5 — Make and inspect a tar archive</strong></h4>
-<p>Create a compressed tar archive of all FASTA files in <code>data/</code>, list its contents without extracting, then extract <strong>only</strong> <code>extra_sequences2.fasta</code> from it into the current directory.</p>
+<p>Create a compressed tar archive of all FASTA files in <code>emboss_data_extended/</code>, list its contents without extracting, then extract <strong>only</strong> <code>extra_sequences2.fasta</code> from it into the current directory.</p>
 <div class="callout callout-style-default callout-tip callout-titled">
 <div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-17-contents" aria-controls="callout-17" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
@@ -2837,18 +2837,18 @@ Hints
 See solution:
 </summary>
 <pre class="{bash}"><code># create
-tar -czvf fastas.tar.gz data/*.fasta
+tar -czvf fastas.tar.gz emboss_data_extended/*.fasta
 
 # list (no extraction)
 tar -tzvf fastas.tar.gz
 
 # extract just one file
-tar -xzvf fastas.tar.gz data/extra_sequences2.fasta</code></pre>
+tar -xzvf fastas.tar.gz emboss_data_extended/extra_sequences2.fasta</code></pre>
 </details>
 </section>
 <section id="q4.6-bonus-average-length-challenge" class="level4">
 <h4 class="anchored" data-anchor-id="q4.6-bonus-average-length-challenge"><strong>Q4.6 — Bonus: average length challenge</strong></h4>
-<p>Using <code>data/extra_sequences2.fasta</code>:</p>
+<p>Using <code>emboss_data_extended/extra_sequences2.fasta</code>:</p>
 <ol type="1">
 <li>Get length and %GC for every sequence with <code>infoseq</code>.</li>
 <li>Compute the <strong>average length</strong> and print every sequence whose length is <strong>above</strong> the average.</li>
@@ -2874,7 +2874,7 @@ Hint
 <summary>
 See solution:
 </summary>
-<pre class="{bash}"><code>infoseq data/extra_sequences2.fasta -only -name -length -pgc &gt; seq_info2.txt
+<pre class="{bash}"><code>infoseq emboss_data_extended/extra_sequences2.fasta -only -name -length -pgc &gt; seq_info2.txt
 
 # average length (skip header)
 avg=$(awk &#39;NR&gt;1 {sum+=$2; n++} END {print sum/n}&#39; seq_info2.txt)

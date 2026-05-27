@@ -517,6 +517,12 @@ A repeat longer than the read collapses into a single shared graph node with mul
 For a 700 bp repeat, you want the *insert size* (not the read length) to comfortably exceed 700 bp — so an insert size around 800–1000 bp gives you anchors on both flanks for most pairs. Add a margin for insert-size variability: a 250 bp mean insert won't help here; a 600 bp mean insert helps only some of the time; ~1 kb is comfortable.
 :::
 
+- **QE1.9** Short reads give per-base accuracy but fragment at repeats; long reads span repeats but have a higher per-base error rate. Sketch a **hybrid** assembly workflow that combines the two. What does each read type contribute?
+
+::: {.callout-tip collapse="true" appearance="minimal"}
+## Hint
+Use one read type for *contiguity / structure* and the other for *base-level correctness*. In what order would you apply them?
+:::
 
 ::: {.callout-note collapse="true" appearance="minimal"}
 ## Solution

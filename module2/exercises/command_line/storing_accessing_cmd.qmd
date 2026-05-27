@@ -323,11 +323,11 @@ You need `wget` (Linux/HPC2N) — on macOS use `curl -O <url>` instead.
 ````{bash}
 wget http://beagle.henlab.org/public/course_bioinformatics_genomeanalysis/emboss_data_extended_v1.zip
 unzip emboss_data_extended_v1.zip
-ls data/
+ls emboss_data_extended/
 ````
 </details>
 
-The `data/` folder contains (at least) `extra_sequences1.fasta`, `extra_sequences2.fasta`, and `large_sequences.fasta.gz`.
+The `emboss_data_extended/` folder contains (at least) `extra_sequences1.fasta`, `extra_sequences2.fasta`, and `large_sequences.fasta.gz`.
 
 #### **Q4.1 — Per-sequence info for `extra_sequences1.fasta`**
 
@@ -336,7 +336,7 @@ Use `infoseq` to write name, length and %GC for every sequence in `extra_sequenc
 <details>
 <summary>See solution:</summary>
 ````{bash}
-infoseq data/extra_sequences1.fasta -only -name -length -pgc > seq_info.txt
+infoseq emboss_data_extended/extra_sequences1.fasta -only -name -length -pgc > seq_info.txt
 head seq_info.txt
 ````
 </details>
@@ -365,7 +365,7 @@ The first `awk` keeps the header (`NR==1`) and any data row matching the filter.
 
 #### **Q4.3 — Search a gzipped FASTA without unzipping**
 
-`data/large_sequences.fasta.gz` is compressed. **Without unzipping it**, count how many sequences contain the motif `ATGCGT` somewhere in their sequence line.
+`emboss_data_extended/large_sequences.fasta.gz` is compressed. **Without unzipping it**, count how many sequences contain the motif `ATGCGT` somewhere in their sequence line.
 
 ::: {.callout-tip collapse="true"}
 ## Hints
@@ -377,7 +377,7 @@ The first `awk` keeps the header (`NR==1`) and any data row matching the filter.
 <details>
 <summary>See solution:</summary>
 ````{bash}
-zcat data/large_sequences.fasta.gz | grep -c "ATGCGT"
+zcat emboss_data_extended/large_sequences.fasta.gz | grep -c "ATGCGT"
 ````
 </details>
 
@@ -395,7 +395,7 @@ Get the **header lines** (starting with `>`) of the sequences from Q4.3 that con
 <details>
 <summary>See solution:</summary>
 ````{bash}
-zcat data/large_sequences.fasta.gz \
+zcat emboss_data_extended/large_sequences.fasta.gz \
   | grep -B 1 "ATGCGT" \
   | grep "^>" \
   | gzip > atgcgt_headers.txt.gz
@@ -406,7 +406,7 @@ zcat atgcgt_headers.txt.gz | head   # check
 
 #### **Q4.5 — Make and inspect a tar archive**
 
-Create a compressed tar archive of all FASTA files in `data/`, list its contents without extracting, then extract **only** `extra_sequences2.fasta` from it into the current directory.
+Create a compressed tar archive of all FASTA files in `emboss_data_extended/`, list its contents without extracting, then extract **only** `extra_sequences2.fasta` from it into the current directory.
 
 ::: {.callout-tip collapse="true"}
 ## Hints
@@ -418,19 +418,19 @@ Create a compressed tar archive of all FASTA files in `data/`, list its contents
 <summary>See solution:</summary>
 ````{bash}
 # create
-tar -czvf fastas.tar.gz data/*.fasta
+tar -czvf fastas.tar.gz emboss_data_extended/*.fasta
 
 # list (no extraction)
 tar -tzvf fastas.tar.gz
 
 # extract just one file
-tar -xzvf fastas.tar.gz data/extra_sequences2.fasta
+tar -xzvf fastas.tar.gz emboss_data_extended/extra_sequences2.fasta
 ````
 </details>
 
 #### **Q4.6 — Bonus: average length challenge**
 
-Using `data/extra_sequences2.fasta`:
+Using `emboss_data_extended/extra_sequences2.fasta`:
 
 1. Get length and %GC for every sequence with `infoseq`.
 2. Compute the **average length** and print every sequence whose length is **above** the average.
@@ -444,7 +444,7 @@ A two-pass approach is by far the simplest: run `awk` once to compute the mean, 
 <details>
 <summary>See solution:</summary>
 ````{bash}
-infoseq data/extra_sequences2.fasta -only -name -length -pgc > seq_info2.txt
+infoseq emboss_data_extended/extra_sequences2.fasta -only -name -length -pgc > seq_info2.txt
 
 # average length (skip header)
 avg=$(awk 'NR>1 {sum+=$2; n++} END {print sum/n}' seq_info2.txt)
