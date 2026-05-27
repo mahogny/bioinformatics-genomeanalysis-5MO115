@@ -167,14 +167,14 @@ for (b in 1:nboot) {
   n <- n0
   t <- 0
   while (n > 0) {
-    n <- rbinom(1, n, alpha)   # each individual survives with prob alpha
+    n <- rpois(1, alpha * n)   # next generation ~ Poisson(alpha * current size)
     t <- t + 1
   }
   times_of_death <- c(times_of_death, t)
 }
 
 mean(times_of_death)
-# Roughly ~65 timesteps for n0=10, alpha=0.95 (exact value varies with seed).
+# Roughly ~22 timesteps for n0=10, alpha=0.95 (exact value varies with seed).
 ```
 :::
 
@@ -217,7 +217,7 @@ n0s   <- c(2, 5, 10, 20, 50, 100, 200)
 ratios <- sapply(n0s, function(n0) {
   ts <- replicate(nboot, {
     n <- n0; t <- 0
-    while (n > 0) { n <- rbinom(1, n, alpha); t <- t + 1 }
+    while (n > 0) { n <- rpois(1, alpha * n); t <- t + 1 }
     t
   })
   sd(ts) / mean(ts)
@@ -263,12 +263,13 @@ Replace the two time-series plots with a single `plot(prey, predators, type = "l
 ::: {.callout-note collapse="true" appearance="minimal"}
 ## Solution
 ```{r, eval=FALSE}
-# After running the simulation loop from lotka_volterra.R:
-plot(prey, predators, type = "l",
+# After running the simulation loop from lotka_volterra.R
+# (its trajectories are stored in num_prey / num_predator):
+plot(num_prey, num_predator, type = "l",
      xlab = "prey", ylab = "predators",
      main = "Phase space")
-points(prey[1], predators[1], pch = 19, col = "green")   # start
-points(tail(prey,1), tail(predators,1), pch = 19, col = "red")  # end
+points(num_prey[1], num_predator[1], pch = 19, col = "green")   # start
+points(tail(num_prey,1), tail(num_predator,1), pch = 19, col = "red")  # end
 ```
 :::
 
@@ -303,16 +304,23 @@ Make the parameters (`n_prey0`, `n_pred0`, the rates, `tmax`) function arguments
 ::: {.callout-note collapse="true" appearance="minimal"}
 ## Solution
 ```{r, eval=FALSE}
-simulate_lv <- function(n_prey0 = 100, n_pred0 = 20,
-                        a = 0.1, b = 0.005,
-                        c = 0.005, d = 0.05,
-                        tmax = 2000) {
+# Same parameter names and update rule as lotka_volterra.R, just wrapped up.
+simulate_lv <- function(n_prey0 = 200, n_pred0 = 200,
+                        alpha = 0.2, beta = 0.001,
+                        gamma = 0.05, delta = 0.01,
+                        tmax = 1000) {
   prey      <- numeric(tmax); prey[1]      <- n_prey0
   predators <- numeric(tmax); predators[1] <- n_pred0
   t_crash   <- NA
   for (t in 2:tmax) {
-    # ... whatever update rule lotka_volterra.R uses,
-    # written in terms of the function arguments above.
+    last_prey <- prey[t - 1]
+    last_pred <- predators[t - 1]
+    # Prey that survive (are not eaten), and the number eaten:
+    surviving_prey <- rbinom(1, last_prey, (1 - beta)^last_pred)
+    eaten          <- last_prey - surviving_prey
+    # Prey: survivors + offspring; predators: survivors + offspring from prey eaten
+    prey[t]      <- surviving_prey + rpois(1, alpha * last_prey)
+    predators[t] <- rbinom(1, last_pred, 1 - gamma) + rpois(1, delta * eaten)
     if (prey[t] <= 0 || predators[t] <= 0) { t_crash <- t; break }
   }
   list(prey = prey, predators = predators, t_crash = t_crash)
@@ -461,15 +469,16 @@ nboot <- 2000
 survived <- replicate(nboot, {
   n <- n0
   for (t in 1:T) {
-    n <- rbinom(1, n, alpha)
+    n <- rpois(1, alpha * n)
     if (n == 0) break
   }
   n > 0
 })
 
 mean(survived)   # empirical P(survive past T)
-# With alpha=0.99 and n0=10 a sizeable fraction makes it past 500 steps,
-# but many runs still die out — the exact figure depends on the seed.
+# At alpha=0.99 the branching process is still subcritical (alpha < 1), so
+# extinction is essentially certain and usually quick: well under 1% of runs
+# survive past 500 steps. (Lower alpha dies out even faster.)
 ```
 :::
 
@@ -495,7 +504,7 @@ n0s   <- c(2, 5, 10, 20, 50, 100, 200, 500)
 mean_t <- sapply(n0s, function(n0) {
   ts <- replicate(nboot, {
     n <- n0; t <- 0
-    while (n > 0) { n <- rbinom(1, n, alpha); t <- t + 1 }
+    while (n > 0) { n <- rpois(1, alpha * n); t <- t + 1 }
     t
   })
   mean(ts)
@@ -524,7 +533,7 @@ n0    <- 10
 nboot <- 2000
 ts <- replicate(nboot, {
   n <- n0; t <- 0
-  while (n > 0) { n <- rbinom(1, n, alpha); t <- t + 1 }
+  while (n > 0) { n <- rpois(1, alpha * n); t <- t + 1 }
   t
 })
 mean(ts);   median(ts)
@@ -546,7 +555,7 @@ Wrap `replicate(nboot, simulate_lv(gamma = g)$t_crash)` in `sapply()` over the `
 
 ::: {.callout-tip collapse="true" appearance="minimal"}
 ## Hint
-Very low `gamma` → predators never die, eat all prey, then starve. Very high `gamma` → predators crash on their own. There is a sweet spot in between.
+Think about the extremes: very high `gamma` makes predators die off on their own and the system crashes early; lower `gamma` lets predators persist longer. Whether the longest-surviving value is at the boundary or somewhere in between depends on the other rates — let the simulation tell you.
 :::
 
 ::: {.callout-note collapse="true" appearance="minimal"}
@@ -561,7 +570,9 @@ mean_tc <- sapply(gammas, function(g) {
 plot(gammas, mean_tc, type = "b",
      xlab = "predator death rate gamma",
      ylab = "mean time to crash")
-# Expect a non-monotonic curve with a peak at the balanced value.
+# In this parameterization mean time-to-crash decreases monotonically with gamma
+# (the lowest gamma survives longest). For other rate combinations an interior
+# "sweet spot" can appear — worth exploring by also varying alpha/beta/delta.
 ```
 :::
 
@@ -576,16 +587,17 @@ A simple way: find local maxima of `prey` with `which(diff(sign(diff(prey))) == 
 ## Solution
 ```{r, eval=FALSE}
 sim <- simulate_lv(n_prey0 = 500, n_pred0 = 100,
-                   a = 0.1, b = 0.001, c = 0.001, d = 0.05,
+                   alpha = 0.1, beta = 0.001, gamma = 0.05, delta = 0.05,
                    tmax = 5000)
-prey <- sim$prey
+prey <- sim$prey[1:ifelse(is.na(sim$t_crash), length(sim$prey), sim$t_crash - 1)]
 # Smooth a little so noise does not create spurious local maxima
 prey_s <- stats::filter(prey, rep(1/21, 21), sides = 2)
 peaks  <- which(diff(sign(diff(prey_s))) == -2) + 1
 periods <- diff(peaks)
 mean(periods); sd(periods)
 # Period depends on parameters; the classical continuous LV has period
-# ~ 2*pi/sqrt(a*c) in the linearised regime around equilibrium.
+# ~ 2*pi/sqrt(alpha*gamma) near equilibrium. For alpha=0.1, gamma=0.05 that is
+# ~89, which matches the simulated spacing of prey maxima.
 ```
 :::
 
@@ -629,7 +641,10 @@ peaks <- replicate(nboot, {
 })
 hist(peaks, breaks = 30, xlab = "peak infected fraction")
 mean(peaks); sd(peaks)
-# Highly variable for popsize = 20 — many epidemics fizzle out, a few explode.
+# With beta=0.1 the infection rate climbs above 1 almost immediately, so nearly
+# every run explodes to a large peak (mean ~0.88, sd ~0.12 of the population);
+# only a small fraction (~1-2%) fizzle out, when the initial case happens to
+# recover before infecting anyone.
 ```
 :::
 
@@ -672,8 +687,11 @@ for (gen in 1:50) {
   indiv <- next_indiv
 }
 
-tail(log_num / popsize)
-# After a few generations: ~0.25 AA, ~0.50 Aa, ~0.25 aa,
-# matching Hardy-Weinberg with p = q = 0.5 (modulo drift).
+head(log_num / popsize)
+# Hardy-Weinberg is reached after a SINGLE generation of random mating: from
+# generation 2 onward the split sits near 0.25 AA, 0.50 Aa, 0.25 aa (p = q = 0.5).
+# Over many generations genetic drift slowly moves p away from 0.5, so by
+# generation 50 the absolute split has wandered — but the relationship
+# p^2 : 2pq : q^2 still holds for whatever p currently is.
 ```
 :::

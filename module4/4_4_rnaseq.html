@@ -2758,7 +2758,7 @@ Hint
 </div>
 <div id="callout-16" class="callout-16-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
-<p>The sample (column) names contain <code>DMSO</code> and <code>IC50</code> as one of the dash-separated tokens. Split on <code>-</code> and pick that token.</p>
+<p>The sample (column) names are the salmon output directory names you chose in Q1.2 (<code>IC50_1_quant</code>, <code>IC50_5_quant</code>, <code>DMSO_1_quant</code>, <code>DMSO_2_quant</code>). The treatment label (<code>DMSO</code> / <code>IC50</code>) is the first underscore-separated token. Split on <code>_</code> and pick that token.</p>
 </div>
 </div>
 </div>
@@ -2777,8 +2777,10 @@ Solution
 <div class="cell">
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(stringr)</span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>cond <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">row.names =</span> <span class="fu">colnames</span>(cnt))</span>
-<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>cond<span class="sc">$</span>treatment <span class="ot">&lt;-</span> <span class="fu">str_split_i</span>(<span class="fu">rownames</span>(cond), <span class="st">&quot;-&quot;</span>, <span class="dv">5</span>)</span>
-<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>cond</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Column names are the salmon output dir names from Q1.2, e.g. &quot;IC50_1_quant&quot;;</span></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="co"># the first &quot;_&quot;-separated token is the treatment (&quot;IC50&quot; / &quot;DMSO&quot;).</span></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>cond<span class="sc">$</span>treatment <span class="ot">&lt;-</span> <span class="fu">str_split_i</span>(<span class="fu">rownames</span>(cond), <span class="st">&quot;_&quot;</span>, <span class="dv">1</span>)</span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>cond</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
 </div>
@@ -3183,7 +3185,7 @@ Hint
 </div>
 <div id="callout-36" class="callout-36-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
-<p>For the meta file, use <code>stringr::str_split_fixed</code> (or similar) on the original treatment column to break it into two new columns: <code>time</code> and <code>treatment_duration</code>.</p>
+<p>For the meta file, use <code>stringr::str_split_fixed</code> (or similar) on the original treatment column to break it into two new columns: one for the timepoint (<code>6h</code> / <code>24h</code>) and one for the treatment (no treatment / SAHA at two doses). Run <code>head(parts)</code> and confirm which part is which before naming the columns.</p>
 </div>
 </div>
 </div>
@@ -3204,17 +3206,24 @@ Solution
 <span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>cnt  <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&quot;readCounts.csv.gz&quot;</span>, <span class="at">row.names =</span> <span class="dv">1</span>)</span>
 <span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>cond <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&quot;meta.csv&quot;</span>)</span>
-<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a><span class="fu">rownames</span>(cond) <span class="ot">&lt;-</span> cond<span class="sc">$</span>sample   <span class="co"># use the sample-name column (whatever it is called)</span></span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a><span class="fu">rownames</span>(cond) <span class="ot">&lt;-</span> cond<span class="sc">$</span>Sample   <span class="co"># the sample-name column (matches colnames(cnt))</span></span>
 <span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Ensure ordering matches the count matrix</span></span>
 <span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a>cond <span class="ot">&lt;-</span> cond[<span class="fu">colnames</span>(cnt), ]</span>
 <span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-10"><a href="#cb17-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Split the treatment column into two new columns (adjust the separator/index</span></span>
-<span id="cb17-11"><a href="#cb17-11" aria-hidden="true" tabindex="-1"></a><span class="co"># to match the actual strings in meta.csv)</span></span>
-<span id="cb17-12"><a href="#cb17-12" aria-hidden="true" tabindex="-1"></a>parts <span class="ot">&lt;-</span> <span class="fu">str_split_fixed</span>(cond<span class="sc">$</span>treatment, <span class="st">&quot;_&quot;</span>, <span class="dv">2</span>)</span>
-<span id="cb17-13"><a href="#cb17-13" aria-hidden="true" tabindex="-1"></a>cond<span class="sc">$</span>treatment_duration   <span class="ot">&lt;-</span> parts[, <span class="dv">1</span>]</span>
-<span id="cb17-14"><a href="#cb17-14" aria-hidden="true" tabindex="-1"></a>cond<span class="sc">$</span>time_since_treatment <span class="ot">&lt;-</span> parts[, <span class="dv">2</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb17-10"><a href="#cb17-10" aria-hidden="true" tabindex="-1"></a><span class="co"># The cell line is its own column already; rename it for the design below.</span></span>
+<span id="cb17-11"><a href="#cb17-11" aria-hidden="true" tabindex="-1"></a>cond<span class="sc">$</span>cell_type <span class="ot">&lt;-</span> cond<span class="sc">$</span>CellLine</span>
+<span id="cb17-12"><a href="#cb17-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-13"><a href="#cb17-13" aria-hidden="true" tabindex="-1"></a><span class="co"># The Treatment column combines timepoint and treatment, e.g. &quot;6h_no_treat&quot;,</span></span>
+<span id="cb17-14"><a href="#cb17-14" aria-hidden="true" tabindex="-1"></a><span class="co"># &quot;6h_SAHA_5&quot;, &quot;24h_SAHA_10&quot;. Split it on the FIRST &quot;_&quot; so that:</span></span>
+<span id="cb17-15"><a href="#cb17-15" aria-hidden="true" tabindex="-1"></a><span class="co">#   part 1 = timepoint     (6h / 24h)</span></span>
+<span id="cb17-16"><a href="#cb17-16" aria-hidden="true" tabindex="-1"></a><span class="co">#   part 2 = treatment      (no_treat / SAHA_5 / SAHA_10)</span></span>
+<span id="cb17-17"><a href="#cb17-17" aria-hidden="true" tabindex="-1"></a>parts <span class="ot">&lt;-</span> <span class="fu">str_split_fixed</span>(cond<span class="sc">$</span>Treatment, <span class="st">&quot;_&quot;</span>, <span class="dv">2</span>)</span>
+<span id="cb17-18"><a href="#cb17-18" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(parts)   <span class="co"># ALWAYS check which part is time vs treatment before naming!</span></span>
+<span id="cb17-19"><a href="#cb17-19" aria-hidden="true" tabindex="-1"></a>cond<span class="sc">$</span>time_since_treatment <span class="ot">&lt;-</span> parts[, <span class="dv">1</span>]   <span class="co"># the 6h / 24h timepoint</span></span>
+<span id="cb17-20"><a href="#cb17-20" aria-hidden="true" tabindex="-1"></a>cond<span class="sc">$</span>treatment_duration   <span class="ot">&lt;-</span> parts[, <span class="dv">2</span>]   <span class="co"># no_treat / SAHA_5 / SAHA_10</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
+<p>The combined label is <code>time _ treatment</code> (e.g. <code>6h_SAHA_10</code> = the 6 h timepoint, SAHA dose 10). If you ever load a dataset where the order is reversed, swap the two assignments accordingly — <code>head(parts)</code> above is there precisely so you can confirm.</p>
 </div>
 </div>
 </div>
@@ -3375,10 +3384,15 @@ Solution
 <div class="callout-body-container callout-body">
 <div class="cell">
 <div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">resultsNames</span>(dds)</span>
-<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>res_treat <span class="ot">&lt;-</span> <span class="fu">results</span>(dds, <span class="at">name =</span> <span class="st">&quot;treatment_duration_treated_vs_untreated&quot;</span>)  <span class="co"># replace with actual name</span></span>
-<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(res_treat[<span class="fu">order</span>(res_treat<span class="sc">$</span>padj), ])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a><span class="co"># treatment_duration has THREE levels (no_treat / SAHA_5 / SAHA_10), so there is</span></span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a><span class="co"># no single binary &quot;treated vs untreated&quot; coefficient. resultsNames(dds) will</span></span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a><span class="co"># instead list one coefficient per non-reference dose, e.g.</span></span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a><span class="co"># &quot;treatment_duration_SAHA_5_vs_no_treat&quot; and &quot;treatment_duration_SAHA_10_vs_no_treat&quot;</span></span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a><span class="co"># (exact strings depend on the reference level). Pick the contrast you care about:</span></span>
+<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a>res_treat <span class="ot">&lt;-</span> <span class="fu">results</span>(dds, <span class="at">name =</span> <span class="st">&quot;treatment_duration_SAHA_10_vs_no_treat&quot;</span>)  <span class="co"># replace with an actual name from resultsNames(dds)</span></span>
+<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(res_treat[<span class="fu">order</span>(res_treat<span class="sc">$</span>padj), ])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>Drug-response genes (e.g. stress-response, apoptosis or cell-cycle genes depending on the drug’s mechanism) tend to dominate the top of the list.</p>
+<p>Because there are several doses, you get one coefficient per dose-vs-reference comparison rather than one treated/untreated contrast. To test the treatment factor as a whole (any dose effect at once), use a likelihood-ratio test: <code>DESeq(dds, test = &quot;LRT&quot;, reduced = ~ cell_type + time_since_treatment)</code>. Drug-response genes (e.g. stress-response, apoptosis or cell-cycle genes depending on the drug’s mechanism) tend to dominate the top of the list.</p>
 </div>
 </div>
 </div>

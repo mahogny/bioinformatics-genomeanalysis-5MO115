@@ -2659,14 +2659,14 @@ Solution
 <span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>  n <span class="ot">&lt;-</span> n0</span>
 <span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>  t <span class="ot">&lt;-</span> <span class="dv">0</span></span>
 <span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>  <span class="cf">while</span> (n <span class="sc">&gt;</span> <span class="dv">0</span>) {</span>
-<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>    n <span class="ot">&lt;-</span> <span class="fu">rbinom</span>(<span class="dv">1</span>, n, alpha)   <span class="co"># each individual survives with prob alpha</span></span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>    n <span class="ot">&lt;-</span> <span class="fu">rpois</span>(<span class="dv">1</span>, alpha <span class="sc">*</span> n)   <span class="co"># next generation ~ Poisson(alpha * current size)</span></span>
 <span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>    t <span class="ot">&lt;-</span> t <span class="sc">+</span> <span class="dv">1</span></span>
 <span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>  }</span>
 <span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>  times_of_death <span class="ot">&lt;-</span> <span class="fu">c</span>(times_of_death, t)</span>
 <span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a>}</span>
 <span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(times_of_death)</span>
-<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a><span class="co"># Roughly ~65 timesteps for n0=10, alpha=0.95 (exact value varies with seed).</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a><span class="co"># Roughly ~22 timesteps for n0=10, alpha=0.95 (exact value varies with seed).</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
 </div>
@@ -2768,7 +2768,7 @@ Solution
 <span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>ratios <span class="ot">&lt;-</span> <span class="fu">sapply</span>(n0s, <span class="cf">function</span>(n0) {</span>
 <span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>  ts <span class="ot">&lt;-</span> <span class="fu">replicate</span>(nboot, {</span>
 <span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>    n <span class="ot">&lt;-</span> n0; t <span class="ot">&lt;-</span> <span class="dv">0</span></span>
-<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>    <span class="cf">while</span> (n <span class="sc">&gt;</span> <span class="dv">0</span>) { n <span class="ot">&lt;-</span> <span class="fu">rbinom</span>(<span class="dv">1</span>, n, alpha); t <span class="ot">&lt;-</span> t <span class="sc">+</span> <span class="dv">1</span> }</span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>    <span class="cf">while</span> (n <span class="sc">&gt;</span> <span class="dv">0</span>) { n <span class="ot">&lt;-</span> <span class="fu">rpois</span>(<span class="dv">1</span>, alpha <span class="sc">*</span> n); t <span class="ot">&lt;-</span> t <span class="sc">+</span> <span class="dv">1</span> }</span>
 <span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>    t</span>
 <span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>  })</span>
 <span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">sd</span>(ts) <span class="sc">/</span> <span class="fu">mean</span>(ts)</span>
@@ -2857,12 +2857,13 @@ Solution
 <div id="callout-23" class="callout-23-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># After running the simulation loop from lotka_volterra.R:</span></span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(prey, predators, <span class="at">type =</span> <span class="st">&quot;l&quot;</span>,</span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlab =</span> <span class="st">&quot;prey&quot;</span>, <span class="at">ylab =</span> <span class="st">&quot;predators&quot;</span>,</span>
-<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>     <span class="at">main =</span> <span class="st">&quot;Phase space&quot;</span>)</span>
-<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a><span class="fu">points</span>(prey[<span class="dv">1</span>], predators[<span class="dv">1</span>], <span class="at">pch =</span> <span class="dv">19</span>, <span class="at">col =</span> <span class="st">&quot;green&quot;</span>)   <span class="co"># start</span></span>
-<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a><span class="fu">points</span>(<span class="fu">tail</span>(prey,<span class="dv">1</span>), <span class="fu">tail</span>(predators,<span class="dv">1</span>), <span class="at">pch =</span> <span class="dv">19</span>, <span class="at">col =</span> <span class="st">&quot;red&quot;</span>)  <span class="co"># end</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># After running the simulation loop from lotka_volterra.R</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="co"># (its trajectories are stored in num_prey / num_predator):</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(num_prey, num_predator, <span class="at">type =</span> <span class="st">&quot;l&quot;</span>,</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlab =</span> <span class="st">&quot;prey&quot;</span>, <span class="at">ylab =</span> <span class="st">&quot;predators&quot;</span>,</span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>     <span class="at">main =</span> <span class="st">&quot;Phase space&quot;</span>)</span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a><span class="fu">points</span>(num_prey[<span class="dv">1</span>], num_predator[<span class="dv">1</span>], <span class="at">pch =</span> <span class="dv">19</span>, <span class="at">col =</span> <span class="st">&quot;green&quot;</span>)   <span class="co"># start</span></span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a><span class="fu">points</span>(<span class="fu">tail</span>(num_prey,<span class="dv">1</span>), <span class="fu">tail</span>(num_predator,<span class="dv">1</span>), <span class="at">pch =</span> <span class="dv">19</span>, <span class="at">col =</span> <span class="st">&quot;red&quot;</span>)  <span class="co"># end</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
 </div>
@@ -2943,20 +2944,27 @@ Solution
 <div id="callout-27" class="callout-27-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>simulate_lv <span class="ot">&lt;-</span> <span class="cf">function</span>(<span class="at">n_prey0 =</span> <span class="dv">100</span>, <span class="at">n_pred0 =</span> <span class="dv">20</span>,</span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>                        <span class="at">a =</span> <span class="fl">0.1</span>, <span class="at">b =</span> <span class="fl">0.005</span>,</span>
-<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>                        <span class="at">c =</span> <span class="fl">0.005</span>, <span class="at">d =</span> <span class="fl">0.05</span>,</span>
-<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>                        <span class="at">tmax =</span> <span class="dv">2000</span>) {</span>
-<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>  prey      <span class="ot">&lt;-</span> <span class="fu">numeric</span>(tmax); prey[<span class="dv">1</span>]      <span class="ot">&lt;-</span> n_prey0</span>
-<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>  predators <span class="ot">&lt;-</span> <span class="fu">numeric</span>(tmax); predators[<span class="dv">1</span>] <span class="ot">&lt;-</span> n_pred0</span>
-<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>  t_crash   <span class="ot">&lt;-</span> <span class="cn">NA</span></span>
-<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> (t <span class="cf">in</span> <span class="dv">2</span><span class="sc">:</span>tmax) {</span>
-<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a>    <span class="co"># ... whatever update rule lotka_volterra.R uses,</span></span>
-<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a>    <span class="co"># written in terms of the function arguments above.</span></span>
-<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> (prey[t] <span class="sc">&lt;=</span> <span class="dv">0</span> <span class="sc">||</span> predators[t] <span class="sc">&lt;=</span> <span class="dv">0</span>) { t_crash <span class="ot">&lt;-</span> t; <span class="cf">break</span> }</span>
-<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a>  }</span>
-<span id="cb10-13"><a href="#cb10-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">list</span>(<span class="at">prey =</span> prey, <span class="at">predators =</span> predators, <span class="at">t_crash =</span> t_crash)</span>
-<span id="cb10-14"><a href="#cb10-14" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Same parameter names and update rule as lotka_volterra.R, just wrapped up.</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>simulate_lv <span class="ot">&lt;-</span> <span class="cf">function</span>(<span class="at">n_prey0 =</span> <span class="dv">200</span>, <span class="at">n_pred0 =</span> <span class="dv">200</span>,</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>                        <span class="at">alpha =</span> <span class="fl">0.2</span>, <span class="at">beta =</span> <span class="fl">0.001</span>,</span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>                        <span class="at">gamma =</span> <span class="fl">0.05</span>, <span class="at">delta =</span> <span class="fl">0.01</span>,</span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>                        <span class="at">tmax =</span> <span class="dv">1000</span>) {</span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>  prey      <span class="ot">&lt;-</span> <span class="fu">numeric</span>(tmax); prey[<span class="dv">1</span>]      <span class="ot">&lt;-</span> n_prey0</span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>  predators <span class="ot">&lt;-</span> <span class="fu">numeric</span>(tmax); predators[<span class="dv">1</span>] <span class="ot">&lt;-</span> n_pred0</span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>  t_crash   <span class="ot">&lt;-</span> <span class="cn">NA</span></span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> (t <span class="cf">in</span> <span class="dv">2</span><span class="sc">:</span>tmax) {</span>
+<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a>    last_prey <span class="ot">&lt;-</span> prey[t <span class="sc">-</span> <span class="dv">1</span>]</span>
+<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a>    last_pred <span class="ot">&lt;-</span> predators[t <span class="sc">-</span> <span class="dv">1</span>]</span>
+<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Prey that survive (are not eaten), and the number eaten:</span></span>
+<span id="cb10-13"><a href="#cb10-13" aria-hidden="true" tabindex="-1"></a>    surviving_prey <span class="ot">&lt;-</span> <span class="fu">rbinom</span>(<span class="dv">1</span>, last_prey, (<span class="dv">1</span> <span class="sc">-</span> beta)<span class="sc">^</span>last_pred)</span>
+<span id="cb10-14"><a href="#cb10-14" aria-hidden="true" tabindex="-1"></a>    eaten          <span class="ot">&lt;-</span> last_prey <span class="sc">-</span> surviving_prey</span>
+<span id="cb10-15"><a href="#cb10-15" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Prey: survivors + offspring; predators: survivors + offspring from prey eaten</span></span>
+<span id="cb10-16"><a href="#cb10-16" aria-hidden="true" tabindex="-1"></a>    prey[t]      <span class="ot">&lt;-</span> surviving_prey <span class="sc">+</span> <span class="fu">rpois</span>(<span class="dv">1</span>, alpha <span class="sc">*</span> last_prey)</span>
+<span id="cb10-17"><a href="#cb10-17" aria-hidden="true" tabindex="-1"></a>    predators[t] <span class="ot">&lt;-</span> <span class="fu">rbinom</span>(<span class="dv">1</span>, last_pred, <span class="dv">1</span> <span class="sc">-</span> gamma) <span class="sc">+</span> <span class="fu">rpois</span>(<span class="dv">1</span>, delta <span class="sc">*</span> eaten)</span>
+<span id="cb10-18"><a href="#cb10-18" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> (prey[t] <span class="sc">&lt;=</span> <span class="dv">0</span> <span class="sc">||</span> predators[t] <span class="sc">&lt;=</span> <span class="dv">0</span>) { t_crash <span class="ot">&lt;-</span> t; <span class="cf">break</span> }</span>
+<span id="cb10-19"><a href="#cb10-19" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb10-20"><a href="#cb10-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">list</span>(<span class="at">prey =</span> prey, <span class="at">predators =</span> predators, <span class="at">t_crash =</span> t_crash)</span>
+<span id="cb10-21"><a href="#cb10-21" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
 </div>
@@ -3261,15 +3269,16 @@ Solution
 <span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>survived <span class="ot">&lt;-</span> <span class="fu">replicate</span>(nboot, {</span>
 <span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a>  n <span class="ot">&lt;-</span> n0</span>
 <span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> (t <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>T) {</span>
-<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a>    n <span class="ot">&lt;-</span> <span class="fu">rbinom</span>(<span class="dv">1</span>, n, alpha)</span>
+<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a>    n <span class="ot">&lt;-</span> <span class="fu">rpois</span>(<span class="dv">1</span>, alpha <span class="sc">*</span> n)</span>
 <span id="cb16-10"><a href="#cb16-10" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> (n <span class="sc">==</span> <span class="dv">0</span>) <span class="cf">break</span></span>
 <span id="cb16-11"><a href="#cb16-11" aria-hidden="true" tabindex="-1"></a>  }</span>
 <span id="cb16-12"><a href="#cb16-12" aria-hidden="true" tabindex="-1"></a>  n <span class="sc">&gt;</span> <span class="dv">0</span></span>
 <span id="cb16-13"><a href="#cb16-13" aria-hidden="true" tabindex="-1"></a>})</span>
 <span id="cb16-14"><a href="#cb16-14" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb16-15"><a href="#cb16-15" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(survived)   <span class="co"># empirical P(survive past T)</span></span>
-<span id="cb16-16"><a href="#cb16-16" aria-hidden="true" tabindex="-1"></a><span class="co"># With alpha=0.99 and n0=10 a sizeable fraction makes it past 500 steps,</span></span>
-<span id="cb16-17"><a href="#cb16-17" aria-hidden="true" tabindex="-1"></a><span class="co"># but many runs still die out — the exact figure depends on the seed.</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb16-16"><a href="#cb16-16" aria-hidden="true" tabindex="-1"></a><span class="co"># At alpha=0.99 the branching process is still subcritical (alpha &lt; 1), so</span></span>
+<span id="cb16-17"><a href="#cb16-17" aria-hidden="true" tabindex="-1"></a><span class="co"># extinction is essentially certain and usually quick: well under 1% of runs</span></span>
+<span id="cb16-18"><a href="#cb16-18" aria-hidden="true" tabindex="-1"></a><span class="co"># survive past 500 steps. (Lower alpha dies out even faster.)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
 </div>
@@ -3329,7 +3338,7 @@ Solution
 <span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>mean_t <span class="ot">&lt;-</span> <span class="fu">sapply</span>(n0s, <span class="cf">function</span>(n0) {</span>
 <span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a>  ts <span class="ot">&lt;-</span> <span class="fu">replicate</span>(nboot, {</span>
 <span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a>    n <span class="ot">&lt;-</span> n0; t <span class="ot">&lt;-</span> <span class="dv">0</span></span>
-<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a>    <span class="cf">while</span> (n <span class="sc">&gt;</span> <span class="dv">0</span>) { n <span class="ot">&lt;-</span> <span class="fu">rbinom</span>(<span class="dv">1</span>, n, alpha); t <span class="ot">&lt;-</span> t <span class="sc">+</span> <span class="dv">1</span> }</span>
+<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a>    <span class="cf">while</span> (n <span class="sc">&gt;</span> <span class="dv">0</span>) { n <span class="ot">&lt;-</span> <span class="fu">rpois</span>(<span class="dv">1</span>, alpha <span class="sc">*</span> n); t <span class="ot">&lt;-</span> t <span class="sc">+</span> <span class="dv">1</span> }</span>
 <span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a>    t</span>
 <span id="cb17-10"><a href="#cb17-10" aria-hidden="true" tabindex="-1"></a>  })</span>
 <span id="cb17-11"><a href="#cb17-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mean</span>(ts)</span>
@@ -3381,7 +3390,7 @@ Solution
 <span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>nboot <span class="ot">&lt;-</span> <span class="dv">2000</span></span>
 <span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>ts <span class="ot">&lt;-</span> <span class="fu">replicate</span>(nboot, {</span>
 <span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>  n <span class="ot">&lt;-</span> n0; t <span class="ot">&lt;-</span> <span class="dv">0</span></span>
-<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>  <span class="cf">while</span> (n <span class="sc">&gt;</span> <span class="dv">0</span>) { n <span class="ot">&lt;-</span> <span class="fu">rbinom</span>(<span class="dv">1</span>, n, alpha); t <span class="ot">&lt;-</span> t <span class="sc">+</span> <span class="dv">1</span> }</span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>  <span class="cf">while</span> (n <span class="sc">&gt;</span> <span class="dv">0</span>) { n <span class="ot">&lt;-</span> <span class="fu">rpois</span>(<span class="dv">1</span>, alpha <span class="sc">*</span> n); t <span class="ot">&lt;-</span> t <span class="sc">+</span> <span class="dv">1</span> }</span>
 <span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a>  t</span>
 <span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a>})</span>
 <span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(ts);   <span class="fu">median</span>(ts)</span>
@@ -3427,7 +3436,7 @@ Hint
 </div>
 <div id="callout-48" class="callout-48-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
-<p>Very low <code>gamma</code> → predators never die, eat all prey, then starve. Very high <code>gamma</code> → predators crash on their own. There is a sweet spot in between.</p>
+<p>Think about the extremes: very high <code>gamma</code> makes predators die off on their own and the system crashes early; lower <code>gamma</code> lets predators persist longer. Whether the longest-surviving value is at the boundary or somewhere in between depends on the other rates — let the simulation tell you.</p>
 </div>
 </div>
 </div>
@@ -3453,7 +3462,9 @@ Solution
 <span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(gammas, mean_tc, <span class="at">type =</span> <span class="st">&quot;b&quot;</span>,</span>
 <span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlab =</span> <span class="st">&quot;predator death rate gamma&quot;</span>,</span>
 <span id="cb19-9"><a href="#cb19-9" aria-hidden="true" tabindex="-1"></a>     <span class="at">ylab =</span> <span class="st">&quot;mean time to crash&quot;</span>)</span>
-<span id="cb19-10"><a href="#cb19-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Expect a non-monotonic curve with a peak at the balanced value.</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb19-10"><a href="#cb19-10" aria-hidden="true" tabindex="-1"></a><span class="co"># In this parameterization mean time-to-crash decreases monotonically with gamma</span></span>
+<span id="cb19-11"><a href="#cb19-11" aria-hidden="true" tabindex="-1"></a><span class="co"># (the lowest gamma survives longest). For other rate combinations an interior</span></span>
+<span id="cb19-12"><a href="#cb19-12" aria-hidden="true" tabindex="-1"></a><span class="co"># &quot;sweet spot&quot; can appear — worth exploring by also varying alpha/beta/delta.</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
 </div>
@@ -3491,16 +3502,17 @@ Solution
 <div class="callout-body-container callout-body">
 <div class="cell">
 <div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>sim <span class="ot">&lt;-</span> <span class="fu">simulate_lv</span>(<span class="at">n_prey0 =</span> <span class="dv">500</span>, <span class="at">n_pred0 =</span> <span class="dv">100</span>,</span>
-<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>                   <span class="at">a =</span> <span class="fl">0.1</span>, <span class="at">b =</span> <span class="fl">0.001</span>, <span class="at">c =</span> <span class="fl">0.001</span>, <span class="at">d =</span> <span class="fl">0.05</span>,</span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>                   <span class="at">alpha =</span> <span class="fl">0.1</span>, <span class="at">beta =</span> <span class="fl">0.001</span>, <span class="at">gamma =</span> <span class="fl">0.05</span>, <span class="at">delta =</span> <span class="fl">0.05</span>,</span>
 <span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>                   <span class="at">tmax =</span> <span class="dv">5000</span>)</span>
-<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>prey <span class="ot">&lt;-</span> sim<span class="sc">$</span>prey</span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>prey <span class="ot">&lt;-</span> sim<span class="sc">$</span>prey[<span class="dv">1</span><span class="sc">:</span><span class="fu">ifelse</span>(<span class="fu">is.na</span>(sim<span class="sc">$</span>t_crash), <span class="fu">length</span>(sim<span class="sc">$</span>prey), sim<span class="sc">$</span>t_crash <span class="sc">-</span> <span class="dv">1</span>)]</span>
 <span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Smooth a little so noise does not create spurious local maxima</span></span>
 <span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a>prey_s <span class="ot">&lt;-</span> stats<span class="sc">::</span><span class="fu">filter</span>(prey, <span class="fu">rep</span>(<span class="dv">1</span><span class="sc">/</span><span class="dv">21</span>, <span class="dv">21</span>), <span class="at">sides =</span> <span class="dv">2</span>)</span>
 <span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a>peaks  <span class="ot">&lt;-</span> <span class="fu">which</span>(<span class="fu">diff</span>(<span class="fu">sign</span>(<span class="fu">diff</span>(prey_s))) <span class="sc">==</span> <span class="sc">-</span><span class="dv">2</span>) <span class="sc">+</span> <span class="dv">1</span></span>
 <span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a>periods <span class="ot">&lt;-</span> <span class="fu">diff</span>(peaks)</span>
 <span id="cb20-9"><a href="#cb20-9" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(periods); <span class="fu">sd</span>(periods)</span>
 <span id="cb20-10"><a href="#cb20-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Period depends on parameters; the classical continuous LV has period</span></span>
-<span id="cb20-11"><a href="#cb20-11" aria-hidden="true" tabindex="-1"></a><span class="co"># ~ 2*pi/sqrt(a*c) in the linearised regime around equilibrium.</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb20-11"><a href="#cb20-11" aria-hidden="true" tabindex="-1"></a><span class="co"># ~ 2*pi/sqrt(alpha*gamma) near equilibrium. For alpha=0.1, gamma=0.05 that is</span></span>
+<span id="cb20-12"><a href="#cb20-12" aria-hidden="true" tabindex="-1"></a><span class="co"># ~89, which matches the simulated spacing of prey maxima.</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
 </div>
@@ -3568,7 +3580,10 @@ Solution
 <span id="cb21-26"><a href="#cb21-26" aria-hidden="true" tabindex="-1"></a>})</span>
 <span id="cb21-27"><a href="#cb21-27" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(peaks, <span class="at">breaks =</span> <span class="dv">30</span>, <span class="at">xlab =</span> <span class="st">&quot;peak infected fraction&quot;</span>)</span>
 <span id="cb21-28"><a href="#cb21-28" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(peaks); <span class="fu">sd</span>(peaks)</span>
-<span id="cb21-29"><a href="#cb21-29" aria-hidden="true" tabindex="-1"></a><span class="co"># Highly variable for popsize = 20 — many epidemics fizzle out, a few explode.</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb21-29"><a href="#cb21-29" aria-hidden="true" tabindex="-1"></a><span class="co"># With beta=0.1 the infection rate climbs above 1 almost immediately, so nearly</span></span>
+<span id="cb21-30"><a href="#cb21-30" aria-hidden="true" tabindex="-1"></a><span class="co"># every run explodes to a large peak (mean ~0.88, sd ~0.12 of the population);</span></span>
+<span id="cb21-31"><a href="#cb21-31" aria-hidden="true" tabindex="-1"></a><span class="co"># only a small fraction (~1-2%) fizzle out, when the initial case happens to</span></span>
+<span id="cb21-32"><a href="#cb21-32" aria-hidden="true" tabindex="-1"></a><span class="co"># recover before infecting anyone.</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
 </div>
@@ -3645,9 +3660,12 @@ Solution
 <span id="cb22-22"><a href="#cb22-22" aria-hidden="true" tabindex="-1"></a>  indiv <span class="ot">&lt;-</span> next_indiv</span>
 <span id="cb22-23"><a href="#cb22-23" aria-hidden="true" tabindex="-1"></a>}</span>
 <span id="cb22-24"><a href="#cb22-24" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-25"><a href="#cb22-25" aria-hidden="true" tabindex="-1"></a><span class="fu">tail</span>(log_num <span class="sc">/</span> popsize)</span>
-<span id="cb22-26"><a href="#cb22-26" aria-hidden="true" tabindex="-1"></a><span class="co"># After a few generations: ~0.25 AA, ~0.50 Aa, ~0.25 aa,</span></span>
-<span id="cb22-27"><a href="#cb22-27" aria-hidden="true" tabindex="-1"></a><span class="co"># matching Hardy-Weinberg with p = q = 0.5 (modulo drift).</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb22-25"><a href="#cb22-25" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(log_num <span class="sc">/</span> popsize)</span>
+<span id="cb22-26"><a href="#cb22-26" aria-hidden="true" tabindex="-1"></a><span class="co"># Hardy-Weinberg is reached after a SINGLE generation of random mating: from</span></span>
+<span id="cb22-27"><a href="#cb22-27" aria-hidden="true" tabindex="-1"></a><span class="co"># generation 2 onward the split sits near 0.25 AA, 0.50 Aa, 0.25 aa (p = q = 0.5).</span></span>
+<span id="cb22-28"><a href="#cb22-28" aria-hidden="true" tabindex="-1"></a><span class="co"># Over many generations genetic drift slowly moves p away from 0.5, so by</span></span>
+<span id="cb22-29"><a href="#cb22-29" aria-hidden="true" tabindex="-1"></a><span class="co"># generation 50 the absolute split has wandered — but the relationship</span></span>
+<span id="cb22-30"><a href="#cb22-30" aria-hidden="true" tabindex="-1"></a><span class="co"># p^2 : 2pq : q^2 still holds for whatever p currently is.</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
 </div>

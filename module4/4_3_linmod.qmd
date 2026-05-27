@@ -71,7 +71,7 @@ fit2 <- lm(BloodPressure ~ Age + Glucose, data = d)
 summary(fit2)
 anova(fit2)
 ```
-Once Glucose is in the model, the apparent effect of Age shrinks and becomes less significant. Some of what looked like an Age effect was actually explained by Glucose, which is itself correlated with Age — a flavour of Simpson's paradox.
+Once Glucose is in the model, the Age coefficient changes only slightly (here from about 0.39 to 0.35, with no change of sign). This is a mild attenuation: because Glucose is itself correlated with Age, a little of what looked like an Age effect is reassigned to Glucose. The effect is small here, but it illustrates that a coefficient can shift when you add a correlated predictor.
 :::
 
 - **Q1.3**. Fit a model using all available variables. This can be done with the shorthand: `BloodPressure ~ .`
@@ -89,27 +89,27 @@ fit_all <- lm(BloodPressure ~ ., data = d)
 summary(fit_all)
 anova(fit_all)
 ```
-After controlling for all the other variables, Age is often no longer significant. The variables are correlated with each other — much of the variance that Age was "claiming" in the simple model is really attributable to BMI, Glucose, etc. Correlation alone does not imply causation.
+In this dataset Age stays highly significant even after controlling for all the other variables (its p-value is still essentially 0), and BMI, SkinThickness and Glucose also come out significant. Some predictors, however, drop out once everything else is in the model — here `Pregnancies`, `Insulin` and `DiabetesPedigreeFunction` are not significant. The variables are correlated with each other, so a coefficient (and its p-value) can change once you add covariates; an apparent association in a simple model does not by itself establish causation.
 :::
 
 - **Q1.4** Optional: Plot Age vs some key variables to help your intuition about what is going on.
 
 ::: {.callout-tip collapse="true" appearance="minimal"}
 ## Hint
-A quick `plot(d$Age, d$Glucose)` is enough — repeat for BMI and a few other columns. `pairs(d)` gives all pairwise scatterplots at once.
+A quick `plot(d$Age, d$Glucose)` is enough — repeat for Pregnancies and a few other columns. `pairs(d)` gives all pairwise scatterplots at once.
 :::
 
 ::: {.callout-note collapse="true" appearance="minimal"}
 ## Solution
 ```{r, eval=FALSE}
 plot(d$Age, d$Glucose)
-plot(d$Age, d$BMI)
+plot(d$Age, d$Pregnancies)
 pairs(d)
 ```
-Older subjects tend to have higher Glucose, BMI, and so on. Because these predictors move together, the simple `BloodPressure ~ Age` model picks up effects that really belong to the other variables.
+Older subjects tend to have more Pregnancies and somewhat higher Glucose (cor(Age, Pregnancies) ≈ 0.54, cor(Age, Glucose) ≈ 0.26). Note that not every variable tracks Age — BMI, for instance, is essentially uncorrelated with Age here (cor ≈ 0.04). Because some predictors move together with Age, the simple `BloodPressure ~ Age` model can pick up effects that are partly shared with those correlated variables.
 :::
 
-This example is a less extreme example of what is called [Simpson's paradox](https://en.wikipedia.org/wiki/Simpson%27s_paradox). The more data you have to predict a certain thing, the more confused you are likely to be about causality. Correlations alone cannot be used to infer causation, especially not in biology!
+The effects here are mild, but in more extreme cases adding a correlated predictor can shrink, inflate, or even flip a coefficient — the most dramatic version of this is [Simpson's paradox](https://en.wikipedia.org/wiki/Simpson%27s_paradox). The more variables you throw at a prediction, the more careful you must be about causality. Correlations alone cannot be used to infer causation, especially not in biology!
 
 ## Handle other statistical distributions using (R)STAN
 
@@ -152,31 +152,32 @@ Look at the `data`, `parameters`, and `model` blocks in **frog.stan**. What are 
 
 ::: {.callout-note collapse="true" appearance="minimal"}
 ## Solution
-The observed frog counts are modelled as Poisson-distributed: `counts[i] ~ Poisson(lambda[i])`. The rate `lambda[i]` is not free for each time point — instead it is linearly interpolated between two endpoint rates `a` and `b` using `lambda = x*a + (1-x)*b`, where `x` runs from 0 to 1 across the observation times. STAN samples (or maximises the likelihood over) `a` and `b` given the data.
+The observed frog counts are modelled as Poisson-distributed: `y[i] ~ Poisson(lambda[i])`. The rate `lambda[i]` is not free for each time point — instead it is linearly interpolated between two endpoint rates `lambda_start` and `lambda_end` using `lambda[i] = (1-time[i])*lambda_start + time[i]*lambda_end`, where `time` runs from 0 to 1 across the observation times. At `time = 0` this gives `lambda_start` and at `time = 1` it gives `lambda_end`. STAN samples (or maximises the likelihood over) `lambda_start` and `lambda_end` given the data.
 :::
 
-**Note on the linear model / interpolation used in the model:** This code has x-values in the range 0…1. This simplifies the interpolation code. Consider $f(x) = x a + (1 - x) b$. Note that $f(0) = b$ and $f(1) = a$. Thus these define the values at either extreme. A more general way of doing linear interpolation is however $f(x) = \frac{x a}{N} + \frac{(1 - x) b}{N}$. With this definition, $f(0) = b$ and $f(N) = a$. Thus it would be suitable for X being 0…N instead.
+**Note on the linear model / interpolation used in the model:** This code has x-values in the range 0…1. This simplifies the interpolation code. Consider $f(x) = x a + (1 - x) b$. Note that $f(0) = b$ and $f(1) = a$. Thus these define the values at either extreme. A more general way of doing linear interpolation is however $f(x) = \frac{x}{N} a + \left(1 - \frac{x}{N}\right) b$. With this definition, $f(0) = b$ and $f(N) = a$. Thus it would be suitable for X being 0…N instead.
 
 - **Q2.3**: Plot the number of frogs over time. What does the trend look like?
 
 ::: {.callout-tip collapse="true" appearance="minimal"}
 ## Hint
-A plain `plot(time, count)` will do; add `type = "b"` to connect the points if you like.
+A plain `plot(frogdat$time, frogdat$y)` will do; add `type = "b"` to connect the points if you like.
 :::
 
 ::: {.callout-note collapse="true" appearance="minimal"}
 ## Solution
 ```{r, eval=FALSE}
-plot(time, count, type = "b", xlab = "time", ylab = "frog count")
+frogdat <- read.csv("frogs.csv")
+plot(frogdat$time, frogdat$y, type = "b", xlab = "time", ylab = "frog count")
 ```
-The counts trend downward over time — the frog population looks like it is decreasing.
+The counts trend upward over time — the frog population looks like it is increasing.
 :::
 
 - **Q2.4**: After running the provided code, does the model fit the data?
 
 ::: {.callout-tip collapse="true" appearance="minimal"}
 ## Hint
-Compare the posterior (or MLE) values of `a` and `b` against the data, and overlay the fitted line `lambda = x*a + (1-x)*b` on the scatterplot from Q2.3.
+Compare the posterior (or MLE) values of `lambda_start` and `lambda_end` against the data, and overlay the fitted line `lambda = (1-time)*lambda_start + time*lambda_end` on the scatterplot from Q2.3.
 :::
 
 ::: {.callout-note collapse="true" appearance="minimal"}
@@ -185,7 +186,7 @@ Compare the posterior (or MLE) values of `a` and `b` against the data, and overl
 print(fit)
 # overlay the interpolated rate on the observed counts
 ```
-Yes — the linear interpolation between the two endpoint rates captures the declining trend well, and the observed counts scatter around the fitted curve as expected for Poisson noise.
+Yes — the linear interpolation between the two endpoint rates captures the increasing trend well (the fitted rate rises from `lambda_start` ≈ 19.4 to `lambda_end` ≈ 24.5), and the observed counts scatter around the fitted curve as expected for Poisson noise.
 :::
 
 - **Q2.5: Optional.** In the STAN-code, you see that there is a limit on lambda to be ≥ 0. Why is this? (without limits, lambda is initially taken from a normal distribution around 0)

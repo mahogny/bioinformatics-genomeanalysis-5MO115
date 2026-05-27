@@ -275,7 +275,7 @@ The `stringr` R package has great functions for string manipulation. `str_split_
 
 ::: {.callout-tip collapse="true" appearance="minimal"}
 ## Hint
-The sample (column) names contain `DMSO` and `IC50` as one of the dash-separated tokens. Split on `-` and pick that token.
+The sample (column) names are the salmon output directory names you chose in Q1.2 (`IC50_1_quant`, `IC50_5_quant`, `DMSO_1_quant`, `DMSO_2_quant`). The treatment label (`DMSO` / `IC50`) is the first underscore-separated token. Split on `_` and pick that token.
 :::
 
 ::: {.callout-note collapse="true" appearance="minimal"}
@@ -283,7 +283,9 @@ The sample (column) names contain `DMSO` and `IC50` as one of the dash-separated
 ```{r, eval=FALSE}
 library(stringr)
 cond <- data.frame(row.names = colnames(cnt))
-cond$treatment <- str_split_i(rownames(cond), "-", 5)
+# Column names are the salmon output dir names from Q1.2, e.g. "IC50_1_quant";
+# the first "_"-separated token is the treatment ("IC50" / "DMSO").
+cond$treatment <- str_split_i(rownames(cond), "_", 1)
 cond
 ```
 :::
@@ -480,7 +482,7 @@ No need to gunzip — `read.csv` reads `.gz` directly.
 
 ::: {.callout-tip collapse="true" appearance="minimal"}
 ## Hint
-For the meta file, use `stringr::str_split_fixed` (or similar) on the original treatment column to break it into two new columns: `time` and `treatment_duration`.
+For the meta file, use `stringr::str_split_fixed` (or similar) on the original treatment column to break it into two new columns: one for the timepoint (`6h` / `24h`) and one for the treatment (no treatment / SAHA at two doses). Run `head(parts)` and confirm which part is which before naming the columns.
 :::
 
 ::: {.callout-note collapse="true" appearance="minimal"}
@@ -490,17 +492,24 @@ library(stringr)
 
 cnt  <- read.csv("readCounts.csv.gz", row.names = 1)
 cond <- read.csv("meta.csv")
-rownames(cond) <- cond$sample   # use the sample-name column (whatever it is called)
+rownames(cond) <- cond$Sample   # the sample-name column (matches colnames(cnt))
 
 # Ensure ordering matches the count matrix
 cond <- cond[colnames(cnt), ]
 
-# Split the treatment column into two new columns (adjust the separator/index
-# to match the actual strings in meta.csv)
-parts <- str_split_fixed(cond$treatment, "_", 2)
-cond$treatment_duration   <- parts[, 1]
-cond$time_since_treatment <- parts[, 2]
+# The cell line is its own column already; rename it for the design below.
+cond$cell_type <- cond$CellLine
+
+# The Treatment column combines timepoint and treatment, e.g. "6h_no_treat",
+# "6h_SAHA_5", "24h_SAHA_10". Split it on the FIRST "_" so that:
+#   part 1 = timepoint     (6h / 24h)
+#   part 2 = treatment      (no_treat / SAHA_5 / SAHA_10)
+parts <- str_split_fixed(cond$Treatment, "_", 2)
+head(parts)   # ALWAYS check which part is time vs treatment before naming!
+cond$time_since_treatment <- parts[, 1]   # the 6h / 24h timepoint
+cond$treatment_duration   <- parts[, 2]   # no_treat / SAHA_5 / SAHA_10
 ```
+The combined label is `time _ treatment` (e.g. `6h_SAHA_10` = the 6 h timepoint, SAHA dose 10). If you ever load a dataset where the order is reversed, swap the two assignments accordingly — `head(parts)` above is there precisely so you can confirm.
 :::
 
 **Perform DE analysis using DESeq2**
@@ -570,10 +579,15 @@ Same approach as Q3.6 but use the `treatment_duration_...` coefficient instead. 
 ## Solution
 ```{r, eval=FALSE}
 resultsNames(dds)
-res_treat <- results(dds, name = "treatment_duration_treated_vs_untreated")  # replace with actual name
+# treatment_duration has THREE levels (no_treat / SAHA_5 / SAHA_10), so there is
+# no single binary "treated vs untreated" coefficient. resultsNames(dds) will
+# instead list one coefficient per non-reference dose, e.g.
+# "treatment_duration_SAHA_5_vs_no_treat" and "treatment_duration_SAHA_10_vs_no_treat"
+# (exact strings depend on the reference level). Pick the contrast you care about:
+res_treat <- results(dds, name = "treatment_duration_SAHA_10_vs_no_treat")  # replace with an actual name from resultsNames(dds)
 head(res_treat[order(res_treat$padj), ])
 ```
-Drug-response genes (e.g. stress-response, apoptosis or cell-cycle genes depending on the drug's mechanism) tend to dominate the top of the list.
+Because there are several doses, you get one coefficient per dose-vs-reference comparison rather than one treated/untreated contrast. To test the treatment factor as a whole (any dose effect at once), use a likelihood-ratio test: `DESeq(dds, test = "LRT", reduced = ~ cell_type + time_since_treatment)`. Drug-response genes (e.g. stress-response, apoptosis or cell-cycle genes depending on the drug's mechanism) tend to dominate the top of the list.
 :::
 
 ## Extra exercise material

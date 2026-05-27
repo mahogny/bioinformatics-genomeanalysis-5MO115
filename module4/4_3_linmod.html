@@ -2455,7 +2455,7 @@ Solution
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(fit2)</span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="fu">anova</span>(fit2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>Once Glucose is in the model, the apparent effect of Age shrinks and becomes less significant. Some of what looked like an Age effect was actually explained by Glucose, which is itself correlated with Age — a flavour of Simpson’s paradox.</p>
+<p>Once Glucose is in the model, the Age coefficient changes only slightly (here from about 0.39 to 0.35, with no change of sign). This is a mild attenuation: because Glucose is itself correlated with Age, a little of what looked like an Age effect is reassigned to Glucose. The effect is small here, but it illustrates that a coefficient can shift when you add a correlated predictor.</p>
 </div>
 </div>
 </div>
@@ -2498,7 +2498,7 @@ Solution
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(fit_all)</span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="fu">anova</span>(fit_all)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>After controlling for all the other variables, Age is often no longer significant. The variables are correlated with each other — much of the variance that Age was “claiming” in the simple model is really attributable to BMI, Glucose, etc. Correlation alone does not imply causation.</p>
+<p>In this dataset Age stays highly significant even after controlling for all the other variables (its p-value is still essentially 0), and BMI, SkinThickness and Glucose also come out significant. Some predictors, however, drop out once everything else is in the model — here <code>Pregnancies</code>, <code>Insulin</code> and <code>DiabetesPedigreeFunction</code> are not significant. The variables are correlated with each other, so a coefficient (and its p-value) can change once you add covariates; an apparent association in a simple model does not by itself establish causation.</p>
 </div>
 </div>
 </div>
@@ -2517,7 +2517,7 @@ Hint
 </div>
 <div id="callout-7" class="callout-7-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
-<p>A quick <code>plot(d$Age, d$Glucose)</code> is enough — repeat for BMI and a few other columns. <code>pairs(d)</code> gives all pairwise scatterplots at once.</p>
+<p>A quick <code>plot(d$Age, d$Glucose)</code> is enough — repeat for Pregnancies and a few other columns. <code>pairs(d)</code> gives all pairwise scatterplots at once.</p>
 </div>
 </div>
 </div>
@@ -2535,14 +2535,14 @@ Solution
 <div class="callout-body-container callout-body">
 <div class="cell">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(d<span class="sc">$</span>Age, d<span class="sc">$</span>Glucose)</span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(d<span class="sc">$</span>Age, d<span class="sc">$</span>BMI)</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(d<span class="sc">$</span>Age, d<span class="sc">$</span>Pregnancies)</span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="fu">pairs</span>(d)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>Older subjects tend to have higher Glucose, BMI, and so on. Because these predictors move together, the simple <code>BloodPressure ~ Age</code> model picks up effects that really belong to the other variables.</p>
+<p>Older subjects tend to have more Pregnancies and somewhat higher Glucose (cor(Age, Pregnancies) ≈ 0.54, cor(Age, Glucose) ≈ 0.26). Note that not every variable tracks Age — BMI, for instance, is essentially uncorrelated with Age here (cor ≈ 0.04). Because some predictors move together with Age, the simple <code>BloodPressure ~ Age</code> model can pick up effects that are partly shared with those correlated variables.</p>
 </div>
 </div>
 </div>
-<p>This example is a less extreme example of what is called <a href="https://en.wikipedia.org/wiki/Simpson%27s_paradox">Simpson’s paradox</a>. The more data you have to predict a certain thing, the more confused you are likely to be about causality. Correlations alone cannot be used to infer causation, especially not in biology!</p>
+<p>The effects here are mild, but in more extreme cases adding a correlated predictor can shrink, inflate, or even flip a coefficient — the most dramatic version of this is <a href="https://en.wikipedia.org/wiki/Simpson%27s_paradox">Simpson’s paradox</a>. The more variables you throw at a prediction, the more careful you must be about causality. Correlations alone cannot be used to infer causation, especially not in biology!</p>
 </section>
 <section id="handle-other-statistical-distributions-using-rstan" class="level2">
 <h2 class="anchored" data-anchor-id="handle-other-statistical-distributions-using-rstan">Handle other statistical distributions using (R)STAN</h2>
@@ -2627,11 +2627,11 @@ Solution
 </div>
 <div id="callout-12" class="callout-12-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
-<p>The observed frog counts are modelled as Poisson-distributed: <code>counts[i] ~ Poisson(lambda[i])</code>. The rate <code>lambda[i]</code> is not free for each time point — instead it is linearly interpolated between two endpoint rates <code>a</code> and <code>b</code> using <code>lambda = x*a + (1-x)*b</code>, where <code>x</code> runs from 0 to 1 across the observation times. STAN samples (or maximises the likelihood over) <code>a</code> and <code>b</code> given the data.</p>
+<p>The observed frog counts are modelled as Poisson-distributed: <code>y[i] ~ Poisson(lambda[i])</code>. The rate <code>lambda[i]</code> is not free for each time point — instead it is linearly interpolated between two endpoint rates <code>lambda_start</code> and <code>lambda_end</code> using <code>lambda[i] = (1-time[i])*lambda_start + time[i]*lambda_end</code>, where <code>time</code> runs from 0 to 1 across the observation times. At <code>time = 0</code> this gives <code>lambda_start</code> and at <code>time = 1</code> it gives <code>lambda_end</code>. STAN samples (or maximises the likelihood over) <code>lambda_start</code> and <code>lambda_end</code> given the data.</p>
 </div>
 </div>
 </div>
-<p><strong>Note on the linear model / interpolation used in the model:</strong> This code has x-values in the range 0…1. This simplifies the interpolation code. Consider <span class="math inline">\(f(x) = x a + (1 - x) b\)</span>. Note that <span class="math inline">\(f(0) = b\)</span> and <span class="math inline">\(f(1) = a\)</span>. Thus these define the values at either extreme. A more general way of doing linear interpolation is however <span class="math inline">\(f(x) = \frac{x a}{N} + \frac{(1 - x) b}{N}\)</span>. With this definition, <span class="math inline">\(f(0) = b\)</span> and <span class="math inline">\(f(N) = a\)</span>. Thus it would be suitable for X being 0…N instead.</p>
+<p><strong>Note on the linear model / interpolation used in the model:</strong> This code has x-values in the range 0…1. This simplifies the interpolation code. Consider <span class="math inline">\(f(x) = x a + (1 - x) b\)</span>. Note that <span class="math inline">\(f(0) = b\)</span> and <span class="math inline">\(f(1) = a\)</span>. Thus these define the values at either extreme. A more general way of doing linear interpolation is however <span class="math inline">\(f(x) = \frac{x}{N} a + \left(1 - \frac{x}{N}\right) b\)</span>. With this definition, <span class="math inline">\(f(0) = b\)</span> and <span class="math inline">\(f(N) = a\)</span>. Thus it would be suitable for X being 0…N instead.</p>
 <ul>
 <li><strong>Q2.3</strong>: Plot the number of frogs over time. What does the trend look like?</li>
 </ul>
@@ -2647,7 +2647,7 @@ Hint
 </div>
 <div id="callout-13" class="callout-13-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
-<p>A plain <code>plot(time, count)</code> will do; add <code>type = &quot;b&quot;</code> to connect the points if you like.</p>
+<p>A plain <code>plot(frogdat$time, frogdat$y)</code> will do; add <code>type = &quot;b&quot;</code> to connect the points if you like.</p>
 </div>
 </div>
 </div>
@@ -2664,9 +2664,10 @@ Solution
 <div id="callout-14" class="callout-14-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(time, count, <span class="at">type =</span> <span class="st">&quot;b&quot;</span>, <span class="at">xlab =</span> <span class="st">&quot;time&quot;</span>, <span class="at">ylab =</span> <span class="st">&quot;frog count&quot;</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>frogdat <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&quot;frogs.csv&quot;</span>)</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(frogdat<span class="sc">$</span>time, frogdat<span class="sc">$</span>y, <span class="at">type =</span> <span class="st">&quot;b&quot;</span>, <span class="at">xlab =</span> <span class="st">&quot;time&quot;</span>, <span class="at">ylab =</span> <span class="st">&quot;frog count&quot;</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>The counts trend downward over time — the frog population looks like it is decreasing.</p>
+<p>The counts trend upward over time — the frog population looks like it is increasing.</p>
 </div>
 </div>
 </div>
@@ -2685,7 +2686,7 @@ Hint
 </div>
 <div id="callout-15" class="callout-15-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
-<p>Compare the posterior (or MLE) values of <code>a</code> and <code>b</code> against the data, and overlay the fitted line <code>lambda = x*a + (1-x)*b</code> on the scatterplot from Q2.3.</p>
+<p>Compare the posterior (or MLE) values of <code>lambda_start</code> and <code>lambda_end</code> against the data, and overlay the fitted line <code>lambda = (1-time)*lambda_start + time*lambda_end</code> on the scatterplot from Q2.3.</p>
 </div>
 </div>
 </div>
@@ -2705,7 +2706,7 @@ Solution
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(fit)</span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="co"># overlay the interpolated rate on the observed counts</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>Yes — the linear interpolation between the two endpoint rates captures the declining trend well, and the observed counts scatter around the fitted curve as expected for Poisson noise.</p>
+<p>Yes — the linear interpolation between the two endpoint rates captures the increasing trend well (the fitted rate rises from <code>lambda_start</code> ≈ 19.4 to <code>lambda_end</code> ≈ 24.5), and the observed counts scatter around the fitted curve as expected for Poisson noise.</p>
 </div>
 </div>
 </div>
