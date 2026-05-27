@@ -22,7 +22,7 @@ The central limit theorem states that the average of N i.i.d. variables having v
 - Take inspiration from `bootstrap_basics.R` (in [`bootstrap_and_sim.zip`](data/bootstrap_and_sim.zip)).
 - As for the number of bootstraps, just keep it "somewhat high". The higher it is, the more precise is your answer. Motivating the number of bootstraps is beyond this course. In practice, the number is picked based on experience. By running the same bootstrap multiple times, you can assess if the precision appears "good enough" for your problem. Tricks to increase precision include parametric bootstrapping, and bias correction. Again, both of these are outside this course, but see Deep reading at the end of this module.
 
-- **Q1.1**. Plot the distribution of the mean for several different N; get an intuition for what is going on.
+- **Q1.1**. Plot the distribution of the mean of samples, for several different numbers of samples (N); get an intuition for what is going on.
 
 ::: {.callout-tip collapse="true" appearance="minimal"}
 ## Hint
