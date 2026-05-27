@@ -71,7 +71,7 @@ fit2 <- lm(BloodPressure ~ Age + Glucose, data = d)
 summary(fit2)
 anova(fit2)
 ```
-Once Glucose is in the model, the Age coefficient changes only slightly (here from about 0.39 to 0.35, with no change of sign). This is a mild attenuation: because Glucose is itself correlated with Age, a little of what looked like an Age effect is reassigned to Glucose. The effect is small here, but it illustrates that a coefficient can shift when you add a correlated predictor.
+Adding Glucose all but erases the Age effect: the Age coefficient drops from about 0.22 to 0.08 and is no longer statistically significant (p ≈ 0.17), while Glucose itself is highly significant. Because Glucose is correlated with Age, much of what looked like an "Age effect" in Q1.1 is actually reassigned to Glucose once both are in the model. A single correlated predictor was enough to make Age look irrelevant.
 :::
 
 - **Q1.3**. Fit a model using all available variables. This can be done with the shorthand: `BloodPressure ~ .`
@@ -89,7 +89,7 @@ fit_all <- lm(BloodPressure ~ ., data = d)
 summary(fit_all)
 anova(fit_all)
 ```
-In this dataset Age stays highly significant even after controlling for all the other variables (its p-value is still essentially 0), and BMI, SkinThickness and Glucose also come out significant. Some predictors, however, drop out once everything else is in the model — here `Pregnancies`, `Insulin` and `DiabetesPedigreeFunction` are not significant. The variables are correlated with each other, so a coefficient (and its p-value) can change once you add covariates; an apparent association in a simple model does not by itself establish causation.
+Now something striking happens: the Age coefficient does not just lose significance, it **flips sign** — it becomes about −0.59 and is again highly significant (p ≈ 0). So depending on what else is in the model, "more age" appears to *raise* blood pressure (Q1.1) or *lower* it (here). `Pregnancies`, `Glucose`, `Insulin`, `BMI` and `Outcome` come out significant, while `SkinThickness` and `DiabetesPedigreeFunction` do not. The reversal happens because `Pregnancies` is strongly correlated with `Age` (≈ 0.78): in the simple model Age was largely standing in for Pregnancies, and once Pregnancies (and the other correlated drivers) are in the model the *direct* Age effect points the other way. A coefficient — even its sign — can change completely once you add correlated covariates; an apparent association in a simple model does not by itself establish causation.
 :::
 
 - **Q1.4** Optional: Plot Age vs some key variables to help your intuition about what is going on.
@@ -106,10 +106,10 @@ plot(d$Age, d$Glucose)
 plot(d$Age, d$Pregnancies)
 pairs(d)
 ```
-Older subjects tend to have more Pregnancies and somewhat higher Glucose (cor(Age, Pregnancies) ≈ 0.54, cor(Age, Glucose) ≈ 0.26). Note that not every variable tracks Age — BMI, for instance, is essentially uncorrelated with Age here (cor ≈ 0.04). Because some predictors move together with Age, the simple `BloodPressure ~ Age` model can pick up effects that are partly shared with those correlated variables.
+Older subjects tend to have many more Pregnancies and somewhat higher Glucose (cor(Age, Pregnancies) ≈ 0.78, cor(Age, Glucose) ≈ 0.34). Note that not every variable tracks Age — BMI, for instance, is essentially uncorrelated with Age here (cor ≈ 0.09). Because Pregnancies in particular moves so tightly with Age, the simple `BloodPressure ~ Age` model is largely picking up the Pregnancies (and Glucose) effect rather than a direct effect of age itself — which is exactly why the Age coefficient collapsed and then reversed as those variables were added.
 :::
 
-The effects here are mild, but in more extreme cases adding a correlated predictor can shrink, inflate, or even flip a coefficient — the most dramatic version of this is [Simpson's paradox](https://en.wikipedia.org/wiki/Simpson%27s_paradox). The more variables you throw at a prediction, the more careful you must be about causality. Correlations alone cannot be used to infer causation, especially not in biology!
+We just watched this happen: Age looked like a clear positive predictor on its own, lost all significance once Glucose was added, and then turned significantly *negative* once the strongly correlated Pregnancies variable entered the model. Adding a correlated predictor can shrink, inflate, or even reverse a coefficient — the most dramatic version of this is [Simpson's paradox](https://en.wikipedia.org/wiki/Simpson%27s_paradox). The more variables you throw at a prediction, the more careful you must be about causality. Correlations alone cannot be used to infer causation, especially not in biology!
 
 ## Handle other statistical distributions using (R)STAN
 
