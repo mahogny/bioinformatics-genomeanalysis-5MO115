@@ -103,6 +103,10 @@ salmon quant -i salmon_human_index -l A \
     -p 1 --validateMappings -o quants/IC50_5_quant
 ```
 
+[**WARNING** - This should take some minutes to run. Be sure that you don't see any "Error". You must be in the folder above salmon_human_index for this to
+work. Worst case, you might end up with an output folder that lacks the file you need later during DE analysis!]{style="color:red;"}
+
+
 Here `-p 1` means to use one CPU. You can arrange to use multiple if you want. The output is specified using `-o`.
 
 ::: {.callout-note}

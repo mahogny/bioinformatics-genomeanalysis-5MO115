@@ -2447,6 +2447,7 @@ Solution
 <div class="sourceCode" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="ex">salmon</span> quant <span class="at">-i</span> salmon_human_index <span class="at">-l</span> A <span class="dt">\</span></span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>    <span class="at">-r</span> RUN466-20-26210-CLBGA-IC50-Celasterol-RNAseq5BR_S12_L001_R1_001.fastq.gz <span class="dt">\</span></span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">-p</span> 1 <span class="at">--validateMappings</span> <span class="at">-o</span> quants/IC50_5_quant</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p><span style="color:red;"><strong>WARNING</strong> - This should take some minutes to run. Be sure that you don’t see any “Error”. You must be in the folder above salmon_human_index for this to work. Worst case, you might end up with an output folder that lacks the file you need later during DE analysis!</span></p>
 <p>Here <code>-p 1</code> means to use one CPU. You can arrange to use multiple if you want. The output is specified using <code>-o</code>.</p>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
