@@ -70,10 +70,10 @@ You will find a link to ENA with raw FASTQ files. You need at least 2 treated an
 To save you time, we have picked suitable files to download. Here are the commands:
 
 ```bash
-wget -nc ftp://ftp.sra.ebi.ac.uk/vol1/run/ERR431/ERR4319001/RUN466-6-26081-CLBGA-IC50-Celasterol-RNAseq1BR_S3_L001_R1_001.fastq.gz
-wget -nc ftp://ftp.sra.ebi.ac.uk/vol1/run/ERR431/ERR4319005/RUN466-20-26210-CLBGA-IC50-Celasterol-RNAseq5BR_S12_L001_R1_001.fastq.gz
-wget -nc ftp://ftp.sra.ebi.ac.uk/vol1/run/ERR431/ERR4318985/RUN466-5-26079-CLBGA-DMSO-75-Celasterol-RNAseq1BR_S4_L001_R1_001.fastq.gz
-wget -nc ftp://ftp.sra.ebi.ac.uk/vol1/run/ERR431/ERR4318989/RUN466-9-26102-CLBGA-DMSO-75-Celasterol-RNAseq2BR_S13_L001_R1_001.fastq.gz
+wget -nc https://ftp.sra.ebi.ac.uk/vol1/run/ERR431/ERR4319001/RUN466-6-26081-CLBGA-IC50-Celasterol-RNAseq1BR_S3_L001_R1_001.fastq.gz
+wget -nc https://ftp.sra.ebi.ac.uk/vol1/run/ERR431/ERR4319005/RUN466-20-26210-CLBGA-IC50-Celasterol-RNAseq5BR_S12_L001_R1_001.fastq.gz
+wget -nc https://ftp.sra.ebi.ac.uk/vol1/run/ERR431/ERR4318985/RUN466-5-26079-CLBGA-DMSO-75-Celasterol-RNAseq1BR_S4_L001_R1_001.fastq.gz
+wget -nc https://ftp.sra.ebi.ac.uk/vol1/run/ERR431/ERR4318989/RUN466-9-26102-CLBGA-DMSO-75-Celasterol-RNAseq2BR_S13_L001_R1_001.fastq.gz
 ```
 
 - **Q1.1** Download the required raw files.
@@ -86,10 +86,10 @@ Run the four `wget` commands listed above in a directory where you want to keep 
 ::: {.callout-note collapse="true" appearance="minimal"}
 ## Solution
 ```bash
-wget -nc ftp://ftp.sra.ebi.ac.uk/vol1/run/ERR431/ERR4319001/RUN466-6-26081-CLBGA-IC50-Celasterol-RNAseq1BR_S3_L001_R1_001.fastq.gz
-wget -nc ftp://ftp.sra.ebi.ac.uk/vol1/run/ERR431/ERR4319005/RUN466-20-26210-CLBGA-IC50-Celasterol-RNAseq5BR_S12_L001_R1_001.fastq.gz
-wget -nc ftp://ftp.sra.ebi.ac.uk/vol1/run/ERR431/ERR4318985/RUN466-5-26079-CLBGA-DMSO-75-Celasterol-RNAseq1BR_S4_L001_R1_001.fastq.gz
-wget -nc ftp://ftp.sra.ebi.ac.uk/vol1/run/ERR431/ERR4318989/RUN466-9-26102-CLBGA-DMSO-75-Celasterol-RNAseq2BR_S13_L001_R1_001.fastq.gz
+wget -nc https://ftp.sra.ebi.ac.uk/vol1/run/ERR431/ERR4319001/RUN466-6-26081-CLBGA-IC50-Celasterol-RNAseq1BR_S3_L001_R1_001.fastq.gz
+wget -nc https://ftp.sra.ebi.ac.uk/vol1/run/ERR431/ERR4319005/RUN466-20-26210-CLBGA-IC50-Celasterol-RNAseq5BR_S12_L001_R1_001.fastq.gz
+wget -nc https://ftp.sra.ebi.ac.uk/vol1/run/ERR431/ERR4318985/RUN466-5-26079-CLBGA-DMSO-75-Celasterol-RNAseq1BR_S4_L001_R1_001.fastq.gz
+wget -nc https://ftp.sra.ebi.ac.uk/vol1/run/ERR431/ERR4318989/RUN466-9-26102-CLBGA-DMSO-75-Celasterol-RNAseq2BR_S13_L001_R1_001.fastq.gz
 ```
 :::
 
@@ -176,7 +176,7 @@ Compute the row sums of the count matrix and order the rows by those sums in dec
 ```{r, eval=FALSE}
 cnt[order(rowSums(cnt), decreasing = TRUE), ][1:10, ]
 ```
-The top transcript is typically `ENST00000387347` (MT-RNR2 / mitochondrial 16S rRNA) — mitochondrial transcripts dominate in most bulk RNA-seq libraries.
+With the four samples used here, the top transcript is `ENST00000362079` (MT-CO3, mitochondrial cytochrome _c_ oxidase III). The rest of the top 10 is a mix of other mitochondrial mRNAs (MT-ATP6, MT-ND3, MT-CO2) and highly expressed translation/ribosomal genes (EEF1A1, and the RPS/RPL family). Mitochondrial and housekeeping transcripts dominate most bulk RNA-seq libraries, so the exact #1 may differ slightly from run to run, but it will be one of these.
 :::
 
 - **Q1.4: Optional**: Are there any genes you recognize? You can look up any geneID such as on Ensembl. Here is the page for the human gene [IL4](https://www.ensembl.org/Homo_sapiens/Gene/Summary?g=ENSG00000113520;r=5:132673986-132682678).
@@ -300,6 +300,18 @@ See here: <https://bioconductor.org/packages/release/bioc/html/DESeq2.html>
 
 Remember to load it after installation!
 
+::: {.callout-tip collapse="true" appearance="minimal"}
+## Hint: installation fails silently? (e.g. `MatrixGenerics`)
+DESeq2 and its dependencies (such as `MatrixGenerics`) live on **Bioconductor**, not CRAN. If you try `install.packages("MatrixGenerics")` it will *not* install — R only prints a warning like `package 'MatrixGenerics' is not available`, which is easy to miss. Always install via `BiocManager`:
+
+```r
+install.packages("BiocManager")        # one-time, from CRAN
+BiocManager::install("DESeq2")         # pulls in MatrixGenerics etc. automatically
+```
+
+If a single dependency is missing, you can install it the same way, e.g. `BiocManager::install("MatrixGenerics")`. Read the very end of the output for any compiler/dependency error.
+:::
+
 **Run DESeq2 to fit statistical model:**
 
 You are now ready to perform the statistical analysis! The following code, largely taken from the [vignette](https://bioconductor.org/packages/devel/bioc/vignettes/DESeq2/inst/doc/DESeq2.html) (recommended reading!), sets up a pairwise test.
@@ -412,10 +424,10 @@ res_df <- res_df[order(res_df$padj), ]
 head(res_df, 5)
 rownames(res_df)[1]  # top transcript ID, look this up on Ensembl
 ```
-Take the top `ENST...` ID and search it at <https://www.ensembl.org>. The gene symbol shown there (e.g. HSPA1A, HMOX1 or similar stress-response gene) is the answer.
+Take the top `ENST...` ID and search it at <https://www.ensembl.org>. With the four samples used here the top hit is `ENST00000276571` (CRH, corticotropin-releasing hormone — a stress-response/neuroendocrine gene), with `log2FoldChange` ≈ +2 (about 4× higher in the IC50-treated cells). With only two replicates per group the exact top gene can shift between runs, so don't worry if you get a slightly different symbol.
 :::
 
-Also note that the most significant gene has not changed much up or down in expression!
+Note that significance (`padj`) and effect size (`log2FoldChange`) are two different axes. The top hit by `padj` is very highly expressed (large `baseMean`), which makes even a moderate fold change statistically confident — whereas several genes further down the list have much larger fold changes (|log2FC| > 10) but rank lower because they are noisier. The most significant gene is not necessarily the one that changed the most.
 
 - **Q2.9 Optional:** Use ggrepel, <https://cran.r-project.org/web/packages/ggrepel/vignettes/ggrepel.html>, to highlight the names of the most differentially expressed genes. This is commonly done in articles, and a good package to know.
 

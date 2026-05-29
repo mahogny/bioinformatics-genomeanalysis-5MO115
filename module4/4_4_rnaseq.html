@@ -2400,10 +2400,10 @@ window.Quarto = {
 <p>There is plenty of public data that you can reanalyze and make new findings. Also to get new ideas or help design experiments. This saves a lot of time in the lab!</p>
 <p>You will find a link to ENA with raw FASTQ files. You need at least 2 treated and 2 untreated samples for the statistics — it is kept to a minimum to reduce compute time for this course; ideally you would want 3-5 replicates each.</p>
 <p>To save you time, we have picked suitable files to download. Here are the commands:</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">wget</span> <span class="at">-nc</span> ftp://ftp.sra.ebi.ac.uk/vol1/run/ERR431/ERR4319001/RUN466-6-26081-CLBGA-IC50-Celasterol-RNAseq1BR_S3_L001_R1_001.fastq.gz</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">wget</span> <span class="at">-nc</span> ftp://ftp.sra.ebi.ac.uk/vol1/run/ERR431/ERR4319005/RUN466-20-26210-CLBGA-IC50-Celasterol-RNAseq5BR_S12_L001_R1_001.fastq.gz</span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="fu">wget</span> <span class="at">-nc</span> ftp://ftp.sra.ebi.ac.uk/vol1/run/ERR431/ERR4318985/RUN466-5-26079-CLBGA-DMSO-75-Celasterol-RNAseq1BR_S4_L001_R1_001.fastq.gz</span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="fu">wget</span> <span class="at">-nc</span> ftp://ftp.sra.ebi.ac.uk/vol1/run/ERR431/ERR4318989/RUN466-9-26102-CLBGA-DMSO-75-Celasterol-RNAseq2BR_S13_L001_R1_001.fastq.gz</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">wget</span> <span class="at">-nc</span> https://ftp.sra.ebi.ac.uk/vol1/run/ERR431/ERR4319001/RUN466-6-26081-CLBGA-IC50-Celasterol-RNAseq1BR_S3_L001_R1_001.fastq.gz</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">wget</span> <span class="at">-nc</span> https://ftp.sra.ebi.ac.uk/vol1/run/ERR431/ERR4319005/RUN466-20-26210-CLBGA-IC50-Celasterol-RNAseq5BR_S12_L001_R1_001.fastq.gz</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="fu">wget</span> <span class="at">-nc</span> https://ftp.sra.ebi.ac.uk/vol1/run/ERR431/ERR4318985/RUN466-5-26079-CLBGA-DMSO-75-Celasterol-RNAseq1BR_S4_L001_R1_001.fastq.gz</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="fu">wget</span> <span class="at">-nc</span> https://ftp.sra.ebi.ac.uk/vol1/run/ERR431/ERR4318989/RUN466-9-26102-CLBGA-DMSO-75-Celasterol-RNAseq2BR_S13_L001_R1_001.fastq.gz</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <ul>
 <li><strong>Q1.1</strong> Download the required raw files.</li>
 </ul>
@@ -2435,10 +2435,10 @@ Solution
 </div>
 <div id="callout-2" class="callout-2-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
-<div class="sourceCode" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">wget</span> <span class="at">-nc</span> ftp://ftp.sra.ebi.ac.uk/vol1/run/ERR431/ERR4319001/RUN466-6-26081-CLBGA-IC50-Celasterol-RNAseq1BR_S3_L001_R1_001.fastq.gz</span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">wget</span> <span class="at">-nc</span> ftp://ftp.sra.ebi.ac.uk/vol1/run/ERR431/ERR4319005/RUN466-20-26210-CLBGA-IC50-Celasterol-RNAseq5BR_S12_L001_R1_001.fastq.gz</span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="fu">wget</span> <span class="at">-nc</span> ftp://ftp.sra.ebi.ac.uk/vol1/run/ERR431/ERR4318985/RUN466-5-26079-CLBGA-DMSO-75-Celasterol-RNAseq1BR_S4_L001_R1_001.fastq.gz</span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="fu">wget</span> <span class="at">-nc</span> ftp://ftp.sra.ebi.ac.uk/vol1/run/ERR431/ERR4318989/RUN466-9-26102-CLBGA-DMSO-75-Celasterol-RNAseq2BR_S13_L001_R1_001.fastq.gz</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">wget</span> <span class="at">-nc</span> https://ftp.sra.ebi.ac.uk/vol1/run/ERR431/ERR4319001/RUN466-6-26081-CLBGA-IC50-Celasterol-RNAseq1BR_S3_L001_R1_001.fastq.gz</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">wget</span> <span class="at">-nc</span> https://ftp.sra.ebi.ac.uk/vol1/run/ERR431/ERR4319005/RUN466-20-26210-CLBGA-IC50-Celasterol-RNAseq5BR_S12_L001_R1_001.fastq.gz</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="fu">wget</span> <span class="at">-nc</span> https://ftp.sra.ebi.ac.uk/vol1/run/ERR431/ERR4318985/RUN466-5-26079-CLBGA-DMSO-75-Celasterol-RNAseq1BR_S4_L001_R1_001.fastq.gz</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="fu">wget</span> <span class="at">-nc</span> https://ftp.sra.ebi.ac.uk/vol1/run/ERR431/ERR4318989/RUN466-9-26102-CLBGA-DMSO-75-Celasterol-RNAseq2BR_S13_L001_R1_001.fastq.gz</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
 </div>
@@ -2574,7 +2574,7 @@ Solution
 <div class="cell">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>cnt[<span class="fu">order</span>(<span class="fu">rowSums</span>(cnt), <span class="at">decreasing =</span> <span class="cn">TRUE</span>), ][<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>, ]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>The top transcript is typically <code>ENST00000387347</code> (MT-RNR2 / mitochondrial 16S rRNA) — mitochondrial transcripts dominate in most bulk RNA-seq libraries.</p>
+<p>With the four samples used here, the top transcript is <code>ENST00000362079</code> (MT-CO3, mitochondrial cytochrome <em>c</em> oxidase III). The rest of the top 10 is a mix of other mitochondrial mRNAs (MT-ATP6, MT-ND3, MT-CO2) and highly expressed translation/ribosomal genes (EEF1A1, and the RPS/RPL family). Mitochondrial and housekeeping transcripts dominate most bulk RNA-seq libraries, so the exact #1 may differ slightly from run to run, but it will be one of these.</p>
 </div>
 </div>
 </div>
@@ -2789,20 +2789,39 @@ Solution
 <p><strong>Install DESeq2</strong></p>
 <p>See here: <a href="https://bioconductor.org/packages/release/bioc/html/DESeq2.html" class="uri">https://bioconductor.org/packages/release/bioc/html/DESeq2.html</a></p>
 <p>Remember to load it after installation!</p>
+<div class="callout callout-style-simple callout-tip no-icon callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-18-contents" aria-controls="callout-18" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Hint: installation fails silently? (e.g. <code>MatrixGenerics</code>)
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-18" class="callout-18-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>DESeq2 and its dependencies (such as <code>MatrixGenerics</code>) live on <strong>Bioconductor</strong>, not CRAN. If you try <code>install.packages(&quot;MatrixGenerics&quot;)</code> it will <em>not</em> install — R only prints a warning like <code>package &#39;MatrixGenerics&#39; is not available</code>, which is easy to miss. Always install via <code>BiocManager</code>:</p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">&quot;BiocManager&quot;</span>)        <span class="co"># one-time, from CRAN</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>BiocManager<span class="sc">::</span><span class="fu">install</span>(<span class="st">&quot;DESeq2&quot;</span>)         <span class="co"># pulls in MatrixGenerics etc. automatically</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>If a single dependency is missing, you can install it the same way, e.g. <code>BiocManager::install(&quot;MatrixGenerics&quot;)</code>. Read the very end of the output for any compiler/dependency error.</p>
+</div>
+</div>
+</div>
 <p><strong>Run DESeq2 to fit statistical model:</strong></p>
 <p>You are now ready to perform the statistical analysis! The following code, largely taken from the <a href="https://bioconductor.org/packages/devel/bioc/vignettes/DESeq2/inst/doc/DESeq2.html">vignette</a> (recommended reading!), sets up a pairwise test.</p>
-<div class="sourceCode" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>dds <span class="ot">&lt;-</span> <span class="fu">DESeqDataSetFromMatrix</span>(</span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">countData =</span> <span class="fu">round</span>(cnt),  <span class="co"># salmon output non-integer counts; round to integer to fix</span></span>
-<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">colData   =</span> cond,</span>
-<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">design    =</span> <span class="sc">~</span> treatment  <span class="co"># specifies model matrix</span></span>
-<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>dds <span class="ot">&lt;-</span> <span class="fu">DESeq</span>(dds)</span>
-<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>res <span class="ot">&lt;-</span> <span class="fu">results</span>(dds, <span class="fu">c</span>(<span class="st">&quot;treatment&quot;</span>, <span class="st">&quot;a&quot;</span>, <span class="st">&quot;b&quot;</span>))  <span class="co"># set appropriately</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>dds <span class="ot">&lt;-</span> <span class="fu">DESeqDataSetFromMatrix</span>(</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">countData =</span> <span class="fu">round</span>(cnt),  <span class="co"># salmon output non-integer counts; round to integer to fix</span></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">colData   =</span> cond,</span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">design    =</span> <span class="sc">~</span> treatment  <span class="co"># specifies model matrix</span></span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>dds <span class="ot">&lt;-</span> <span class="fu">DESeq</span>(dds)</span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>res <span class="ot">&lt;-</span> <span class="fu">results</span>(dds, <span class="fu">c</span>(<span class="st">&quot;treatment&quot;</span>, <span class="st">&quot;a&quot;</span>, <span class="st">&quot;b&quot;</span>))  <span class="co"># set appropriately</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <ul>
 <li><strong>Q2.4</strong>: Adjust to compare treated and untreated samples.</li>
 </ul>
 <div class="callout callout-style-simple callout-tip no-icon callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-18-contents" aria-controls="callout-18" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-19-contents" aria-controls="callout-19" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon no-icon"></i>
 </div>
@@ -2811,14 +2830,14 @@ Hint
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-18" class="callout-18-contents callout-collapse collapse">
+<div id="callout-19" class="callout-19-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <p>The contrast argument to <code>results()</code> is <code>c(factor_name, level_numerator, level_denominator)</code>. Here the factor is <code>treatment</code>, the levels are <code>IC50</code> (treated) and <code>DMSO</code> (control).</p>
 </div>
 </div>
 </div>
 <div class="callout callout-style-simple callout-note no-icon callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-19-contents" aria-controls="callout-19" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-20-contents" aria-controls="callout-20" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon no-icon"></i>
 </div>
@@ -2827,16 +2846,16 @@ Solution
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-19" class="callout-19-contents callout-collapse collapse">
+<div id="callout-20" class="callout-20-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>dds <span class="ot">&lt;-</span> <span class="fu">DESeqDataSetFromMatrix</span>(</span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">countData =</span> <span class="fu">round</span>(cnt),</span>
-<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">colData   =</span> cond,</span>
-<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">design    =</span> <span class="sc">~</span> treatment</span>
-<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>dds <span class="ot">&lt;-</span> <span class="fu">DESeq</span>(dds)</span>
-<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>res <span class="ot">&lt;-</span> <span class="fu">results</span>(dds, <span class="fu">c</span>(<span class="st">&quot;treatment&quot;</span>, <span class="st">&quot;IC50&quot;</span>, <span class="st">&quot;DMSO&quot;</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>dds <span class="ot">&lt;-</span> <span class="fu">DESeqDataSetFromMatrix</span>(</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">countData =</span> <span class="fu">round</span>(cnt),</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">colData   =</span> cond,</span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">design    =</span> <span class="sc">~</span> treatment</span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>dds <span class="ot">&lt;-</span> <span class="fu">DESeq</span>(dds)</span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>res <span class="ot">&lt;-</span> <span class="fu">results</span>(dds, <span class="fu">c</span>(<span class="st">&quot;treatment&quot;</span>, <span class="st">&quot;IC50&quot;</span>, <span class="st">&quot;DMSO&quot;</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
 </div>
@@ -2844,22 +2863,6 @@ Solution
 <ul>
 <li><strong>Q2.5:</strong> What does the model matrix look like? Does it make sense as compared to the video explanation? (hint: typical exam material!)</li>
 </ul>
-<div class="callout callout-style-simple callout-tip no-icon callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-20-contents" aria-controls="callout-20" aria-expanded="false" aria-label="Toggle callout">
-<div class="callout-icon-container">
-<i class="callout-icon no-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Hint
-</div>
-<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
-</div>
-<div id="callout-20" class="callout-20-contents callout-collapse collapse">
-<div class="callout-body-container callout-body">
-<p>Try <code>model.matrix(~ treatment, data = cond)</code> in R and inspect the rows and columns.</p>
-</div>
-</div>
-</div>
 <div class="callout callout-style-simple callout-tip no-icon callout-titled">
 <div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-21-contents" aria-controls="callout-21" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
@@ -2872,12 +2875,28 @@ Hint
 </div>
 <div id="callout-21" class="callout-21-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
+<p>Try <code>model.matrix(~ treatment, data = cond)</code> in R and inspect the rows and columns.</p>
+</div>
+</div>
+</div>
+<div class="callout callout-style-simple callout-tip no-icon callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-22-contents" aria-controls="callout-22" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Hint
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-22" class="callout-22-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
 <p>Compare what you see against the two model-matrix formulations in the video / above (the <span class="math inline">\(\begin{bmatrix} 1 &amp; 0 \\ 1 &amp; 1 \end{bmatrix}\)</span> vs. <span class="math inline">\(\begin{bmatrix} 1 &amp; 0 \\ 0 &amp; 1 \end{bmatrix}\)</span> examples). Which one is R using? What does each column represent (intercept vs. treatment effect)?</p>
 </div>
 </div>
 </div>
 <div class="callout callout-style-simple callout-note no-icon callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-22-contents" aria-controls="callout-22" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-23-contents" aria-controls="callout-23" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon no-icon"></i>
 </div>
@@ -2886,10 +2905,10 @@ Solution
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-22" class="callout-22-contents callout-collapse collapse">
+<div id="callout-23" class="callout-23-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">model.matrix</span>(<span class="sc">~</span> treatment, <span class="at">data =</span> cond)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">model.matrix</span>(<span class="sc">~</span> treatment, <span class="at">data =</span> cond)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>With two treatment levels (DMSO and IC50) and the default treatment-coding, R picks the first level (alphabetically: DMSO) as the reference. You get a column of 1s (the intercept = DMSO baseline) plus one column that is 1 for IC50 samples and 0 for DMSO samples. This is the first formulation from the video, <span class="math display">\[
 \begin{bmatrix} 1 &amp; 0 \\ 1 &amp; 0 \\ 1 &amp; 1 \\ 1 &amp; 1 \end{bmatrix},
@@ -2911,7 +2930,7 @@ Solution
 <li><p><strong>Q2.6:</strong> Adjusted p-value — this means adjusted for multiple hypothesis testing. What does this mean? This video explains: <a href="https://www.youtube.com/watch?v=HLzS5wPqWR0" class="uri">https://www.youtube.com/watch?v=HLzS5wPqWR0</a></p></li>
 </ul>
 <div class="callout callout-style-simple callout-tip no-icon callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-23-contents" aria-controls="callout-23" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-24-contents" aria-controls="callout-24" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon no-icon"></i>
 </div>
@@ -2920,14 +2939,14 @@ Hint
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-23" class="callout-23-contents callout-collapse collapse">
+<div id="callout-24" class="callout-24-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <p>If you test 20,000 genes at <span class="math inline">\(p &lt; 0.05\)</span>, how many false positives would you expect by chance alone?</p>
 </div>
 </div>
 </div>
 <div class="callout callout-style-simple callout-note no-icon callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-24-contents" aria-controls="callout-24" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-25-contents" aria-controls="callout-25" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon no-icon"></i>
 </div>
@@ -2936,7 +2955,7 @@ Solution
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-24" class="callout-24-contents callout-collapse collapse">
+<div id="callout-25" class="callout-25-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <p>Testing tens of thousands of genes simultaneously means many will appear significant by chance alone (at <span class="math inline">\(p &lt; 0.05\)</span>, about 5% of all tests). The adjusted p-value (DESeq2 uses Benjamini–Hochberg by default) controls the <strong>false discovery rate (FDR)</strong> — the expected proportion of false positives among the genes called significant. Use <code>padj</code> rather than raw <code>pvalue</code> when picking hits.</p>
 </div>
@@ -2950,7 +2969,7 @@ Solution
 </ul></li>
 </ul>
 <div class="callout callout-style-simple callout-tip no-icon callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-25-contents" aria-controls="callout-25" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-26-contents" aria-controls="callout-26" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon no-icon"></i>
 </div>
@@ -2959,14 +2978,14 @@ Hint
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-25" class="callout-25-contents callout-collapse collapse">
+<div id="callout-26" class="callout-26-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <p>This is just using ggplot, nothing new! Convert the DESeq2 result to a data frame and use <code>geom_point</code>.</p>
 </div>
 </div>
 </div>
 <div class="callout callout-style-simple callout-note no-icon callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-26-contents" aria-controls="callout-26" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-27-contents" aria-controls="callout-27" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon no-icon"></i>
 </div>
@@ -2975,20 +2994,20 @@ Solution
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-26" class="callout-26-contents callout-collapse collapse">
+<div id="callout-27" class="callout-27-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
-<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="fu">as.data.frame</span>(res), <span class="fu">aes</span>(log2FoldChange, <span class="sc">-</span><span class="fu">log10</span>(padj))) <span class="sc">+</span></span>
-<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">alpha =</span> <span class="fl">0.4</span>) <span class="sc">+</span></span>
-<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="fu">as.data.frame</span>(res), <span class="fu">aes</span>(log2FoldChange, <span class="sc">-</span><span class="fu">log10</span>(padj))) <span class="sc">+</span></span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">alpha =</span> <span class="fl">0.4</span>) <span class="sc">+</span></span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
 </div>
 </div>
 <p><img role="img" aria-label="Example volcano plot" src="data:image/png;base64,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uKkatm/f7p79NA6atF0BYGVlpZvuobB2jdwggAACCCCAAAIIIIAAAghIIFLgd+ONN9rp06dd0PfCCy/YihUr3JQOqv2bOXOmjRgxwjUBVZPQqqoqZBFAAAEEEEAAAQQQQAABBApIIFLgpwDv2muvdSN3Hj582F588UVTAPjwww/b//k/37XJk6fY4sWLbenSpS4QLKD9IysIIIAAAggggAACCCCAQJcXiBT4FRUVuaacZWVlNnDgQDfC50033eTm8XvuuedMfQB/8pOfuD5+qgEkIYAAAggggAACCCCAAAIIFI5ApMBP2W1qanKTtm/bts02bdpkmzdvNvX5279/v5vjb+jQoTZmzJjC2TNyggACCCCAAAIIIIAAAggg4AQiBX5btmyxdevW2b59+2zHjh12/Phxq62tdW8wOpjcXZO4a8TP6dOnw4oAAggggAACCCCAAAIIIFBgApECv5UrV7qmnAcPHnTNOSdNmmQLFy60m2++2fXpq6ioYFTPAitYsoMAAggggAACCCCAAAIIeIFIgZ+aeapm77777rPbbrvN+vbta+rv5/v++TfjGQEEEEAAAQQQQAABBBBAoPAEIgV+S++6yz7wgQ9Yc3OzLV++3N599107e/asm79PAeGiRYtcMFhaGuntCk+BHCGAAAIIIIAAAggggAACCRaIFKl1C5pyqn+fpm9Q0NetWzdX41dfX28vv/yyLVu2zD772c+a5vvr1atXgrnYNQQQQAABBBBAAAEEEEAgfgKRAr+NGzfak08+aatXr3Z9+q655hrr0aOHq/XbuXOnrVmzxvr06eOWaZoHEgIIIIAAAggggAACCCCAQOEIRAr8Vq1aZb/73e9s7ty59q1vfcvN5VdcXOymeNCAL9/+9rdt7dq1NnbsWCPwK5zCJScIIIAAAggggAACCCCAgASKozAcPnzY9e/71Kc+ZTU1Naagz20cPNcEA7185jOfcX8/cuRIlLdjHQQQQAABBBBAAAEEEEAAgRwKRAr8/AieJ06csKZggJfU1NTYaFqupp89e/ZM/ROvEUAAAQQQQAABBBBAAAEECkAgUlPPyZMn2+bNm+0Xv/iFde/e3fR/BXmnT5829f/7z//8T1O/P03irqkffGK6By/BMwIIIIAAAggggAACCCCQP4FIgZ+yd+zYMXvnnXdck84xY8a4Gr4zZ87Yjh077NVXX3WDvrzyyiu2adMmN7+fAsTbb7/dhg8fnr+945MRQAABBBBAAAEEEEAAAQQsUuB34MABO3TokKvt0wieeqSmqqoqVyOoWkGlkpIS1xdw/PjxBH6pULxGAAEEEEAAAQQQQAABBPIgECnw+8jdd9u1114bOXtq4lleXm4TJ06MvA0rIoAAAggggAACCCCAAAIIdI5AaOBXV1dn586dc5OxawTPIYMHW79g9M6oSf381AxUE72TEEAAAQQQQAABBBBAAAEE8isQGvht2bLFfv7zn9vo0aNt9uzZpj59vXr1yphTTeegfoBvvvmm1dfX27333uu2zbghKyCAAAIIIIAAAggggAACCHSaQGjgp6aaqrVbv3697d2714YNG+b66vXr18969+5tFRUVbi6/xmAqh/Pnz7vpHDTX3759+2z//v1umYJGvQ8JAQQQQAABBBBAAAEEEEAgvwKhgZ+ma/jmN79pjz76qD377LO2atUqN1jLkCFDrG/Q5FODuagJaENDg9XW1ppq+hT0XbhwwUaOHGkf+chHbPHixVZZWZnfvePTEUAAAQQQQAABBBBAAAEEwkf1VFDXp08f+/KXv2yf/exn7a233rKXXnrJVq9ebStWrLDjx4+7oE99+FQLqEDxrrvusnnz5plG8tT2JAQQQAABBBBAAAEEEEAAgcIQCK3x81nzo3MqsFNzz7uD0T016Iv67zU3N7tpG8rKytw0D5rQXf0ACfq8Hs8IIIAAAggggAACCCCAQGEIXDHwUxbVnFMjdB45etRqg+ezZ8+6qRo0Qbuafar5p4I/+vMVRoGSCwQQQAABBBBAAAEEEEAgXSA08FNtnvrrrVu3zjZt2mS7d+92/fi0TFM9qFZPA7yoOeioUaPcfH0zZsxwgSABYDox/0cAAQQQQAABBBBAAAEE8isQGvipOefmzZvtgQcesLffftvV+JWWlrp5+RTwKfi7ePGia/JZUlJiEyZMsC9+8Yt2yy23uGAwv7vEpyOAAAIIIIAAAggggAACCKQKhAZ+W7dutX/6p3+yV155xe655x776Ec/atOnT79sLj/V/u3Zs8eWL19uP/jBD+zBBx90U0AsXbo09f15jQACCCCAAAIIIIAAAgggkGeB0MDv0KFDrqbvC1/4ghutUyN1amqG1GacqvlTM09N3aAmn//xH/9h27dvz/Pu8PEIIIAAAggg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u/XWW62cDh06uEzE72tfrzvuuMOtXr3aym/VqpWRVeo99qmn3Ecffmikj+8bNWrkdtxxRzdv3jx30kknuQEDBrhA8J599lk3c+ZM16NHD7fHHntsOb5dQ3RACAgBISAEhEAWBET8soCjr4SAEBACQiB5CGzcuNG9+eab7oYbbjASdt5555ll8fPPP3cPPPCAEU4I0p577mmVb9iwoZHA73//+0aeUlsEcdt9991TDxf97zWenH7wwQfu2muvNTLYr18/N2zYMNemTRsjq2PGjHFPPvmk+/TTT90BBxxgRLV+fUVkFL0jVKAQEAJCoI4iIOJXRztezRYCQkAI1FYElns30vfff9996C1mV199tblAtvUWu7Vr1rjOnTs7iOAbb7zhevfubU2EPDVv3tztv//+5naa2m6+D9a11O+K+fd875I60lsfcRW96qqrzLKHFZJ74/6Ji+pvfvMbN3fuXIeVb+gZZ7im3l1VIgSEgBAQAkKgGAiI+BUDRZUhBISAEBACWREgvm7hwoXuwQcfNGvdMu8K2qJFC9etWzd3zjnnmAsj7o7r1q1zX331lbv//vvdW2+95bDu4bKJdezuu+92l19+ucXAQZSw6hFDuNdeexlBws2T2D7ecf+EIAaLGe+NGze27zJVlHsRb4flbdasWVYP6sT9hw4danWl7FTBVXOBj8HD2gghrVevnpHMAw88cJu4QuIMJ06YYG6cffv23S5er2PHjm7IkCHmFopLar3IjcCPezzzzDMWrwhO1Iu4P2IIqSdtfvXVV93TTz/t/v73v7s1ngjjYgsBPu30093e7dsbyfzTn/5kfTB48GD3lHc5/fLLL+14ly5drDywprzV3k339ddec4899piR7J122sn6AVde3FVvvvlmi1ukbm+//baVhasqsZe77rqrO+yww9zp/r64uIKJRAgIASEgBCqLgIhfZfHX3YWAEBAC1Y+AJwqQlpEjR1qsGoQPYgPJmuCJEATt/PPPN0IHYSEmb/bs2Wal4zwIE4Rm8uTJ7rTTTrNEKSSM+fGPf2zkhyQuyEpfHq6UxBVCUrgPJASiwjEIJcleooIbKOcSX8e59957ryWMgczgAgrBnDFjhtUR8nfkkUdGL7fviR+ElEJ+IDlYF2kHlrtVq1bZ/SGHuKKSzIV644aaamWEbEFk9913X8OHv4NAmknygoWQ+hLH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" class="img-fluid" alt="Example volcano plot"> - <strong>Q2.8:</strong> Which gene has the highest significance? Note that ENST* are human gene transcripts. A gene has multiple transcripts (isoforms). Use Ensembl to look up the name of the gene.</p>
 <div class="callout callout-style-simple callout-tip no-icon callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-27-contents" aria-controls="callout-27" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-28-contents" aria-controls="callout-28" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon no-icon"></i>
 </div>
@@ -2997,14 +3016,14 @@ Hint
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-27" class="callout-27-contents callout-collapse collapse">
+<div id="callout-28" class="callout-28-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <p>Order the result table by <code>padj</code> and look at the first row. Then paste the <code>ENST...</code> ID into the Ensembl search box.</p>
 </div>
 </div>
 </div>
 <div class="callout callout-style-simple callout-note no-icon callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-28-contents" aria-controls="callout-28" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-29-contents" aria-controls="callout-29" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon no-icon"></i>
 </div>
@@ -3013,24 +3032,24 @@ Solution
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-28" class="callout-28-contents callout-collapse collapse">
+<div id="callout-29" class="callout-29-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>res_df <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(res)</span>
-<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>res_df <span class="ot">&lt;-</span> res_df[<span class="fu">order</span>(res_df<span class="sc">$</span>padj), ]</span>
-<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(res_df, <span class="dv">5</span>)</span>
-<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a><span class="fu">rownames</span>(res_df)[<span class="dv">1</span>]  <span class="co"># top transcript ID, look this up on Ensembl</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>res_df <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(res)</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>res_df <span class="ot">&lt;-</span> res_df[<span class="fu">order</span>(res_df<span class="sc">$</span>padj), ]</span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(res_df, <span class="dv">5</span>)</span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a><span class="fu">rownames</span>(res_df)[<span class="dv">1</span>]  <span class="co"># top transcript ID, look this up on Ensembl</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>Take the top <code>ENST...</code> ID and search it at <a href="https://www.ensembl.org" class="uri">https://www.ensembl.org</a>. The gene symbol shown there (e.g. HSPA1A, HMOX1 or similar stress-response gene) is the answer.</p>
+<p>Take the top <code>ENST...</code> ID and search it at <a href="https://www.ensembl.org" class="uri">https://www.ensembl.org</a>. With the four samples used here the top hit is <code>ENST00000276571</code> (CRH, corticotropin-releasing hormone — a stress-response/neuroendocrine gene), with <code>log2FoldChange</code> ≈ +2 (about 4× higher in the IC50-treated cells). With only two replicates per group the exact top gene can shift between runs, so don’t worry if you get a slightly different symbol.</p>
 </div>
 </div>
 </div>
-<p>Also note that the most significant gene has not changed much up or down in expression!</p>
+<p>Note that significance (<code>padj</code>) and effect size (<code>log2FoldChange</code>) are two different axes. The top hit by <code>padj</code> is very highly expressed (large <code>baseMean</code>), which makes even a moderate fold change statistically confident — whereas several genes further down the list have much larger fold changes (|log2FC| &gt; 10) but rank lower because they are noisier. The most significant gene is not necessarily the one that changed the most.</p>
 <ul>
 <li><strong>Q2.9 Optional:</strong> Use ggrepel, <a href="https://cran.r-project.org/web/packages/ggrepel/vignettes/ggrepel.html" class="uri">https://cran.r-project.org/web/packages/ggrepel/vignettes/ggrepel.html</a>, to highlight the names of the most differentially expressed genes. This is commonly done in articles, and a good package to know.</li>
 </ul>
 <div class="callout callout-style-simple callout-tip no-icon callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-29-contents" aria-controls="callout-29" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-30-contents" aria-controls="callout-30" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon no-icon"></i>
 </div>
@@ -3039,14 +3058,14 @@ Hint
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-29" class="callout-29-contents callout-collapse collapse">
+<div id="callout-30" class="callout-30-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <p>Add a <code>geom_text_repel</code> layer that only receives the top-N rows (e.g. smallest <code>padj</code>) so the plot does not get cluttered.</p>
 </div>
 </div>
 </div>
 <div class="callout callout-style-simple callout-note no-icon callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-30-contents" aria-controls="callout-30" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-31-contents" aria-controls="callout-31" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon no-icon"></i>
 </div>
@@ -3055,20 +3074,20 @@ Solution
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-30" class="callout-30-contents callout-collapse collapse">
+<div id="callout-31" class="callout-31-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
-<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggrepel)</span>
-<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>res_df <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(res)</span>
-<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>res_df<span class="sc">$</span>gene <span class="ot">&lt;-</span> <span class="fu">rownames</span>(res_df)</span>
-<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>top_n <span class="ot">&lt;-</span> <span class="fu">head</span>(res_df[<span class="fu">order</span>(res_df<span class="sc">$</span>padj), ], <span class="dv">10</span>)</span>
-<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(res_df, <span class="fu">aes</span>(log2FoldChange, <span class="sc">-</span><span class="fu">log10</span>(padj))) <span class="sc">+</span></span>
-<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">alpha =</span> <span class="fl">0.4</span>) <span class="sc">+</span></span>
-<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_text_repel</span>(<span class="at">data =</span> top_n, <span class="fu">aes</span>(<span class="at">label =</span> gene)) <span class="sc">+</span></span>
-<span id="cb15-11"><a href="#cb15-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggrepel)</span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>res_df <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(res)</span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>res_df<span class="sc">$</span>gene <span class="ot">&lt;-</span> <span class="fu">rownames</span>(res_df)</span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>top_n <span class="ot">&lt;-</span> <span class="fu">head</span>(res_df[<span class="fu">order</span>(res_df<span class="sc">$</span>padj), ], <span class="dv">10</span>)</span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(res_df, <span class="fu">aes</span>(log2FoldChange, <span class="sc">-</span><span class="fu">log10</span>(padj))) <span class="sc">+</span></span>
+<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">alpha =</span> <span class="fl">0.4</span>) <span class="sc">+</span></span>
+<span id="cb16-10"><a href="#cb16-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_text_repel</span>(<span class="at">data =</span> top_n, <span class="fu">aes</span>(<span class="at">label =</span> gene)) <span class="sc">+</span></span>
+<span id="cb16-11"><a href="#cb16-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
 </div>
@@ -3081,7 +3100,7 @@ Solution
 <li><strong>Q3.1 Optional:</strong> What are the two cell lines? What cell types do they represent? They are commonly used in research!</li>
 </ul>
 <div class="callout callout-style-simple callout-tip no-icon callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-31-contents" aria-controls="callout-31" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-32-contents" aria-controls="callout-32" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon no-icon"></i>
 </div>
@@ -3090,14 +3109,14 @@ Hint
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-31" class="callout-31-contents callout-collapse collapse">
+<div id="callout-32" class="callout-32-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <p>Open the ArrayExpress page linked above and look in the sample/metadata section, or download <code>meta.csv</code> and read its columns.</p>
 </div>
 </div>
 </div>
 <div class="callout callout-style-simple callout-note no-icon callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-32-contents" aria-controls="callout-32" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-33-contents" aria-controls="callout-33" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon no-icon"></i>
 </div>
@@ -3106,7 +3125,7 @@ Solution
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-32" class="callout-32-contents callout-collapse collapse">
+<div id="callout-33" class="callout-33-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <p>The two cell lines are listed in the metadata on the ArrayExpress page (and inside <code>meta.csv</code>). They are well-known cancer cell lines — look up each name (e.g. on Cellosaurus, <a href="https://www.cellosaurus.org" class="uri">https://www.cellosaurus.org</a>) to find the tissue / cell type of origin.</p>
 </div>
@@ -3117,7 +3136,7 @@ Solution
 <li><strong>Q3.2</strong> From the dataset link, download <code>meta.csv</code> (the condition data frame) and <code>readCounts.csv.gz</code>.</li>
 </ul>
 <div class="callout callout-style-simple callout-tip no-icon callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-33-contents" aria-controls="callout-33" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-34-contents" aria-controls="callout-34" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon no-icon"></i>
 </div>
@@ -3126,14 +3145,14 @@ Hint
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-33" class="callout-33-contents callout-collapse collapse">
+<div id="callout-34" class="callout-34-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <p>The files are listed in the “Files” section of the ArrayExpress page. Right-click and “Save link as”, or <code>wget</code> the URL directly.</p>
 </div>
 </div>
 </div>
 <div class="callout callout-style-simple callout-note no-icon callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-34-contents" aria-controls="callout-34" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-35-contents" aria-controls="callout-35" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon no-icon"></i>
 </div>
@@ -3142,11 +3161,11 @@ Solution
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-34" class="callout-34-contents callout-collapse collapse">
+<div id="callout-35" class="callout-35-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
-<div class="sourceCode" id="cb16"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co"># right-click → save the two files from the ArrayExpress page, or</span></span>
-<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="fu">wget</span> https://www.ebi.ac.uk/biostudies/files/E-MTAB-14822/meta.csv</span>
-<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a><span class="fu">wget</span> https://www.ebi.ac.uk/biostudies/files/E-MTAB-14822/readCounts.csv.gz</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb17"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co"># right-click → save the two files from the ArrayExpress page, or</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="fu">wget</span> https://www.ebi.ac.uk/biostudies/files/E-MTAB-14822/meta.csv</span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a><span class="fu">wget</span> https://www.ebi.ac.uk/biostudies/files/E-MTAB-14822/readCounts.csv.gz</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>No need to gunzip — <code>read.csv</code> reads <code>.gz</code> directly.</p>
 </div>
 </div>
@@ -3159,22 +3178,6 @@ Solution
 </ul></li>
 </ul>
 <div class="callout callout-style-simple callout-tip no-icon callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-35-contents" aria-controls="callout-35" aria-expanded="false" aria-label="Toggle callout">
-<div class="callout-icon-container">
-<i class="callout-icon no-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Hint
-</div>
-<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
-</div>
-<div id="callout-35" class="callout-35-contents callout-collapse collapse">
-<div class="callout-body-container callout-body">
-<p><code>read.csv(&quot;readCounts.csv.gz&quot;, row.names = 1)</code> will use the first column as row names. Check <code>head()</code> and <code>dim()</code> afterwards to confirm rows are genes and columns are samples.</p>
-</div>
-</div>
-</div>
-<div class="callout callout-style-simple callout-tip no-icon callout-titled">
 <div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-36-contents" aria-controls="callout-36" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon no-icon"></i>
@@ -3186,12 +3189,28 @@ Hint
 </div>
 <div id="callout-36" class="callout-36-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
+<p><code>read.csv(&quot;readCounts.csv.gz&quot;, row.names = 1)</code> will use the first column as row names. Check <code>head()</code> and <code>dim()</code> afterwards to confirm rows are genes and columns are samples.</p>
+</div>
+</div>
+</div>
+<div class="callout callout-style-simple callout-tip no-icon callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-37-contents" aria-controls="callout-37" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Hint
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-37" class="callout-37-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
 <p>For the meta file, use <code>stringr::str_split_fixed</code> (or similar) on the original treatment column to break it into two new columns: one for the timepoint (<code>6h</code> / <code>24h</code>) and one for the treatment (no treatment / SAHA at two doses). Run <code>head(parts)</code> and confirm which part is which before naming the columns.</p>
 </div>
 </div>
 </div>
 <div class="callout callout-style-simple callout-note no-icon callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-37-contents" aria-controls="callout-37" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-38-contents" aria-controls="callout-38" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon no-icon"></i>
 </div>
@@ -3200,29 +3219,29 @@ Solution
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-37" class="callout-37-contents callout-collapse collapse">
+<div id="callout-38" class="callout-38-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(stringr)</span>
-<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>cnt  <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&quot;readCounts.csv.gz&quot;</span>, <span class="at">row.names =</span> <span class="dv">1</span>)</span>
-<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>cond <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&quot;meta.csv&quot;</span>)</span>
-<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a><span class="fu">rownames</span>(cond) <span class="ot">&lt;-</span> cond<span class="sc">$</span>Sample   <span class="co"># the sample-name column (matches colnames(cnt))</span></span>
-<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Ensure ordering matches the count matrix</span></span>
-<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a>cond <span class="ot">&lt;-</span> cond[<span class="fu">colnames</span>(cnt), ]</span>
-<span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-10"><a href="#cb17-10" aria-hidden="true" tabindex="-1"></a><span class="co"># The cell line is its own column already; rename it for the design below.</span></span>
-<span id="cb17-11"><a href="#cb17-11" aria-hidden="true" tabindex="-1"></a>cond<span class="sc">$</span>cell_type <span class="ot">&lt;-</span> cond<span class="sc">$</span>CellLine</span>
-<span id="cb17-12"><a href="#cb17-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-13"><a href="#cb17-13" aria-hidden="true" tabindex="-1"></a><span class="co"># The Treatment column combines timepoint and treatment, e.g. &quot;6h_no_treat&quot;,</span></span>
-<span id="cb17-14"><a href="#cb17-14" aria-hidden="true" tabindex="-1"></a><span class="co"># &quot;6h_SAHA_5&quot;, &quot;24h_SAHA_10&quot;. Split it on the FIRST &quot;_&quot; so that:</span></span>
-<span id="cb17-15"><a href="#cb17-15" aria-hidden="true" tabindex="-1"></a><span class="co">#   part 1 = timepoint     (6h / 24h)</span></span>
-<span id="cb17-16"><a href="#cb17-16" aria-hidden="true" tabindex="-1"></a><span class="co">#   part 2 = treatment      (no_treat / SAHA_5 / SAHA_10)</span></span>
-<span id="cb17-17"><a href="#cb17-17" aria-hidden="true" tabindex="-1"></a>parts <span class="ot">&lt;-</span> <span class="fu">str_split_fixed</span>(cond<span class="sc">$</span>Treatment, <span class="st">&quot;_&quot;</span>, <span class="dv">2</span>)</span>
-<span id="cb17-18"><a href="#cb17-18" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(parts)   <span class="co"># ALWAYS check which part is time vs treatment before naming!</span></span>
-<span id="cb17-19"><a href="#cb17-19" aria-hidden="true" tabindex="-1"></a>cond<span class="sc">$</span>time_since_treatment <span class="ot">&lt;-</span> parts[, <span class="dv">1</span>]   <span class="co"># the 6h / 24h timepoint</span></span>
-<span id="cb17-20"><a href="#cb17-20" aria-hidden="true" tabindex="-1"></a>cond<span class="sc">$</span>treatment_duration   <span class="ot">&lt;-</span> parts[, <span class="dv">2</span>]   <span class="co"># no_treat / SAHA_5 / SAHA_10</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(stringr)</span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>cnt  <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&quot;readCounts.csv.gz&quot;</span>, <span class="at">row.names =</span> <span class="dv">1</span>)</span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>cond <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&quot;meta.csv&quot;</span>)</span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a><span class="fu">rownames</span>(cond) <span class="ot">&lt;-</span> cond<span class="sc">$</span>Sample   <span class="co"># the sample-name column (matches colnames(cnt))</span></span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Ensure ordering matches the count matrix</span></span>
+<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a>cond <span class="ot">&lt;-</span> cond[<span class="fu">colnames</span>(cnt), ]</span>
+<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-10"><a href="#cb18-10" aria-hidden="true" tabindex="-1"></a><span class="co"># The cell line is its own column already; rename it for the design below.</span></span>
+<span id="cb18-11"><a href="#cb18-11" aria-hidden="true" tabindex="-1"></a>cond<span class="sc">$</span>cell_type <span class="ot">&lt;-</span> cond<span class="sc">$</span>CellLine</span>
+<span id="cb18-12"><a href="#cb18-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-13"><a href="#cb18-13" aria-hidden="true" tabindex="-1"></a><span class="co"># The Treatment column combines timepoint and treatment, e.g. &quot;6h_no_treat&quot;,</span></span>
+<span id="cb18-14"><a href="#cb18-14" aria-hidden="true" tabindex="-1"></a><span class="co"># &quot;6h_SAHA_5&quot;, &quot;24h_SAHA_10&quot;. Split it on the FIRST &quot;_&quot; so that:</span></span>
+<span id="cb18-15"><a href="#cb18-15" aria-hidden="true" tabindex="-1"></a><span class="co">#   part 1 = timepoint     (6h / 24h)</span></span>
+<span id="cb18-16"><a href="#cb18-16" aria-hidden="true" tabindex="-1"></a><span class="co">#   part 2 = treatment      (no_treat / SAHA_5 / SAHA_10)</span></span>
+<span id="cb18-17"><a href="#cb18-17" aria-hidden="true" tabindex="-1"></a>parts <span class="ot">&lt;-</span> <span class="fu">str_split_fixed</span>(cond<span class="sc">$</span>Treatment, <span class="st">&quot;_&quot;</span>, <span class="dv">2</span>)</span>
+<span id="cb18-18"><a href="#cb18-18" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(parts)   <span class="co"># ALWAYS check which part is time vs treatment before naming!</span></span>
+<span id="cb18-19"><a href="#cb18-19" aria-hidden="true" tabindex="-1"></a>cond<span class="sc">$</span>time_since_treatment <span class="ot">&lt;-</span> parts[, <span class="dv">1</span>]   <span class="co"># the 6h / 24h timepoint</span></span>
+<span id="cb18-20"><a href="#cb18-20" aria-hidden="true" tabindex="-1"></a>cond<span class="sc">$</span>treatment_duration   <span class="ot">&lt;-</span> parts[, <span class="dv">2</span>]   <span class="co"># no_treat / SAHA_5 / SAHA_10</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>The combined label is <code>time _ treatment</code> (e.g. <code>6h_SAHA_10</code> = the 6 h timepoint, SAHA dose 10). If you ever load a dataset where the order is reversed, swap the two assignments accordingly — <code>head(parts)</code> above is there precisely so you can confirm.</p>
 </div>
@@ -3236,7 +3255,7 @@ Solution
 <li><strong>Q3.4</strong> Does this model make sense? No model is perfect! Are there any assumptions built into the model? (this question has no single correct answer)</li>
 </ul>
 <div class="callout callout-style-simple callout-tip no-icon callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-38-contents" aria-controls="callout-38" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-39-contents" aria-controls="callout-39" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon no-icon"></i>
 </div>
@@ -3245,14 +3264,14 @@ Hint
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-38" class="callout-38-contents callout-collapse collapse">
+<div id="callout-39" class="callout-39-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <p>The formula <code>~ cell_type + treatment_duration + time_since_treatment</code> has no <code>:</code> or <code>*</code> terms. What does that mean about how the three factors are assumed to interact?</p>
 </div>
 </div>
 </div>
 <div class="callout callout-style-simple callout-note no-icon callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-39-contents" aria-controls="callout-39" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-40-contents" aria-controls="callout-40" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon no-icon"></i>
 </div>
@@ -3261,7 +3280,7 @@ Solution
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-39" class="callout-39-contents callout-collapse collapse">
+<div id="callout-40" class="callout-40-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <p>The <code>+</code> form assumes purely <strong>additive</strong> effects on <span class="math inline">\(\log\)</span> expression — each factor shifts expression independently of the others. In reality, the response to a drug may very well depend on the cell line (a cell-type × treatment <strong>interaction</strong>), which this model cannot capture. To allow that, you would add an interaction term such as <code>~ cell_type * treatment_duration</code>. The model also assumes the replicates are independent samples, that the negative-binomial mean-variance relationship holds, and that no important confounders (e.g. batch / plate position) are missing.</p>
 </div>
@@ -3271,7 +3290,7 @@ Solution
 <li><strong>Q3.5</strong> What does the model matrix look like? Note as above that there are multiple model matrices that could be used for this problem. How would you have preferred to construct it?</li>
 </ul>
 <div class="callout callout-style-simple callout-tip no-icon callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-40-contents" aria-controls="callout-40" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-41-contents" aria-controls="callout-41" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon no-icon"></i>
 </div>
@@ -3280,14 +3299,14 @@ Hint
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-40" class="callout-40-contents callout-collapse collapse">
+<div id="callout-41" class="callout-41-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <p>Use <code>model.matrix(~ cell_type + treatment_duration + time_since_treatment, data = cond)</code> and inspect the columns: there is an intercept column, then one indicator column per non-reference level of each factor.</p>
 </div>
 </div>
 </div>
 <div class="callout callout-style-simple callout-note no-icon callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-41-contents" aria-controls="callout-41" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-42-contents" aria-controls="callout-42" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon no-icon"></i>
 </div>
@@ -3296,11 +3315,11 @@ Solution
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-41" class="callout-41-contents callout-collapse collapse">
+<div id="callout-42" class="callout-42-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>mm <span class="ot">&lt;-</span> <span class="fu">model.matrix</span>(<span class="sc">~</span> cell_type <span class="sc">+</span> treatment_duration <span class="sc">+</span> time_since_treatment, <span class="at">data =</span> cond)</span>
-<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(mm)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>mm <span class="ot">&lt;-</span> <span class="fu">model.matrix</span>(<span class="sc">~</span> cell_type <span class="sc">+</span> treatment_duration <span class="sc">+</span> time_since_treatment, <span class="at">data =</span> cond)</span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(mm)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>The first column is the intercept (the reference cell line / no treatment / earliest time). Each remaining column is an indicator for one non-reference level. With <span class="math inline">\(k\)</span> levels in a factor you get <span class="math inline">\(k-1\)</span> columns (treatment contrasts). An alternative is the “no-intercept” parametrisation <code>~ 0 + cell_type + treatment_duration + time_since_treatment</code>, which gives one column per level — easier to read for some contrasts but you still need to choose contrasts carefully.</p>
 </div>
@@ -3310,7 +3329,7 @@ Solution
 <li><strong>Q3.6</strong> Which genes are DE between the cell lines? Optional: If you checked what the cell lines are, do any genes make sense to you? (not trivial)</li>
 </ul>
 <div class="callout callout-style-simple callout-tip no-icon callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-42-contents" aria-controls="callout-42" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-43-contents" aria-controls="callout-43" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon no-icon"></i>
 </div>
@@ -3319,14 +3338,14 @@ Hint
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-42" class="callout-42-contents callout-collapse collapse">
+<div id="callout-43" class="callout-43-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <p>Run <code>resultsNames(dds)</code> after <code>DESeq(dds)</code> to see which coefficients are available. Pick the one corresponding to cell line and pass it via <code>name=</code>.</p>
 </div>
 </div>
 </div>
 <div class="callout callout-style-simple callout-note no-icon callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-43-contents" aria-controls="callout-43" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-44-contents" aria-controls="callout-44" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon no-icon"></i>
 </div>
@@ -3335,18 +3354,18 @@ Solution
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-43" class="callout-43-contents callout-collapse collapse">
+<div id="callout-44" class="callout-44-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>dds <span class="ot">&lt;-</span> <span class="fu">DESeqDataSetFromMatrix</span>(</span>
-<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">countData =</span> <span class="fu">round</span>(cnt),</span>
-<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">colData   =</span> cond,</span>
-<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">design    =</span> <span class="sc">~</span> cell_type <span class="sc">+</span> treatment_duration <span class="sc">+</span> time_since_treatment</span>
-<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a>dds <span class="ot">&lt;-</span> <span class="fu">DESeq</span>(dds)</span>
-<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a><span class="fu">resultsNames</span>(dds)</span>
-<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a>res_cell <span class="ot">&lt;-</span> <span class="fu">results</span>(dds, <span class="at">name =</span> <span class="st">&quot;cell_type_X_vs_Y&quot;</span>)  <span class="co"># replace X and Y with the actual level names</span></span>
-<span id="cb19-9"><a href="#cb19-9" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(res_cell[<span class="fu">order</span>(res_cell<span class="sc">$</span>padj), ])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>dds <span class="ot">&lt;-</span> <span class="fu">DESeqDataSetFromMatrix</span>(</span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">countData =</span> <span class="fu">round</span>(cnt),</span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">colData   =</span> cond,</span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">design    =</span> <span class="sc">~</span> cell_type <span class="sc">+</span> treatment_duration <span class="sc">+</span> time_since_treatment</span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a>dds <span class="ot">&lt;-</span> <span class="fu">DESeq</span>(dds)</span>
+<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a><span class="fu">resultsNames</span>(dds)</span>
+<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a>res_cell <span class="ot">&lt;-</span> <span class="fu">results</span>(dds, <span class="at">name =</span> <span class="st">&quot;cell_type_X_vs_Y&quot;</span>)  <span class="co"># replace X and Y with the actual level names</span></span>
+<span id="cb20-9"><a href="#cb20-9" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(res_cell[<span class="fu">order</span>(res_cell<span class="sc">$</span>padj), ])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Lineage-marker genes (e.g. tissue-specific transcription factors of the cell types you identified in Q3.1) often top the list.</p>
 </div>
@@ -3356,7 +3375,7 @@ Solution
 <li><strong>Q3.7</strong> Which genes are DE due to the treatment? Optional: Do any genes make sense? (not trivial)</li>
 </ul>
 <div class="callout callout-style-simple callout-tip no-icon callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-44-contents" aria-controls="callout-44" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-45-contents" aria-controls="callout-45" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon no-icon"></i>
 </div>
@@ -3365,14 +3384,14 @@ Hint
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-44" class="callout-44-contents callout-collapse collapse">
+<div id="callout-45" class="callout-45-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <p>Same approach as Q3.6 but use the <code>treatment_duration_...</code> coefficient instead. Look at <code>resultsNames(dds)</code> to find the exact string.</p>
 </div>
 </div>
 </div>
 <div class="callout callout-style-simple callout-note no-icon callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-45-contents" aria-controls="callout-45" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-46-contents" aria-controls="callout-46" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon no-icon"></i>
 </div>
@@ -3381,17 +3400,17 @@ Solution
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-45" class="callout-45-contents callout-collapse collapse">
+<div id="callout-46" class="callout-46-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">resultsNames</span>(dds)</span>
-<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a><span class="co"># treatment_duration has THREE levels (no_treat / SAHA_5 / SAHA_10), so there is</span></span>
-<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a><span class="co"># no single binary &quot;treated vs untreated&quot; coefficient. resultsNames(dds) will</span></span>
-<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a><span class="co"># instead list one coefficient per non-reference dose, e.g.</span></span>
-<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a><span class="co"># &quot;treatment_duration_SAHA_5_vs_no_treat&quot; and &quot;treatment_duration_SAHA_10_vs_no_treat&quot;</span></span>
-<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a><span class="co"># (exact strings depend on the reference level). Pick the contrast you care about:</span></span>
-<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a>res_treat <span class="ot">&lt;-</span> <span class="fu">results</span>(dds, <span class="at">name =</span> <span class="st">&quot;treatment_duration_SAHA_10_vs_no_treat&quot;</span>)  <span class="co"># replace with an actual name from resultsNames(dds)</span></span>
-<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(res_treat[<span class="fu">order</span>(res_treat<span class="sc">$</span>padj), ])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">resultsNames</span>(dds)</span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a><span class="co"># treatment_duration has THREE levels (no_treat / SAHA_5 / SAHA_10), so there is</span></span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a><span class="co"># no single binary &quot;treated vs untreated&quot; coefficient. resultsNames(dds) will</span></span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a><span class="co"># instead list one coefficient per non-reference dose, e.g.</span></span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a><span class="co"># &quot;treatment_duration_SAHA_5_vs_no_treat&quot; and &quot;treatment_duration_SAHA_10_vs_no_treat&quot;</span></span>
+<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a><span class="co"># (exact strings depend on the reference level). Pick the contrast you care about:</span></span>
+<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a>res_treat <span class="ot">&lt;-</span> <span class="fu">results</span>(dds, <span class="at">name =</span> <span class="st">&quot;treatment_duration_SAHA_10_vs_no_treat&quot;</span>)  <span class="co"># replace with an actual name from resultsNames(dds)</span></span>
+<span id="cb21-8"><a href="#cb21-8" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(res_treat[<span class="fu">order</span>(res_treat<span class="sc">$</span>padj), ])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Because there are several doses, you get one coefficient per dose-vs-reference comparison rather than one treated/untreated contrast. To test the treatment factor as a whole (any dose effect at once), use a likelihood-ratio test: <code>DESeq(dds, test = &quot;LRT&quot;, reduced = ~ cell_type + time_since_treatment)</code>. Drug-response genes (e.g. stress-response, apoptosis or cell-cycle genes depending on the drug’s mechanism) tend to dominate the top of the list.</p>
 </div>
@@ -3407,7 +3426,7 @@ Solution
 <li><strong>QE1.1</strong> What does the <code>--validateMappings</code> flag do in <code>salmon quant</code>, and why would you usually want it on?</li>
 </ul>
 <div class="callout callout-style-simple callout-tip no-icon callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-46-contents" aria-controls="callout-46" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-47-contents" aria-controls="callout-47" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon no-icon"></i>
 </div>
@@ -3416,14 +3435,14 @@ Hint
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-46" class="callout-46-contents callout-collapse collapse">
+<div id="callout-47" class="callout-47-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <p>Pseudoalignment by itself only checks which transcripts a read’s k-mers are <em>compatible</em> with. <code>--validateMappings</code> adds an extra step on top of that.</p>
 </div>
 </div>
 </div>
 <div class="callout callout-style-simple callout-note no-icon callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-47-contents" aria-controls="callout-47" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-48-contents" aria-controls="callout-48" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon no-icon"></i>
 </div>
@@ -3432,7 +3451,7 @@ Solution
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-47" class="callout-47-contents callout-collapse collapse">
+<div id="callout-48" class="callout-48-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <p><code>--validateMappings</code> enables <strong>selective alignment</strong>: after the fast k-mer-based mapping step, salmon does a lightweight scoring of each candidate mapping against the transcript sequence (similar in spirit to a Smith–Waterman score). This filters out spurious mappings that happen to share k-mers but do not actually align well, giving more accurate quantification at a small extra CPU cost. It is on by default in newer salmon versions and is the recommended setting.</p>
 </div>
@@ -3442,7 +3461,7 @@ Solution
 <li><strong>QE1.2</strong> Why use a pseudoaligner like salmon instead of a full splice-aware aligner like STAR or BWA when all you want is a gene-level count matrix?</li>
 </ul>
 <div class="callout callout-style-simple callout-tip no-icon callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-48-contents" aria-controls="callout-48" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-49-contents" aria-controls="callout-49" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon no-icon"></i>
 </div>
@@ -3451,14 +3470,14 @@ Hint
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-48" class="callout-48-contents callout-collapse collapse">
+<div id="callout-49" class="callout-49-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <p>Think about what information you actually use downstream (just <code>NumReads</code> per transcript), and what STAR/BWA spend most of their time computing.</p>
 </div>
 </div>
 </div>
 <div class="callout callout-style-simple callout-note no-icon callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-49-contents" aria-controls="callout-49" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-50-contents" aria-controls="callout-50" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon no-icon"></i>
 </div>
@@ -3467,7 +3486,7 @@ Solution
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-49" class="callout-49-contents callout-collapse collapse">
+<div id="callout-50" class="callout-50-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <p>Full aligners produce a base-resolution BAM with the exact genomic coordinate of every read — useful for variant calling, splice-junction discovery, coverage tracks, etc. For a count matrix you only need to know <em>which transcript</em> a read came from, not where on it. Pseudoalignment skips the per-base alignment and is typically 10–100× faster with comparable quantification accuracy. Trade-off: you cannot reuse the output for SNP calling or coverage plots.</p>
 </div>
@@ -3477,7 +3496,7 @@ Solution
 <li><strong>QE1.3</strong> Open one of the <code>quant.sf</code> files salmon produced. What are the columns, and which one did we actually use when we built <code>cnt</code>?</li>
 </ul>
 <div class="callout callout-style-simple callout-tip no-icon callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-50-contents" aria-controls="callout-50" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-51-contents" aria-controls="callout-51" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon no-icon"></i>
 </div>
@@ -3486,14 +3505,14 @@ Hint
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-50" class="callout-50-contents callout-collapse collapse">
+<div id="callout-51" class="callout-51-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <p><code>head quants/IC50_1_quant/quant.sf</code> in bash, or <code>read.csv(..., sep = &quot;\t&quot;)</code> in R.</p>
 </div>
 </div>
 </div>
 <div class="callout callout-style-simple callout-note no-icon callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-51-contents" aria-controls="callout-51" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-52-contents" aria-controls="callout-52" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon no-icon"></i>
 </div>
@@ -3502,10 +3521,10 @@ Solution
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-51" class="callout-51-contents callout-collapse collapse">
+<div id="callout-52" class="callout-52-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(<span class="fu">read.csv</span>(<span class="st">&quot;quants/IC50_1_quant/quant.sf&quot;</span>, <span class="at">sep =</span> <span class="st">&quot;</span><span class="sc">\t</span><span class="st">&quot;</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(<span class="fu">read.csv</span>(<span class="st">&quot;quants/IC50_1_quant/quant.sf&quot;</span>, <span class="at">sep =</span> <span class="st">&quot;</span><span class="sc">\t</span><span class="st">&quot;</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Columns are <code>Name</code> (transcript ID), <code>Length</code>, <code>EffectiveLength</code> (length corrected for fragment-size distribution), <code>TPM</code> (transcripts per million — length-normalised), and <code>NumReads</code> (estimated read count, possibly fractional from EM). We used <code>NumReads</code> because DESeq2 wants raw counts, not TPM. TPM is for visualisation / within-sample comparison, not for DE testing.</p>
 </div>
@@ -3518,7 +3537,7 @@ Solution
 <li><strong>QE2.1</strong> DESeq2 internally normalises libraries with <strong>size factors</strong> rather than scaling to TPM. Inspect them and explain what they correct for.</li>
 </ul>
 <div class="callout callout-style-simple callout-tip no-icon callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-52-contents" aria-controls="callout-52" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-53-contents" aria-controls="callout-53" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon no-icon"></i>
 </div>
@@ -3527,14 +3546,14 @@ Hint
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-52" class="callout-52-contents callout-collapse collapse">
+<div id="callout-53" class="callout-53-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <p><code>sizeFactors(dds)</code> after <code>DESeq(dds)</code>. Compare them to <code>colSums(counts(dds))</code>.</p>
 </div>
 </div>
 </div>
 <div class="callout callout-style-simple callout-note no-icon callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-53-contents" aria-controls="callout-53" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-54-contents" aria-controls="callout-54" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon no-icon"></i>
 </div>
@@ -3543,11 +3562,11 @@ Solution
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-53" class="callout-53-contents callout-collapse collapse">
+<div id="callout-54" class="callout-54-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sizeFactors</span>(dds)</span>
-<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a><span class="fu">colSums</span>(<span class="fu">counts</span>(dds))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sizeFactors</span>(dds)</span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a><span class="fu">colSums</span>(<span class="fu">counts</span>(dds))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Size factors correct for differences in <strong>sequencing depth</strong> between libraries, and (because they use the median-of-ratios method, not total counts) they are robust to a handful of very highly expressed genes dominating one library. Each raw count is internally divided by its sample’s size factor before fitting.</p>
 </div>
@@ -3557,7 +3576,7 @@ Solution
 <li><strong>QE2.2</strong> Inspect the per-gene dispersion estimates with <code>plotDispEsts(dds)</code>. What should the plot look like if the model is behaving well?</li>
 </ul>
 <div class="callout callout-style-simple callout-tip no-icon callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-54-contents" aria-controls="callout-54" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-55-contents" aria-controls="callout-55" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon no-icon"></i>
 </div>
@@ -3566,14 +3585,14 @@ Hint
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-54" class="callout-54-contents callout-collapse collapse">
+<div id="callout-55" class="callout-55-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <p>There are three things on the plot: per-gene estimates (black), a fitted trend (red), and shrunken final values (blue).</p>
 </div>
 </div>
 </div>
 <div class="callout callout-style-simple callout-note no-icon callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-55-contents" aria-controls="callout-55" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-56-contents" aria-controls="callout-56" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon no-icon"></i>
 </div>
@@ -3582,10 +3601,10 @@ Solution
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-55" class="callout-55-contents callout-collapse collapse">
+<div id="callout-56" class="callout-56-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plotDispEsts</span>(dds)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plotDispEsts</span>(dds)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>You want to see dispersion <strong>decreasing with mean expression</strong> (highly expressed genes are more reproducible), the red trend line passing through the cloud of black dots, and the blue shrunken estimates pulled toward the red curve — strongest shrinkage for low-count genes where the per-gene estimate is unreliable. Bad signs: trend line clearly off the cloud, or dispersions not decreasing with the mean (suggests outliers or a missing covariate).</p>
 </div>
@@ -3605,7 +3624,7 @@ Solution
 </div>
 </div>
 <div class="callout callout-style-simple callout-tip no-icon callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-56-contents" aria-controls="callout-56" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-57-contents" aria-controls="callout-57" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon no-icon"></i>
 </div>
@@ -3614,14 +3633,14 @@ Hint
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-56" class="callout-56-contents callout-collapse collapse">
+<div id="callout-57" class="callout-57-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <p>M and A come from microarray days: M = log-ratio, A = average log-intensity.</p>
 </div>
 </div>
 </div>
 <div class="callout callout-style-simple callout-note no-icon callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-57-contents" aria-controls="callout-57" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-58-contents" aria-controls="callout-58" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon no-icon"></i>
 </div>
@@ -3630,10 +3649,10 @@ Solution
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-57" class="callout-57-contents callout-collapse collapse">
+<div id="callout-58" class="callout-58-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plotMA</span>(res, <span class="at">ylim =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">5</span>, <span class="dv">5</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plotMA</span>(res, <span class="at">ylim =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">5</span>, <span class="dv">5</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>x-axis (<code>A</code>) is the mean of normalised counts across all samples (log scale). y-axis (<code>M</code>) is the <code>log2FoldChange</code>. Significant genes (<code>padj &lt; 0.05</code>) are coloured. Expectations: the cloud should be <strong>centred on M = 0</strong> (most genes do not change), it should funnel — wider at low mean expression where estimates are noisier, narrower at high mean — and significant points should be the ones farthest from y = 0. A cloud that is shifted off zero suggests a normalisation problem.</p>
 </div>
@@ -3643,7 +3662,7 @@ Solution
 <li><strong>QE2.4</strong> Run <code>summary(res)</code> and interpret the output. How many genes go up, how many go down, at the default thresholds?</li>
 </ul>
 <div class="callout callout-style-simple callout-tip no-icon callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-58-contents" aria-controls="callout-58" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-59-contents" aria-controls="callout-59" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon no-icon"></i>
 </div>
@@ -3652,14 +3671,14 @@ Hint
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-58" class="callout-58-contents callout-collapse collapse">
+<div id="callout-59" class="callout-59-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <p><code>summary</code> prints LFC &gt; 0 (up), LFC &lt; 0 (down), outliers, and low-count genes filtered by independent filtering.</p>
 </div>
 </div>
 </div>
 <div class="callout callout-style-simple callout-note no-icon callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-59-contents" aria-controls="callout-59" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-60-contents" aria-controls="callout-60" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon no-icon"></i>
 </div>
@@ -3668,10 +3687,10 @@ Solution
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-59" class="callout-59-contents callout-collapse collapse">
+<div id="callout-60" class="callout-60-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(res)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(res)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>The output lists: total genes tested, the default <code>alpha</code> (FDR threshold, 0.1 unless you set otherwise), number of genes with <code>LFC &gt; 0</code> (up in numerator vs. denominator) and <code>LFC &lt; 0</code> (down), how many were flagged as outliers (Cook’s distance) and how many were filtered out by <strong>independent filtering</strong> of low-count genes (which increases statistical power on the genes that remain). You can tighten this with <code>summary(res, alpha = 0.05)</code>.</p>
 </div>
@@ -3681,7 +3700,7 @@ Solution
 <li><strong>QE2.5</strong> Pick a stricter cutoff than just <code>padj</code>: keep genes with <code>padj &lt; 0.05</code> <strong>and</strong> <code>abs(log2FoldChange) &gt; 1</code>. How many are left?</li>
 </ul>
 <div class="callout callout-style-simple callout-tip no-icon callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-60-contents" aria-controls="callout-60" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-61-contents" aria-controls="callout-61" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon no-icon"></i>
 </div>
@@ -3690,14 +3709,14 @@ Hint
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-60" class="callout-60-contents callout-collapse collapse">
+<div id="callout-61" class="callout-61-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <p><code>log2FoldChange &gt; 1</code> means at least a 2-fold change. Watch out for <code>NA</code> values in <code>padj</code> from independent filtering.</p>
 </div>
 </div>
 </div>
 <div class="callout callout-style-simple callout-note no-icon callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-61-contents" aria-controls="callout-61" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-62-contents" aria-controls="callout-62" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon no-icon"></i>
 </div>
@@ -3706,13 +3725,13 @@ Solution
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-61" class="callout-61-contents callout-collapse collapse">
+<div id="callout-62" class="callout-62-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>res_df <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(res)</span>
-<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>sig <span class="ot">&lt;-</span> <span class="fu">subset</span>(res_df, <span class="sc">!</span><span class="fu">is.na</span>(padj) <span class="sc">&amp;</span> padj <span class="sc">&lt;</span> <span class="fl">0.05</span> <span class="sc">&amp;</span> <span class="fu">abs</span>(log2FoldChange) <span class="sc">&gt;</span> <span class="dv">1</span>)</span>
-<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a><span class="fu">nrow</span>(sig)</span>
-<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(sig[<span class="fu">order</span>(sig<span class="sc">$</span>padj), ])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>res_df <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(res)</span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>sig <span class="ot">&lt;-</span> <span class="fu">subset</span>(res_df, <span class="sc">!</span><span class="fu">is.na</span>(padj) <span class="sc">&amp;</span> padj <span class="sc">&lt;</span> <span class="fl">0.05</span> <span class="sc">&amp;</span> <span class="fu">abs</span>(log2FoldChange) <span class="sc">&gt;</span> <span class="dv">1</span>)</span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a><span class="fu">nrow</span>(sig)</span>
+<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(sig[<span class="fu">order</span>(sig<span class="sc">$</span>padj), ])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p><code>abs(log2FoldChange) &gt; 1</code> corresponds to at least a 2-fold up- or down-regulation. Combining it with <code>padj</code> removes genes that are <em>statistically</em> significant but biologically tiny (common with very deep sequencing — tiny shifts get tiny p-values).</p>
 </div>
@@ -3725,7 +3744,7 @@ Solution
 <li><strong>QE2.6</strong> Suppose you want <code>IC50</code> to be the reference level instead of the default alphabetical pick (<code>DMSO</code>). Use <code>relevel</code> to do this and re-fit. Does the model matrix or the contrast change?</li>
 </ul>
 <div class="callout callout-style-simple callout-tip no-icon callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-62-contents" aria-controls="callout-62" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-63-contents" aria-controls="callout-63" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon no-icon"></i>
 </div>
@@ -3734,14 +3753,14 @@ Hint
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-62" class="callout-62-contents callout-collapse collapse">
+<div id="callout-63" class="callout-63-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <p><code>cond$treatment &lt;- relevel(factor(cond$treatment), ref = &quot;IC50&quot;)</code> before constructing <code>dds</code>.</p>
 </div>
 </div>
 </div>
 <div class="callout callout-style-simple callout-note no-icon callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-63-contents" aria-controls="callout-63" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-64-contents" aria-controls="callout-64" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon no-icon"></i>
 </div>
@@ -3750,13 +3769,13 @@ Solution
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-63" class="callout-63-contents callout-collapse collapse">
+<div id="callout-64" class="callout-64-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>cond<span class="sc">$</span>treatment <span class="ot">&lt;-</span> <span class="fu">relevel</span>(<span class="fu">factor</span>(cond<span class="sc">$</span>treatment), <span class="at">ref =</span> <span class="st">&quot;IC50&quot;</span>)</span>
-<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>dds <span class="ot">&lt;-</span> <span class="fu">DESeqDataSetFromMatrix</span>(<span class="fu">round</span>(cnt), cond, <span class="sc">~</span> treatment)</span>
-<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>dds <span class="ot">&lt;-</span> <span class="fu">DESeq</span>(dds)</span>
-<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a><span class="fu">resultsNames</span>(dds)  <span class="co"># now &quot;treatment_DMSO_vs_IC50&quot;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>cond<span class="sc">$</span>treatment <span class="ot">&lt;-</span> <span class="fu">relevel</span>(<span class="fu">factor</span>(cond<span class="sc">$</span>treatment), <span class="at">ref =</span> <span class="st">&quot;IC50&quot;</span>)</span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>dds <span class="ot">&lt;-</span> <span class="fu">DESeqDataSetFromMatrix</span>(<span class="fu">round</span>(cnt), cond, <span class="sc">~</span> treatment)</span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>dds <span class="ot">&lt;-</span> <span class="fu">DESeq</span>(dds)</span>
+<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a><span class="fu">resultsNames</span>(dds)  <span class="co"># now &quot;treatment_DMSO_vs_IC50&quot;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>The model matrix still has two columns (intercept + one indicator), but the indicator column is now 1 for DMSO samples instead of for IC50 samples. The fitted log-fold change has the <strong>opposite sign</strong> of before — same biology, different reference. Always check <code>resultsNames(dds)</code> (or the <code>contrast =</code> argument to <code>results()</code>) to know which direction you are looking at.</p>
 </div>
@@ -3779,7 +3798,7 @@ Solution
 <li><strong>QE3.1</strong> Re-fit the E-MTAB-14822 dataset with an <strong>interaction</strong> term: <code>design = ~ cell_type * treatment_duration</code>. What extra coefficients show up in <code>resultsNames(dds)</code> compared to the additive <code>~ cell_type + treatment_duration</code> model?</li>
 </ul>
 <div class="callout callout-style-simple callout-tip no-icon callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-64-contents" aria-controls="callout-64" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-65-contents" aria-controls="callout-65" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon no-icon"></i>
 </div>
@@ -3788,14 +3807,14 @@ Hint
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-64" class="callout-64-contents callout-collapse collapse">
+<div id="callout-65" class="callout-65-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <p><code>a * b</code> is shorthand for <code>a + b + a:b</code>. The <code>a:b</code> term is the interaction.</p>
 </div>
 </div>
 </div>
 <div class="callout callout-style-simple callout-note no-icon callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-65-contents" aria-controls="callout-65" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-66-contents" aria-controls="callout-66" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon no-icon"></i>
 </div>
@@ -3804,12 +3823,12 @@ Solution
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-65" class="callout-65-contents callout-collapse collapse">
+<div id="callout-66" class="callout-66-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>dds <span class="ot">&lt;-</span> <span class="fu">DESeqDataSetFromMatrix</span>(<span class="fu">round</span>(cnt), cond, <span class="sc">~</span> cell_type <span class="sc">*</span> treatment_duration)</span>
-<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>dds <span class="ot">&lt;-</span> <span class="fu">DESeq</span>(dds)</span>
-<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a><span class="fu">resultsNames</span>(dds)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>dds <span class="ot">&lt;-</span> <span class="fu">DESeqDataSetFromMatrix</span>(<span class="fu">round</span>(cnt), cond, <span class="sc">~</span> cell_type <span class="sc">*</span> treatment_duration)</span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>dds <span class="ot">&lt;-</span> <span class="fu">DESeq</span>(dds)</span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a><span class="fu">resultsNames</span>(dds)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>You get the same coefficients as the additive model <strong>plus</strong> one interaction coefficient per non-reference combination of the two factors (i.e. <span class="math inline">\((k_1-1)\times(k_2-1)\)</span> extra columns in the model matrix, where <span class="math inline">\(k_i\)</span> are the number of levels). Each interaction coefficient measures <em>how much the treatment effect differs between cell lines</em> — a non-zero value means the drug works differently in the two cell types.</p>
 </div>
@@ -3819,7 +3838,7 @@ Solution
 <li><strong>QE3.2</strong> Using <code>resultsNames(dds)</code> from the interaction model, pull out (a) the main effect of treatment in the reference cell line, and (b) the interaction term itself. What is the biological interpretation of each?</li>
 </ul>
 <div class="callout callout-style-simple callout-tip no-icon callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-66-contents" aria-controls="callout-66" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-67-contents" aria-controls="callout-67" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon no-icon"></i>
 </div>
@@ -3828,14 +3847,14 @@ Hint
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-66" class="callout-66-contents callout-collapse collapse">
+<div id="callout-67" class="callout-67-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <p>With an interaction, the <code>treatment_duration_*</code> coefficient is <em>no longer</em> the average treatment effect across cell lines — it is the treatment effect <em>in the reference cell line only</em>.</p>
 </div>
 </div>
 </div>
 <div class="callout callout-style-simple callout-note no-icon callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-67-contents" aria-controls="callout-67" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-68-contents" aria-controls="callout-68" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon no-icon"></i>
 </div>
@@ -3844,14 +3863,14 @@ Solution
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-67" class="callout-67-contents callout-collapse collapse">
+<div id="callout-68" class="callout-68-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="fu">resultsNames</span>(dds)</span>
-<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a><span class="co"># (a) treatment effect in the reference cell line:</span></span>
-<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>res_main <span class="ot">&lt;-</span> <span class="fu">results</span>(dds, <span class="at">name =</span> <span class="st">&quot;treatment_duration_treated_vs_untreated&quot;</span>)</span>
-<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a><span class="co"># (b) interaction: how much bigger/smaller is the treatment effect in the other cell line</span></span>
-<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a>res_int  <span class="ot">&lt;-</span> <span class="fu">results</span>(dds, <span class="at">name =</span> <span class="st">&quot;cell_typeX.treatment_durationtreated&quot;</span>) <span class="co"># exact name from resultsNames</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="fu">resultsNames</span>(dds)</span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a><span class="co"># (a) treatment effect in the reference cell line:</span></span>
+<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a>res_main <span class="ot">&lt;-</span> <span class="fu">results</span>(dds, <span class="at">name =</span> <span class="st">&quot;treatment_duration_treated_vs_untreated&quot;</span>)</span>
+<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a><span class="co"># (b) interaction: how much bigger/smaller is the treatment effect in the other cell line</span></span>
+<span id="cb30-5"><a href="#cb30-5" aria-hidden="true" tabindex="-1"></a>res_int  <span class="ot">&lt;-</span> <span class="fu">results</span>(dds, <span class="at">name =</span> <span class="st">&quot;cell_typeX.treatment_durationtreated&quot;</span>) <span class="co"># exact name from resultsNames</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <ol type="a">
 <li>tells you which genes respond to the drug <strong>in the reference cell line</strong>. (b) tells you which genes respond <strong>differently</strong> in the second cell line vs. the reference — significant hits here are genes where the drug’s effect is cell-type-specific. Often what you actually want to report.</li>
@@ -3863,7 +3882,7 @@ Solution
 <li><strong>QE3.3</strong> What is the practical difference between testing a <strong>main effect</strong> of <code>treatment_duration</code> and testing the <strong>interaction</strong> <code>cell_type:treatment_duration</code>? When would you prefer one over the other?</li>
 </ul>
 <div class="callout callout-style-simple callout-tip no-icon callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-68-contents" aria-controls="callout-68" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-69-contents" aria-controls="callout-69" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon no-icon"></i>
 </div>
@@ -3872,14 +3891,14 @@ Hint
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-68" class="callout-68-contents callout-collapse collapse">
+<div id="callout-69" class="callout-69-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <p>Think about the null hypothesis being tested in each case.</p>
 </div>
 </div>
 </div>
 <div class="callout callout-style-simple callout-note no-icon callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-69-contents" aria-controls="callout-69" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-70-contents" aria-controls="callout-70" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon no-icon"></i>
 </div>
@@ -3888,7 +3907,7 @@ Solution
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-69" class="callout-69-contents callout-collapse collapse">
+<div id="callout-70" class="callout-70-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <ul>
 <li><strong>Main effect</strong> of treatment: <span class="math inline">\(H_0\)</span> is “the drug has no effect” (in the reference cell line, when the model includes an interaction; or averaged across cell lines, in a purely additive model). Use this when you want a list of generally drug-responsive genes.</li>
